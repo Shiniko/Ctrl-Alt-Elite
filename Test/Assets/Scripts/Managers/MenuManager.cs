@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private bool setting;
 
-    public string characterSelect;
+    public string rootSceneName;
     public string mainMenu;
 
     [SerializeField] private GameObject settingsPanel;
@@ -150,14 +150,6 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    IEnumerator LoadDelaySG(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        //start game
-
-        SceneManager.LoadScene(characterSelect);
-    }
-
     public void QuitGame()
     {
         if (!quiting)
@@ -166,6 +158,14 @@ public class MenuManager : MonoBehaviour
 
             StartCoroutine(LoadDelayQG(quitDelay));
         }
+    }
+
+    IEnumerator LoadDelaySG(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        //start game
+
+        SceneManager.LoadScene(rootSceneName);
     }
 
     IEnumerator LoadDelayQG(float delay)
