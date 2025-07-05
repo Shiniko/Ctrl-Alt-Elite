@@ -48,6 +48,12 @@ public class VolumeSettings : MonoBehaviour
         if (musicSlider != null)
         {
             float volume = musicSlider.value;
+
+            if (volume < 0.01f)
+            {
+                volume = 0.01f;
+            }
+
             audioMixer.SetFloat("music", Mathf.Log10(volume) * 20f);
             PlayerPrefs.SetFloat("MusicVolume", volume);
 
@@ -65,7 +71,10 @@ public class VolumeSettings : MonoBehaviour
 
             if (canTest)
             {
-                FindFirstObjectByType<AudioManager>().Play(effectName);
+                if (volume > 0.01f)
+                {
+                    FindFirstObjectByType<AudioManager>().Play(effectName);
+                }
 
                 canTest = false;
                 testCounter = 0f;
