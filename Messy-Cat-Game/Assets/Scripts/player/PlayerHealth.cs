@@ -4,7 +4,7 @@ using Guirao.UltimateTextDamage;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Text Damage Parameters")]
-    public UltimateTextDamageManager textManager;
+    //public UltimateTextDamageManager textManager;
     public Transform textDamagePos;
 
     public bool playerDead;
@@ -91,6 +91,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
+        /*
         if (textManager == null)
         {
             if (GameObject.FindGameObjectWithTag("TextDamageManager") != null)
@@ -101,6 +102,7 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     void Update()
@@ -441,20 +443,24 @@ public class PlayerHealth : MonoBehaviour
     {
         int displayAmount = Mathf.RoundToInt((amount));
 
+        /*
         if (textManager != null)
         {
             textManager.Add(displayAmount.ToString(), textDamagePos, "default");
         }
+        */
     }
 
     public void DisplayTextHeal(float amount)
     {
         int displayAmount = Mathf.RoundToInt((amount));
 
+        /*
         if (textManager != null)
         {
             textManager.Add(displayAmount.ToString(), textDamagePos, "heal");
         }
+        */
     }
 
 }

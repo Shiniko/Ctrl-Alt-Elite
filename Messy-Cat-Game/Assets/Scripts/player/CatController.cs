@@ -313,7 +313,7 @@ public class CatController : MonoBehaviour
 
                 if (!isPaused)
                 {
-                    if (Input.GetButtonDown("Escape"))
+                    if (Input.GetButtonDown("Cancel"))
                     {
                         isPaused = true;
 
