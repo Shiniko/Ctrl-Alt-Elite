@@ -313,16 +313,15 @@ public class CatController : MonoBehaviour
 
                 if (!isPaused)
                 {
-                    //Currnetly causes an error
-                    //if (Input.GetButtonDown("Escape"))
-                    //{
-                    //    isPaused = true;
+                    if (Input.GetButtonDown("Escape"))
+                    {
+                        isPaused = true;
 
-                    //    if (gameManager != null)
-                    //    {
-                    //        gameManager.GamePausedEsc();
-                    //    }
-                    //}
+                        if (gameManager != null)
+                        {
+                            gameManager.GamePausedEsc();
+                        }
+                    }
                 }
             }
             else
