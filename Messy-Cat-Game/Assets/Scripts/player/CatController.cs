@@ -1,6 +1,8 @@
 using UnityEngine;
 using Unity.Cinemachine;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class CatController : MonoBehaviour
 {
     [Header("References")]
@@ -142,7 +144,7 @@ public class CatController : MonoBehaviour
     public bool onSlope;
     public float slopeModifier;
 
-    void Start()
+    void Awake()
     {
         durationToReachTargetRotation.y = 0.14f;
 
