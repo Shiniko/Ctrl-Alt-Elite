@@ -10,7 +10,7 @@ namespace DestroyIt
         public static void SetupMinimalMenuOption()
         {
             GameObject destroyIt;
-            DestructionManager destructionManager = Object.FindObjectOfType<DestructionManager>();
+            DestructionManager destructionManager = Object.FindFirstObjectByType<DestructionManager>();
             if (destructionManager != null)
                 destroyIt = destructionManager.gameObject;
             else
@@ -20,7 +20,7 @@ namespace DestroyIt
             destroyIt.AddComponent<ParticleManager>();
             ObjectPool pool = destroyIt.AddComponent<ObjectPool>();
 
-            DestructionTest destructionTest = Object.FindObjectOfType<DestructionTest>();
+            DestructionTest destructionTest = Object.FindFirstObjectByType<DestructionTest>();
             if (destructionTest == null)
             {
                 GameObject destroyItTest = new GameObject("DestroyIt-InputTest");
@@ -45,11 +45,11 @@ namespace DestroyIt
                 "Once you've added your trees to the terrain, click the \"Update Trees\" button on the TreeManager, and DestroyIt will " + 
                 "create game objects with colliders and place them over the terrain tree instances so they can be destroyed.", "Ok");
             
-            DestructionManager destructionManager = Object.FindObjectOfType<DestructionManager>();
+            DestructionManager destructionManager = Object.FindFirstObjectByType<DestructionManager>();
             if (destructionManager == null)
                 SetupMinimalMenuOption();
             
-            destructionManager = Object.FindObjectOfType<DestructionManager>();
+            destructionManager = Object.FindFirstObjectByType<DestructionManager>();
             destructionManager.gameObject.AddComponent<TreeManager>();
         }
     }
