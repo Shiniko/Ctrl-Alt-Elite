@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class SceneLoadManager : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private SceneLoader _sceneLoader;
+    [SerializeField] private string[] _allLevelScenes;
+
     [SerializeField] private GameObject _loadingBarPanel;
     [SerializeField] private Image _loadingBarFill;
     [SerializeField] private GameObject[] _thingsToHide;
@@ -49,6 +52,19 @@ public class SceneLoadManager : MonoBehaviour
         {
             _loadingBarPanel.SetActive(true);
         }
+
+        if (_sceneLoader != null)
+        {
+            _sceneLoader.LoadScenes();
+        }
+    }
+
+    public void UnLoadScene()
+    {
+        if (_sceneLoader != null)
+        {
+            _sceneLoader.UnloadScenes();
+        }
     }
 
     public void LoadedScene()
@@ -56,6 +72,21 @@ public class SceneLoadManager : MonoBehaviour
         if (_loadingBarPanel != null)
         {
             _loadingBarPanel.SetActive(false);
+        }
+    }
+
+    public void SetLevelSelect(int level)
+    {
+        if (level < 1 || level > _allLevelScenes.Length)
+        {
+            return;
+        }
+
+        if(_sceneLoader != null)
+        {
+            string[] levelNames = new string[1];
+            levelNames[0] = _allLevelScenes[level - 1];
+            _sceneLoader.SetScenesToLoad(levelNames);
         }
     }
 }
