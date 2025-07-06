@@ -200,10 +200,7 @@ public class CatController : MonoBehaviour
 
         if (rb == null)
         {
-            if (gameObject.GetComponent<Rigidbody>() != null)
-            {
-                rb = body.GetComponent<Rigidbody>();
-            }
+            rb = gameObject.GetComponent<Rigidbody>();
 
         }
 
