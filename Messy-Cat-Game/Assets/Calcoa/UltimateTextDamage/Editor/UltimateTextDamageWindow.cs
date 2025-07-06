@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
+using UnityEditor.Build;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -50,28 +50,28 @@ namespace Guirao.UltimateTextDamage
 
         private void RemoveDefineSymbols( )
         {
-            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup ( EditorUserBuildSettings.selectedBuildTargetGroup );
-            List<string> allDefines = definesString.Split ( ';' ).ToList ();
-            allDefines.RemoveAll( r => Symbols.Contains( r ) );
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(
-               EditorUserBuildSettings.selectedBuildTargetGroup ,
-               string.Join( ";" , allDefines.ToArray( ) ) );
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
+            List<string> allDefines = definesString.Split(';').ToList();
+            allDefines.RemoveAll(r => Symbols.Contains(r));
+            PlayerSettings.SetScriptingDefineSymbols(
+                NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup),
+                string.Join(";", allDefines.ToArray()));
         }
 
         private void AddDefineSymbol( )
         {
-            string definesString = PlayerSettings.GetScriptingDefineSymbolsForGroup ( EditorUserBuildSettings.selectedBuildTargetGroup );
-            List<string> allDefines = definesString.Split ( ';' ).ToList ();
-            allDefines.AddRange( Symbols.Except( allDefines ) );
-            PlayerSettings.SetScriptingDefineSymbolsForGroup(
-                EditorUserBuildSettings.selectedBuildTargetGroup ,
-                string.Join( ";" , allDefines.ToArray( ) ) );
+            string definesString = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
+            List<string> allDefines = definesString.Split(';').ToList();
+            allDefines.AddRange(Symbols.Except(allDefines));
+            PlayerSettings.SetScriptingDefineSymbols(
+                NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup),
+                string.Join(";", allDefines.ToArray()));
         }
 
         private bool ContainsSymbol( )
         {
-            string symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup( EditorUserBuildSettings.selectedBuildTargetGroup );
-            return symbols.Contains( Symbols[ 0 ] );
+            string symbols = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
+            return symbols.Contains(Symbols[0]);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace DestroyIt
             DestructionTest destructionTest = Object.FindFirstObjectByType<DestructionTest>();
             if (destructionTest == null)
             {
-                GameObject destroyItTest = new GameObject("DestroyIt-InputTest");
+                GameObject destroyItTest = new("DestroyIt-InputTest");
                 destroyItTest.AddComponent<DestructionTest>();
             }
 
@@ -31,9 +31,11 @@ namespace DestroyIt
             {
                 GameObject defaultLargeParticle = Resources.Load<GameObject>("Default_Particles/DefaultLargeParticle");
                 GameObject defaultSmallParticle = Resources.Load<GameObject>("Default_Particles/DefaultSmallParticle");
-                pool.prefabsToPool = new List<PoolEntry>();
-                pool.prefabsToPool.Add(new PoolEntry() {Count = 10, Prefab = defaultLargeParticle});
-                pool.prefabsToPool.Add(new PoolEntry() {Count = 10, Prefab = defaultSmallParticle});
+                pool.prefabsToPool = new List<PoolEntry>
+                {
+                    new() { Count = 10, Prefab = defaultLargeParticle },
+                    new() { Count = 10, Prefab = defaultSmallParticle }
+                };
             }
         }
         
