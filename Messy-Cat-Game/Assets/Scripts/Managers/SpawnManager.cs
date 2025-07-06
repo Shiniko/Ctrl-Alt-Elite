@@ -37,11 +37,9 @@ public class SpawnManager : MonoBehaviour
         {
             if (gameManager != null)
             {
-                if (gameManager.chosenPlayer != null)
+                if (gameManager.gameReady)
                 {
                     hasSetSpawners = true;
-
-                    playerToSpawn = gameManager.chosenPlayer;
 
                     SetSpawners();
                 }

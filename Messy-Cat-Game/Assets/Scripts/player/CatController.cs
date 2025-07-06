@@ -209,7 +209,7 @@ public class CatController : MonoBehaviour
 
         if (gameManager != null)
         {
-            gameManager.ChangeAttackSelection(attackSelection);
+            //gameManager.ChangeAttackSelection(attackSelection);
         }
         else
         {
@@ -988,7 +988,7 @@ public class CatController : MonoBehaviour
         {
             if (gameManager != null)
             {
-                gameManager.ChangeAttackSelection(1);
+                //gameManager.ChangeAttackSelection(1);
             }
         }
 
@@ -996,7 +996,7 @@ public class CatController : MonoBehaviour
         {
             if (gameManager != null)
             {
-                gameManager.ChangeAttackSelection(2);
+                //gameManager.ChangeAttackSelection(2);
             }
         }
 
@@ -1004,7 +1004,7 @@ public class CatController : MonoBehaviour
         {
             if (gameManager != null)
             {
-                gameManager.ChangeAttackSelection(3);
+                //gameManager.ChangeAttackSelection(3);
             }
         }
 
@@ -1012,7 +1012,7 @@ public class CatController : MonoBehaviour
         {
             if (gameManager != null)
             {
-                gameManager.ChangeAttackSelection(4);
+                //gameManager.ChangeAttackSelection(4);
             }
         }
     }
@@ -1158,7 +1158,7 @@ public class CatController : MonoBehaviour
         {
             if (gameManager != null && attackIcons[i] != null)
             {
-                gameManager.attackIcons[i].sprite = attackIcons[i];
+                //gameManager.attackIcons[i].sprite = attackIcons[i];
             }
         }
     }
@@ -1167,9 +1167,9 @@ public class CatController : MonoBehaviour
     {
         if (gameManager != null)
         {
-            gameManager.AdjustAttackCountdown(attackCD, attackCounter);
+            //gameManager.AdjustAttackCountdown(attackCD, attackCounter);
 
-            gameManager.StartAttackCounter();
+            //gameManager.StartAttackCounter();
         }
     }
 

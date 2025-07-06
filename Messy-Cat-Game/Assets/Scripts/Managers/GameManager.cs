@@ -6,139 +6,95 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject background;
-    [SerializeField] private Color backgroundColor;
-    [SerializeField] private SpawnManager spawnManager;
-    [SerializeField] private AudioManager audioManager;
-    [SerializeField] private GameObject player;
-    //[SerializeField] private GameObject[] playerChoices;
-    //public int chosenPlayerNumber;
-    public GameObject chosenPlayer;
-    [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private CatController catController;
-    [SerializeField] private AnimHandler playerAnim;
-    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject background;        //reference to flash background 
+    [SerializeField] private Color backgroundColor;        //color value of flash background
+    [SerializeField] private SpawnManager spawnManager;    //reference to spawn manager
+    [SerializeField] private AudioManager audioManager;    //reference to audio manager
+    [SerializeField] private GameObject player;            //reference to player
+
+    [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
+    [SerializeField] private CatController catController;  //reference to player controller
+    [SerializeField] private AnimHandler playerAnim;       //reference to Animator Handler script, attached to player
+    [SerializeField] private GameObject pausePanel;        //reference to UI panel when paused
 
     [Header("Functional Params")]
-    [SerializeField] private float quitDelay;
-    [SerializeField] private float winDelay;
-    public bool isPaused;
-
+    [SerializeField] private float quitDelay;              //delay, in float seconds, when exiting or back to main menu
+    [SerializeField] private float winDelay;               //delay, in float seconds, when win condition happens, and before pausing game, for purposes of showing UI panmel, or playing SFX, before continue 
+    public bool isPaused;                                  //main bool to determine if game is paused, therefore don't update certain things that check for game pause
+    public bool gameReady;                                 //bool to determine when game is ready for things, like spawning the player
+    
+    
     [Header("Engage Params")]
-    public bool isEngaged;
-    [SerializeField] private int tempAgro;
-    [SerializeField] private int currentAgro;
-    public GameObject[] agroItems;
+    public bool isEngaged;                                  //bool to determine when player has agro, used for animation purposes, or check if engaged in combat
+    [SerializeField] private int tempAgro;                  //int determine check if or how many things has agro against the player
+    [SerializeField] private int currentAgro;               //int determine how many things has agro against the player
+    public GameObject[] agroItems;                          //array of things that have agro on player
 
     [Header("Respawn Params")]
-    [SerializeField] private bool isDead;
-    [SerializeField] private bool isRespawning = true;
-    [SerializeField] private bool hasSpawnedPlayer;
-    [SerializeField] private float respawnCounter;
-    [SerializeField] private float respawnCD;
-    public int lastPlayerWaypoint;
+    [SerializeField] private bool isDead;                  //bool used to check if player dead, changed from playerhealth script or respawn
+    [SerializeField] private bool isRespawning = true;     //bool used to check if player is currently respawning, so wait for now
+    [SerializeField] private bool hasSpawnedPlayer;        //bool used to check if player done respawning, so now can do things
+    [SerializeField] private float respawnCounter;         //float, in seconds, that counts up the duration player is respawning
+    [SerializeField] private float respawnCD;              //float, in seconds, that determines the full duration to delay for purposes of allowing animation of respawn, instantiation, audio, etc., before calling it good to change bools etc.
+    public int lastPlayerWaypoint;                         //location of last waypoint the player reached, for purposes of respawning
 
     [Header("UI Health")]
-    [SerializeField] private GameObject playerPanel;
-    [SerializeField] private GameObject healEffect;
-    [SerializeField] private Image currentPlayerHP;
-    [SerializeField] private Image oldPlayerHP;
-    [SerializeField] private Image newPlayerHP;
-    [SerializeField] private float shortenCounter;
-    [SerializeField] private float shortenCD;
-    [SerializeField] private float shortenRate;
-    [SerializeField] private float growCounter;
-    [SerializeField] private float growCD;
-    [SerializeField] private float growRate;
+    [SerializeField] private GameObject playerPanel;       //UI panel to display player specific things, like health, or status, or other indicators
+    [SerializeField] private GameObject healEffect;        //Visual and/or audio effect to instantiate when healed
+    [SerializeField] private Image currentPlayerHP;        //UI filled image 'bar', value set filled by current HP of player
+    [SerializeField] private Image oldPlayerHP;            //UI filled image 'bar', value set filled by previous HP of player
+    [SerializeField] private Image newPlayerHP;            //UI filled image 'bar', value set filled by new HP of player
+
+                                                                //Player receiving Damage
+    [SerializeField] private float shortenCounter;         //float, in seconds, of the counted duration the player's old HP is shrinking down to current HP
+    [SerializeField] private float shortenCD;              //float, in seconds, of the total duration it takes the player's old HP to shrink down to current HP
+    [SerializeField] private float shortenRate;            //float, to adjust rate it takes the player's old HP to shrink down to current HP
+
+                                                                //Player receiving Heals
+    [SerializeField] private float growCounter;            //float, in seconds, of the counted duration the player's new HP is growing up to current HP
+    [SerializeField] private float growCD;                 //float, in seconds, of the total duration it takes the player's new HP to grow up to current HP
+    [SerializeField] private float growRate;               //float, to adjust rate it takes the player's new HP to grow up to current HP
 
     [Header("UI Params")]
-    [SerializeField] private GameObject attackPanel;
-    public bool isOverUI;
-    public int attackSelection;
-    public bool activeAttackCountdown;
-    [SerializeField] private GameObject attackDisable;
-    public TextMeshProUGUI[] attackDisplayCounters;
-    public Image[] currentAttackCDs;
-    public Image[] attackIcons;
-    public GameObject[] attackIconSelectors;
-    public float attackUICounter;
-    public float attackUICD;
-    [SerializeField] private int lastAttackCounterAmount;
+    public bool isOverUI;                                  //bool to set from UI elements, which when hovered, we want to know in order to prevent player input among other things 
 
     [Header("Preference Params")]
-    public bool hasSetPreferences;
-    [SerializeField] private bool hasLoadedPrefs;
-
-    //optional
-    [Header("References")]
-    [SerializeField] private GameObject[] playerChoices;
-    public int chosenPlayerNumber;
-
-    public string bossName;
-    [SerializeField] private TextMeshProUGUI bossNameText;
-    [SerializeField] private GameObject bossPanel;
-    [SerializeField] private GameObject bossHealEffect;
-    [SerializeField] private Image currentBossHP;
-    [SerializeField] private Image oldBossHP;
-    [SerializeField] private Image newBossHP;
-    [SerializeField] private float bossShortenCounter;
-    [SerializeField] private float bossShortenCD;
-    [SerializeField] private float bossShortenRate;
-    [SerializeField] private float bossGrowCounter;
-    [SerializeField] private float bossGrowCD;
-    [SerializeField] private float bossGrowRate;
-
-    [Header("Bonus Params")]
-    public bool hasSetBonuses;
-    [SerializeField] private int playerLevel;
-    [SerializeField] private float bonusMaxHP;
-    [SerializeField] private float bonusRegen;
-    [SerializeField] private float bonusArmor;
-    [SerializeField] private float bonusMaxHPRate;
-    [SerializeField] private float bonusRegenRate;
-    [SerializeField] private float bonusArmorRate;
-    [SerializeField] private int playerJumpCountBonus;
-    [SerializeField] private bool hasGlide;
-    [SerializeField] private bool hasSlide;
-    [SerializeField] private bool hasWallGrab;
-    [SerializeField] private bool hasGrapple;
-    [SerializeField] private int levelCode;
-    [SerializeField] private int glideCode;
-    [SerializeField] private int slideCode;
-    [SerializeField] private int jumpCode;
+    public bool hasSetPreferences;                         //bool for scripts to check if preferences have indeed benn loaded already, and so this script doesnt do it again
+    [SerializeField] private bool hasLoadedPrefs;          //bool for this script to check if it has loaded prefs, so it doesnt again, and to check if game ready etc.
 
     void Awake()
     {
-        //ResetPlayerPrefs();
+        //ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
+    }
+
+    void ResetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();  //for dev purposes, sometimes you need to test things or need a fresh player prefs because of changes etc.
     }
 
     void Start()
     {
         //shortenCounter = shortenCD;
 
-        if (PlayerPrefs.HasKey("ChosenPlayer"))
+        if (PlayerPrefs.HasKey("ChosenPlayer"))  //chosen key is arbitrary, but should be something a person will have even if they did not interact with settings/options, so we know if we need to set initial keys, or load keys from from previous play
         {
-            if (!hasLoadedPrefs)
+            if (!hasLoadedPrefs)  //no need to load prefs if you have already
             {
-                LoadPlayerPrefs();
+                LoadPlayerPrefs();  //loads player prefs and fades out flash BG
             }
         }
         else
         {
-            SetPlayerPrefs();
+            SetPlayerPrefs();  //set player prefs and fades out flash BG
         }
 
-        //attackSelection = 1;
-
-        //ChangeAttackSelection(attackSelection);
-
-        if (audioManager == null)
+        if (audioManager == null)  //just in case reference was removed or forgotten, and first attempt in web build to reference
         {
             audioManager = FindFirstObjectByType<AudioManager>();
         }
     }
 
-    public void FlashBG()
+    public void FlashBG()  //this function triggers the fade out for background, if the background image has the flashimage script
     {
         if (background != null)
         {
@@ -149,81 +105,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ResetPlayerPrefs()
-    {
-        PlayerPrefs.DeleteAll();
-    }
 
-    void SetPlayerPrefs()
+    void SetPlayerPrefs()  //sets player prefs if first play
     {
-        //PlayerPrefs.SetInt("ChosenPlayer", chosenPlayerNumber);
         //PlayerPrefs.SetInt("LastWayPoint", lastPlayerWaypoint);
 
         hasLoadedPrefs = true;
 
         FlashBG();
 
-        Debug.Log("Setting prefs instead of getting prefs");
+        Debug.Log("Setting prefs instead of loading prefs");
     }
 
-    void LoadPlayerPrefs()
+    void LoadPlayerPrefs()  //loads player prefs if not first play
     {
-        //chosenPlayerNumber = PlayerPrefs.GetInt("ChosenPlayer");
         //lastPlayerWaypoint = PlayerPrefs.GetInt("LastWayPoint");
 
-        Debug.Log("lastPlayerWayPoint is loaded as " + lastPlayerWaypoint);
-
-        /*
-        if (chosenPlayerNumber > 0 && chosenPlayerNumber <= playerChoices.Length)
-        {
-            chosenPlayer = playerChoices[chosenPlayerNumber - 1];
-
-            if (spawnManager != null)
-            {
-                spawnManager.playerToSpawn = chosenPlayer;
-                spawnManager.SetSpawners();
-                spawnManager.SetInitialSpawner(lastPlayerWaypoint);
-            }
-        }
-        */
+        //Debug.Log("lastPlayerWayPoint is loaded as " + lastPlayerWaypoint);
 
         hasLoadedPrefs = true;
 
         FlashBG();
+
+        Debug.Log("Loading prefs instead of setting prefs");
     }
 
-    void SavePlayerPrefs()
+    void SavePlayerPrefs()  //function to be able to call a save to player prefs generally from within this script
     {
         //PlayerPrefs.SetInt("ChosenPlayer", chosenPlayerNumber);
-
-        /*
-        if (prefSaver != null)
-        {
-            prefSaver.SavePrefs();
-        }
-        */
     }
 
-    public void SwitchPlayer(int num)
-    {
-        /*
-        if (num >= 0 && num < playerChoices.Length)
-        {
-            chosenPlayerNumber = num;
-            chosenPlayer = playerChoices[num];
-
-            if (spawnManager != null)
-            {
-                spawnManager.playerToSpawn = chosenPlayer;
-                spawnManager.SetSpawners();
-            }
-
-            PlayerPrefs.SetInt("ChosenPlayer", chosenPlayerNumber);
-        }
-        */
-    }
-
-    public void PlaySceneTheme(string theme)
+    public void PlaySceneTheme(string theme)  //function to call special audio music theme to 'swap' from main theme
     {
         if (audioManager != null)
         {
@@ -234,7 +146,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlayMainTheme(string previousTheme)
+    public void PlayMainTheme(string previousTheme)  //function to call when switching back to main music theme
     {
         if (audioManager != null)
         {
@@ -245,27 +157,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DisplayPlayerPanels(bool active)
+    public void DisplayPlayerPanels(bool active)  //dynamicaly set the player panels by passing bool, true sets active, false sets de-active
     {
         if (playerPanel != null)
         {
             playerPanel.SetActive(active);
         }
-
-        if (attackPanel != null)
-        {
-            attackPanel.SetActive(active);
-        }
     }
 
     void Update()
     {
-        HandleRespawn();
+        HandleRespawn();  // calls everyframe to count duration to wait for respawn animations, etc., and spawns player if conditions are met, currently set to check if preferences set, but may need a different condition to spawn for ours
 
-        HandlePlayer();
+        HandlePlayer();     //calls everyframe to do player specific things, however empty atm so if its determined we dont need can remove this call and its function
     }
 
-    private void HandleRespawn()
+    private void HandleRespawn()  //explained in update
     {
         if (isRespawning)
         {
@@ -297,7 +204,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SpawnPlayer()
+    private void SpawnPlayer()  //function to trigger a spawn of the player via SpawnManager
     {
         if (!hasSpawnedPlayer)
         {
@@ -314,12 +221,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void HandlePlayer()
+    private void HandlePlayer()  //called every frame if needed
     {
 
     }
 
-    public void SetEngage()
+    public void SetEngage()  //function to determine if player has drawn agro from anything, for the purposes of setting isEngaged bool, this bool is checked by AnimHandler script, to change animation states to 'in-combat' modes
     {
         tempAgro = 0;
 
@@ -346,7 +253,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AdjustHealthUIDamage(float currentHP, float maxHP)
+    public void AdjustHealthUIDamage(float currentHP, float maxHP)  //function to adjust player current health bar, and begin shorten duration
     {
         if (currentHP < 0f)
         {
@@ -363,7 +270,7 @@ public class GameManager : MonoBehaviour
         shortenCounter = 0f;
     }
 
-    public void AdjustHealthUIHeal(float currentHP, float maxHP)
+    public void AdjustHealthUIHeal(float currentHP, float maxHP)  //function to adjust player current health bar, and begin grow duration
     {
         if (currentHP < 0f)
         {
@@ -379,15 +286,15 @@ public class GameManager : MonoBehaviour
         growCounter = 0f;
     }
 
-    public void PlayHealEffect()
+    public void PlayHealEffect()  //function to instantiate heal effect
     {
         if (healEffect != null)
         {
-
+            //instantiate
         }
     }
 
-    public void ApplyDeath() //called from playerhealth
+    public void ApplyDeath() //called from playerhealth to apply changes, reset respawn timers, etc.
     {
         if (catController != null)
         {
@@ -405,7 +312,7 @@ public class GameManager : MonoBehaviour
         respawnCD = 5.25f;
     }
 
-    public void GamePausedEsc()
+    public void GamePausedEsc()  //function to pause game via player pressing escape
     {
         isPaused = true;
 
@@ -422,7 +329,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UnPauseGameButton()
+    public void UnPauseGameButton()  //function to call, from UI pause panel, via 'Resume' button
     {
         isPaused = false;
 
@@ -434,7 +341,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OverUI()
+    public void OverUI()  //function to call from UI elements to determine if hovering the UI, therefore dont allow things, like movement or attack inputs
     {
         isOverUI = true;
 
@@ -444,7 +351,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OpenPanel()
+    public void OpenPanel()  //function to call when opening panels from UI elements to set isOverUI as if hovering the UI
     {
         isOverUI = true;
 
@@ -454,7 +361,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void NotOverUI()
+    public void NotOverUI()   //function to call from UI elements to determine if exiting a hover from the UI, therefore re-allow things, like movement or attack inputs
     {
         isOverUI = false;
 
@@ -464,7 +371,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ClosePanel()
+    public void ClosePanel()   //function to call when closing panels from UI elements to set isOverUI as if NOT hovering the UI
     {
         isOverUI = false;
 
@@ -474,13 +381,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void QuitGame()
+    public void QuitGame()  //function to call from UI exit game or quit game buttons
     {
         //Debug.Log("QUIT");
         StartCoroutine(LoadDelayQG(quitDelay));
     }
 
-    IEnumerator LoadDelayQG(float delay)
+    IEnumerator LoadDelayQG(float delay)  //set game time to normal if paused, then delay applying quit, to play audio, before quitting
     {
         if (Time.timeScale != 1f)
         {
@@ -500,281 +407,7 @@ public class GameManager : MonoBehaviour
 
     //optional
 
-    public void DeActivateBossHealth()
-    {
-        DisplayBossPanel(false);
-    }
-
-    public void ActivateBossHealth(EnemyHealth bossHealth)
-    {
-        if (bossHealth != null)
-        {
-            float maxBossHP = bossHealth.adjustedMaxHP;
-            float currentBossHP = 0f;
-
-            DisplayBossPanel(true);
-
-            AdjustHealthUIBossDamage(currentBossHP, maxBossHP);
-
-            AdjustHealthUIBossHeal(maxBossHP, maxBossHP);
-        }
-    }
-
-    public void DisplayBossPanel(bool showBlock)
-    {
-        if (bossNameText != null)
-        {
-            bossNameText.text = bossName;
-        }
-
-        if (bossPanel != null)
-        {
-            bossPanel.SetActive(showBlock);
-        }
-    }
-
-    public void DistributePlayerBonuses()
-    {
-        playerLevel = 1; //intial set
-
-        //load player prefs
-        playerLevel = PlayerPrefs.GetInt("PlayerLevel");
-        playerJumpCountBonus = PlayerPrefs.GetInt("BonusJumpCount");
-
-        levelCode = PlayerPrefs.GetInt("code1");
-        jumpCode = PlayerPrefs.GetInt("code2");
-        glideCode = PlayerPrefs.GetInt("code3");
-        slideCode = PlayerPrefs.GetInt("code4");
-
-        // check codes
-
-        if (levelCode == 9000009 && playerLevel != 2)
-        {
-            playerLevel = 1;
-        }
-
-        if (levelCode == 9004009 && playerLevel != 3)
-        {
-            playerLevel = 1;
-        }
-
-        if (jumpCode == 6001006 && playerJumpCountBonus != 1)
-        {
-            playerJumpCountBonus = 0;
-        }
-
-        if (jumpCode == 2144039 && playerJumpCountBonus != 2)
-        {
-            playerJumpCountBonus = 0;
-        }
-
-        if (glideCode == 3079703)
-        {
-            hasGlide = true;
-        }
-
-        if (slideCode == 6149357)
-        {
-            hasSlide = true;
-        }
-
-        if (playerLevel > 1)
-        {
-            bonusMaxHP = playerLevel * bonusMaxHPRate;
-            bonusRegen = playerLevel * bonusRegenRate;
-            bonusArmor = playerLevel * bonusArmorRate;
-        }
-        else
-        {
-            bonusMaxHP = 0f;
-            bonusRegen = 0f;
-            bonusArmor = 0f;
-        }
-
-        /*
-        if (playerController != null)
-        {
-            playerController.jumpMax = 1 + playerJumpCountBonus;
-            playerController.hasGlide = hasGlide;
-            playerController.hasGlide = hasSlide;
-            playerController.hasWallGrab = hasWallGrab;
-            playerController.hasWallGrab = hasGrapple;
-        }
-        */
-
-        if (playerHealth != null)
-        {
-            playerHealth.bonusMaxHP = bonusMaxHP;
-            playerHealth.bonusRegen = bonusRegen;
-            playerHealth.bonusArmor = bonusArmor;
-        }
-
-        SetChosenPlayer();
-
-        hasSetBonuses = true;
-    }
-
-    private void SetChosenPlayer()
-    {
-        if (chosenPlayerNumber >= 0 && chosenPlayerNumber < (playerChoices.Length))
-        {
-            chosenPlayer = playerChoices[chosenPlayerNumber];
-        }
-    }
-
-    public void AdjustHealthUIBossDamage(float currentBHP, float maxBHP)
-    {
-        if (currentBHP < 0f)
-        {
-            currentBHP = 0f;
-        }
-
-        if (maxBHP != 0f)
-        {
-            currentBossHP.fillAmount = (currentBHP / maxBHP);
-            newBossHP.fillAmount = currentBossHP.fillAmount;
-        }
-
-        //do the damage set
-        bossShortenCounter = 0f;
-    }
-
-    public void AdjustHealthUIBossHeal(float currentBHP, float maxBHP)
-    {
-        if (currentBHP < 0f)
-        {
-            currentBHP = 0f;
-        }
-
-        if (maxBHP != 0f)
-        {
-            newBossHP.fillAmount = (currentBHP / maxBHP);
-        }
-
-        //do the damage set
-        bossGrowCounter = 0f;
-    }
-
-    public void ChangeAttackSelection(int selection)
-    {
-        if (player != null)
-        {
-            if (selection <= 0)
-            {
-                selection = 1;
-            }
-
-            if (selection >= 5)
-            {
-                selection = 4;
-            }
-
-            attackSelection = selection;
-
-            if (catController != null)
-            {
-                catController.ChangeAttackSelection(selection);
-            }
-
-            if (attackPanel != null)
-            {
-                attackPanel.SetActive(true);
-            }
-
-            for (int i = 0; i < attackIconSelectors.Length; i++)
-            {
-                if (attackIconSelectors[i] != null)
-                {
-                    if (i == (selection - 1))
-                    {
-                        attackIconSelectors[i].SetActive(true);
-                    }
-                    else
-                    {
-                        attackIconSelectors[i].SetActive(false);
-                    }
-                }
-            }
-        }
-
-    }
-
-    private void AdjustAttackCountDownAmount()
-    {
-        if (lastAttackCounterAmount > (Mathf.RoundToInt((attackUICD - attackUICounter))))
-        {
-            for (int i = 0; i < attackDisplayCounters.Length; i++)
-            {
-                if (attackDisplayCounters[i] != null)
-                {
-                    attackDisplayCounters[i].text = (Mathf.RoundToInt((attackUICD - attackUICounter))).ToString();
-                }
-            }
-
-            lastAttackCounterAmount = Mathf.RoundToInt((attackUICD - attackUICounter));
-
-        }
-
-        for (int i = 0; i < currentAttackCDs.Length; i++)
-        {
-            if (attackUICD != 0f)
-            {
-                if (currentAttackCDs[i] != null)
-                {
-                    currentAttackCDs[i].fillAmount = ((attackUICD - attackUICounter) / attackUICD);
-                }
-            }
-        }
-    }
-
-    public void AdjustAttackCountdown(float currentCD, float currentCount)
-    {
-        attackUICD = currentCD;
-
-        if (currentCount > attackUICD)
-        {
-            currentCount = attackUICD;
-        }
-
-        if (currentCount < 0f)
-        {
-            currentCount = 0f;
-        }
-
-        attackUICounter = currentCount;
-    }
-
-    public void StartAttackCounter()
-    {
-        for (int i = 0; i < attackDisplayCounters.Length; i++)
-        {
-            if (attackDisplayCounters[i] != null)
-            {
-                attackDisplayCounters[i].text = (Mathf.RoundToInt((attackUICD - attackUICounter))).ToString();
-            }
-        }
-
-        lastAttackCounterAmount = Mathf.RoundToInt((attackUICD - attackUICounter));
-
-        if (attackDisable != null)
-        {
-            attackDisable.SetActive(true);
-        }
-
-        activeAttackCountdown = true;
-    }
-
-    public void FinishAttackCounter()
-    {
-        activeAttackCountdown = false;
-
-        if (attackDisable != null)
-        {
-            attackDisable.SetActive(false);
-        }
-    }
-
-    public void ApplyWinCon()
+    public void ApplyWinCon()   //call win condition, audio or effects, then coroutine to delay pause
     {
         //you win
         if (audioManager != null)
@@ -785,7 +418,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadDelayWG(winDelay));
     }
 
-    IEnumerator LoadDelayWG(float delay)
+    IEnumerator LoadDelayWG(float delay)  //delay for pausing game after win condition met, loading win condition panels if not handled by another script
     {
         yield return new WaitForSeconds(delay);
 
