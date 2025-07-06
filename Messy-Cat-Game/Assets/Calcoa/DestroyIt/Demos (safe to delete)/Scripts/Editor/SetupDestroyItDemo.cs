@@ -8,11 +8,11 @@ namespace DestroyIt
         [MenuItem("Window/DestroyIt/Setup - First Person Controller")]
         public static void SetupFirstPersonControllerMenuOption()
         {
-            DestructionManager destructionManager = Object.FindObjectOfType<DestructionManager>();
+            DestructionManager destructionManager = Object.FindFirstObjectByType<DestructionManager>();
             if (destructionManager == null)
                 SetupDestroyIt.SetupMinimalMenuOption();
             
-            destructionManager = Object.FindObjectOfType<DestructionManager>();
+            destructionManager = Object.FindFirstObjectByType<DestructionManager>();
             string fpControllerPath = "Assets/DestroyIt/Demos (safe to delete)/Prefabs/Character Controllers/First Person Controller.prefab";
             GameObject fpController = AssetDatabase.LoadAssetAtPath<GameObject>(fpControllerPath);
 
