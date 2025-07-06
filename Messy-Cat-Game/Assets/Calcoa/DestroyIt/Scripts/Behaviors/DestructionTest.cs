@@ -20,7 +20,7 @@ namespace DestroyIt
                     objectToDestroy.ApplyDamage(damagePerPress);
                 else
                 {
-                    Destructible[] destObjs = FindObjectsOfType<Destructible>();
+                    Destructible[] destObjs = FindObjectsByType<Destructible>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
                     foreach (Destructible destObj in destObjs)
                         destObj.ApplyDamage(damagePerPress);
                 }

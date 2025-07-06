@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.Build;
 #endif
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,8 +19,8 @@ namespace Guirao.UltimateTextDamage
         {
 
 #if UNITY_EDITOR
-            string symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup( EditorUserBuildSettings.selectedBuildTargetGroup );
-            List<string> allDefines = symbols.Split ( ';' ).ToList();
+            string symbols = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(EditorUserBuildSettings.selectedBuildTargetGroup));
+            List<string> allDefines = symbols.Split(';').ToList();
 
             bool textMeshProOK = false;
             foreach( string s in allDefines )

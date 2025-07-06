@@ -286,7 +286,7 @@ namespace DestroyIt
             // TODO: can probably run this more efficiently at a set rate, like a few times per second - not every frame.
             if (timeSlowed)
             {
-                foreach (GameObject go in FindObjectsOfType(typeof(GameObject)))
+                foreach (GameObject go in FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
                 {
                     foreach (Rigidbody rb in go.GetComponentsInChildren<Rigidbody>())
                         rb.interpolation = RigidbodyInterpolation.Interpolate;
@@ -463,7 +463,7 @@ namespace DestroyIt
                 /* DISABLING RIGIDBODY INTERPOLATION TEMPORARILY DUE TO AN ONGOING UNITY BUG:
                    https://issuetracker.unity3d.com/issues/in-order-to-call-gettransforminfoexpectuptodate-dot-dot-dot-error-message-appears-while-using-rigidbody-interpolate-slash-extrapolate
                 */
-                foreach (GameObject go in FindObjectsOfType(typeof(GameObject)))
+                foreach (GameObject go in FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
                 {
                     foreach (Rigidbody rb in go.GetComponentsInChildren<Rigidbody>())
                         rb.interpolation = RigidbodyInterpolation.Interpolate;
@@ -475,7 +475,7 @@ namespace DestroyIt
                 /* DISABLING RIGIDBODY INTERPOLATION TEMPORARILY DUE TO AN ONGOING UNITY BUG:
                    https://issuetracker.unity3d.com/issues/in-order-to-call-gettransforminfoexpectuptodate-dot-dot-dot-error-message-appears-while-using-rigidbody-interpolate-slash-extrapolate
                 */
-                foreach (GameObject go in FindObjectsOfType(typeof(GameObject)))
+                foreach (GameObject go in FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None))
                 {
                     foreach (Rigidbody rb in go.GetComponentsInChildren<Rigidbody>())
                         rb.interpolation = RigidbodyInterpolation.None;

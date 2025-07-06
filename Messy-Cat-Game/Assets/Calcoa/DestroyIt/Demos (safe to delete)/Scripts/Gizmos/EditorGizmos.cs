@@ -19,7 +19,7 @@ namespace DestroyIt
             // JOINT ANCHORS
             if (showJointAnchors)
             {
-                Joint[] joints = Object.FindObjectsOfType<Joint>();
+                Joint[] joints = Object.FindObjectsByType<Joint>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
                 if (joints.Length > 0)
                 {
                     foreach (Joint jnt in joints)

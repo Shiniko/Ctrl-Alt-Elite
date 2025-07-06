@@ -22,9 +22,9 @@ public class EffectManager : MonoBehaviour
     {
         if (audioManager == null)
         {
-            if (FindObjectOfType<AudioManager>() != null)
+            if (FindAnyObjectByType<AudioManager>() != null)
             {
-                audioManager = FindObjectOfType<AudioManager>();
+                audioManager = FindAnyObjectByType<AudioManager>();
             }
         }
 

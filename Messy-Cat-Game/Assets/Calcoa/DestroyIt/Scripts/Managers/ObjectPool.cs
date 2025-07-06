@@ -44,7 +44,7 @@ namespace DestroyIt
 
         private static void CreateInstance()
         {
-            ObjectPool[] objectPools = FindObjectsOfType<ObjectPool>();
+            ObjectPool[] objectPools = FindObjectsByType<ObjectPool>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             if (objectPools.Length > 1)
                 Debug.LogError("Multiple ObjectPool scripts found in scene. There can be only one.");
             if (objectPools.Length == 0)
