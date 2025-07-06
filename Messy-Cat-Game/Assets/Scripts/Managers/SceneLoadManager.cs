@@ -7,10 +7,14 @@ using UnityEngine.UI;
 public class SceneLoadManager : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private SceneLoader _sceneLoader;
+
     [SerializeField] private GameObject _loadingBarPanel;
     [SerializeField] private Image _loadingBarFill;
     [SerializeField] private GameObject[] _thingsToHide;
     [SerializeField] private GameObject[] _thingsToReveal;
+
+    [SerializeField] private DevLevelSelect devSelect;
 
     void Awake()
     {
@@ -45,13 +49,43 @@ public class SceneLoadManager : MonoBehaviour
 
     public void LoadScene()
     {
+        if (_sceneLoader != null)
+        {
+            _sceneLoader.LoadScenes();
+        }
+
+        ActivateLoadPanel();
+    }
+
+    public void UnLoadScene()
+    {
+        if (_sceneLoader != null)
+        {
+            _sceneLoader.UnloadScenes();
+        }
+    }
+
+    public void LoadedScene()
+    {
+        DeActivateLoadPanel();
+
+        //for dev scene select
+
+        if (devSelect != null)
+        {
+            devSelect.LevelLoaded();
+        }
+    }
+
+    public void ActivateLoadPanel()
+    {
         if (_loadingBarPanel != null)
         {
             _loadingBarPanel.SetActive(true);
         }
     }
 
-    public void LoadedScene()
+    public void DeActivateLoadPanel()
     {
         if (_loadingBarPanel != null)
         {
