@@ -681,7 +681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d7f2d8a8a85c64b83f093083a9b753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slm: {fileID: 0}
+  slm: {fileID: 814369074}
   _scenesToLoad: []
   _scenesToUnload: []
   _triggered: 0
@@ -1019,6 +1019,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectManager: {fileID: 1832062977}
   started: 0
+--- !u!1 &1127769904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1127769906}
+  - component: {fileID: 1127769905}
+  m_Layer: 0
+  m_Name: Dev-LoadLevelSelect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1127769905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127769904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414875d2f98f0264eb8fb575c65c4b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sl: {fileID: 814369075}
+  levelSelect: LevelSelect
+  _triggered: 0
+  _loaded: 0
+--- !u!4 &1127769906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127769904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1178774149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2114,3 +2162,4 @@ SceneRoots:
   - {fileID: 916173939}
   - {fileID: 1632918266}
   - {fileID: 7834960}
+  - {fileID: 1127769906}
