@@ -56,7 +56,7 @@ namespace DestroyIt
         private Transform nukeTransform;            // The location of the nuke firing controller.
         private Transform axeTransform;             // The location of the axe.
         private Transform repairWrenchTransform;    // The location of the repair wrench.
-        private readonly LoadSceneParameters lsp = new LoadSceneParameters { loadSceneMode = LoadSceneMode.Single, localPhysicsMode = LocalPhysicsMode.None };
+        private readonly LoadSceneParameters lsp = new() { loadSceneMode = LoadSceneMode.Single, localPhysicsMode = LocalPhysicsMode.None };
 
         // Hide the default constructor (use InputManager.Instance instead).
         private InputManager() { }
@@ -189,7 +189,7 @@ namespace DestroyIt
                             // position the nuke 2500m in front of where the player is facing.
                             Transform player = GameObject.FindGameObjectWithTag("Player").transform;
                             Vector3 nukeForwardPos = player.position + player.forward * nukeDistance;
-                            Vector3 nukePos = new Vector3(nukeForwardPos.x, 0f, nukeForwardPos.z);
+                            Vector3 nukePos = new(nukeForwardPos.x, 0f, nukeForwardPos.z);
                             if (groundChurnPrefab != null)
                             {
                                 GameObject groundChurn = Instantiate(groundChurnPrefab, nukePos, Quaternion.identity) as GameObject;
