@@ -18,7 +18,7 @@ public class CatController : MonoBehaviour
 
     private CharacterController controller;
     public Transform focusCamera;
-    public CinemachineVirtualCamera centerCam;
+    public CinemachineCamera centerCam;
     public bool xcenterActive;
     public bool ycenterActive;
 
@@ -168,7 +168,7 @@ public class CatController : MonoBehaviour
 
         if (centerCam == null)
         {
-            centerCam = gameObject.GetComponentInChildren<CinemachineVirtualCamera>();
+            centerCam = gameObject.GetComponentInChildren<CinemachineCamera>();
         }
 
         if (controller == null)
@@ -691,15 +691,20 @@ public class CatController : MonoBehaviour
                 }
             }
 
-            if (centerCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.Value > 0f)
+            CinemachinePanTilt panTilt = centerCam.GetComponent<CinemachinePanTilt>();
+
+            if (panTilt != null)
             {
-                DisableYRecenter();
-            }
-            else
-            {
-                if (centerCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalAxis.Value < -0.5f)
+                if (panTilt.TiltAxis.Value > 0f)
                 {
-                    EnableYRecenter();
+                    DisableYRecenter();
+                }
+                else
+                {
+                    if (panTilt.TiltAxis.Value < -0.5f)
+                    {
+                        EnableYRecenter();
+                    }
                 }
             }
         }
@@ -752,7 +757,7 @@ public class CatController : MonoBehaviour
     {
         if (centerCam != null)
         {
-            centerCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = true;
+            centerCam.GetComponent<CinemachinePanTilt>().TiltAxis.Recentering.Enabled = true;
         }
     }
 
@@ -760,7 +765,7 @@ public class CatController : MonoBehaviour
     {
         if (centerCam != null)
         {
-            centerCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = false;
+            centerCam.GetComponent<CinemachinePanTilt>().TiltAxis.Recentering.Enabled = false;
         }
     }
 
@@ -768,7 +773,7 @@ public class CatController : MonoBehaviour
     {
         if (centerCam != null)
         {
-            centerCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = true;
+            centerCam.GetComponent<CinemachinePanTilt>().PanAxis.Recentering.Enabled = true;
         }
     }
 
@@ -776,7 +781,7 @@ public class CatController : MonoBehaviour
     {
         if (centerCam != null)
         {
-            centerCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = false;
+            centerCam.GetComponent<CinemachinePanTilt>().PanAxis.Recentering.Enabled = false;
         }
     }
 
