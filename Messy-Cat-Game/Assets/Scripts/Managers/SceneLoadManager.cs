@@ -8,12 +8,13 @@ public class SceneLoadManager : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private SceneLoader _sceneLoader;
-    [SerializeField] private string[] _allLevelScenes;
 
     [SerializeField] private GameObject _loadingBarPanel;
     [SerializeField] private Image _loadingBarFill;
     [SerializeField] private GameObject[] _thingsToHide;
     [SerializeField] private GameObject[] _thingsToReveal;
+
+    [SerializeField] private DevLevelSelect devSelect;
 
     void Awake()
     {
@@ -48,15 +49,12 @@ public class SceneLoadManager : MonoBehaviour
 
     public void LoadScene()
     {
-        if (_loadingBarPanel != null)
-        {
-            _loadingBarPanel.SetActive(true);
-        }
-
         if (_sceneLoader != null)
         {
             _sceneLoader.LoadScenes();
         }
+
+        ActivateLoadPanel();
     }
 
     public void UnLoadScene()
@@ -69,24 +67,29 @@ public class SceneLoadManager : MonoBehaviour
 
     public void LoadedScene()
     {
-        if (_loadingBarPanel != null)
+        DeActivateLoadPanel();
+
+        //for dev scene select
+
+        if (devSelect != null)
         {
-            _loadingBarPanel.SetActive(false);
+            devSelect.LevelLoaded();
         }
     }
 
-    public void SetLevelSelect(int level)
+    public void ActivateLoadPanel()
     {
-        if (level < 1 || level > _allLevelScenes.Length)
+        if (_loadingBarPanel != null)
         {
-            return;
+            _loadingBarPanel.SetActive(true);
         }
+    }
 
-        if(_sceneLoader != null)
+    public void DeActivateLoadPanel()
+    {
+        if (_loadingBarPanel != null)
         {
-            string[] levelNames = new string[1];
-            levelNames[0] = _allLevelScenes[level - 1];
-            _sceneLoader.SetScenesToLoad(levelNames);
+            _loadingBarPanel.SetActive(false);
         }
     }
 }
