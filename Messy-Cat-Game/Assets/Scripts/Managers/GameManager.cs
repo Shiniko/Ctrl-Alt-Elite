@@ -312,7 +312,7 @@ public class GameManager : MonoBehaviour
         respawnCD = 5.25f;
     }
 
-    public void GamePausedEsc()  //function to pause game via player pressing escape
+    public void GamePausedEsc()  //function to pause game via player pressing escape or menu button
     {
         isPaused = true;
 

@@ -38,6 +38,8 @@ public class SceneLoader : MonoBehaviour
             }
 
             _triggered = false;
+
+            //Debug.Log("SL Load scenes");
         }
     }
 
@@ -57,6 +59,8 @@ public class SceneLoader : MonoBehaviour
                 }
             }
         }
+
+        //Debug.Log("SL Unload scenes");
     }
 
     public void SetScenesToLoad(string[] scenes)

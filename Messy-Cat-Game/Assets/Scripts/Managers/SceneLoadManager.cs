@@ -57,6 +57,14 @@ public class SceneLoadManager : MonoBehaviour
         ActivateLoadPanel();
     }
 
+    public void LoadLevelSelectScene()
+    {
+        if (_sceneLoader != null)
+        {
+            _sceneLoader.LoadScenes();
+        }
+    }
+
     public void UnLoadScene()
     {
         if (_sceneLoader != null)
@@ -83,6 +91,8 @@ public class SceneLoadManager : MonoBehaviour
         {
             _loadingBarPanel.SetActive(true);
         }
+
+        //Debug.Log("Activating loading panel");
     }
 
     public void DeActivateLoadPanel()
@@ -90,6 +100,16 @@ public class SceneLoadManager : MonoBehaviour
         if (_loadingBarPanel != null)
         {
             _loadingBarPanel.SetActive(false);
+        }
+
+        //Debug.Log("de activating loading panel");
+    }
+
+    public void SetSceneLoaderLevelSelect(bool isSelect)
+    {
+        if (devSelect != null)
+        {
+            devSelect.isLevelSelect = isSelect;
         }
     }
 }

@@ -3,12 +3,15 @@ using UnityEngine;
 public class DevLevelSelect : MonoBehaviour
 {
     [SerializeField] private SceneLoader sl;
+    [SerializeField] private SceneLoadManager slm;
     [SerializeField] private GameObject levelSelectPanel;
 
     [SerializeField] private string levelSelect;
     [SerializeField] private bool _triggered;
     [SerializeField] private bool _levelSelected;
     [SerializeField] private bool _loaded;
+
+    public bool isLevelSelect;
 
     void Update()
     {
@@ -32,6 +35,8 @@ public class DevLevelSelect : MonoBehaviour
                 sl.SetScenesToLoad(levelSelectScene);
 
                 _triggered = true;
+
+                ActivateLevelSelectPanel();
             }
         }
     }
@@ -53,15 +58,49 @@ public class DevLevelSelect : MonoBehaviour
 
                 DeActivateLevelSelectPanel();
 
-                sl.LoadScenes();
+                slm.LoadScene();
 
                 //setting scenesToUnload array as single levelSelect string
                 string[] levelUnloadScene = new string[1];
                 levelUnloadScene[0] = "LevelSelect";
                 sl.SetScenesToUnLoad(levelUnloadScene);
 
-                sl.UnloadScenes();
+                slm.UnLoadScene();
             }
+        }
+    }
+
+    public void LoadLevelSelectScene()
+    {
+        //setting scenesToLoad array as single level string
+        string[] levelSelectScene = new string[1];
+        levelSelectScene[0] = "LevelSelect";
+        sl.SetScenesToLoad(levelSelectScene);
+
+        if (!isLevelSelect)
+        {
+            ActivateLevelSelectPanel();
+
+            slm.LoadScene();
+        }
+        else
+        {
+            slm.LoadLevelSelectScene();
+        }
+
+        //setting scenesToUnload array as single levelSelect string
+
+        if (!isLevelSelect)
+        {
+            string[] levelUnloadScene = new string[1];
+            levelUnloadScene[0] = levelSelect;          
+            sl.SetScenesToUnLoad(levelUnloadScene);
+
+            slm.UnLoadScene();
+        }
+        else
+        {
+            slm.DeActivateLoadPanel();
         }
     }
 
