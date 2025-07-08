@@ -23,6 +23,7 @@ public class CatInteractions : MonoBehaviour
             if (hits[i].transform.TryGetComponent<IInteractable>(out IInteractable interactable))
             {
                 interactable.Interact();
+                Debug.Log("Interacted with " + hits[i].transform.name,this);
             }
         }
 
