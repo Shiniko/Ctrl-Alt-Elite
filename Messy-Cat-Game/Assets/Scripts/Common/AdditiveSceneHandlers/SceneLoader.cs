@@ -47,7 +47,9 @@ public class SceneLoader : MonoBehaviour
     {
         for (int i = 0; i < _scenesToUnload.Length; i++)
         {
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
             bool isSceneLoaded = false;
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
 
             for (int j = 0; j < SceneManager.sceneCount; j++)
             {
