@@ -301,9 +301,9 @@ GameObject:
   - component: {fileID: 774974482441024206}
   - component: {fileID: 5912292124125342412}
   - component: {fileID: 4218850866203717343}
-  - component: {fileID: 2243579592038125602}
+  - component: {fileID: -3486017904279137494}
   m_Layer: 0
-  m_Name: Black-Kitty
+  m_Name: CalTestKitty
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -375,7 +375,7 @@ CapsuleCollider:
   m_Height: 0.41095406
   m_Direction: 0
   m_Center: {x: -0.014894754, y: 0.043194443, z: -0.008457441}
---- !u!114 &2243579592038125602
+--- !u!114 &-3486017904279137494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,115 +384,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1767864415786845935}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299729336b8759c4b89abfebc4d972b3, type: 3}
+  m_Script: {fileID: 11500000, guid: da09e0b6298ad5c48ac9dad55f053b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isArcher: 0
-  isBattleMage: 0
-  isGunner: 0
-  isMage: 0
-  rb: {fileID: 0}
-  cc: {fileID: 0}
-  colliderSize: 0
-  body: {fileID: 0}
-  focusCamera: {fileID: 0}
-  centerCam: {fileID: 0}
-  xcenterActive: 0
-  ycenterActive: 0
-  anim: {fileID: 0}
-  gameManager: {fileID: 0}
-  attackIcons: []
-  attack1: {fileID: 0}
-  attack1s: {fileID: 0}
-  attack2: {fileID: 0}
-  attack2s: {fileID: 0}
-  attack3: {fileID: 0}
-  attack3s: {fileID: 0}
-  attack4: {fileID: 0}
-  attack4s: {fileID: 0}
-  frontFirePoint: {fileID: 0}
-  frontFirePointProjection: {fileID: 0}
-  attackLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  skipCount: 0
-  skipThreshold: 0
-  wasAttacking: 0
-  skipRotateFrames: 0
-  attackSelection: 0
-  attackCounter: 0
-  attackCD: 0
-  attackOneCD: 0
-  attackTwoCD: 0
-  attackThreeCD: 0
-  attackFourCD: 0
-  isDead: 0
-  isOverUI: 0
-  canMove: 0
-  freezeInput: 0
-  chargingStill: 0
-  isAttacking: 0
-  canAttack: 0
-  inCutScene: 0
-  playerSpeed: 0
-  jumpHeight: 0
-  gravityValue: 0
-  gravityVelocity: 0
-  fallTolerance: 0
-  playerVelocity: {x: 0, y: 0, z: 0}
-  rigidBodyVelocity: {x: 0, y: 0, z: 0}
-  targetVelocity: {x: 0, y: 0, z: 0}
-  walkSpeed: 0
-  turningSpeed: 0
-  movement: {x: 0, y: 0}
-  move: {x: 0, y: 0, z: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
-  isRespawning: 0
-  isStunned: 0
-  isPaused: 0
-  coyoteCD: 0
-  coyoteCounter: 0
-  coyoteInEffect: 0
-  forwardRelative: {x: 0, y: 0, z: 0}
-  rightRelative: {x: 0, y: 0, z: 0}
-  moveDir: {x: 0, y: 0, z: 0}
-  applyJump: 0
-  triggeredJump: 0
-  canJump: 0
-  targetRotation: {x: 0, y: 0, z: 0, w: 0}
-  targetAngle: 0
-  currentTargetRotation: {x: 0, y: 0, z: 0}
-  durationToReachTargetRotation: {x: 0, y: 0, z: 0}
-  dampedTargetRotationCurrentVelocity: {x: 0, y: 0, z: 0}
-  dampedTargetRotationPassedDuration: {x: 0, y: 0, z: 0}
-  canKnockback: 0
-  isKnockedback: 0
-  knockbackForce: 0
-  tempkbForce: 0
-  knockbackCounter: 0
-  knockbackCD: 0
-  knockbackNextCounter: 0
-  knockbackNextCD: 0
-  kbStartPos: {x: 0, y: 0, z: 0}
-  kbEndPos: {x: 0, y: 0, z: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  groundCheckDistance: 0
-  gravityScale: 1
-  tempGrounded: 0
-  wasGrounded: 0
-  groundedPlayerRays: 0
-  groundedPlayer: 0
-  frontGroundCheck: {fileID: 0}
-  leftGroundCheck: {fileID: 0}
-  rightGroundCheck: {fileID: 0}
-  rayLength: 0.3
-  slopeVelocity: {x: 0, y: 0, z: 0}
-  newForce: {x: 0, y: 0, z: 0}
-  slopeCheckDistance: 0
-  onSlope: 0
-  slopeModifier: 0
 --- !u!1 &1912237079240687892
 GameObject:
   m_ObjectHideFlags: 0

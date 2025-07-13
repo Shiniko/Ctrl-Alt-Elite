@@ -4,7 +4,11 @@ public class SceneLoaded : MonoBehaviour
 {
     [SerializeField] private bool sceneLoaded;
     [SerializeField] private bool triggeredLoad;
+    [SerializeField] private bool triggeredReady;
+
+    [Header("References")]
     [SerializeField] private SceneLoadManager slm;
+    [SerializeField] private GameManager gm;
 
     [SerializeField] private bool isLevelSelect;
 
@@ -28,7 +32,15 @@ public class SceneLoaded : MonoBehaviour
             }
         }
 
-        if(slm != null)
+        if (gm == null)
+        {
+            if (GameObject.FindGameObjectWithTag("GameController") != null)
+            {
+                gm = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+            }
+        }
+
+        if (slm != null)
         {
             if (!triggeredLoad)
             {
@@ -40,6 +52,24 @@ public class SceneLoaded : MonoBehaviour
 
                     triggeredLoad = true;
                 }        
+            }
+        }
+
+        if (gm != null)
+        {
+            if (!triggeredReady)
+            {
+                triggeredReady = true;
+
+                if (!isLevelSelect)
+                {
+                    gm.gameReady = true;
+                    gm.isRespawning = true;
+                }
+                else
+                {
+                    gm.gameReady = false;
+                }
             }
         }
     }
