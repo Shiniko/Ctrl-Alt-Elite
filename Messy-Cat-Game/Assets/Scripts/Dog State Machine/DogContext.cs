@@ -1,26 +1,28 @@
 ﻿using UnityEngine;
+//Required for movement
 [RequireComponent(typeof(Rigidbody))]
+//Required for collision detection
+[RequireComponent(typeof(Collider))]
 public class DogContext : MonoBehaviour
 {
     public SphereCollider dogHearing { get; private set; }
     public DogVision vision { get; private set; }
 
 
-    [Header("Required References")]
-    [Tooltip("For smoother movement change the interpolation setting to 'interpolate' ")]
     [SerializeField] private Rigidbody rb;
-    [Header("Movement Settings")]
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float _maxRoamDistance;
+    [SerializeField] private float _minRoamDistance;
+    [SerializeField] private MovementAxis movementAxis;
+    [SerializeField] private float size = 0.25f;
+    [SerializeField] private Color gizmoColor = Color.green;
 
-    [Header("Roaming Settings")]
-    [SerializeField] private float _maxRoamX;
-    [SerializeField] private float _minRoamX;
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(new(_minRoamX,transform.position.y,transform.position.z),1);
-        Gizmos.DrawWireSphere(new(_maxRoamX, transform.position.y, transform.position.z), 1);
+        Gizmos.color = gizmoColor;
+        Gizmos.DrawWireSphere(new(_minRoamDistance,transform.position.y,transform.position.z),size);
+        Gizmos.DrawWireSphere(new(_maxRoamDistance, transform.position.y, transform.position.z), size);
     }
 
     public void Awake()
@@ -28,16 +30,26 @@ public class DogContext : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-
-
-    public float GetMaxRoamRange()
+    /// <summary>
+    /// Calculates a new location for the dog to go to based on the min and max roam distances and the specified axis to travel by
+    /// </summary>
+    /// <returns>Vector3</returns>
+    public Vector3 GetNewRoamLocation()
     {
-        return _maxRoamX;
-    }
 
-    public float GetMinRoamRange()
-    {
-        return _minRoamX;
+        switch (movementAxis) 
+        {
+            case MovementAxis.X:
+                return (Vector3.right * Random.Range(_minRoamDistance,_maxRoamDistance + 0.5f)) + new Vector3(0,transform.position.y, transform.position.z);
+            case MovementAxis.Y:
+                return (Vector3.up * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(transform.position.x,0, transform.position.z);
+            case MovementAxis.Z:
+                return Vector3.forward * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f) + new Vector3(transform.position.x, transform.position.y,0);
+            default:
+                Debug.LogError("Movement Axis has not been set to a valid value!!", this);
+                return Vector3.zero;
+        }
+
     }
 
     /// <summary>
@@ -56,6 +68,11 @@ public class DogContext : MonoBehaviour
     public float GetSpeed()
     {
         return speed;
+    }
+
+    enum MovementAxis
+    {
+        X, Y, Z
     }
 }
 
