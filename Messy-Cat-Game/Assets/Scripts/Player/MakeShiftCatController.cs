@@ -858,6 +858,14 @@ public class MakeShiftCatController : MonoBehaviour
         */
     }
 
+    public void EndVictory()
+    {
+        if(anim != null)
+        {
+            anim.SetBool("isVictorious", false);
+        }
+    }
+
     //optional
 
     void ApplyKBSlow()
