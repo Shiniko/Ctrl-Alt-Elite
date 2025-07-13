@@ -9,11 +9,13 @@ public class DogContext : MonoBehaviour
     public DogVision vision { get; private set; }
 
 
-    [SerializeField] private Rigidbody rb;
+    private Rigidbody rb;
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float _maxRoamDistance;
-    [SerializeField] private float _minRoamDistance;
+
+    [SerializeField] private float _maxRoamDistance = -1;
+    [SerializeField] private float _minRoamDistance = 1;
     [SerializeField] private MovementAxis movementAxis;
+
     [SerializeField] private float size = 0.25f;
     [SerializeField] private Color gizmoColor = Color.green;
 
@@ -21,8 +23,18 @@ public class DogContext : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = gizmoColor;
-        Gizmos.DrawWireSphere(new(_minRoamDistance,transform.position.y,transform.position.z),size);
-        Gizmos.DrawWireSphere(new(_maxRoamDistance, transform.position.y, transform.position.z), size);
+        //Dog roaming distance gizmos
+        switch (movementAxis)
+        {
+            case MovementAxis.X:
+                Gizmos.DrawWireSphere(new(_minRoamDistance, transform.position.y, transform.position.z), size);
+                Gizmos.DrawWireSphere(new(_maxRoamDistance, transform.position.y, transform.position.z), size);
+                break;
+            case MovementAxis.Z:
+                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _minRoamDistance), size);
+                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _maxRoamDistance), size);
+                break;
+        }
     }
 
     public void Awake()
@@ -36,13 +48,10 @@ public class DogContext : MonoBehaviour
     /// <returns>Vector3</returns>
     public Vector3 GetNewRoamLocation()
     {
-
         switch (movementAxis) 
         {
             case MovementAxis.X:
                 return (Vector3.right * Random.Range(_minRoamDistance,_maxRoamDistance + 0.5f)) + new Vector3(0,transform.position.y, transform.position.z);
-            case MovementAxis.Y:
-                return (Vector3.up * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(transform.position.x,0, transform.position.z);
             case MovementAxis.Z:
                 return Vector3.forward * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f) + new Vector3(transform.position.x, transform.position.y,0);
             default:

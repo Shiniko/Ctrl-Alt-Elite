@@ -3,41 +3,44 @@ using UnityEngine.Assertions;
 
 public class Dog_RoamingState : StateMachineBehaviour
 {
+    //References
     DogContext _dogContext;
     Transform _transform;
     Rigidbody _rigidbody;
-    bool _newTargetSet = false;
-    Vector3 _targetPosition;
 
+    Vector3 _goTo;
+    bool _goToSet = false;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _dogContext = animator.GetComponent<DogContext>();
         _transform = _dogContext.transform;
         _rigidbody = _dogContext.GetRigidbody();
-
-        _targetPosition = new(Random.Range(_dogContext.GetMinRoamRange(), _dogContext.GetMaxRoamRange()), _transform.position.y, _transform.position.z);
-        _newTargetSet = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Mathf.Approximately(_transform.position.x, _targetPosition.x))
+        if(_goToSet == false)
         {
-            _newTargetSet = false;
-        }
-
-        if(_newTargetSet == false)
-        {
-            //Pick a random location to go to
-            _targetPosition = new(Random.Range(_dogContext.GetMinRoamRange(), _dogContext.GetMaxRoamRange()), _transform.position.y, _transform.position.z);
+            //Get a new location to roam to
+            _goTo = _dogContext.GetNewRoamLocation();
+            _goToSet = true;
         }
         //Time.deltaTime is not used here because it causes weird movement behavior
-        Vector3 nextStep = Vector3.MoveTowards(_transform.position, _targetPosition, _dogContext.GetSpeed() * Time.fixedDeltaTime);
-        //Move towards the new locations
-        _rigidbody.MovePosition(nextStep);
+        _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, _goTo, _dogContext.GetSpeed() * Time.fixedDeltaTime));
 
+        //If the dog has reached the destination, reset the goTo variable
+        if(Vector3.Distance(_transform.position, _goTo) < 0.1f)
+        {
+            bool done = false;
+            Timer.StartTimer(ref done,2);
+            while(done == false)
+            {
+
+            }
+            _goToSet = false;
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
