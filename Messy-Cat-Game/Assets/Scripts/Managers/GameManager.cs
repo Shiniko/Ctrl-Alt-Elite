@@ -169,6 +169,8 @@ public class GameManager : MonoBehaviour
 
         HandlePlayer();     //calls everyframe to do player specific things, however empty atm so if its determined we dont need can remove this call and its function
 
+        HandleCounters();  //calls everyframe to adjust time on counters for various things
+
         if (playerPrefsManager != null)
         {
             hasLoadedPrefs = playerPrefsManager.hasSetPrefs;
@@ -284,6 +286,59 @@ public class GameManager : MonoBehaviour
         if(player != null)
         {
             hasSpawnedPlayer = true;
+        }
+    }
+
+    private void HandleCounters()
+    {
+        if (shortenCounter < shortenCD)
+        {
+            shortenCounter += Time.deltaTime;
+        }
+        else
+        {
+            shortenCounter = shortenCD;
+
+            if (currentPlayerHP != null && oldPlayerHP != null)
+            {
+                if (currentPlayerHP.fillAmount < oldPlayerHP.fillAmount)
+                {
+                    float shortenAmount = shortenRate * Time.deltaTime;
+                    oldPlayerHP.fillAmount -= shortenAmount;
+                }
+                else
+                {
+                    if (currentPlayerHP.fillAmount > oldPlayerHP.fillAmount)
+                    {
+                        oldPlayerHP.fillAmount = currentPlayerHP.fillAmount;
+                    }
+                }
+            }
+        }
+
+        if (growCounter < growCD)
+        {
+            growCounter += Time.deltaTime;
+        }
+        else
+        {
+            growCounter = growCD;
+
+            if (currentPlayerHP != null && newPlayerHP != null)
+            {
+                if (currentPlayerHP.fillAmount < newPlayerHP.fillAmount)
+                {
+                    float growAmount = growRate * Time.deltaTime;
+                    currentPlayerHP.fillAmount += growAmount;
+                }
+                else
+                {
+                    if (currentPlayerHP.fillAmount > newPlayerHP.fillAmount)
+                    {
+                        newPlayerHP.fillAmount = currentPlayerHP.fillAmount;
+                    }
+                }
+            }
         }
     }
 
