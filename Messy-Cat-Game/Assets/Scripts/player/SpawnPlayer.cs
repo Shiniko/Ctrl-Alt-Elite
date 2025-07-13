@@ -8,31 +8,45 @@ public class SpawnPlayer : MonoBehaviour
     public Vector3 spawnPosition;
     public bool gameReady;
     public bool hasSpawned;
+    public bool hasSetSpawnPosition;
 
     public GameObject spawnEffect;
 
     void Awake()
     {
-        spawnPosition = gameObject.transform.position;
+        if (!hasSetSpawnPosition)
+        {
+            hasSetSpawnPosition = true;
+
+            spawnPosition = gameObject.transform.position;
+        }
     }
 
     void Update()
     {
+        if (!hasSetSpawnPosition)
+        {
+            hasSetSpawnPosition = true;
 
+            spawnPosition = gameObject.transform.position;
+        }
     }
 
     public void Spawn()
     {
-        hasSpawned = true;
-
-        if (playerToSpawn != null)
+        if (hasSetSpawnPosition)
         {
-            Instantiate(playerToSpawn, spawnPosition, Quaternion.identity);
-        }
+            hasSpawned = true;
 
-        if (spawnEffect != null)
-        {
-            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
+            if (playerToSpawn != null)
+            {
+                Instantiate(playerToSpawn, spawnPosition, Quaternion.identity);
+            }
+
+            if (spawnEffect != null)
+            {
+                Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
+            }
         }
     }
 }
