@@ -17,8 +17,7 @@ public class DogContextCustomInspector : Editor
         // Required References
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Required References", EditorStyles.boldLabel);
-        SerializedProperty rbProp = serializedObject.FindProperty("rb");
-        EditorGUILayout.PropertyField(rbProp, new GUIContent("Rigidbody", "For smoother movement change the interpolation setting to 'interpolate' "));
+
 
         // Movement Settings
         EditorGUILayout.Space();
