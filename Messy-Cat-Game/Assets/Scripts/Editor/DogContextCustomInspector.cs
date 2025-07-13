@@ -31,9 +31,11 @@ public class DogContextCustomInspector : Editor
         SerializedProperty maxRoamProp = serializedObject.FindProperty("_maxRoamDistance");
         SerializedProperty minRoamProp = serializedObject.FindProperty("_minRoamDistance");
         SerializedProperty axisProp = serializedObject.FindProperty("movementAxis");
+        SerializedProperty stallTimeProp = serializedObject.FindProperty("stallTime");
         EditorGUILayout.PropertyField(maxRoamProp);
         EditorGUILayout.PropertyField(minRoamProp);
         EditorGUILayout.PropertyField(axisProp, new GUIContent("Movement Axis", "The axis for the dog to walk along during its roaming state"));
+        EditorGUILayout.PropertyField(stallTimeProp);
 
         // Gizmo Settings
         EditorGUILayout.Space();

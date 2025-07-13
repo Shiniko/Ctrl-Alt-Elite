@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 //Required for movement
 [RequireComponent(typeof(Rigidbody))]
 //Required for collision detection
@@ -8,12 +9,12 @@ public class DogContext : MonoBehaviour
     public SphereCollider dogHearing { get; private set; }
     public DogVision vision { get; private set; }
 
-
     private Rigidbody rb;
     [SerializeField] private float speed = 5f;
 
     [SerializeField] private float _maxRoamDistance = -1;
     [SerializeField] private float _minRoamDistance = 1;
+    [SerializeField] private float stallTime = 2f;
     [SerializeField] private MovementAxis movementAxis;
 
     [SerializeField] private float size = 0.25f;
@@ -61,6 +62,8 @@ public class DogContext : MonoBehaviour
 
     }
 
+
+
     /// <summary>
     /// Returns the rigidbody that is attached to the same game object as the Dog Context script
     /// </summary>
@@ -77,6 +80,11 @@ public class DogContext : MonoBehaviour
     public float GetSpeed()
     {
         return speed;
+    }
+
+    public float GetStallTime()
+    {
+        return stallTime;
     }
 
     enum MovementAxis

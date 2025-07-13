@@ -477,7 +477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1475235939284039697, guid: de9cff8d30b6c3542a2b06e2705b3c0d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 1475235939284039697, guid: de9cff8d30b6c3542a2b06e2705b3c0d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -572,8 +572,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  _maxRoamDistance: -1
-  _minRoamDistance: 1
+  _maxRoamDistance: -14.89
+  _minRoamDistance: 12.09
+  stallTime: 2
   movementAxis: 0
   size: 0.25
   gizmoColor: {r: 0, g: 1, b: 0, a: 1}
@@ -596,8 +597,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.28258324, y: 0.5528493, z: 1}
+  m_Center: {x: 0.021355689, y: 0.281439, z: 0}
 --- !u!54 &1768885064
 Rigidbody:
   m_ObjectHideFlags: 0
