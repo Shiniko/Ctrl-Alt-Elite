@@ -2,15 +2,855 @@ using UnityEngine;
 
 public class MakeShiftCatController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Movement Details")]
+    [SerializeField] private Vector3 movement = Vector3.zero;
+    [SerializeField] private Vector3 velocity = Vector3.zero;
+    [SerializeField] private float moveX;
+    [SerializeField] private float moveY;
+    [SerializeField] private float velocityY;
+    [SerializeField] private float topmaxYvelocity;
+    [SerializeField] private float topminYvelocity;
+    [SerializeField] private float maxYvelocity;
+    [SerializeField] private float minYvelocity;
+
+    [Header("Initial Stats")]
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Animator anim;
+    public GameObject body;
+    [SerializeField] private GameObject deadBody;
+    [SerializeField] private GameObject model;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform ankleCheck;
+
+    [Header("Player States")]
+    public bool isEngaged;
+    [SerializeField] private bool isDead;
+    [SerializeField] private bool isInCutscene;
+
+    [Header("Movement Params")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float runfactor;
+    [SerializeField] private float gravity;
+    [SerializeField] private bool canMove; // when player inputs can move player
+    [SerializeField] private bool triggeredFall;
+    [SerializeField] private float velToTriggerFall;
+    [SerializeField] private float velToTriggerHardLand;
+
+    [Header("GroundChecks")]
+    [SerializeField] private float groundDistance; // Distance to check for ground
+    [SerializeField] private bool checkingGround; // when actively checking if grounded
+    [SerializeField] private bool isGrounded; // Flag to indicate if object is grounded
+
+    [Header("WallChecks")]
+    [SerializeField] private float wallDistance; // Distance to check for ground
+    [SerializeField] private bool checkingWall; // when actively checking if grounded
+    [SerializeField] private bool isNearWall;
+
+    [Header("Input Params")]
+    [SerializeField] private bool inputsFrozen;
+    [SerializeField] private bool facingRight = true;
+
+    [Header("Respawn Params")]
+    public bool isRespawning = true;
+    [SerializeField] private float respawnCounter;
+    [SerializeField] private float respawnCD;
+
+    public bool triggeredDeath;
+    [SerializeField] private float evaporateDelay;
+
+    [Header("Jump Params")]
+    [SerializeField] private bool canJump;
+    [SerializeField] private bool isJumping;
+    [SerializeField] private bool triggeredJump;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private int jumpCount;
+    public int jumpMax;
+    [SerializeField] private float jumpCounter;
+    [SerializeField] private float jumpCD;
+
     void Start()
     {
+        if (body != null)
+        {
+            if (rb == null)
+            {
+                rb = body.GetComponent<Rigidbody>(); //set rb to body rb if null
+            }
+        }
+
+        if (anim == null)
+        {
+            anim = GetComponentInChildren<Animator>(); // set animator if null
+        }
+    }
+
+    void Update()
+    {
+        if (!isDead)
+        {
+            if (!isRespawning)
+            {
+                canMove = true;
+                
+                checkingGround = true;
+                checkingWall = true;
+                inputsFrozen = false;
+            }
+            else
+            {
+                canMove = false;
+                checkingGround = false;
+                checkingWall = false;
+                inputsFrozen = true;
+
+                if (isRespawning)
+                {
+                    if (respawnCounter < respawnCD)
+                    {
+                        respawnCounter += Time.deltaTime;
+                    }
+                    else
+                    {
+                        respawnCounter = respawnCD;
+
+                        //isRespawning = false; //This is set in animation handler to set false when done with respawn animation
+
+                        //remove this once animation event is setup
+                        isRespawning = false;
+                    }
+                }
+            }
+
+            if (!inputsFrozen)
+            {
+                CheckInputs();
+            }
+
+            if (checkingGround)
+            {
+                CheckGround();
+            }
+
+            if (checkingWall)
+            {
+                CheckWall();
+            }
+
+            if (rb != null)
+            {
+                HandleYVelocity();
+            }
+        }
+        else
+        {
+            // deal with dead body?
+
+            canMove = false;
+
+            //knockback
+            //ApplyKBSlow();  //optional use; slower knockback method if needed to lerp a Vertical velocity
+            //gravity
+
+            ApplyGravity(); //apply gravity so matches dead body instantiate position
+        }
+    }
+
+    private void HandleYVelocity()
+    {
+        velocityY = rb.linearVelocity.y; //store rb y velocity
+
+        //check if postitive y velocity above max and set to max if so
+        if (velocityY > maxYvelocity)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxYvelocity, 0);
+        }
+
+        //check if falling too hard and set to max negative y velocity
+        if (velocityY < minYvelocity)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, minYvelocity, 0);
+        }
+
+        velocityY = rb.linearVelocity.y;
+
+        //set topmax Vertical for debugging - no movement value -  Note: this value does not reflect current rb velocity, but rather the stored velocity before max/min adjusting
+        if (velocityY > topmaxYvelocity)
+        {
+            topmaxYvelocity = velocityY;
+        }
+
+        //set topmin Vertical for debugging - no movement value -  Note: this value does not reflect current rb velocity, but rather the stored velocity before max/min adjusting
+        if (velocityY < topminYvelocity)
+        {
+            topminYvelocity = velocityY;
+        }
+
+        //check if falling hard enough for hardland animation
+        if (anim != null)
+        {
+            anim.SetFloat("velocityY", velocityY);
+
+            if (!isGrounded) // if grounded no reason to check for velocityY regarding hard landing animation
+            {
+                if (velocityY < velToTriggerHardLand)
+                {
+                    anim.SetBool("hardLand", true);
+                }
+                else
+                {
+                    anim.SetBool("hardLand", false);
+                }
+            }
+        }
+    }
+
+    private void CheckInputs()
+    {
+        
+        if (canMove)
+        {
+            // Get input and set animator parameters
+            moveX = Input.GetAxis("Horizontal");
+            moveY = Input.GetAxis("Vertical");
+
+            if (moveX > 0.01f && !facingRight)
+            {
+                FlipFace();
+            }
+            else if (moveX < -0.01f && facingRight)
+            {
+                FlipFace();
+            }
+
+            movement = new Vector3(moveX, 0, 0).normalized;
+
+            if (movement.sqrMagnitude > 0.01f)
+            {
+                if (anim != null)
+                {
+                    anim.SetBool("isMoving", true);
+                    anim.SetFloat("moveX", Mathf.Abs(moveX));
+                    anim.SetFloat("moveY", moveY);
+                }
+            }
+            else
+            {
+                if (anim != null)
+                {
+                    anim.SetBool("isMoving", false);
+                    anim.SetFloat("moveX", Mathf.Abs(moveX));
+                    anim.SetFloat("moveY", moveY);
+                }
+            }
+        
+
+            /*
+            if (canJump && Input.GetButtonDown("Jump"))
+            {
+                // because multiple jumps can happen, set rb velocity of y to dimishing amount
+                if (rb != null)
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.25f, 0);
+
+                    rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+                }
+
+                jumpCount++;
+
+                isJumping = true;
+
+                if (isHanging)
+                {
+                    Debug.Log("player was able to jump while hanging");
+
+                    isHanging = false;
+                    triggeredClimb = false;
+                    triggeredHang = false;
+
+                    if (anim != null)
+                    {
+                        anim.ResetTrigger("triggerHang");
+                        anim.SetBool("isHanging", false);
+
+                        anim.ResetTrigger("climUp");
+                    }
+                }
+
+                if (isWallGrabbing)
+                {
+                    // change wall grab stuffs
+                }
+
+                if (anim != null)
+                {
+                    anim.SetBool("isJumping", true);
+
+                    if (!triggeredJump)
+                    {
+                        anim.SetTrigger("triggerJump");
+                    }
+
+                    anim.SetBool("isGliding", false);
+                    anim.SetBool("isFalling", false);
+
+                    if (triggeredFall)
+                    {
+                        triggeredFall = false;
+                        anim.ResetTrigger("triggerFall");
+
+                        Debug.Log("Reset triggerfall");
+                    }
+                }
+
+                if (jumpCount >= jumpMax)
+                {
+                    canJump = false;
+                    jumpCounter = 0f;
+                }
+                else
+                {
+                    canJump = true;
+                    jumpCounter = 0f;
+                }
+            }
+
+            if (isJumping)
+            {
+                if (Input.GetButtonUp("Jump"))
+                {
+                    if (rb != null)
+                    {
+                        if (!isGliding)
+                        {
+                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, 0);
+                        }
+                    }
+                }
+            }
+
+            if (hasGlide)
+            {
+                if (canGlide && Input.GetButton("Jump"))
+                {
+                    if (!isJumping)
+                    {
+                        if (!isHanging)
+                        {
+                            if (!isGliding)
+                            {
+                                if (!initialDescent)
+                                {
+                                    if (rb != null)
+                                    {
+                                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, 0);
+                                        initialDescent = true;
+                                    }
+                                }
+
+                                isGliding = true;
+
+                                if (anim != null)
+                                {
+                                    anim.SetBool("isGliding", true);
+                                    anim.SetBool("isFalling", false);
+
+                                    anim.ResetTrigger("triggerJump");
+
+                                    triggeredFall = false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (isGliding && Input.GetButtonUp("Jump"))
+                {
+                    isGliding = false;
+                    initialDescent = false;
+
+                    if (anim != null)
+                    {
+                        anim.SetBool("isGliding", false);
+                    }
+                }
+            }
+
+            if (hasSlide)
+            {
+                // check for slide input
+            }
+
+            if (hasGrapple)
+            {
+                // check for grapple input
+            }
+
+            if (hasWallGrab)
+            {
+                // check for wall grab input, similar to 
+            }
+        */
+            if (rb != null)
+            {
+                MoveCharacter();
+            }
+        }
+        else
+        {
+            ApplyGravity();
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void MoveCharacter()
+    {
+        if (!isNearWall)
+        {
+            velocity = movement * moveSpeed;
+
+            if (Mathf.Abs(moveX) > 0.71f)
+            {
+                velocity = movement * (moveSpeed * runfactor);
+            }
+        }
+        else
+        {
+            velocity = new Vector3(0, rb.linearVelocity.y, 0);
+        }
+
+        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, 0);
+
+        ApplyGravity();
+    }
+
+    void FlipFace()
+    {
+        if (body != null)
+        {
+            facingRight = !facingRight;
+
+            if (model != null)
+            {
+                Vector3 scaler = model.transform.localScale;
+                scaler.z *= -1; // Flip the character by inverting the scale on the Z axis
+                model.transform.localScale = scaler;
+
+                //Debug.Log("Flipped Model");
+            }
+        }
+    }
+
+    void CheckGround()
     {
         
+        if (groundCheck != null)
+        {
+            if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
+            {
+                isGrounded = true;
+                //midGrounded = true;
+
+                Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.green);
+            }
+            else
+            {
+                //midGrounded = false;
+
+                Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.red);
+            }
+        }
+
+        /*
+        if (edgeCheck != null)
+        {
+            if (Physics.CheckSphere(edgeCheck.position, groundDistance, groundMask))
+            {
+                isGrounded = true;
+                frontGrounded = true;
+
+                Debug.DrawRay(edgeCheck.position, Vector3.down * groundDistance, Color.green);
+            }
+            else
+            {
+                frontGrounded = false;
+
+                Debug.DrawRay(edgeCheck.position, Vector3.down * groundDistance, Color.red);
+            }
+        }
+
+        if (edgeCheckRear != null)
+        {
+            if (Physics.CheckSphere(edgeCheckRear.position, groundDistance, groundMask))
+            {
+                isGrounded = true;
+                rearGrounded = true;
+
+                Debug.DrawRay(edgeCheckRear.position, Vector3.down * groundDistance, Color.green);
+            }
+            else
+            {
+                rearGrounded = false;
+
+                Debug.DrawRay(edgeCheckRear.position, Vector3.down * groundDistance, Color.red);
+            }
+        }
+
+        if (!frontGrounded && !midGrounded && !rearGrounded)
+        {
+            isGrounded = false;
+        }
+
+        if (!frontGrounded && !midGrounded && rearGrounded)
+        {
+            nearEdgeRear = true;
+        }
+        else
+        {
+            nearEdgeRear = false;
+        }
+
+        if (frontGrounded && !midGrounded && !rearGrounded)
+        {
+            nearEdgeFront = true;
+        }
+        else
+        {
+            nearEdgeFront = false;
+        }
+
+        if (!frontGrounded && midGrounded && !rearGrounded)
+        {
+            isTeetering = true;
+        }
+        else
+        {
+            isTeetering = false;
+        }
+
+        */
+
+        ApplyGroundState();
+    }
+
+    void CheckWall()
+    {
+        if (ankleCheck != null)
+        {
+            if (Physics.CheckSphere(ankleCheck.position, wallDistance, groundMask))
+            {
+                isNearWall = true;
+            }
+            else
+            {
+                isNearWall = false;
+            }
+        }
+
+        /*
+        if (ankleCheck != null)
+        {
+            if (Physics.CheckSphere(ankleCheck.position, wallDistance, groundMask))
+            {
+                isNearWall = true;
+                ankleWall = true;
+            }
+            else
+            {
+                ankleWall = false;
+            }
+        }
+
+        if (midCheck != null)
+        {
+            if (Physics.CheckSphere(midCheck.position, wallDistance, groundMask))
+            {
+                isNearWall = true;
+                midWall = true;
+            }
+            else
+            {
+                midWall = false;
+            }
+        }
+
+        if (thighCheck != null)
+        {
+            if (Physics.CheckSphere(thighCheck.position, wallDistance, groundMask))
+            {
+                isNearWall = true;
+                thighWall = true;
+            }
+            else
+            {
+                thighWall = false;
+            }
+        }
+
+        if (faceCheck != null)
+        {
+            if (Physics.CheckSphere(faceCheck.position, wallDistance, groundMask))
+            {
+                isNearWall = true;
+                faceWall = true;
+            }
+            else
+            {
+                faceWall = false;
+            }
+        }
+
+        if (!ankleWall && !midWall && !thighWall && !faceWall)
+        {
+            isNearWall = false;
+        }
+
+        if (isNearWall)
+        {
+            if (!faceWall && midWall && !isGrounded)
+            {
+                hangStart = true;
+            }
+            else
+            {
+                hangStart = false;
+            }
+
+            if (!faceWall && !midWall && !isGrounded)
+            {
+                miniClimb = true;
+            }
+            else
+            {
+                miniClimb = false;
+            }
+
+            if (hangStart)
+            {
+                if (!triggeredHang)
+                {
+                    triggeredHang = true;
+
+                    StartHangSequence();
+                }
+            }
+        }
+        */
+    }
+
+    void ApplyGravity()
+    {
+        if (!isGrounded)
+        {
+            rb.linearVelocity += new Vector3(0, -(gravity * Time.deltaTime), 0);
+
+            //Debug.Log("appplying regular gravity");
+
+            if (rb.linearVelocity.y > velToTriggerFall)
+            {
+                if (rb.linearVelocity.y < -0.1f)
+                {
+                    rb.linearVelocity += new Vector3(0, -(gravity * Time.deltaTime), 0);
+                }
+            }
+        }
+        else
+        {
+            if (!isJumping)
+            {
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, 0);
+
+                velocityY = rb.linearVelocity.y;
+            }
+        }
+
+        /*
+        if (!isGrounded)
+        {
+            if (!isHanging)
+            {
+                if (!isWallGrabbing)
+                {
+                    if (!isGliding)
+                    {
+                        rb.velocity += new Vector3(0, -(gravity * Time.deltaTime), 0);
+
+                        //Debug.Log("appplying regular gravity");
+
+                        if (rb.velocity.y > velToTriggerFall)
+                        {
+                            if (rb.velocity.y < -0.1f)
+                            {
+                                rb.velocity += new Vector3(0, -(gravity * Time.deltaTime), 0);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((velocityY + gravity) >= (gravity * 0.9f))
+                        {
+                            rb.velocity += new Vector3(0, -(gravity * glideModifier * Time.deltaTime), 0); //glide modifier should be between 0 and 1
+                        }
+                        else
+                        {
+                            if ((velocityY + gravity) >= (gravity * 0.75f))
+                            {
+                                rb.velocity += new Vector3(0, gravity * glideModifier * 0.5f * Time.deltaTime, 0);
+                            }
+                            else
+                            {
+                                rb.velocity += new Vector3(0, 0, 0); //glide modifier should be between 0 and 1
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (!isJumping)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, 0, 0);
+
+                velocityY = rb.velocity.y;
+            }
+        }
+
+        if (velocityY < velToTriggerFall)
+        {
+            if (!isHanging && !isGliding && !isAttacking && !isWallGrabbing)
+            {
+                if (anim != null)
+                {
+                    if (!triggeredFall)
+                    {
+                        triggeredFall = true;
+                        triggeredJump = false;
+
+                        anim.ResetTrigger("triggerJump");
+
+                        anim.SetBool("isFalling", true);
+                        anim.SetTrigger("triggerFall");
+
+                        Debug.Log("Triggered Fall");// and vel is " + velocityY);
+                    }
+                }
+            }
+            else
+            {
+                // check things here is fall not triggering correctly
+                Debug.Log("something stopped falling to trigger");
+            }
+        }
+        else
+        {
+            if (!isJumping)
+            {
+                if (triggeredFall)
+                {
+                    if (anim != null)
+                    {
+                        anim.SetBool("isFalling", false);
+                        anim.ResetTrigger("triggerFall");
+
+                        Debug.Log("Reset Triggered Fall cause velocity above threshold");
+                    }
+
+                    triggeredFall = false;
+                }
+            }
+        }
+        */
+    }
+
+    void ApplyGroundState()
+    {
+
+        if (isGrounded)
+        {
+            //Debug.Log("isGrounded");
+
+            if (rb != null)
+            {
+                if (rb.linearVelocity.y < -0.1f || rb.linearVelocity.y > 0.1f)
+                {
+                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, 0);
+
+                    //Debug.Log("Reset rb velocity to zero in ground state");
+                }
+            }
+        }
+
+        /*
+            initialDescent = false;
+
+            if (isGliding)
+            {
+                isGliding = false;
+            }
+
+            if (jumpCounter >= jumpCD)
+            {
+                canJump = true;
+                jumpCount = 0;
+                isJumping = false;
+
+                if (anim != null)
+                {
+                    anim.SetBool("isJumping", false);
+                }
+            }
+
+            if (slideCounter >= slideCD)
+            {
+                canSlide = true;
+                slideCount = 0;
+            }
+
+            canGlide = false;
+            triggeredFall = false;
+
+            if (anim != null)
+            {
+                if (!isJumping)
+                {
+                    anim.SetBool("isGrounded", true);
+                    anim.ResetTrigger("triggerFall");
+                }
+
+                anim.SetBool("isGliding", false);
+                anim.SetBool("isFalling", false);
+            }
+        }
+        else
+        {
+            if (!isHanging)
+            {
+                canGlide = true;
+            }
+
+            if (anim != null)
+            {
+                anim.SetBool("isGrounded", false);
+            }
+        }
+        */
+    }
+
+    //optional
+
+    void ApplyKBSlow()
+    {
+        if (!isGrounded)
+        {
+
+        }
+        else
+        {
+            Vector3 newVel;
+            Vector3 oldVel = rb.linearVelocity;
+            newVel = new Vector3(0, rb.linearVelocity.y, 0);
+            rb.linearVelocity = Vector3.Lerp(oldVel, newVel, 0.025f);
+        }
     }
 }

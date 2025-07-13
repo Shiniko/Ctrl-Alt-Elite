@@ -36,21 +36,12 @@ public class FollowPlayer : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("Player") != null)
             {
-                if (GameObject.FindGameObjectWithTag("Player").GetComponent<CatController>() != null)
-                {
-                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<CatController>().body != null)
-                    {
-                        target = GameObject.FindGameObjectWithTag("Player").GetComponent<CatController>().body;
-                    }
+                player = GameObject.FindGameObjectWithTag("Player");
+            }
 
-                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<CatController>().focusCamera == null)
-                    {
-                        if (focusCamera != null)
-                        {
-                            GameObject.FindGameObjectWithTag("Player").GetComponent<CatController>().focusCamera = focusCamera;
-                        }
-                    }
-                }
+            if (player != null)
+            {
+                target = player;
             }
         }
     }

@@ -164,9 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 0
+  speed: 5
   distancePlayer: 0
-  minDistance: 0
+  minDistance: 0.01
   following: 0
   moveCounter: 0
   speedProRate: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   spawnOffset: 0
   player: {fileID: 0}
   distance: 0
-  threshold: 0
+  threshold: 0.01
 --- !u!1 &53965634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,6 +2570,7 @@ GameObject:
   - component: {fileID: 1310374447}
   - component: {fileID: 1310374446}
   - component: {fileID: 1310374445}
+  - component: {fileID: 1310374448}
   - component: {fileID: 1310374444}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -2626,7 +2627,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: -10}
+  FollowOffset: {x: 0, y: 3, z: -3}
 --- !u!114 &1310374446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2647,7 +2648,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 0}
+    TrackingTarget: {fileID: 7834960}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -2678,13 +2679,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310374443}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.071083695, y: -0, z: -0, w: 0.9974704}
-  m_LocalPosition: {x: 0.62, y: 3.55, z: -8.6}
+  m_LocalRotation: {x: 0.21643962, y: 0, z: 0, w: 0.976296}
+  m_LocalPosition: {x: 0, y: 3, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 8.152, y: 0, z: 0}
+--- !u!114 &1310374448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310374443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d54399b04b4fa48a73e121d4937dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReferenceFrame: 0
+  RecenterTarget: 0
+  PanAxis:
+    Value: 0
+    Center: 0
+    Range: {x: -180, y: 180}
+    Wrap: 1
+    Recentering:
+      Enabled: 0
+      Wait: 1
+      Time: 2
+    Restrictions: 0
+  TiltAxis:
+    Value: 25
+    Center: 0
+    Range: {x: -70, y: 70}
+    Wrap: 0
+    Recentering:
+      Enabled: 0
+      Wait: 1
+      Time: 2
+    Restrictions: 0
 --- !u!1 &1353524815
 GameObject:
   m_ObjectHideFlags: 0
@@ -4122,8 +4157,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081726859}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.071083695, y: 0, z: 0, w: 0.9974704}
-  m_LocalPosition: {x: 0.62, y: 3.55, z: -8.6}
+  m_LocalRotation: {x: 0.21643962, y: 0, z: 0, w: 0.976296}
+  m_LocalPosition: {x: 0, y: 3, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
