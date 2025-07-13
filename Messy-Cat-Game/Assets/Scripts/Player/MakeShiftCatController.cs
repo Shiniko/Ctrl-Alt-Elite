@@ -37,6 +37,12 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private float velToTriggerFall;
     [SerializeField] private float velToTriggerHardLand;
 
+    [Header("Smoothing Params")]
+    [SerializeField] private float smoothInputSpeed;
+    private Vector2 currentInputVector;
+    private Vector2 smoothInputVelocity;
+
+
     [Header("GroundChecks")]
     [SerializeField] private float groundDistance; // Distance to check for ground
     [SerializeField] private bool checkingGround; // when actively checking if grounded
@@ -214,18 +220,30 @@ public class MakeShiftCatController : MonoBehaviour
             moveX = Input.GetAxis("Horizontal");
             moveY = Input.GetAxis("Vertical");
 
+            //smoothing start
+            Vector2 input = new Vector2(moveX, moveY);
+            currentInputVector = Vector2.SmoothDamp(currentInputVector, input, ref smoothInputVelocity, smoothInputSpeed);
+
+            //smoothing end
+
+            movement = new Vector3(currentInputVector.x, 0, 0).normalized;
+
             if (moveX > 0.01f && !facingRight)
             {
                 FlipFace();
+
+                movement = new Vector3(moveX, 0, 0).normalized;
+                currentInputVector = new Vector2(moveX, 0).normalized;
             }
             else if (moveX < -0.01f && facingRight)
             {
                 FlipFace();
+
+                movement = new Vector3(moveX, 0, 0).normalized;
+                currentInputVector = new Vector2(moveX, 0).normalized;
             }
 
-            movement = new Vector3(moveX, 0, 0).normalized;
-
-            if (movement.sqrMagnitude > 0.01f)
+            if (Mathf.Abs(moveX) > 0.01f)
             {
                 if (anim != null)
                 {
@@ -242,6 +260,9 @@ public class MakeShiftCatController : MonoBehaviour
                     anim.SetFloat("moveX", Mathf.Abs(moveX));
                     anim.SetFloat("moveY", moveY);
                 }
+
+                movement = new Vector3(moveX, 0, 0).normalized;
+                currentInputVector = new Vector2(moveX, 0).normalized;
             }
         
 
