@@ -38,10 +38,15 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private float velToTriggerHardLand;
 
     [Header("Smoothing Params")]
-    [SerializeField] private float smoothInputSpeed;
-    private Vector2 currentInputVector;
-    private Vector2 smoothInputVelocity;
+    [SerializeField] private float smoothInputSpeed;  //smoothing rate
+    private Vector2 currentInputVector;         //used to calculate a input from player to affect smooth velocity
+    private Vector2 smoothInputVelocity;        //used as x velocity to give a smooth accleration to player movement
 
+    [Header("Target Params")]
+    public GameObject target;                               //game object to pass in as victim to cat scratching
+    [SerializeField] private ObjectHealth objectHealth;     //reference to health script of object
+    private int currentDamageProgress;                      //generalized progress in increments of 33, 66, and 100, given by animation events of the scratching
+    private float damageToInflict;                          //calculated damage to pass on to health script of object
 
     [Header("GroundChecks")]
     [SerializeField] private float groundDistance; // Distance to check for ground
@@ -858,11 +863,152 @@ public class MakeShiftCatController : MonoBehaviour
         */
     }
 
+    //Anim Dealer Collabs
+
     public void EndVictory()
     {
         if(anim != null)
         {
             anim.SetBool("isVictorious", false);
+        }
+    }
+
+    public void ThirtyThreeScratch()
+    {
+        // add 33 progress to target
+
+        if(target != null)
+        {
+            currentDamageProgress += 33;
+
+            CheckScratchProgress();
+        }
+    }
+
+    public void SixtySixScratch()
+    {
+        // add another 33 progress to target
+
+        if (target != null)
+        {
+            currentDamageProgress += 33;
+
+            CheckScratchProgress();
+        }
+    }
+
+    public void FullScratch()
+    {
+        // add 100 progress to target
+
+        if (target != null)
+        {
+            currentDamageProgress += 100;
+
+            CheckScratchProgress();
+        }
+    }
+
+    private void CheckScratchProgress()
+    {
+        if (currentDamageProgress >= 100)
+        {
+            if (target != null)
+            {
+                if (objectHealth != null)
+                {
+                    float damageLeft = objectHealth.currentHealth;
+                    damageToInflict = damageLeft * 1.05f;
+
+                    ApplyObjectDamage(damageToInflict);
+                }
+
+                ResetObjectTarget();
+            }
+            else
+            {
+                ResetObjectTarget();
+            }
+        }
+        else
+        {
+            if (objectHealth != null)
+            {
+                float damageLeft = objectHealth.currentHealth;
+                float damageMax = objectHealth.adjustedMaxHealth;
+                float damageCompare = damageMax * 0.333f;
+
+                if (damageCompare > damageLeft)
+                {
+                    damageToInflict = damageLeft * 1.05f;
+                }
+                else
+                {
+                    damageToInflict = damageMax;
+                }
+
+                ApplyObjectDamage(damageToInflict);
+
+                if (damageToInflict >= damageCompare)
+                {
+                    ResetObjectTarget();
+                }
+            }
+            else
+            {
+                ResetObjectTarget();
+            }
+        }
+    }
+
+    private void ApplyObjectDamage(float damage)
+    {
+        if (objectHealth != null)
+        {
+            objectHealth.ApplyDamage(damage);
+        }
+    }
+
+    public void ResetObjectTarget()
+    {
+        currentDamageProgress = 0;
+        target = null;
+        objectHealth = null;
+        damageToInflict = 0f;
+    }
+
+    public void SetObjectTarget(GameObject ot)
+    {
+        if (ot == null)
+        {
+            return;
+        }
+
+        target = ot;
+
+        if(ot.GetComponentInChildren<ObjectHealth>() != null)
+        {
+            objectHealth = ot.GetComponentInChildren<ObjectHealth>();
+
+            float currentObjectHealth = objectHealth.currentHealth;
+            float maxObjectHealth = objectHealth.adjustedMaxHealth;
+            float healthRatio = 0f;
+
+            if (maxObjectHealth > 0.1f)
+            {
+                healthRatio = currentObjectHealth / maxObjectHealth;
+            }
+
+            if (healthRatio > 0.99f)
+            {
+                currentDamageProgress = 0;
+            }
+            else
+            {
+                int ratioToInt = Mathf.CeilToInt((1f - healthRatio) * 100f);
+                currentDamageProgress = ratioToInt;
+            }
+
         }
     }
 
