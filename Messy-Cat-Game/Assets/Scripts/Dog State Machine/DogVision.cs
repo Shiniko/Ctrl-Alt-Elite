@@ -3,17 +3,42 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 // This script is used to track which objects are currently within the dog's field of vision.
 // I recommend changing the layers it collides with to as few as possible in order free up computer resources
-public class DogVision : MonoBehaviour
+//Should be on a child object of the dog
+public class DogVision : Ticker
 {
-    public static List<GameObject> viewableObjects { get; private set; }
+    [SerializeField] public List<GameObject> viewableObjects;
+    [SerializeField] private List<GameObject> objectsInViewZone;
+    [SerializeField] private LayerMask layerMask;
+    RaycastHit hit;
+
+    [Header("Gizmo Settings")]
+    [Tooltip("The length of time the debug line appears for, set to 0 for the line to update in real time")]
+    [SerializeField] private float lineTime;
+    private void OnEnable()
+    {
+        OnTickAction += UpdateViewableObjects;
+    }
+
+    private void OnDisable()
+    {
+        OnTickAction -= UpdateViewableObjects;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        viewableObjects.Add(other.gameObject);
+        if (objectsInViewZone.Contains(other.gameObject))
+        {
+            return; // If the object is already in the view zone, do nothing
+        }
+        objectsInViewZone.Add(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        viewableObjects.Remove(other.gameObject);
+        objectsInViewZone.Remove(other.gameObject);
+        if (viewableObjects.Contains(other.gameObject))
+        {
+            viewableObjects.Remove(other.gameObject);
+        }
     }
 
     /// <summary>
@@ -24,6 +49,41 @@ public class DogVision : MonoBehaviour
     public bool IsVisible(GameObject other)
     {
         return viewableObjects.Contains(other);
+    }
+
+
+    private void UpdateViewableObjects()
+    {
+        foreach (GameObject other in objectsInViewZone)
+        {
+            if(other == null)
+            {
+                continue; // Skip null objects
+            }
+            //Shoot raycast
+            float distance = Vector3.Distance(transform.position, other.transform.position) + 0.1f;
+            Vector3 direction = (other.transform.position - transform.position).normalized;
+            //If we failt to hit anything with our raycast, then we skip the rest of the code
+            if(!Physics.Raycast(transform.position, direction, out hit, distance, layerMask))
+            {
+                continue;
+            }
+
+            //Check if the raycast hit the object
+            if (hit.collider.gameObject == other.gameObject)
+            {
+                Debug.DrawLine(transform.position, other.transform.position, Color.green, lineTime,true);
+                if (!viewableObjects.Contains(other))
+                {
+                    viewableObjects.Add(other.gameObject);
+                }
+            }
+            else
+            {
+                Debug.DrawLine(transform.position, other.transform.position, Color.red, lineTime,true);
+            }
+        }
+
     }
 }
 
