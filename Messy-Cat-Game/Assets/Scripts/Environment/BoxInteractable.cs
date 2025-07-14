@@ -2,8 +2,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class BoxInteractable : MonoBehaviour, IInteractable
 {
-    void Interact()
+    public void Interact()
     {
-        Debug.Log("Interacted with!");
+        Debug.Log("Interacted with!!!");
     }
 }
