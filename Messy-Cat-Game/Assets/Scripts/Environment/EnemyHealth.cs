@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Guirao.UltimateTextDamage;
 using UnityEngine.UI;
-using DestroyIt;
+//using DestroyIt;
 
 
 public class EnemyHealth : MonoBehaviour
@@ -13,8 +13,8 @@ public class EnemyHealth : MonoBehaviour
     public UltimateTextDamageManager textManager;
     public Transform textDamagePos;
     public Animator anim;
-    [SerializeField] private Destructible destructible;
-    [SerializeField] private Destructible[] destructibleChildren;
+    //[SerializeField] private Destructible destructible;
+    //[SerializeField] private Destructible[] destructibleChildren;
     public int destChildCount;
 
     public string damageSound;
@@ -84,6 +84,7 @@ public class EnemyHealth : MonoBehaviour
             }
         }
 
+        /*
         if(gameObject.GetComponent<Destructible>() != null)
         {
             destructible = gameObject.GetComponent<Destructible>();
@@ -112,6 +113,8 @@ public class EnemyHealth : MonoBehaviour
                 }
             }
         }
+        */
+
 
         if (isBoss)
         {
@@ -281,10 +284,12 @@ public class EnemyHealth : MonoBehaviour
                         }
                     }
 
+                    /*
                     if (destructible != null)
                     {
                         destructible.ApplyDamage(amountTaken);
                     }
+                    
 
                     if (useChildren)
                     {
@@ -307,6 +312,7 @@ public class EnemyHealth : MonoBehaviour
                             }
                         }
                     }
+                    */
                 }
                 else
                 {

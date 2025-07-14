@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpawnManager spawnManager;    //reference to spawn manager
     [SerializeField] private AudioManager audioManager;    //reference to audio manager
     [SerializeField] private GameObject player;            //reference to player
+    [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
 
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
     [SerializeField] private CatController catController;  //reference to player controller
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Respawn Params")]
     [SerializeField] private bool isDead;                  //bool used to check if player dead, changed from playerhealth script or respawn
-    [SerializeField] private bool isRespawning = true;     //bool used to check if player is currently respawning, so wait for now
+    public bool isRespawning;                              //bool used to check if player is currently respawning, so wait for now
     [SerializeField] private bool hasSpawnedPlayer;        //bool used to check if player done respawning, so now can do things
     [SerializeField] private float respawnCounter;         //float, in seconds, that counts up the duration player is respawning
     [SerializeField] private float respawnCD;              //float, in seconds, that determines the full duration to delay for purposes of allowing animation of respawn, instantiation, audio, etc., before calling it good to change bools etc.
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     {
         //shortenCounter = shortenCD;
 
-        if (PlayerPrefs.HasKey("ChosenPlayer"))  //chosen key is arbitrary, but should be something a person will have even if they did not interact with settings/options, so we know if we need to set initial keys, or load keys from from previous play
+        if (PlayerPrefs.HasKey("DoneTutorialCode"))  //chosen key is arbitrary, but should be something a person will have even if they did not interact with settings/options, so we know if we need to set initial keys, or load keys from from previous play
         {
             if (!hasLoadedPrefs)  //no need to load prefs if you have already
             {
@@ -105,29 +106,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     void SetPlayerPrefs()  //sets player prefs if first play
     {
-        //PlayerPrefs.SetInt("LastWayPoint", lastPlayerWaypoint);
-
-        hasLoadedPrefs = true;
+        if(playerPrefsManager != null)
+        {
+            hasLoadedPrefs = playerPrefsManager.hasSetPrefs;
+        }
 
         FlashBG();
-
-        Debug.Log("Setting prefs instead of loading prefs");
     }
 
     void LoadPlayerPrefs()  //loads player prefs if not first play
     {
-        //lastPlayerWaypoint = PlayerPrefs.GetInt("LastWayPoint");
-
-        //Debug.Log("lastPlayerWayPoint is loaded as " + lastPlayerWaypoint);
-
-        hasLoadedPrefs = true;
+        if (playerPrefsManager != null)
+        {
+            hasLoadedPrefs = playerPrefsManager.hasSetPrefs;
+        }
 
         FlashBG();
 
-        Debug.Log("Loading prefs instead of setting prefs");
+        //Debug.Log("Loading prefs instead of setting prefs");
     }
 
     void SavePlayerPrefs()  //function to be able to call a save to player prefs generally from within this script
@@ -170,6 +168,28 @@ public class GameManager : MonoBehaviour
         HandleRespawn();  // calls everyframe to count duration to wait for respawn animations, etc., and spawns player if conditions are met, currently set to check if preferences set, but may need a different condition to spawn for ours
 
         HandlePlayer();     //calls everyframe to do player specific things, however empty atm so if its determined we dont need can remove this call and its function
+
+        HandleCounters();  //calls everyframe to adjust time on counters for various things
+
+        if (playerPrefsManager != null)
+        {
+            hasLoadedPrefs = playerPrefsManager.hasSetPrefs;
+        }
+    }
+
+    public void SetGameReady(bool isready)
+    {
+        gameReady = isready;
+    }
+
+    public void SetIsRespawning(bool isspawning)
+    {
+        isRespawning = isspawning;
+    }
+
+    public void SetRespawnCounter(float duration)
+    {
+        respawnCounter = duration;
     }
 
     private void HandleRespawn()  //explained in update
@@ -221,9 +241,105 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void DeSpawnPlayer()  //function to trigger a spawn of the player via SpawnManager
+    {
+        if (hasSpawnedPlayer)
+        {
+            hasSpawnedPlayer = false;
+
+            SetGameReady(false);
+            SetRespawnCounter(0f);
+            SetIsRespawning(false);
+
+            if(player != null)
+            {
+                Destroy(player, 0.1f);
+            }
+
+        }
+    }
+
+    public void ButtonReSpawnPlayer()  //function to trigger a spawn of the player via SpawnManager
+    {
+        if (!hasSpawnedPlayer)
+        {
+            hasSpawnedPlayer = false;
+
+            SetGameReady(true);
+            SetRespawnCounter(0f);
+            SetIsRespawning(true);
+        }
+    }
+
     private void HandlePlayer()  //called every frame if needed
     {
+        if(player == null)
+        {
+            hasSpawnedPlayer = false;
 
+            if (GameObject.FindGameObjectWithTag("Player") != null)
+            {
+                player = GameObject.FindGameObjectWithTag("Player");
+            }
+        }
+
+        if(player != null)
+        {
+            hasSpawnedPlayer = true;
+        }
+    }
+
+    private void HandleCounters()
+    {
+        if (shortenCounter < shortenCD)
+        {
+            shortenCounter += Time.deltaTime;
+        }
+        else
+        {
+            shortenCounter = shortenCD;
+
+            if (currentPlayerHP != null && oldPlayerHP != null)
+            {
+                if (currentPlayerHP.fillAmount < oldPlayerHP.fillAmount)
+                {
+                    float shortenAmount = shortenRate * Time.deltaTime;
+                    oldPlayerHP.fillAmount -= shortenAmount;
+                }
+                else
+                {
+                    if (currentPlayerHP.fillAmount > oldPlayerHP.fillAmount)
+                    {
+                        oldPlayerHP.fillAmount = currentPlayerHP.fillAmount;
+                    }
+                }
+            }
+        }
+
+        if (growCounter < growCD)
+        {
+            growCounter += Time.deltaTime;
+        }
+        else
+        {
+            growCounter = growCD;
+
+            if (currentPlayerHP != null && newPlayerHP != null)
+            {
+                if (currentPlayerHP.fillAmount < newPlayerHP.fillAmount)
+                {
+                    float growAmount = growRate * Time.deltaTime;
+                    currentPlayerHP.fillAmount += growAmount;
+                }
+                else
+                {
+                    if (currentPlayerHP.fillAmount > newPlayerHP.fillAmount)
+                    {
+                        newPlayerHP.fillAmount = currentPlayerHP.fillAmount;
+                    }
+                }
+            }
+        }
     }
 
     public void SetEngage()  //function to determine if player has drawn agro from anything, for the purposes of setting isEngaged bool, this bool is checked by AnimHandler script, to change animation states to 'in-combat' modes
