@@ -11,4 +11,28 @@ public class Cat_Anim_Dealer : MonoBehaviour
             catController.EndVictory();
         }
     }
+
+    public void ThirtyThreeScratch()
+    {
+        if (catController != null)
+        {
+            catController.ThirtyThreeScratch();
+        }
+    }
+
+    public void SixtySixScratch()
+    {
+        if (catController != null)
+        {
+            catController.SixtySixScratch();
+        }
+    }
+
+    public void FullScratch()
+    {
+        if (catController != null)
+        {
+            catController.FullScratch();
+        }
+    }
 }
