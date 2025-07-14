@@ -7,7 +7,7 @@ public class CatInteractions : MonoBehaviour
     [SerializeField] private float interactionRange = 2.0f;
     [Tooltip("The layers that the cat will check for interactions with. If an object is outside these layers (even if it has an IIinteractable script on it) it will be ignored.")]
     [SerializeField] private LayerMask interactableLayers;
-    [Tooltip("Controls whether the player should try interacting with trigger colliders or not(Change to ignore if note needed)")]
+    [Tooltip("Controls whether the player should try interacting with trigger colliders or not(Change to ignore if not needed)")]
     [SerializeField] private QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Collide;
     //The max interactions allowed at any one time is equal to the size of this array
     private RaycastHit[] hits = new RaycastHit[1];
