@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioManager audioManager;    //reference to audio manager
     [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
+    [SerializeField] private ProgressionManager progressionManager;       //reference to progression manager
 
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
     [SerializeField] private CatController catController;  //reference to player controller
@@ -23,8 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float winDelay;               //delay, in float seconds, when win condition happens, and before pausing game, for purposes of showing UI panmel, or playing SFX, before continue 
     public bool isPaused;                                  //main bool to determine if game is paused, therefore don't update certain things that check for game pause
     public bool gameReady;                                 //bool to determine when game is ready for things, like spawning the player
-    
-    
+
     [Header("Engage Params")]
     public bool isEngaged;                                  //bool to determine when player has agro, used for animation purposes, or check if engaged in combat
     [SerializeField] private int tempAgro;                  //int determine check if or how many things has agro against the player
@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Params")]
     public bool isOverUI;                                  //bool to set from UI elements, which when hovered, we want to know in order to prevent player input among other things 
+    [SerializeField] private GameObject progressPanel;      //Progression panel reference, to set active for levels, and inactive for level select
 
     [Header("Preference Params")]
     public bool hasSetPreferences;                         //bool for scripts to check if preferences have indeed benn loaded already, and so this script doesnt do it again
@@ -501,6 +502,14 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("QUIT");
         StartCoroutine(LoadDelayQG(quitDelay));
+    }
+
+    public void SetProgressPanel(bool showPanel)
+    {
+        if (progressPanel != null)
+        {
+            progressPanel.SetActive(showPanel);
+        }
     }
 
     IEnumerator LoadDelayQG(float delay)  //set game time to normal if paused, then delay applying quit, to play audio, before quitting

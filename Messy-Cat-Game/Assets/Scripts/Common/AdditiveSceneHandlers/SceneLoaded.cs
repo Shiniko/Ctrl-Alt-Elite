@@ -65,10 +65,14 @@ public class SceneLoaded : MonoBehaviour
                 {
                     gm.gameReady = true;
                     gm.isRespawning = true;
+
+                    gm.SetProgressPanel(true);
                 }
                 else
                 {
                     gm.gameReady = false;
+
+                    gm.SetProgressPanel(false);
                 }
             }
         }

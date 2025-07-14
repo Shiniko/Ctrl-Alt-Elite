@@ -27,7 +27,7 @@ public class ProgressionManager : MonoBehaviour
     private bool isStarMessComplete;
     private bool isStarDog;
     private float messIncrement;
-    private int starScore;
+    private int starScore; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
