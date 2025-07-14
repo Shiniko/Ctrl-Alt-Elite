@@ -7,24 +7,50 @@ public class ObjectHealth : MonoBehaviour
     [SerializeField] private float maxHealth;
     [SerializeField] private float bonusMaxHealth;
 
+    private bool setInitialHealth;
+
     void Update()
     {
         if(bonusMaxHealth > 0f)
         {
-            adjustedMaxHealth = maxHealth + bonusMaxHealth;
-
-            if(currentHealth < adjustedMaxHealth)
+            if (setInitialHealth)
             {
-                currentHealth += adjustedMaxHealth;
-            }
+                adjustedMaxHealth += bonusMaxHealth;
 
-            bonusMaxHealth = 0f;
+                if (currentHealth < adjustedMaxHealth)
+                {
+                    currentHealth += bonusMaxHealth;
+
+                    ApplyHeal(bonusMaxHealth);
+
+                    Debug.Log("Added bonus max health of " + bonusMaxHealth);
+                }
+
+                bonusMaxHealth = 0f;
+            }
         }
 
         if(currentHealth > adjustedMaxHealth)
         {
             currentHealth = adjustedMaxHealth;
         }
+
+        if (!setInitialHealth)
+        {
+            SetInitialHealth();
+        }
+    }
+
+    private void SetInitialHealth()
+    {
+        adjustedMaxHealth = maxHealth;
+        currentHealth = maxHealth;
+
+        Debug.Log("set initial health to " + maxHealth);
+
+        setInitialHealth = true;
+
+        ApplyHeal(maxHealth);
     }
 
     public void GiveBonusMaxHealth(float bonus)
