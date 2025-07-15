@@ -6,6 +6,7 @@ public class LevelDetails : MonoBehaviour
 
     [SerializeField] private ProgressionManager progressionManager;
     [SerializeField] private bool pmSet;
+    public Transform spawnPoint;
 
     void Update()
     {
