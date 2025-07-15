@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        //ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
+        ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
     }
 
     void ResetPlayerPrefs()
