@@ -21,9 +21,9 @@ public class PlayerPreferenceManager : MonoBehaviour
     [SerializeField] private int[] levelStars;                  //total numbers of stars per level
     [SerializeField] private string[] levelCompleteStars;       //string code for keeping track of star slots
 
-    [SerializeField] private int[] finishStars;                           //level star for mess completion value to 1 or 0, 1 is earned, 0 is not
-    [SerializeField] private int[] avoidStars;                           //level star for dog avoidance value to 1 or 0, 1 is earned, 0 is not
-    [SerializeField] private int[] hiddenStars;                          //level star for get hidden item value to 1 or 0, 1 is earned, 0 is not
+    public int[] finishStars;                           //level star for mess completion value to 1 or 0, 1 is earned, 0 is not
+    public int[] avoidStars;                           //level star for dog avoidance value to 1 or 0, 1 is earned, 0 is not
+    public int[] hiddenStars;                          //level star for get hidden item value to 1 or 0, 1 is earned, 0 is not
 
 
     [Header("Level Best Times")]
@@ -180,7 +180,7 @@ public class PlayerPreferenceManager : MonoBehaviour
 
     public void RandomStar()  //for testing purposes ONLY
     {
-        int randLevel = Random.Range(0, numberOfLevels + 1);
+        int randLevel = Random.Range(1, numberOfLevels + 1);
         int randSlot = Random.Range(1, 4);
 
         if (randLevel > numberOfLevels)
