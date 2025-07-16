@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class DevLevelSelect : MonoBehaviour
 {
+    public int currentLevel;
+
     [SerializeField] private SceneLoader sl;
     [SerializeField] private SceneLoadManager slm;
     [SerializeField] private GameObject levelSelectPanel;
@@ -65,6 +67,7 @@ public class DevLevelSelect : MonoBehaviour
     public void SelectSceneAndLoad(int levelSuffix)
     {
         levelSelect = "Level_" + levelSuffix;
+        currentLevel = levelSuffix;
 
         if (!_levelSelected)
         {
@@ -128,6 +131,30 @@ public class DevLevelSelect : MonoBehaviour
     public void LevelLoaded()
     {
         _levelSelected = false;
+    }
+
+    public void ReloadSameLevel()
+    {
+        int level = currentLevel;
+
+        if(level <1 || level > 35)
+        {
+            return;
+        }
+
+        if (sl != null)
+        {
+            levelSelect = "Level_" + level;
+            //setting scenesToLoad array as single level string
+            string[] levelSelectScene = new string[1];
+            levelSelectScene[0] = levelSelect;
+            sl.SetScenesToLoad(levelSelectScene);
+            sl.SetScenesToUnLoad(levelSelectScene);
+
+            //make sure gameunpause and close pause menu and loading panel activated
+
+            sl.UnloadSameLevel(level);
+        }
     }
 
     public void DeActivateLevelSelectPanel()
