@@ -8,6 +8,7 @@ public class DevLevelSelect : MonoBehaviour
     public bool isLevelSelect;
     public bool hasLoadedStars = true;
     public bool hasLoadedStarImages;
+    public bool hasLoadedLevelButtons = true;
 
     [Header("References")]
     [SerializeField] private SceneLoader sl;
@@ -42,6 +43,10 @@ public class DevLevelSelect : MonoBehaviour
 
     [SerializeField] private Color darkColor;
     [SerializeField] private Color lightColor;
+
+    [Header("Levels Params")]
+    [SerializeField] private Button[] levelButtons;
+    [SerializeField] private bool hasSetLevelButtons;
 
     void Start()
     {
@@ -78,6 +83,10 @@ public class DevLevelSelect : MonoBehaviour
         if (!hasLoadedStars)
         {
             LoadStars();
+        }
+
+        if (!hasLoadedLevelButtons)
+        {
             CheckLevels();
         }
     }
@@ -209,8 +218,9 @@ public class DevLevelSelect : MonoBehaviour
     private void ResetLoadStars()
     {
         hasLoadedStars = false;
+        hasLoadedLevelButtons = false;
 
-        Debug.Log("Reset Level Select Stars bool for trigger");
+        Debug.Log("Reset Level Select Stars and Level bool for trigger");
     }
 
     public void LoadStars()
@@ -292,8 +302,40 @@ public class DevLevelSelect : MonoBehaviour
         {
             if (starGrabber.levelsPopulated)
             {
+                levelButtons = starGrabber.levelButtons;
 
+                hasSetLevelButtons = true;
             }
+        }
+
+        if (hasSetLevelButtons)
+        {
+            if (levelButtons.Length != finishStars.Length)
+            {
+                Debug.Log("returning out due to mismatch of finish stars and level button lengths");
+
+                return;
+            }
+
+            for (int i = 0; i < levelButtons.Length; i++)
+            {
+                if (levelButtons[i] != null)
+                {
+                    if (i > 0)          //skipping first level index cause level one is always playable, also checking for previous level, so 0-1 will be out of array bounds
+                    {
+                        if (finishStars[i-1] > 0)
+                        {
+                            levelButtons[i].interactable = true;
+                        }
+                        else
+                        {
+                            levelButtons[i].interactable = false;
+                        }
+                    }
+                }
+            }
+
+            hasLoadedLevelButtons = true;
         }
     }
 
