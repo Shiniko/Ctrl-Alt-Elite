@@ -42,38 +42,38 @@ public class ProgressionManager : MonoBehaviour
     void Update()
     {
         // For debugging
-        // if (Input.GetKeyDown(KeyCode.UpArrow))
-        // {
-        //     AddMess();
-        // }
-        // if (Input.GetKeyDown(KeyCode.DownArrow))
-        // {
-        //     RemoveMess();
-        // }
-        // if (Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     AddStarForSpecialItem();
-        // }
-        // if (Input.GetKeyDown(KeyCode.W))
-        // {
-        //     RemoveStarForSpecialItem();
-        // }
-        // if (Input.GetKeyDown(KeyCode.A))
-        // {
-        //     AddStarForMessComplete();
-        // }
-        // if (Input.GetKeyDown(KeyCode.S))
-        // {
-        //     RemoveStarForMessComplete();
-        // }
-        // if (Input.GetKeyDown(KeyCode.Z))
-        // {
-        //     AddStarForDog();
-        // }
-        // if (Input.GetKeyDown(KeyCode.X))
-        // {
-        //     RemoveStarForDog();
-        // }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            AddMess();
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            RemoveMess();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            AddStarForSpecialItem();
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            RemoveStarForSpecialItem();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            AddStarForMessComplete();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            RemoveStarForMessComplete();
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            AddStarForDog();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            RemoveStarForDog();
+        }
     }
     public int GetStarScore()
     {
@@ -157,7 +157,7 @@ public class ProgressionManager : MonoBehaviour
         }
     }
 
-    private void ResetProgress()
+    public void ResetProgress()
     {
         starForMessCompletion.GetComponent<Image>().color = darkenImage();
         starForMessCompletionCollapsed.GetComponent<Image>().color = darkenImage();
@@ -169,5 +169,6 @@ public class ProgressionManager : MonoBehaviour
         isStarSpecialItem = false;
         isStarDog = false;
         starScore = 0;
+        messBar.GetComponent<Image>().fillAmount = 0f;
     }
 }
