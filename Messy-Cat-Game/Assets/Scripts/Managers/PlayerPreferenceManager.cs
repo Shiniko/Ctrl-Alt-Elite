@@ -25,7 +25,6 @@ public class PlayerPreferenceManager : MonoBehaviour
     public int[] avoidStars;                           //level star for dog avoidance value to 1 or 0, 1 is earned, 0 is not
     public int[] hiddenStars;                          //level star for get hidden item value to 1 or 0, 1 is earned, 0 is not
 
-
     [Header("Level Best Times")]
     [SerializeField] private float[] levelCompleteDurations;            //float to be saved and loaded as duration player took to complete a level
 
@@ -116,8 +115,6 @@ public class PlayerPreferenceManager : MonoBehaviour
 
     private void LoadStars()
     {
-
-
         for (int i = 0; i < levelCompleteStars.Length; i++)                          //iterate through strings in player prefs, then assign variable for parsing
         {
             levelCompleteStars[i] = PlayerPrefs.GetString("LevelStarsCompleted" + (i + 1));  //get string from player prefs
@@ -199,7 +196,7 @@ public class PlayerPreferenceManager : MonoBehaviour
         SaveNewStar(randLevel, randSlot);
     }
 
-    public void SaveNewStar(int level, int slot)  // old was stars instead of slot // Call this to set new star values, passing in level and the number of stars earned
+    public void SaveNewStar(int level, int slot)  // old was stars instead of slot // Call this to set new star values, passing in level and the slot of star earned, 1 is mess, 2 is dog, 3 is hidden
     {
         if (level < 1 || level > numberOfLevels)
         {
