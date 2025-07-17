@@ -3,19 +3,35 @@ using UnityEngine.UI;
 
 public class DevLevelSelect : MonoBehaviour
 {
+    [Header("Accesible Params")]
     public int currentLevel;
+    public bool isLevelSelect;
+    public bool hasLoadedStars = true;
+    public bool hasLoadedStarImages;
 
+    [Header("References")]
     [SerializeField] private SceneLoader sl;
     [SerializeField] private SceneLoadManager slm;
     [SerializeField] private GameObject levelSelectPanel;
     [SerializeField] private PlayerPreferenceManager ppm;
     [SerializeField] private StarGrabber starGrabber;
 
+    [Header("Button References")]
+    [SerializeField] private GameObject resumeButton;
+    [SerializeField] private GameObject nextLevelButton;
+    [SerializeField] private GameObject retryButton;
+    [SerializeField] private GameObject levelSelectButton;
+    [SerializeField] private GameObject mainMenuButton;
+    [SerializeField] private GameObject menuButton;
+    [SerializeField] private GameObject creditsButton;
+
+    [Header("Load and Unload params")]
     [SerializeField] private string levelSelect;
     [SerializeField] private bool _triggered;
     [SerializeField] private bool _levelSelected;
     [SerializeField] private bool _loaded;
 
+    [Header("Stars Params")]
     [SerializeField] private int[] finishStars;                           //level star for mess completion value to 1 or 0, 1 is earned, 0 is not
     [SerializeField] private int[] avoidStars;                           //level star for dog avoidance value to 1 or 0, 1 is earned, 0 is not
     [SerializeField] private int[] hiddenStars;                          //level star for get hidden item value to 1 or 0, 1 is earned, 0 is not
@@ -27,9 +43,10 @@ public class DevLevelSelect : MonoBehaviour
     [SerializeField] private Color darkColor;
     [SerializeField] private Color lightColor;
 
-    public bool isLevelSelect;
-    public bool hasLoadedStars = true;
-    public bool hasLoadedStarImages;
+    void Start()
+    {
+        ActivateLevelSelectMenuButtons();
+    }
 
     void Update()
     {
@@ -66,6 +83,11 @@ public class DevLevelSelect : MonoBehaviour
 
     public void SelectSceneAndLoad(int levelSuffix)
     {
+        if(levelSuffix < 0 || levelSuffix > 35)
+        {
+            return;
+        }
+
         levelSelect = "Level_" + levelSuffix;
         currentLevel = levelSuffix;
 
@@ -81,6 +103,8 @@ public class DevLevelSelect : MonoBehaviour
                 sl.SetScenesToLoad(levelSelectScene);
 
                 DeActivateLevelSelectPanel();
+
+                ActivateNewLevelMenuButtons();
 
                 slm.LoadScene();
 
@@ -105,10 +129,14 @@ public class DevLevelSelect : MonoBehaviour
         {
             ActivateLevelSelectPanel();
 
+            ActivateLevelSelectMenuButtons();
+
             slm.LoadScene();
         }
         else
         {
+            ActivateNewLevelMenuButtons();
+
             slm.LoadLevelSelectScene();
         }
 
@@ -117,7 +145,7 @@ public class DevLevelSelect : MonoBehaviour
         if (!isLevelSelect)
         {
             string[] levelUnloadScene = new string[1];
-            levelUnloadScene[0] = levelSelect;          
+            levelUnloadScene[0] = levelSelect;
             sl.SetScenesToUnLoad(levelUnloadScene);
 
             slm.UnLoadScene();
@@ -150,6 +178,8 @@ public class DevLevelSelect : MonoBehaviour
             levelSelectScene[0] = levelSelect;
             sl.SetScenesToLoad(levelSelectScene);
             sl.SetScenesToUnLoad(levelSelectScene);
+
+            ActivateNewLevelMenuButtons();
 
             //make sure gameunpause and close pause menu and loading panel activated
 
@@ -268,5 +298,165 @@ public class DevLevelSelect : MonoBehaviour
                 hasLoadedStarImages = true;
             }
         }
+    }
+
+    public void ActivateNewLevelMenuButtons()              //menu button set for fresh load of level
+    {
+        if(resumeButton != null)
+        {
+            resumeButton.SetActive(true);
+        }
+
+        if (nextLevelButton != null)
+        {
+            nextLevelButton.SetActive(false);
+        }
+
+        if (retryButton != null)
+        {
+            retryButton.SetActive(true);
+        }
+
+        if (levelSelectButton != null)
+        {
+            levelSelectButton.SetActive(true);
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.SetActive(true);
+        }
+
+        if (menuButton != null)
+        {
+            menuButton.SetActive(true);
+        }
+
+        if (creditsButton != null)
+        {
+            creditsButton.SetActive(true);
+        }
+
+        Debug.Log("activated new level buttons");
+    }
+
+    public void ActivateFailMenuButtons()              //menu button set for fail level
+    {
+        if (resumeButton != null)
+        {
+            resumeButton.SetActive(false);
+        }
+
+        if (nextLevelButton != null)
+        {
+            nextLevelButton.SetActive(false);
+        }
+
+        if (retryButton != null)
+        {
+            retryButton.SetActive(true);
+        }
+
+        if (levelSelectButton != null)
+        {
+            levelSelectButton.SetActive(true);
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.SetActive(true);
+        }
+
+        if (menuButton != null)
+        {
+            menuButton.SetActive(false);
+        }
+
+        if (creditsButton != null)
+        {
+            creditsButton.SetActive(true);
+        }
+
+        Debug.Log("activated fail level buttons");
+    }
+
+    public void ActivateVictoryMenuButtons()              //menu button set for victory of level
+    {
+        if (resumeButton != null)
+        {
+            resumeButton.SetActive(false);
+        }
+
+        if (nextLevelButton != null)
+        {
+            nextLevelButton.SetActive(true);
+        }
+
+        if (retryButton != null)
+        {
+            retryButton.SetActive(true);
+        }
+
+        if (levelSelectButton != null)
+        {
+            levelSelectButton.SetActive(true);
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.SetActive(true);
+        }
+
+        if (menuButton != null)
+        {
+            menuButton.SetActive(false);
+        }
+
+        if (creditsButton != null)
+        {
+            creditsButton.SetActive(false);
+        }
+
+        Debug.Log("activated win level buttons");
+    }
+
+    public void ActivateLevelSelectMenuButtons()              //menu button set level select scene
+    {
+        if (resumeButton != null)
+        {
+            resumeButton.SetActive(true);
+        }
+
+        if (nextLevelButton != null)
+        {
+            nextLevelButton.SetActive(false);
+        }
+
+        if (retryButton != null)
+        {
+            retryButton.SetActive(false);
+        }
+
+        if (levelSelectButton != null)
+        {
+            levelSelectButton.SetActive(false);
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.SetActive(true);
+        }
+
+        if (menuButton != null)
+        {
+            menuButton.SetActive(true);
+        }
+
+        if (creditsButton != null)
+        {
+            creditsButton.SetActive(true);
+        }
+
+        Debug.Log("activated level select buttons");
     }
 }
