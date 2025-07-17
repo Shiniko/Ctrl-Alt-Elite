@@ -27,7 +27,7 @@ public class StarGrabber : MonoBehaviour
 
     private void PopulateLevels()
     {
-        starsPopulated = true;
+        levelsPopulated = true;
     }
 
 }

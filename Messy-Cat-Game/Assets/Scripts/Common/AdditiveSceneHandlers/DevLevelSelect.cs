@@ -78,6 +78,7 @@ public class DevLevelSelect : MonoBehaviour
         if (!hasLoadedStars)
         {
             LoadStars();
+            CheckLevels();
         }
     }
 
@@ -281,6 +282,17 @@ public class DevLevelSelect : MonoBehaviour
             else
             {
                 Debug.Log("ppm not has set prefs");
+            }
+        }
+    }
+
+    private void CheckLevels()
+    {
+        if (starGrabber != null)
+        {
+            if (starGrabber.levelsPopulated)
+            {
+
             }
         }
     }
