@@ -9,12 +9,23 @@ public class StarGrabber : MonoBehaviour
 
     public bool starsPopulated;
 
+    public int[] levelCompletes;
+    public Button[] levelButtons;
+
+    public bool levelsPopulated;
+
     void Start()
     {
         PopulateStars();
+        PopulateLevels();
     }
 
     private void PopulateStars()
+    {
+        starsPopulated = true;
+    }
+
+    private void PopulateLevels()
     {
         starsPopulated = true;
     }
