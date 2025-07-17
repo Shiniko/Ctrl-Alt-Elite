@@ -176,6 +176,44 @@ public class GameManager : MonoBehaviour
         {
             hasLoadedPrefs = playerPrefsManager.hasSetPrefs;
         }
+
+        // Debug for testing level failed
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            FailLevel();
+        }
+    }
+
+    public void FailLevel()
+    {
+        // Play SFX
+        //audioManager.Play("Back"); --> replace Back with game over SFX once created
+
+        // Swap Music 
+        //audioManager.SwapMusic("MainTheme"); --> replace MainTheme with game over theme once it's created
+
+        // Disable Resume Button
+        if (pausePanel != null)
+        {
+            GameObject resumeButton = pausePanel.transform.Find("ResumeButton").gameObject;
+            if (resumeButton != null)
+            {
+                resumeButton.SetActive(false);
+            }
+        }
+
+        // Enable Game Over text
+        if (pausePanel != null)
+        {
+            GameObject levelFailedText = pausePanel.transform.Find("LevelFailedText").gameObject;
+            if (levelFailedText != null)
+            {
+                levelFailedText.SetActive(true);
+            }
+        }
+
+        // Enable menu and pause the game
+        GamePausedEsc();
     }
 
     public void SetGameReady(bool isready)

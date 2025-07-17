@@ -75,6 +75,7 @@ public class ProgressionManager : MonoBehaviour
             RemoveStarForDog();
         }
     }
+
     public int GetStarScore()
     {
         return starScore;
