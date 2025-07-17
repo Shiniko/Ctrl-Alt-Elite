@@ -374,7 +374,7 @@ public class DevLevelSelect : MonoBehaviour
 
         if (creditsButton != null)
         {
-            creditsButton.SetActive(true);
+            creditsButton.SetActive(false);
         }
 
         Debug.Log("activated fail level buttons");
