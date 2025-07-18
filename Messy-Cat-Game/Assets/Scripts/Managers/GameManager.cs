@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
         //audioManager.Play("Back"); --> replace Back with game over SFX once created
 
         // Swap Music 
-        //audioManager.SwapMusic("MainTheme"); --> replace MainTheme with game over theme once it's created
+        audioManager.SwapMusic("LevelFailedTheme");
 
         // Disable Resume Button
         if (pausePanel != null)
@@ -203,14 +203,15 @@ public class GameManager : MonoBehaviour
         }
 
         // Enable Game Over text
-        if (pausePanel != null)
+        // NOT SURE IF NEEDED. IF WE DO ADD TEXT, CALL THE GAME OBJECT "LeveFailedText"
+        /*if (pausePanel != null)
         {
             GameObject levelFailedText = pausePanel.transform.Find("LevelFailedText").gameObject;
             if (levelFailedText != null)
             {
                 levelFailedText.SetActive(true);
             }
-        }
+        }*/
 
         // Enable menu and pause the game
         GamePausedEsc();
