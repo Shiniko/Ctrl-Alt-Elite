@@ -26,6 +26,9 @@ public class DevLevelSelect : MonoBehaviour
     [SerializeField] private GameObject menuButton;
     [SerializeField] private GameObject creditsButton;
 
+    [SerializeField] private GameObject victoryText;
+    [SerializeField] private GameObject failText;
+
     [Header("Load and Unload params")]
     [SerializeField] private string levelSelect;
     [SerializeField] private bool _triggered;
@@ -391,6 +394,16 @@ public class DevLevelSelect : MonoBehaviour
             creditsButton.SetActive(true);
         }
 
+        if (failText != null)
+        {
+            failText.SetActive(false);
+        }
+
+        if (victoryText != null)
+        {
+            victoryText.SetActive(false);
+        }
+
         Debug.Log("activated new level buttons");
     }
 
@@ -429,6 +442,16 @@ public class DevLevelSelect : MonoBehaviour
         if (creditsButton != null)
         {
             creditsButton.SetActive(false);
+        }
+
+        if (failText != null)
+        {
+            failText.SetActive(true);
+        }
+
+        if (victoryText != null)
+        {
+            victoryText.SetActive(false);
         }
 
         Debug.Log("activated fail level buttons");
@@ -471,6 +494,16 @@ public class DevLevelSelect : MonoBehaviour
             creditsButton.SetActive(false);
         }
 
+        if (failText != null)
+        {
+            failText.SetActive(false);
+        }
+
+        if (victoryText != null)
+        {
+            victoryText.SetActive(true);
+        }
+
         Debug.Log("activated win level buttons");
     }
 
@@ -509,6 +542,16 @@ public class DevLevelSelect : MonoBehaviour
         if (creditsButton != null)
         {
             creditsButton.SetActive(true);
+        }
+
+        if (failText != null)
+        {
+            failText.SetActive(false);
+        }
+
+        if (victoryText != null)
+        {
+            victoryText.SetActive(false);
         }
 
         Debug.Log("activated level select buttons");

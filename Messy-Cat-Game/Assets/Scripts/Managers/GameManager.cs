@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
     [SerializeField] private ProgressionManager progressionManager;       //reference to progression manager
     [SerializeField] private LevelManager levelManager;       //reference to progression manager
+    [SerializeField] private DevLevelSelect devLevelSelect;
 
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
     [SerializeField] private CatController catController;  //reference to player controller
@@ -195,32 +196,9 @@ public class GameManager : MonoBehaviour
         // Play SFX
         audioManager.Play("LevelFailed");
 
-        // Swap Music 
-        //audioManager.SwapMusic("MainTheme"); --> replace MainTheme with game over theme once it's created
-
-        // Disable Resume Button
-        if (pausePanel != null)
-        {
-            GameObject resumeButton = pausePanel.transform.Find("ResumeButton").gameObject;
-            if (resumeButton != null)
-            {
-                resumeButton.SetActive(false);
-            }
-        }
-
-        // Enable Game Over text
-        // NOT SURE IF NEEDED. IF WE DO ADD TEXT, CALL THE GAME OBJECT "LeveFailedText"
-        /*if (pausePanel != null)
-        {
-            GameObject levelFailedText = pausePanel.transform.Find("LevelFailedText").gameObject;
-            if (levelFailedText != null)
-            {
-                levelFailedText.SetActive(true);
-            }
-        }*/
-
-        // Enable menu and pause the game
         GamePausedEsc();
+
+        devLevelSelect.ActivateFailMenuButtons();
     }
 
     public void SetGameReady(bool isready)
