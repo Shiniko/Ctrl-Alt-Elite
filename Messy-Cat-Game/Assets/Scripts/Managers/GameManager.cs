@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
     [SerializeField] private ProgressionManager progressionManager;       //reference to progression manager
+    [SerializeField] private LevelManager levelManager;       //reference to progression manager
 
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
     [SerializeField] private CatController catController;  //reference to player controller
