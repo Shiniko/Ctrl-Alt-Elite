@@ -185,6 +185,8 @@ public class DevLevelSelect : MonoBehaviour
 
         if (!isCredits)
         {
+            DeActivateLevelSelectPanel();
+
             ActivateCreditsPanel();
 
             ActivateCreditsMenuButtons();

@@ -11,6 +11,7 @@ public class SceneLoaded : MonoBehaviour
     [SerializeField] private GameManager gm;
 
     [SerializeField] private bool isLevelSelect;
+    [SerializeField] private bool isCredits;
 
     void Awake()
     {
@@ -61,14 +62,16 @@ public class SceneLoaded : MonoBehaviour
             {
                 triggeredReady = true;
 
-                if (!isLevelSelect)
+                if (!isLevelSelect || !isCredits)
                 {
                     gm.gameReady = true;
                     gm.isRespawning = true;
 
                     gm.SetProgressPanel(true);
                 }
-                else
+
+
+                if (isLevelSelect || isCredits)
                 {
                     gm.gameReady = false;
 
