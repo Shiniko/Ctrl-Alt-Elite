@@ -187,10 +187,10 @@ public class GameManager : MonoBehaviour
     public void FailLevel()
     {
         // Play SFX
-        //audioManager.Play("Back"); --> replace Back with game over SFX once created
+        audioManager.Play("LevelFailed");
 
         // Swap Music 
-        audioManager.SwapMusic("LevelFailedTheme");
+        //audioManager.SwapMusic("MainTheme"); --> replace MainTheme with game over theme once it's created
 
         // Disable Resume Button
         if (pausePanel != null)
