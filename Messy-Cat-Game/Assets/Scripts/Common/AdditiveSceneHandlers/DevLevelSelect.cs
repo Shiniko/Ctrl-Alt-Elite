@@ -172,6 +172,10 @@ public class DevLevelSelect : MonoBehaviour
         }
         else
         {
+            string[] levelUnloadScene = new string[1];
+            levelUnloadScene[0] = "LevelSelect";
+            sl.SetScenesToUnLoad(levelUnloadScene);
+
             slm.DeActivateLoadPanel();
         }
     }
@@ -206,6 +210,9 @@ public class DevLevelSelect : MonoBehaviour
         }
         else
         {
+            string[] levelUnloadScene = new string[1];
+            levelUnloadScene[0] = "Credits";
+            sl.SetScenesToUnLoad(levelUnloadScene);
             slm.DeActivateLoadPanel();
         }
     }
