@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
     [Header("UI Params")]
     public bool isOverUI;                                  //bool to set from UI elements, which when hovered, we want to know in order to prevent player input among other things 
     [SerializeField] private GameObject progressPanel;      //Progression panel reference, to set active for levels, and inactive for level select
+    [SerializeField] private TextMeshProUGUI durationTextHour;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextMinute;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextSecond;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextMillisecond;      //TMP reference, to set level duration timer text to
+    [SerializeField] private float durationLimit;               //float for max duration in milliseconds, for example, 999 hours 59 minutes 59 seconds 999 milliseconds is 3,599,999,999 milliseconds
 
     [Header("Preference Params")]
     public bool hasSetPreferences;                         //bool for scripts to check if preferences have indeed benn loaded already, and so this script doesnt do it again
@@ -440,6 +445,148 @@ public class GameManager : MonoBehaviour
 
         //do the damage set
         growCounter = 0f;
+    }
+
+    public void AdjustDurationUI(float currentDuration)  //function to adjust duration player has been in level
+    {
+        if (currentDuration < 0f)
+        {
+            currentDuration = 0f;
+        }
+
+        if (currentDuration > durationLimit)
+        {
+            currentDuration = durationLimit;
+        }
+
+        //do the magic
+
+        float milliFloat = currentDuration;
+        float secondFloat = currentDuration * 0.001f;
+        float minuteFloat = (currentDuration * 0.001f) / 60f;
+        float hourFloat = (currentDuration * 0.001f) / 3600f;
+        string durationFormatted = "" + currentDuration;
+
+        int milli = Mathf.FloorToInt(milliFloat);
+        int second = 0;
+        int minute = 0;
+        int hour = 0;
+
+        if (milliFloat > 999f)
+        {
+            while (milliFloat > 999f)
+            {
+                second++;
+
+                if(second >= 60)
+                {
+                    second = 0;
+                }
+
+                milliFloat -= 999f;
+            }
+        }
+
+        milli = Mathf.FloorToInt(milliFloat);
+
+        if (secondFloat > 59f)
+        {
+            while (secondFloat > 59f)
+            {
+                minute++;
+
+                if (minute >= 60)
+                {
+                    minute = 0;
+                }
+
+                secondFloat -= 59f;
+            }
+        }
+
+        if (minuteFloat > 59f)
+        {
+            while (minuteFloat > 59f)
+            {
+                hour++;
+
+                minuteFloat -= 59f;
+            }
+        }
+
+        string hourForm = "" + hour;
+        string minuteForm = "" + minute;
+        string secondForm = "" + second;
+        string milliForm = "" + milli;
+
+        if (hour > 99.999)
+        {
+            hourForm = "" + hour;
+        }
+        else if (hour > 9.999)
+        {
+            hourForm = "0" + hour;
+        }
+        else
+        {
+            hourForm = "00" + hour;
+        }
+
+        if (minute > 9.999)
+        {
+            minuteForm = "" + minute;
+        }
+        else
+        {
+            minuteForm = "0" + minute;
+        }
+
+        if (second > 9.999)
+        {
+            secondForm = "" + second;
+        }
+        else
+        {
+            secondForm = "0" + second;
+        }
+
+        if (milli > 99.999)
+        {
+            milliForm = "" + milli;
+        }
+        else if (milli > 9.999)
+        {
+            milliForm = "0" + milli;
+        } else
+        {
+            milliForm = "00" + milli;
+        }
+
+        /*
+        durationFormatted = hourForm + " : " + minuteForm + " : " + secondForm + " : " + milliForm;           
+
+        durationText.text = durationFormatted;
+        */
+
+        if (durationTextHour != null)
+        {
+            durationTextHour.text = hourForm; 
+        }
+
+        if (durationTextMinute != null)
+        {
+            durationTextMinute.text = minuteForm;
+        }
+
+        if (durationTextSecond != null)
+        {
+            durationTextSecond.text = secondForm;
+        }
+
+        if (durationTextMillisecond != null)
+        {
+            durationTextMillisecond.text = milliForm;
+        }
     }
 
     public void PlayHealEffect()  //function to instantiate heal effect

@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     public bool humanSeenCat;
 
     [Header("References")]
+    [SerializeField] private GameManager gameManager;
     public LevelDetails levelDetails;
     public Transform spawnPoint;
 
@@ -27,16 +28,28 @@ public class LevelManager : MonoBehaviour
     [Header("Level Duration Params")]
     public float levelDuration;
     [SerializeField] private bool countDuration;
-    [SerializeField] private int hours;
-    [SerializeField] private int minutes;
-    [SerializeField] private int seconds;
-    [SerializeField] private int miliseconds;
 
     void Update()
     {
+        if (gameManager == null)
+        {
+            if (GameObject.FindGameObjectWithTag("GameController") != null)
+            {
+                gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+            }
+        }
+
         if (levelActive)
         {
+            if (countDuration)
+            {
+                levelDuration += Time.deltaTime * 1000f;
 
+                if (gameManager != null)
+                {
+                    gameManager.AdjustDurationUI(levelDuration);
+                }
+            }
         }
     }
 
