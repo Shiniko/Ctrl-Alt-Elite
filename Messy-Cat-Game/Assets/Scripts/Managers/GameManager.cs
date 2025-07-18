@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
     [SerializeField] private ProgressionManager progressionManager;       //reference to progression manager
+    [SerializeField] private DevLevelSelect devLevelSelect;               //reference to level selection manager
 
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
     [SerializeField] private CatController catController;  //reference to player controller
@@ -189,17 +190,12 @@ public class GameManager : MonoBehaviour
         // Play SFX
         audioManager.Play("LevelFailed");
 
-        // Swap Music 
-        //audioManager.SwapMusic("MainTheme"); --> replace MainTheme with game over theme once it's created
+        GamePausedEsc();
 
         // Disable Resume Button
-        if (pausePanel != null)
+        if (devLevelSelect != null)
         {
-            GameObject resumeButton = pausePanel.transform.Find("ResumeButton").gameObject;
-            if (resumeButton != null)
-            {
-                resumeButton.SetActive(false);
-            }
+            devLevelSelect.ActivateFailMenuButtons();
         }
 
         // Enable Game Over text
@@ -214,7 +210,7 @@ public class GameManager : MonoBehaviour
         }*/
 
         // Enable menu and pause the game
-        GamePausedEsc();
+        
     }
 
     public void SetGameReady(bool isready)
@@ -440,6 +436,62 @@ public class GameManager : MonoBehaviour
 
         //do the damage set
         growCounter = 0f;
+    }
+
+    public void AdjustDurationUI(float duration)
+    {
+        if(duration < 0f)
+        {
+            duration = 0f;
+        }
+
+        if (duration > durationLimit)
+        {
+            duration = durationLimit;
+        }
+
+        //do the magic
+        if (durationText != null)
+        {
+            float milliFloat = currentDuration;
+            float secondFloat = currentDuration * 0.001f;
+            float minuteFloat = (currentDuration * 0.001f) / 60f;
+            float hourFloat = (currentDuration * 0.001f) / 3600f;
+            string durationFormatted = "" + currentDuration;
+
+            if (milliFloat > 999f)
+            {
+                while (milliFloat > 999f)
+                {
+                    milliFloat -= 999f;
+                }
+            }
+
+            if (secondFloat > 59f)
+            {
+                while (secondFloat > 59f)
+                {
+                    secondFloat -= 59f;
+                }
+            }
+
+            if (minuteFloat > 59f)
+            {
+                while (minuteFloat > 59f)
+                {
+                    minuteFloat -= 59f;
+                }
+            }
+
+            int milli = Mathf.FloorToInt(milliFloat);
+            int second = Mathf.FloorToInt(secondFloat);
+            int minute = Mathf.FloorToInt(minuteFloat);
+            int hour = Mathf.FloorToInt(hourFloat);
+
+            durationFormatted = "" + hour + " : " + minute + " : " + second + " : " + milli;
+
+            durationText.text = durationFormatted;
+        }
     }
 
     public void PlayHealEffect()  //function to instantiate heal effect
