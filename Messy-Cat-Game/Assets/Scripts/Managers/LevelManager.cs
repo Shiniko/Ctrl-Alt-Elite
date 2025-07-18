@@ -10,7 +10,6 @@ public class LevelManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private ProgressionManager progressionManager;
     public LevelDetails levelDetails;
     public Transform spawnPoint;
 
@@ -52,11 +51,6 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void Thing()
-    {
-
     }
 
 }

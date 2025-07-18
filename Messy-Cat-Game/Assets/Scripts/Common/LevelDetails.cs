@@ -8,6 +8,9 @@ public class LevelDetails : MonoBehaviour
     [SerializeField] private bool pmSet;
     public Transform spawnPoint;
 
+    [SerializeField] private LevelManager levelManager;
+    [SerializeField] private bool lmSet;
+
     void Update()
     {
         if (progressionManager == null)
@@ -24,6 +27,23 @@ public class LevelDetails : MonoBehaviour
                 pmSet = true;
 
                 SetProgressManager(); 
+            }
+        }
+
+        if (levelManager == null)
+        {
+            if (GameObject.FindGameObjectWithTag("LevelManager") != null)
+            {
+                levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+            }
+        }
+        else
+        {
+            if (!lmSet)
+            {
+                lmSet = true;
+
+                SetLevelManager();
             }
         }
     }
@@ -44,6 +64,20 @@ public class LevelDetails : MonoBehaviour
             }
 
             progressionManager.AddStarForDog();
+        }
+    }
+
+    private void SetLevelManager()
+    {
+        if (levelManager != null)
+        {
+            //do stuff to set
+            if (spawnPoint != null)
+            {
+                levelManager.spawnPoint = spawnPoint;
+            }
+
+            levelManager.levelDetails = this;
         }
     }
 }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
     [SerializeField] private ProgressionManager progressionManager;       //reference to progression manager
-    [SerializeField] private DevLevelSelect devLevelSelect;               //reference to level selection manager
+    [SerializeField] private LevelManager levelManager;       //reference to progression manager
 
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
     [SerializeField] private CatController catController;  //reference to player controller
@@ -60,6 +60,11 @@ public class GameManager : MonoBehaviour
     [Header("UI Params")]
     public bool isOverUI;                                  //bool to set from UI elements, which when hovered, we want to know in order to prevent player input among other things 
     [SerializeField] private GameObject progressPanel;      //Progression panel reference, to set active for levels, and inactive for level select
+    [SerializeField] private TextMeshProUGUI durationTextHour;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextMinute;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextSecond;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextMillisecond;      //TMP reference, to set level duration timer text to
+    [SerializeField] private float durationLimit;               //float for max duration in milliseconds, for example, 999 hours 59 minutes 59 seconds 999 milliseconds is 3,599,999,999 milliseconds
 
     [Header("Preference Params")]
     public bool hasSetPreferences;                         //bool for scripts to check if preferences have indeed benn loaded already, and so this script doesnt do it again
@@ -190,12 +195,17 @@ public class GameManager : MonoBehaviour
         // Play SFX
         audioManager.Play("LevelFailed");
 
-        GamePausedEsc();
+        // Swap Music 
+        //audioManager.SwapMusic("MainTheme"); --> replace MainTheme with game over theme once it's created
 
         // Disable Resume Button
-        if (devLevelSelect != null)
+        if (pausePanel != null)
         {
-            devLevelSelect.ActivateFailMenuButtons();
+            GameObject resumeButton = pausePanel.transform.Find("ResumeButton").gameObject;
+            if (resumeButton != null)
+            {
+                resumeButton.SetActive(false);
+            }
         }
 
         // Enable Game Over text
@@ -210,7 +220,7 @@ public class GameManager : MonoBehaviour
         }*/
 
         // Enable menu and pause the game
-        
+        GamePausedEsc();
     }
 
     public void SetGameReady(bool isready)
@@ -438,59 +448,145 @@ public class GameManager : MonoBehaviour
         growCounter = 0f;
     }
 
-    public void AdjustDurationUI(float duration)
+    public void AdjustDurationUI(float currentDuration)  //function to adjust duration player has been in level
     {
-        if(duration < 0f)
+        if (currentDuration < 0f)
         {
-            duration = 0f;
+            currentDuration = 0f;
         }
 
-        if (duration > durationLimit)
+        if (currentDuration > durationLimit)
         {
-            duration = durationLimit;
+            currentDuration = durationLimit;
         }
 
         //do the magic
-        if (durationText != null)
+
+        float milliFloat = currentDuration;
+        float secondFloat = currentDuration * 0.001f;
+        float minuteFloat = (currentDuration * 0.001f) / 60f;
+        float hourFloat = (currentDuration * 0.001f) / 3600f;
+        string durationFormatted = "" + currentDuration;
+
+        int milli = Mathf.FloorToInt(milliFloat);
+        int second = 0;
+        int minute = 0;
+        int hour = 0;
+
+        if (milliFloat > 999f)
         {
-            float milliFloat = currentDuration;
-            float secondFloat = currentDuration * 0.001f;
-            float minuteFloat = (currentDuration * 0.001f) / 60f;
-            float hourFloat = (currentDuration * 0.001f) / 3600f;
-            string durationFormatted = "" + currentDuration;
-
-            if (milliFloat > 999f)
+            while (milliFloat > 999f)
             {
-                while (milliFloat > 999f)
-                {
-                    milliFloat -= 999f;
-                }
-            }
+                second++;
 
-            if (secondFloat > 59f)
+                if(second >= 60)
+                {
+                    second = 0;
+                }
+
+                milliFloat -= 999f;
+            }
+        }
+
+        milli = Mathf.FloorToInt(milliFloat);
+
+        if (secondFloat > 59f)
+        {
+            while (secondFloat > 59f)
             {
-                while (secondFloat > 59f)
-                {
-                    secondFloat -= 59f;
-                }
-            }
+                minute++;
 
-            if (minuteFloat > 59f)
+                if (minute >= 60)
+                {
+                    minute = 0;
+                }
+
+                secondFloat -= 59f;
+            }
+        }
+
+        if (minuteFloat > 59f)
+        {
+            while (minuteFloat > 59f)
             {
-                while (minuteFloat > 59f)
-                {
-                    minuteFloat -= 59f;
-                }
+                hour++;
+
+                minuteFloat -= 59f;
             }
+        }
 
-            int milli = Mathf.FloorToInt(milliFloat);
-            int second = Mathf.FloorToInt(secondFloat);
-            int minute = Mathf.FloorToInt(minuteFloat);
-            int hour = Mathf.FloorToInt(hourFloat);
+        string hourForm = "" + hour;
+        string minuteForm = "" + minute;
+        string secondForm = "" + second;
+        string milliForm = "" + milli;
 
-            durationFormatted = "" + hour + " : " + minute + " : " + second + " : " + milli;
+        if (hour > 99.999)
+        {
+            hourForm = "" + hour;
+        }
+        else if (hour > 9.999)
+        {
+            hourForm = "0" + hour;
+        }
+        else
+        {
+            hourForm = "00" + hour;
+        }
 
-            durationText.text = durationFormatted;
+        if (minute > 9.999)
+        {
+            minuteForm = "" + minute;
+        }
+        else
+        {
+            minuteForm = "0" + minute;
+        }
+
+        if (second > 9.999)
+        {
+            secondForm = "" + second;
+        }
+        else
+        {
+            secondForm = "0" + second;
+        }
+
+        if (milli > 99.999)
+        {
+            milliForm = "" + milli;
+        }
+        else if (milli > 9.999)
+        {
+            milliForm = "0" + milli;
+        } else
+        {
+            milliForm = "00" + milli;
+        }
+
+        /*
+        durationFormatted = hourForm + " : " + minuteForm + " : " + secondForm + " : " + milliForm;           
+
+        durationText.text = durationFormatted;
+        */
+
+        if (durationTextHour != null)
+        {
+            durationTextHour.text = hourForm; 
+        }
+
+        if (durationTextMinute != null)
+        {
+            durationTextMinute.text = minuteForm;
+        }
+
+        if (durationTextSecond != null)
+        {
+            durationTextSecond.text = secondForm;
+        }
+
+        if (durationTextMillisecond != null)
+        {
+            durationTextMillisecond.text = milliForm;
         }
     }
 
