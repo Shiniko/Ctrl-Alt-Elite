@@ -6,6 +6,7 @@ public class DevLevelSelect : MonoBehaviour
     [Header("Accesible Params")]
     public int currentLevel;
     public bool isLevelSelect;
+    public bool isCredits;
     public bool hasLoadedStars = true;
     public bool hasLoadedStarImages;
     public bool hasLoadedLevelButtons = true;
@@ -26,8 +27,10 @@ public class DevLevelSelect : MonoBehaviour
     [SerializeField] private GameObject menuButton;
     [SerializeField] private GameObject creditsButton;
 
+    [Header("UI References")]
     [SerializeField] private GameObject victoryText;
     [SerializeField] private GameObject failText;
+    [SerializeField] private GameObject creditsPanel;
 
     [Header("Load and Unload params")]
     [SerializeField] private string levelSelect;
@@ -117,6 +120,8 @@ public class DevLevelSelect : MonoBehaviour
 
                 DeActivateLevelSelectPanel();
 
+                DeActivateCreditsPanel();
+
                 ActivateNewLevelMenuButtons();
 
                 slm.LoadScene();
@@ -148,14 +153,48 @@ public class DevLevelSelect : MonoBehaviour
         }
         else
         {
+
             ActivateNewLevelMenuButtons();
 
             slm.LoadLevelSelectScene();
+
         }
 
         //setting scenesToUnload array as single levelSelect string
 
         if (!isLevelSelect)
+        {
+            string[] levelUnloadScene = new string[1];
+            levelUnloadScene[0] = levelSelect;
+            sl.SetScenesToUnLoad(levelUnloadScene);
+
+            slm.UnLoadScene();
+        }
+        else
+        {
+            slm.DeActivateLoadPanel();
+        }
+    }
+
+    public void LoadCreditsScene()
+    {
+        //setting scenesToLoad array as single level string
+        string[] levelSelectScene = new string[1];
+        levelSelectScene[0] = "Credits";
+        sl.SetScenesToLoad(levelSelectScene);
+
+        if (!isCredits)
+        {
+            ActivateCreditsPanel();
+
+            ActivateCreditsMenuButtons();
+
+            slm.LoadScene();
+        }
+
+        //Setting Unload array
+
+        if (!isCredits)
         {
             string[] levelUnloadScene = new string[1];
             levelUnloadScene[0] = levelSelect;
@@ -206,6 +245,8 @@ public class DevLevelSelect : MonoBehaviour
         {
             levelSelectPanel.SetActive(false);
         }
+
+        ResetLoadStars();
     }
 
     public void ActivateLevelSelectPanel()
@@ -213,6 +254,26 @@ public class DevLevelSelect : MonoBehaviour
         if (levelSelectPanel != null)
         {
             levelSelectPanel.SetActive(true);
+        }
+
+        ResetLoadStars();
+    }
+
+    public void DeActivateCreditsPanel()
+    {
+        if (creditsPanel != null)
+        {
+            creditsPanel.SetActive(false);
+        }
+
+        ResetLoadStars();
+    }
+
+    public void ActivateCreditsPanel()
+    {
+        if (creditsPanel != null)
+        {
+            creditsPanel.SetActive(true);
         }
 
         ResetLoadStars();
@@ -555,5 +616,55 @@ public class DevLevelSelect : MonoBehaviour
         }
 
         Debug.Log("activated level select buttons");
+    }
+
+    public void ActivateCreditsMenuButtons()              //menu button set level select scene
+    {
+        if (resumeButton != null)
+        {
+            resumeButton.SetActive(true);
+        }
+
+        if (nextLevelButton != null)
+        {
+            nextLevelButton.SetActive(false);
+        }
+
+        if (retryButton != null)
+        {
+            retryButton.SetActive(false);
+        }
+
+        if (levelSelectButton != null)
+        {
+            levelSelectButton.SetActive(true);
+        }
+
+        if (mainMenuButton != null)
+        {
+            mainMenuButton.SetActive(true);
+        }
+
+        if (menuButton != null)
+        {
+            menuButton.SetActive(true);
+        }
+
+        if (creditsButton != null)
+        {
+            creditsButton.SetActive(false);
+        }
+
+        if (failText != null)
+        {
+            failText.SetActive(false);
+        }
+
+        if (victoryText != null)
+        {
+            victoryText.SetActive(false);
+        }
+
+        Debug.Log("activated credits buttons");
     }
 }

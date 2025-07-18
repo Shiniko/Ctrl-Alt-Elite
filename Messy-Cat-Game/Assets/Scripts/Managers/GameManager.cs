@@ -10,12 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Color backgroundColor;        //color value of flash background
     [SerializeField] private SpawnManager spawnManager;    //reference to spawn manager
     [SerializeField] private AudioManager audioManager;    //reference to audio manager
-    [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
     [SerializeField] private ProgressionManager progressionManager;       //reference to progression manager
     [SerializeField] private LevelManager levelManager;       //reference to progression manager
-    [SerializeField] private DevLevelSelect devLevelSelect;
+    [SerializeField] private DevLevelSelect devLevelSelect;     //reference to level select manager
 
+    [Header("Player References")]
+    [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
     [SerializeField] private CatController catController;  //reference to player controller
     [SerializeField] private AnimHandler playerAnim;       //reference to Animator Handler script, attached to player
@@ -60,12 +61,15 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Params")]
     public bool isOverUI;                                  //bool to set from UI elements, which when hovered, we want to know in order to prevent player input among other things 
-    [SerializeField] private GameObject progressPanel;      //Progression panel reference, to set active for levels, and inactive for level select
+    [SerializeField] private float durationLimit;               //float for max duration in milliseconds, for example, 999 hours 59 minutes 59 seconds 999 milliseconds is 3,599,999,999 milliseconds
+
+    [Header("UI References")]
+    [SerializeField] private GameObject progressPanel;      //Progression panel reference, to set active for levels, and inactive for level select or credits
     [SerializeField] private TextMeshProUGUI durationTextHour;      //TMP reference, to set level duration timer text to
     [SerializeField] private TextMeshProUGUI durationTextMinute;      //TMP reference, to set level duration timer text to
     [SerializeField] private TextMeshProUGUI durationTextSecond;      //TMP reference, to set level duration timer text to
     [SerializeField] private TextMeshProUGUI durationTextMillisecond;      //TMP reference, to set level duration timer text to
-    [SerializeField] private float durationLimit;               //float for max duration in milliseconds, for example, 999 hours 59 minutes 59 seconds 999 milliseconds is 3,599,999,999 milliseconds
+    [SerializeField] private GameObject durationPanel;      //Level Duration panel reference, to set active for levels, and inactive for level select or credits
 
     [Header("Preference Params")]
     public bool hasSetPreferences;                         //bool for scripts to check if preferences have indeed benn loaded already, and so this script doesnt do it again
@@ -189,6 +193,12 @@ public class GameManager : MonoBehaviour
         {
             FailLevel();
         }
+
+        // Debug for testing level failed
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            VictoryLevel();
+        }
     }
 
     public void FailLevel()
@@ -196,9 +206,19 @@ public class GameManager : MonoBehaviour
         // Play SFX
         audioManager.Play("LevelFailed");
 
-        GamePausedEsc();
-
         devLevelSelect.ActivateFailMenuButtons();
+
+        GamePausedEsc();
+    }
+
+    public void VictoryLevel()
+    {
+        // Play SFX
+        audioManager.Play("LevelVictory");
+
+        devLevelSelect.ActivateVictoryMenuButtons();
+
+        GamePausedEsc();
     }
 
     public void SetGameReady(bool isready)

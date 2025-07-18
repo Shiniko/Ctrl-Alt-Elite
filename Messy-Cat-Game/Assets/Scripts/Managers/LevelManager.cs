@@ -8,8 +8,11 @@ public class LevelManager : MonoBehaviour
     public bool dogSeenCat;
     public bool humanSeenCat;
 
+    public int currentLevel;
+
     [Header("References")]
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private DevLevelSelect devLevelSelect;
     public LevelDetails levelDetails;
     public Transform spawnPoint;
 
@@ -39,6 +42,11 @@ public class LevelManager : MonoBehaviour
             }
         }
 
+        if (devLevelSelect != null)
+        {
+            currentLevel = devLevelSelect.currentLevel;
+        }
+
         if (levelActive)
         {
             if (countDuration)
@@ -50,6 +58,14 @@ public class LevelManager : MonoBehaviour
                     gameManager.AdjustDurationUI(levelDuration);
                 }
             }
+        }
+    }
+
+    public void LevelVictory()
+    {
+        if(gameManager != null)
+        {
+            gameManager.VictoryLevel();
         }
     }
 
