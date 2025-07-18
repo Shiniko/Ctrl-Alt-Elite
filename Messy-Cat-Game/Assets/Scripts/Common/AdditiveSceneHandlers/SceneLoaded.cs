@@ -62,7 +62,7 @@ public class SceneLoaded : MonoBehaviour
             {
                 triggeredReady = true;
 
-                if (!isLevelSelect || !isCredits)
+                if (!isLevelSelect && !isCredits)
                 {
                     gm.gameReady = true;
                     gm.isRespawning = true;
