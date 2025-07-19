@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerPreferenceManager : MonoBehaviour
 {
+    [Header("Accessible Params")]
+    public int numberOfLevels;                //total number of levels
+
     public int setPrefsCount;                               //count of number of functions / topics to set before calling preferences good and set
     public bool hasSetPrefs;                                //bool to announce that prefs has been set, other scripts will use this to carry on
     public bool hasTriggeredPrefs;                           //bool set so only triggers prefs once
@@ -17,7 +20,6 @@ public class PlayerPreferenceManager : MonoBehaviour
     [SerializeField] private bool hasDoneTutorial;  // bool assigned by whatever we determine a player has done to finsh learning game
 
     [Header("Level Stars")]
-    [SerializeField] private int numberOfLevels;                //total number of levels
     [SerializeField] private int[] levelStars;                  //total numbers of stars per level
     [SerializeField] private string[] levelCompleteStars;       //string code for keeping track of star slots
 

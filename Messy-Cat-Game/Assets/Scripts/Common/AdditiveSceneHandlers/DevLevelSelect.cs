@@ -5,6 +5,8 @@ public class DevLevelSelect : MonoBehaviour
 {
     [Header("Accesible Params")]
     public int currentLevel;
+    public int numberOfLevels;
+
     public bool isLevelSelect;
     public bool isCredits;
     public bool hasLoadedStars = true;
@@ -96,11 +98,16 @@ public class DevLevelSelect : MonoBehaviour
         {
             CheckLevels();
         }
+
+        if(ppm != null)
+        {
+            numberOfLevels = ppm.numberOfLevels;
+        }
     }
 
     public void SelectSceneAndLoad(int levelSuffix)
     {
-        if(levelSuffix < 0 || levelSuffix > 35)
+        if(levelSuffix < 0 || levelSuffix > numberOfLevels)
         {
             return;
         }
@@ -274,7 +281,35 @@ public class DevLevelSelect : MonoBehaviour
 
         //Debug.Log("DVS running ReloadSameLevel; currentLevel = "+currentLevel);
 
-        if(level <1 || level > 35)
+        if(level <1 || level > numberOfLevels)
+        {
+            return;
+        }
+
+        if (sl != null)
+        {
+            levelSelect = "Level_" + level;
+            //setting scenesToLoad array as single level string
+            string[] levelSelectScene = new string[1];
+            levelSelectScene[0] = levelSelect;
+            sl.SetScenesToLoad(levelSelectScene);
+            sl.SetScenesToUnLoad(levelSelectScene);
+
+            ActivateNewLevelMenuButtons();
+
+            //make sure gameunpause and close pause menu and loading panel activated
+
+            sl.UnloadSameLevel(level);
+        }
+    }
+
+    public void LoadNextLevel()
+    {
+        int level = currentLevel+1;
+
+        //Debug.Log("DVS running ReloadSameLevel; currentLevel = "+currentLevel);
+
+        if (level < 1)
         {
             return;
         }
