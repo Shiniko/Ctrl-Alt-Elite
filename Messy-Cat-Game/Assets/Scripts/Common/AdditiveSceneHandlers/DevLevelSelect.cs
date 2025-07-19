@@ -128,9 +128,15 @@ public class DevLevelSelect : MonoBehaviour
 
                 //Debug.Log("DVS SelectSceneAndLoad called scene loader to SetScenesToLoad as levelSelectScene: " + levelSelectScene[0]);
 
-                DeActivateLevelSelectPanel();
+                if (isLevelSelect)
+                {
+                    DeActivateLevelSelectPanel();
+                }
 
-                DeActivateCreditsPanel();
+                if (isCredits)
+                {
+                    DeActivateCreditsPanel();
+                }
 
                 ActivateNewLevelMenuButtons();
 
@@ -234,9 +240,12 @@ public class DevLevelSelect : MonoBehaviour
 
         if (!isCredits)
         {
-            DeActivateLevelSelectPanel();
+            if (isLevelSelect)
+            {
+                DeActivateLevelSelectPanel();
+            }
 
-            ActivateCreditsPanel();
+            ActivateCreditsPanel();      
 
             ActivateCreditsMenuButtons();
 
@@ -305,6 +314,7 @@ public class DevLevelSelect : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        currentLevel++;
         int level = currentLevel+1;
 
         //Debug.Log("DVS running ReloadSameLevel; currentLevel = "+currentLevel);
@@ -314,9 +324,65 @@ public class DevLevelSelect : MonoBehaviour
             return;
         }
 
+        if (level > numberOfLevels)
+        {
+            level = numberOfLevels;
+            currentLevel = level;
+
+            LoadCreditsScene();
+
+            return;
+        }
+
+        if (!_levelSelected)
+        {
+            _levelSelected = true;
+
+            if (sl != null)
+            {
+                levelSelect = "Level_" + level;
+
+                //setting scenesToLoad array as single level string
+                string[] levelSelectScene = new string[1];
+                levelSelectScene[0] = levelSelect;
+                sl.SetScenesToLoad(levelSelectScene);
+
+                //Debug.Log("DVS SelectSceneAndLoad called scene loader to SetScenesToLoad as levelSelectScene: " + levelSelectScene[0]);
+
+                if (isLevelSelect)
+                {
+                    DeActivateLevelSelectPanel();
+                }
+
+                if (isCredits)
+                {
+                    DeActivateCreditsPanel();
+                }
+
+                ActivateNewLevelMenuButtons();
+
+                slm.LoadScene();
+
+                //setting scenesToUnload array as single levelSelect string
+                string[] levelUnloadScene = new string[1];
+                levelUnloadScene[0] = "Level_" + (level - 1);
+                sl.SetScenesToUnLoad(levelUnloadScene);
+
+                //Debug.Log("DVS SelectSceneAndLoad called scene loader to SetScenesToUnLoad as levelUnloadScene: " + levelUnloadScene[0]);
+
+                slm.UnLoadScene();
+            }
+        }
+        else
+        {
+            //Debug.Log("DVS checked _levelSelected, and it was true");
+        }
+
+
         if (sl != null)
         {
             levelSelect = "Level_" + level;
+
             //setting scenesToLoad array as single level string
             string[] levelSelectScene = new string[1];
             levelSelectScene[0] = levelSelect;

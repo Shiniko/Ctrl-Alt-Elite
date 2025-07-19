@@ -299,6 +299,11 @@ public class LevelManager : MonoBehaviour
         }
 
         hasAvoidStar = true;
+
+        if (progressionManager != null)
+        {
+            progressionManager.AddStarForDog();
+        }
     }
 
     private void CheckDurationOfCompletion()

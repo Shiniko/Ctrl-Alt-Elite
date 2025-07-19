@@ -25,7 +25,7 @@ public class ProgressionManager : MonoBehaviour
     private float percentDarken = 0.5f;
     private bool isStarSpecialItem;
     private bool isStarMessComplete;
-    private bool isStarDog;
+    [SerializeField] private bool isStarDog;
     private float messIncrement;
     private int starScore; 
 
@@ -147,6 +147,8 @@ public class ProgressionManager : MonoBehaviour
             starForDogCollapsed.GetComponent<Image>().color = darkenImage();
             isStarDog = false;
             starScore--;
+
+            Debug.Log("Removed Star for dog in Progression Manager");
         }
     }
     public void AddStarForDog()
@@ -157,11 +159,15 @@ public class ProgressionManager : MonoBehaviour
             starForDogCollapsed.GetComponent<Image>().color = Color.white;
             isStarDog = true;
             starScore++;
+
+            Debug.Log("Added Star for dog in Progression Manager");
         }
     }
 
     public void ResetProgress()
     {
+        Debug.Log("resetting progressioin manager");
+
         starForMessCompletion.GetComponent<Image>().color = darkenImage();
         starForMessCompletionCollapsed.GetComponent<Image>().color = darkenImage();
         starForSpecialItem.GetComponent<Image>().color = darkenImage();

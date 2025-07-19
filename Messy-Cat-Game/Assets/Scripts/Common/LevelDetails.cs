@@ -63,7 +63,7 @@ public class LevelDetails : MonoBehaviour
                 progressionManager.totalMessAmount = totalMessesNeeded;
             }
 
-            progressionManager.AddStarForDog();
+            //progressionManager.AddStarForDog(); //chnaging this to be set in level manager for new level set, to control when it is allowed and not opverwritten by a level reset
         }
     }
 
