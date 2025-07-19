@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 //Required for movement
 [RequireComponent(typeof(Rigidbody))]
 //Required for collision detection
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Animator))]
 public class DogContext : MonoBehaviour
 {
-    public SphereCollider dogHearing { get; private set; }
-    public DogVision vision { get; private set; }
-
-    private Rigidbody rb;
     [SerializeField] private float speed = 5f;
 
     [SerializeField] private float _maxRoamDistance = -1;
@@ -17,30 +13,45 @@ public class DogContext : MonoBehaviour
     [SerializeField] private float stallTime = 2f;
     [SerializeField] private MovementAxis movementAxis;
 
-    [SerializeField] private float size = 0.25f;
-    [SerializeField] private Color gizmoColor = Color.green;
+    [SerializeField] private float _size = 0.25f;
+    [SerializeField] private Color _gizmoColor = Color.green;
 
-
+    private Rigidbody rb;
+    public SphereCollider dogHearing { get; private set; }
+    public DogVision vision { get; private set; }
+    public SuspiciousEvent currentSuspiciousEvent { get; private set; }
+    public bool distracted;
+    private Animator animator;
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = gizmoColor;
+        Gizmos.color = _gizmoColor;
         //Dog roaming distance gizmos
         switch (movementAxis)
         {
             case MovementAxis.X:
-                Gizmos.DrawWireSphere(new(_minRoamDistance, transform.position.y, transform.position.z), size);
-                Gizmos.DrawWireSphere(new(_maxRoamDistance, transform.position.y, transform.position.z), size);
+                Gizmos.DrawWireSphere(new(_minRoamDistance, transform.position.y, transform.position.z), _size);
+                Gizmos.DrawWireSphere(new(_maxRoamDistance, transform.position.y, transform.position.z), _size);
                 break;
             case MovementAxis.Z:
-                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _minRoamDistance), size);
-                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _maxRoamDistance), size);
+                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _minRoamDistance), _size);
+                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _maxRoamDistance), _size);
                 break;
         }
+    }
+
+    public void Update()
+    {
+        animator.SetBool("Distracted", distracted);
     }
 
     public void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        if(!GetComponentInChildren<DogVision>())
+        {
+            Debug.LogError("A DogVision script is not attached to a child of this object!! DogContext requires a DogVision script to be in a child object",this);
+        }
     }
 
     /// <summary>
@@ -61,8 +72,6 @@ public class DogContext : MonoBehaviour
         }
 
     }
-
-
 
     /// <summary>
     /// Returns the rigidbody that is attached to the same game object as the Dog Context script
@@ -89,7 +98,7 @@ public class DogContext : MonoBehaviour
 
     enum MovementAxis
     {
-        X, Y, Z
+        X, Z
     }
 }
 

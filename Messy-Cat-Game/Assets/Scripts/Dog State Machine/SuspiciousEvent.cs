@@ -10,7 +10,7 @@ public class SuspiciousEvent
         suspiciousEvents.Add(this);
     }
 
-    public void RemoveSuspiciousEvent(SuspiciousEvent suspiciousEvent)
+    public static void RemoveSuspiciousEvent(SuspiciousEvent suspiciousEvent)
     {
         suspiciousEvents.Remove(suspiciousEvent);
     }
