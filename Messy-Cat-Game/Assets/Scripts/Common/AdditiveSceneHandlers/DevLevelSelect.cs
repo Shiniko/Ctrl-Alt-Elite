@@ -109,6 +109,8 @@ public class DevLevelSelect : MonoBehaviour
     {
         if(levelSuffix < 0 || levelSuffix > numberOfLevels)
         {
+            Debug.Log("Returning in DLS because selectsceneandload has levelSuffix greate than number of levels or less than zero");
+
             return;
         }
 
@@ -229,6 +231,8 @@ public class DevLevelSelect : MonoBehaviour
                 gm.hasSpawnedPlayer = true;
                 gm.isRespawning = false;
             }
+
+
         }
 
         //setting scenesToLoad array as single level string
@@ -315,7 +319,7 @@ public class DevLevelSelect : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevel++;
-        int level = currentLevel+1;
+        int level = currentLevel;
 
         //Debug.Log("DVS running ReloadSameLevel; currentLevel = "+currentLevel);
 
@@ -329,6 +333,7 @@ public class DevLevelSelect : MonoBehaviour
             level = numberOfLevels;
             currentLevel = level;
 
+            Debug.Log("Loading credits cause finsihed last level");
             LoadCreditsScene();
 
             return;
@@ -371,6 +376,9 @@ public class DevLevelSelect : MonoBehaviour
                 //Debug.Log("DVS SelectSceneAndLoad called scene loader to SetScenesToUnLoad as levelUnloadScene: " + levelUnloadScene[0]);
 
                 slm.UnLoadScene();
+
+                //need to set as next level, as unload for next here, after unloading current level
+                levelSelect = "Level_" + level;
             }
         }
         else
