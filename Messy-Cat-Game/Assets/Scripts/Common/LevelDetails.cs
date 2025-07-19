@@ -6,7 +6,7 @@ public class LevelDetails : MonoBehaviour
 
     [SerializeField] private ProgressionManager progressionManager;
     [SerializeField] private bool pmSet;
-    public Transform spawnPoint;
+    public int spawnIndex;
 
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private bool lmSet;
@@ -24,9 +24,9 @@ public class LevelDetails : MonoBehaviour
         {
             if (!pmSet)
             {
-                pmSet = true;
-
                 SetProgressManager(); 
+
+                pmSet = true;
             }
         }
 
@@ -41,9 +41,9 @@ public class LevelDetails : MonoBehaviour
         {
             if (!lmSet)
             {
-                lmSet = true;
-
                 SetLevelManager();
+
+                lmSet = true;
             }
         }
     }
@@ -72,12 +72,12 @@ public class LevelDetails : MonoBehaviour
         if (levelManager != null)
         {
             //do stuff to set
-            if (spawnPoint != null)
-            {
-                levelManager.spawnPoint = spawnPoint;
-            }
 
+            levelManager.spawnIndex = spawnIndex;
             levelManager.levelDetails = this;
+            levelManager.totalMessNeeded = totalMessesNeeded;
+
+            levelManager.NewLevelSet();
         }
     }
 }

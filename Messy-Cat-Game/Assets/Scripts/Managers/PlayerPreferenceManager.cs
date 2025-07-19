@@ -94,7 +94,7 @@ public class PlayerPreferenceManager : MonoBehaviour
 
         for (int i = 0; i < levelCompleteDurations.Length; i++)
         {
-            PlayerPrefs.SetFloat("BestDuration"+(i+1), 0f);
+            PlayerPrefs.SetFloat("BestDuration"+(i+1), 3599999999f);
         }
 
         hasSetPrefs = true;
@@ -330,7 +330,7 @@ public class PlayerPreferenceManager : MonoBehaviour
                 return false; //does not match expected level number (1 to assigned max levels), return out
             }
 
-            if (duration <= 0f)
+            if (duration < 0f)
             {
                 return false; //does not match expected duration, return out
             }
@@ -339,7 +339,7 @@ public class PlayerPreferenceManager : MonoBehaviour
             {
                 float checkDuration = PlayerPrefs.GetFloat("BestDuration" + (level));
 
-                if (duration < checkDuration)
+                if (duration <= checkDuration)
                 {
                     PlayerPrefs.SetFloat("BestDuration" + (level), duration);
 
@@ -351,6 +351,8 @@ public class PlayerPreferenceManager : MonoBehaviour
                 else
                 {
                     return false;
+
+                    Debug.Log("Check duration is not less than or equal to bestDuration");
                 }
             }
             else
@@ -363,6 +365,8 @@ public class PlayerPreferenceManager : MonoBehaviour
         else
         {
             return false;
+
+            Debug.Log("Tried to check completion duration but has not set prefs yet");
         }
     }
 

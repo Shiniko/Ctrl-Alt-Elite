@@ -187,18 +187,6 @@ public class GameManager : MonoBehaviour
         {
             hasLoadedPrefs = playerPrefsManager.hasSetPrefs;
         }
-
-        // Debug for testing level failed
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            FailLevel();
-        }
-
-        // Debug for testing level failed
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            VictoryLevel();
-        }
     }
 
     public void FailLevel()
@@ -218,7 +206,7 @@ public class GameManager : MonoBehaviour
 
         devLevelSelect.ActivateVictoryMenuButtons();
 
-        GamePausedEsc();
+        //GamePausedEsc();
     }
 
     public void SetGameReady(bool isReady)
@@ -234,6 +222,31 @@ public class GameManager : MonoBehaviour
     public void SetRespawnCounter(float duration)
     {
         respawnCounter = duration;
+    }
+
+    public void SetNewRespawnPoint(int newPointIndex)
+    {
+        //index refers to the playerSpawners of Spawn Manager, 0 is center while 1 through 4 are left sides, left to right, and 5 through 8 are right side, left to right
+
+        if (newPointIndex < 0)
+        {
+            newPointIndex = 0;                                                      //setting the index to first of the array if less than zero
+        }
+
+        if (spawnManager != null)
+        {
+            if (newPointIndex > (spawnManager.playerSpawners.Length - 1))
+            {
+                newPointIndex = (spawnManager.playerSpawners.Length - 1);           //setting the index to max index if greater than the array
+            }
+
+            SpawnPlayer newSpawner = spawnManager.playerSpawners[newPointIndex]; //Spawn Player is a script, grabbing the new Spawn Player index within SpawnManager array of Spawn Players
+
+            if (newSpawner != null)
+            {
+                spawnManager.ChangeSpawnPoint(newSpawner);                      //if not null, calling a Change of spawning point to the new Spawn Player - these spawn players at their position
+            }
+        }
     }
 
     private void HandleRespawn()  //explained in update
@@ -252,7 +265,7 @@ public class GameManager : MonoBehaviour
 
                 if (hasSetPreferences)
                 {
-                    SpawnPlayer();
+                    SpawnCat();
                 }
             }
 
@@ -268,7 +281,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SpawnPlayer()  //function to trigger a spawn of the player via SpawnManager
+    private void SpawnCat()  //function to trigger a spawn of the player via SpawnManager
     {
         if (!hasSpawnedPlayer)
         {
@@ -695,6 +708,50 @@ public class GameManager : MonoBehaviour
         {
             progressPanel.SetActive(showPanel);
         }
+    }
+
+    public bool CheckDurationCompletion(float durationToCheck, int level)       //checked by Level Manager to determine if duration is a new record
+    {
+        if(durationToCheck < 0f)
+        {
+            durationToCheck = 0f;
+        }
+
+        if (level < 1 || level > 35)
+        {
+            return false;
+
+            Debug.Log("returned false because level was not correct");
+        }
+
+        if (playerPrefsManager != null)
+        {
+            bool checkPrefsForRecord = playerPrefsManager.CheckCompletionTime(level, durationToCheck);
+
+            Debug.Log("checked Record from prefs is " + checkPrefsForRecord);
+
+            if (checkPrefsForRecord)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+
+                Debug.Log("returned false because check for prefs was false");
+            }
+        }
+        else
+        {
+            return false;
+
+            Debug.Log("returned false because PlayerPrefs Manager was null");
+        }
+    }
+
+    public void SaveNewStar(int level, int slot)
+    {
+        SaveNewStar(level, slot);
     }
 
     IEnumerator LoadDelayQG(float delay)  //set game time to normal if paused, then delay applying quit, to play audio, before quitting
