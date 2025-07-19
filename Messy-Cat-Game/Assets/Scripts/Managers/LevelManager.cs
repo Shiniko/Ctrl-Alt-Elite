@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject hiddenVictoryStar;
 
     [Header("Triggers and Checks")]
+    [SerializeField] private bool triggerDuration;
     [SerializeField] private bool triggerFail;
     [SerializeField] private bool triggerVictory;
     [SerializeField] private bool triggerAvoidStarLoss;
@@ -95,6 +96,16 @@ public class LevelManager : MonoBehaviour
                 }
             }
 
+            if (!triggerDuration)
+            {
+                if (durationPanel != null)
+                {
+                    durationPanel.SetActive(true);
+                }
+
+                triggerDuration = true;
+            }
+
             if (countDuration)
             {
                 levelDuration += Time.deltaTime * 1000f;
@@ -127,6 +138,13 @@ public class LevelManager : MonoBehaviour
 
                 //for testing
                 LevelVictory();
+            }
+        }
+        else
+        {
+            if (durationPanel != null)
+            {
+                durationPanel.SetActive(false);
             }
         }
     }
@@ -197,6 +215,7 @@ public class LevelManager : MonoBehaviour
 
         levelDuration = 0f;
         countDuration = false;
+        triggerDuration = false;
 
         triggerFail = false;
         triggerVictory = false;
