@@ -14,7 +14,7 @@ public interface IInteractable
     /// <summary>
     /// Default interaction method that can be overridden by implementing classes.
     /// </summary>
-    void Interact()
+    public void Interact()
     {
         Debug.Log("Interacted with!");
     }

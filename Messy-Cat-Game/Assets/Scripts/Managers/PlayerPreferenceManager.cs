@@ -13,48 +13,57 @@ public class PlayerPreferenceManager : MonoBehaviour
     [Header("Level Codes")]
     [SerializeField] private int doneTutorialCode;          //arbitrary code to hard check whether someone has indeed finsihed the tutorial, weakly secure, but something
 
-    [Header("Level Group Strings")]
-    [SerializeField] private string levelCompleteGroup1;    //string that will be broken down and built back up to save or load the number of stars a person has achieved for each level, this group is level 1 through 7
-    [SerializeField] private string levelCompleteGroup2;    //string that will be broken down and built back up to save or load the number of stars a person has achieved for each level, this group is level 8 through 14
-    [SerializeField] private string levelCompleteGroup3;    //string that will be broken down and built back up to save or load the number of stars a person has achieved for each level, this group is level 15 through 21
-    [SerializeField] private string levelCompleteGroup4;    //string that will be broken down and built back up to save or load the number of stars a person has achieved for each level, this group is level 22 through 28
-    [SerializeField] private string levelCompleteGroup5;    //string that will be broken down and built back up to save or load the number of stars a person has achieved for each level, this group is level 29 through 35
-
     [Header("Level Bools")]
     [SerializeField] private bool hasDoneTutorial;  // bool assigned by whatever we determine a player has done to finsh learning game
 
     [Header("Level Stars")]
-    [SerializeField] private int numberOfLevels;
-    [SerializeField] private int[] levelStars;
+    [SerializeField] private int numberOfLevels;                //total number of levels
+    [SerializeField] private int[] levelStars;                  //total numbers of stars per level
+    [SerializeField] private string[] levelCompleteStars;       //string code for keeping track of star slots
+
+    public int[] finishStars;                           //level star for mess completion value to 1 or 0, 1 is earned, 0 is not
+    public int[] avoidStars;                           //level star for dog avoidance value to 1 or 0, 1 is earned, 0 is not
+    public int[] hiddenStars;                          //level star for get hidden item value to 1 or 0, 1 is earned, 0 is not
 
     [Header("Level Best Times")]
-    [SerializeField] private float[] levelCompleteDurations;
+    [SerializeField] private float[] levelCompleteDurations;            //float to be saved and loaded as duration player took to complete a level
 
     void Start()
     {
-        levelStars = new int[numberOfLevels];
+        levelStars = new int[numberOfLevels];                    //initialize the array with number of levels
+        levelCompleteDurations = new float[numberOfLevels];      //initialize the array with number of levels
+        levelCompleteStars = new string[numberOfLevels];         //initialize the array with number of levels
+        finishStars = new int[numberOfLevels];                   //initialize the array with number of levels
+        avoidStars = new int[numberOfLevels];                    //initialize the array with number of levels
+        hiddenStars = new int[numberOfLevels];                   //initialize the array with number of levels
     }
 
     void Update()
     {
-        if (!hasTriggeredPrefs)
+        
+        if (!hasTriggeredPrefs)  //only set or load preferences once as initialization
         {
-            hasTriggeredPrefs = true;
+            hasTriggeredPrefs = true;  //once triggered no more set or load from update
 
-            if (PlayerPrefs.HasKey("DoneTutorialCode"))
+            if (PlayerPrefs.HasKey("DoneTutorialCode")) //arbitrary key player should have if player prefs previously set
             {
-                LoadPlayerPrefs();
+                LoadPlayerPrefs();  //load prefs cause previously set
+
+                Debug.Log("loading instead of setting");
             }
             else
             {
-                SetPlayerPrefs();
+                SetPlayerPrefs();  //set prefs because first time
+
+                Debug.Log("setting instead of loading");
             }
         }
 
-        if(setPrefsCount >= 3)
+        if(setPrefsCount >= 3)  //a count of all three pref types then set hasSet as true so other scripts can check
         {
             hasSetPrefs = true;
         }
+        
     }
 
     private void LoadPlayerPrefs()
@@ -64,16 +73,13 @@ public class PlayerPreferenceManager : MonoBehaviour
 
         doneTutorialCode = PlayerPrefs.GetInt("DoneTutorialCode");
 
-        levelCompleteGroup1 = PlayerPrefs.GetString("LevelCompleteGroup1");
-        levelCompleteGroup2 = PlayerPrefs.GetString("LevelCompleteGroup2");
-        levelCompleteGroup3 = PlayerPrefs.GetString("LevelCompleteGroup3");
-        levelCompleteGroup4 = PlayerPrefs.GetString("LevelCompleteGroup4");
-        levelCompleteGroup5 = PlayerPrefs.GetString("LevelCompleteGroup5");
-
+        //Debug.Log("About to call checkcodes");
         CheckCodes();
 
+        //Debug.Log("About to call loadstars");
         LoadStars();
 
+        //Debug.Log("About to call loadcompletion durations");
         LoadCompletionDurations();
     }
 
@@ -81,14 +87,20 @@ public class PlayerPreferenceManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("DoneTutorialCode", doneTutorialCode);
 
-        PlayerPrefs.SetString("LevelCompleteGroup1", "A0000000");
-        PlayerPrefs.SetString("LevelCompleteGroup2", "B0000000");
-        PlayerPrefs.SetString("LevelCompleteGroup3", "C0000000");
-        PlayerPrefs.SetString("LevelCompleteGroup4", "D0000000");
-        PlayerPrefs.SetString("LevelCompleteGroup5", "E0000000");
+        for (int i = 0; i < levelCompleteStars.Length; i++)
+        {
+            PlayerPrefs.SetString("LevelStarsCompleted" + (i + 1), "9000");
+        }
+
+        for (int i = 0; i < levelCompleteDurations.Length; i++)
+        {
+            PlayerPrefs.SetFloat("BestDuration"+(i+1), 3599999999f);
+        }
 
         hasSetPrefs = true;
         setPrefsCount = 0;
+
+        LoadPlayerPrefs();
     }
 
     private void CheckCodes()
@@ -103,168 +115,162 @@ public class PlayerPreferenceManager : MonoBehaviour
 
     private void LoadStars()
     {
-        for (int i = 0; i < levelCompleteGroup1.Length; i++)  //iterate through characters in player pref string, if a number then assign variable in a levelStars array
+        for (int i = 0; i < levelCompleteStars.Length; i++)                          //iterate through strings in player prefs, then assign variable for parsing
         {
-            if (i > 0) // first index skipped, always a letter, this is on purpose
-            {
-                char currentChar = levelCompleteGroup1[i];     //temporary char
-                int currentValue = levelCompleteGroup1[i];     //temporary int
+            levelCompleteStars[i] = PlayerPrefs.GetString("LevelStarsCompleted" + (i + 1));  //get string from player prefs
+            string starNums = levelCompleteStars[i];                                 //set temp string to pares through
+            int starsCounted = 0;
 
-                if (int.TryParse(currentChar.ToString(), out currentValue))     //check if number
+            for (int j = 0; j < starNums.Length; j++)                               //iterate through characters in string to parse, if a number then assign value in an array of types of stars
+            {
+                if (j > 0)                                                          //skip first j index, always 9, on purpose so int value not lost for rest of ints
                 {
-                    levelStars[i-1] = currentValue;             //assign number value to array variable
-                }
-                else
-                {
-                    Debug.Log("Found a non numerical value when expecting integer");
+                    char currentChar = starNums[j];                                 //set a temporary char to indexed string character
+                    int currentValue = starNums[j];                                 //set a temporary value to indexed string character 
+                          
+
+                    if (int.TryParse(currentChar.ToString(), out currentValue))     //check if number
+                    {
+                        if (j == 1)
+                        {
+                            finishStars[i] = currentValue;                           //set level star for mess completion value to 1 or 0, 1 is earned, 0 is not
+
+                            if(currentValue == 1)
+                            {
+                                starsCounted++;
+                            }
+
+                        }
+
+                        if (j == 2)
+                        {
+                            avoidStars[i] = currentValue;                           //set level star for dog avoidance value to 1 or 0, 1 is earned, 0 is not
+
+                            if (currentValue == 1)
+                            {
+                                starsCounted++;
+                            }
+                        }
+
+                        if (j == 3)
+                        {
+                            hiddenStars[i] = currentValue;                           //set level star for get hidden item value to 1 or 0, 1 is earned, 0 is not
+
+                            if (currentValue == 1)
+                            {
+                                starsCounted++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Found a non numerical value when expecting integer");
+                    }
                 }
             }
-        }
 
-        for (int i = 0; i < levelCompleteGroup2.Length; i++)  //iterate through characters in player pref string, if a number then assign variable in a levelStars array
-        {
-            if (i > 0) // first index skipped, always a letter, this is on purpose
-            {
-                char currentChar = levelCompleteGroup2[i];
-                int currentValue = levelCompleteGroup2[i];
-
-                if (int.TryParse(currentChar.ToString(), out currentValue))     //check if number
-                {
-                    levelStars[i + 6] = currentValue;
-                }
-                else
-                {
-                    Debug.Log("Found a non numerical value when expecting integer");
-                }
-            }
-        }
-
-        for (int i = 0; i < levelCompleteGroup3.Length; i++)  //iterate through characters in player pref string, if a number then assign variable in a levelStars array
-        {
-            if (i > 0) // first index skipped, always a letter, this is on purpose
-            {
-                char currentChar = levelCompleteGroup3[i];
-                int currentValue = levelCompleteGroup3[i];
-
-                if (int.TryParse(currentChar.ToString(), out currentValue))     //check if number
-                {
-                    levelStars[i + 13] = currentValue;
-                }
-                else
-                {
-                    Debug.Log("Found a non numerical value when expecting integer");
-                }
-            }
-        }
-
-        for (int i = 0; i < levelCompleteGroup4.Length; i++)  //iterate through characters in player pref string, if a number then assign variable in a levelStars array
-        {
-            if (i > 0) // first index skipped, always a letter, this is on purpose
-            {
-                char currentChar = levelCompleteGroup4[i];
-                int currentValue = levelCompleteGroup4[i];
-
-                if (int.TryParse(currentChar.ToString(), out currentValue))     //check if number
-                {
-                    levelStars[i + 20] = currentValue;
-                }
-                else
-                {
-                    Debug.Log("Found a non numerical value when expecting integer");
-                }
-            }
-        }
-
-        for (int i = 0; i < levelCompleteGroup5.Length; i++)  //iterate through characters in player pref string, if a number then assign variable in a levelStars array
-        {
-            if (i > 0) // first index skipped, always a letter, this is on purpose
-            {
-                char currentChar = levelCompleteGroup5[i];
-                int currentValue = levelCompleteGroup5[i];
-
-                if (int.TryParse(currentChar.ToString(), out currentValue))     //check if number
-                {
-                    levelStars[i + 27] = currentValue;
-                }
-                else
-                {
-                    Debug.Log("Found a non numerical value when expecting integer");
-                }
-            }
+            levelStars[i] = starsCounted;
         }
 
         setPrefsCount++;  //add a pref count after setting stars, see Update() function for use
     }
 
-    public void SaveNewStar(int level, int stars)  // Call this to set new star values, passing in level and the number of stars earned
+    public void RandomStar()  //for testing purposes ONLY
+    {
+        int randLevel = Random.Range(1, numberOfLevels + 1);
+        int randSlot = Random.Range(1, 4);
+
+        if (randLevel > numberOfLevels)
+        {
+            randLevel = numberOfLevels;
+        }
+
+        if (randSlot > 3)
+        {
+            randSlot = 3;
+        }
+
+        Debug.Log("Random Level: " + randLevel);
+        Debug.Log("Random Slot: " + randSlot);
+
+        SaveNewStar(randLevel, randSlot);
+    }
+
+    public void SaveNewStar(int level, int slot)  // old was stars instead of slot // Call this to set new star values, passing in level and the slot of star earned, 1 is mess, 2 is dog, 3 is hidden
     {
         if (level < 1 || level > numberOfLevels)
         {
             return; //does not match expected level number (1 to assigned max levels), return out
         }
 
-        if (stars < 1 || stars > 3)
+        if (slot < 1 || slot > 3)
         {
-            return; //does not match expected number of stars (1-3), return out
+            return; //does not match expected number of slots (1-3), return out
         }
 
-        //assign temporary variables
-
-        int charIndex = 0; // set to zero then calculate, groups of 8 (0 - 7 array)
-        int charGroup = 0; // set to zero then assign among the 5 groups
-        string groupString = ""; //set to nothing then pass in appropriate string based on level range below
-
-        if (level >= 1 && level <= 7)
+        //assign new star based on level and slot
+        if (PlayerPrefs.HasKey("LevelStarsCompleted" + (level)))
         {
-            charIndex = level;                                                   //assign temporary index value (0-7)
-            charGroup = 1;                                                       //assign temporary group value
-            levelCompleteGroup1 = PlayerPrefs.GetString("LevelCompleteGroup1");  //grab the existing string in prefs
-            groupString = levelCompleteGroup1;                                   //assign temporary string value
-        }
+            string parseString = PlayerPrefs.GetString("LevelStarsCompleted" + (level));
+            char[] charArray = parseString.ToCharArray();
+            char valueReplace = (char)('0' + 1);
+            charArray[slot] = valueReplace;
+            string newString = new string(charArray);
 
-        if (level >= 8 && level <= 14)
-        {
-            charIndex = level - 8;                                               //assign temporary index value (0-7)
-            charGroup = 2;                                                       //assign temporary group value
-            levelCompleteGroup2 = PlayerPrefs.GetString("LevelCompleteGroup2");  //grab the existing string in prefs
-            groupString = levelCompleteGroup2;                                   //assign temporary string value
-        }
+            PlayerPrefs.SetString("LevelStarsCompleted" + (level), newString);
 
-        if (level >= 15 && level <= 21)
-        {
-            charIndex = level - 15;                                              //assign temporary index value (0-7)
-            charGroup = 3;                                                       //assign temporary group value
-            levelCompleteGroup3 = PlayerPrefs.GetString("LevelCompleteGroup3");  //grab the existing string in prefs
-            groupString = levelCompleteGroup3;                                   //assign temporary string value
-        }
+            levelCompleteStars[level-1] = PlayerPrefs.GetString("LevelStarsCompleted" + (level));
 
-        if (level >= 22 && level <= 28)
-        {
-            charIndex = level - 22;                                              //assign temporary index value (0-7)
-            charGroup = 4;                                                       //assign temporary group value
-            levelCompleteGroup4 = PlayerPrefs.GetString("LevelCompleteGroup4");  //grab the existing string in prefs
-            groupString = levelCompleteGroup4;                                   //assign temporary string value
-        }
+            string starNums = levelCompleteStars[level-1];                                 //set temporary string to pares through
+            int starsCounted = 0;                                                       //set a temporary counter of stars
 
-        if (level >= 29 && level <= 35)
-        {
-            charIndex = level - 29;                                              //assign temporary index value (0-7)
-            charGroup = 5;                                                       //assign temporary group value
-            levelCompleteGroup5 = PlayerPrefs.GetString("LevelCompleteGroup5");  //grab the existing string in prefs
-            groupString = levelCompleteGroup5;                                   //assign temporary string value
-        }
+            for (int i = 0; i < starNums.Length; i++)                               //iterate through characters in string to parse, if a number then assign value in an array of types of stars
+            {
+                if (i > 0)                                                          //skip first j index, always 9, on purpose so int value not lost for rest of ints
+                {
+                    char currentChar = starNums[i];                                 //set a temporary char to indexed string character
+                    int currentValue = starNums[i];                                 //set a temporary value to indexed string character       
 
-        if (groupString != "" || groupString != null)       //checking if groupString is empty or null
-        {
-            char[] charArray = groupString.ToCharArray();   //set a temporary char array to the temporary group string from above
+                    if (int.TryParse(currentChar.ToString(), out currentValue))     //check if number
+                    {
+                        if (i == 1)
+                        {
+                            finishStars[level-1] = currentValue;                           //set level star for mess completion value to 1 or 0, 1 is earned, 0 is not
 
-            char newChar = (char)(stars + '0');             //assign the int star value passed into function, as a string character
+                            if (currentValue == 1)
+                            {
+                                starsCounted++;
+                            }
+                        }
 
-            charArray[charIndex] = newChar;                 //change the temporary char array index to new star character
+                        if (i == 2)
+                        {
+                            avoidStars[level-1] = currentValue;                           //set level star for dog avoidance value to 1 or 0, 1 is earned, 0 is not
 
-            string newString = new string(charArray);       //create a new string based on changed temporary char array
+                            if (currentValue == 1)
+                            {
+                                starsCounted++;
+                            }
+                        }
 
-            AssignStarsToPrefs(charGroup, newString);      //run function to save the new star values in player prefs, passing group number and new string
+                        if (i == 3)
+                        {
+                            hiddenStars[level-1] = currentValue;                           //set level star for get hidden item value to 1 or 0, 1 is earned, 0 is not
+
+                            if (currentValue == 1)
+                            {
+                                starsCounted++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Found a non numerical value when expecting integer");
+                    }
+                }
+            }
+
+            levelStars[level-1] = starsCounted;
         }
     }
 
@@ -300,7 +306,68 @@ public class PlayerPreferenceManager : MonoBehaviour
     {
         //to do: add way to load completion times
 
+        if (PlayerPrefs.HasKey("BestDuration1"))
+        {
+            for (int i = 0; i < levelCompleteDurations.Length; i++)
+            {
+                levelCompleteDurations[i] = PlayerPrefs.GetFloat("BestDuration" + (i + 1));
+            }
+        }
+        else
+        {
+            Debug.Log("Tried to load level best durations without a key to do so");
+        }
+
         setPrefsCount++;  //add a pref count after setting completeion durations, see Update() function for use
+    }
+
+    public bool CheckCompletionTime(int level, float duration)  //used to check if completion duration is less than best record, then save new if so, returning true only when also so calling script can do what it needs for a new record
+    {
+        if (hasSetPrefs)
+        {
+            if (level < 1 || level > numberOfLevels)
+            {
+                return false; //does not match expected level number (1 to assigned max levels), return out
+            }
+
+            if (duration < 0f)
+            {
+                return false; //does not match expected duration, return out
+            }
+
+            if (PlayerPrefs.HasKey("BestDuration" + level))
+            {
+                float checkDuration = PlayerPrefs.GetFloat("BestDuration" + (level));
+
+                if (duration <= checkDuration)
+                {
+                    PlayerPrefs.SetFloat("BestDuration" + (level), duration);
+
+                    levelCompleteDurations[level-1] = PlayerPrefs.GetFloat("BestDuration" + (level));
+
+                    //do the things for a new record time
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                    Debug.Log("Check duration is not less than or equal to bestDuration");
+                }
+            }
+            else
+            {
+                Debug.Log("Tried to load level best durations without a key to do so when checking if duration greater");
+
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+
+            Debug.Log("Tried to check completion duration but has not set prefs yet");
+        }
     }
 
     public void SaveTutotrialAsComplete()  //Only call when player has met conditions for learning game, whatever that is

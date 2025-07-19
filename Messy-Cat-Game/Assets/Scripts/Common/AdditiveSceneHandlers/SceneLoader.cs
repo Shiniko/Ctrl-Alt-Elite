@@ -4,11 +4,34 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private SceneLoadManager slm;
+    [SerializeField] private int currentLevel;
 
     [SerializeField] private string[] _scenesToLoad;
     [SerializeField] private string[] _scenesToUnload;
 
     [SerializeField] private bool _triggered;
+
+    private AsyncOperation asyncUnload;
+
+    //for debugging
+    public string[] _scenesToLoad_Check;
+    public string[] _scenesToUnload_Check;
+
+    void Update()
+    {
+        if (asyncUnload != null && asyncUnload.isDone)
+        {
+            Debug.Log("Level " + currentLevel + " has finished unloading!");
+
+            LoadSameLevel();
+
+            asyncUnload = null; // Prevent repeated checks
+        }
+
+        //for debugging, comment in or out if you need to check load or unload scenes from this script
+        _scenesToLoad_Check = _scenesToLoad;
+        _scenesToUnload_Check = _scenesToUnload;
+    }
 
     public void LoadScenes()
     {
@@ -63,6 +86,21 @@ public class SceneLoader : MonoBehaviour
         }
 
         //Debug.Log("SL Unload scenes");
+    }
+
+    public void UnloadSameLevel(int level)
+    {
+        currentLevel = level;
+
+        asyncUnload = SceneManager.UnloadSceneAsync("Level_" + level);
+    }
+
+    private void LoadSameLevel()
+    {
+        if (slm != null)
+        {
+            slm.LoadScene();
+        }
     }
 
     public void SetScenesToLoad(string[] scenes)

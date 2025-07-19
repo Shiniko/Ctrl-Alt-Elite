@@ -633,10 +633,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b175f17ccdd05244b89db4782f0dbdc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tickerTimer: 0
   viewableObjects: []
   objectsInViewZone: []
   layerMask:
-    serializedVersion: 2
     m_Bits: 375
   lineTime: 0
 --- !u!65 &1025682383
@@ -781,6 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd95ab3d9c5b1c48b9882bf60781cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tickerTimer: 0
 --- !u!4 &1594982650
 Transform:
   m_ObjectHideFlags: 0
@@ -1151,13 +1152,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80abd0f4fc53bfd41956b739c5274a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <dogHearing>k__BackingField: {fileID: 0}
+  <vision>k__BackingField: {fileID: 0}
+  rb: {fileID: 0}
   speed: 5
   _maxRoamDistance: -14.89
   _minRoamDistance: 12.09
   stallTime: 2
   movementAxis: 0
   size: 0.25
-  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
+  gizmoColor:
+    r: 0
+    g: 1
+    b: 0
+    a: 1
 --- !u!65 &1768885063
 BoxCollider:
   m_ObjectHideFlags: 0

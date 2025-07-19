@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     public SpawnPlayer starterSpawn;
     public SpawnPlayer lastSpawnPoint;
     public GameObject playerToSpawn;
-    [SerializeField] private SpawnPlayer[] playerSpawners;
+    public SpawnPlayer[] playerSpawners;
     [SerializeField] private bool hasSetSpawners;
 
     [SerializeField] private GameObject ghost;

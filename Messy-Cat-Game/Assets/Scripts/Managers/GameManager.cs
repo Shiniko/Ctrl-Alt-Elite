@@ -10,11 +10,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Color backgroundColor;        //color value of flash background
     [SerializeField] private SpawnManager spawnManager;    //reference to spawn manager
     [SerializeField] private AudioManager audioManager;    //reference to audio manager
-    [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private PlayerPreferenceManager playerPrefsManager;       //reference to player preference manager
+    [SerializeField] private ProgressionManager progressionManager;       //reference to progression manager
+    [SerializeField] private LevelManager levelManager;       //reference to progression manager
+    [SerializeField] private DevLevelSelect devLevelSelect;     //reference to level select manager
 
+    [Header("Player References")]
+    [SerializeField] private GameObject player;            //reference to player
+    [SerializeField] private MakeShiftCatController catController;            //reference to player controller
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
-    [SerializeField] private CatController catController;  //reference to player controller
     [SerializeField] private AnimHandler playerAnim;       //reference to Animator Handler script, attached to player
     [SerializeField] private GameObject pausePanel;        //reference to UI panel when paused
 
@@ -23,8 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float winDelay;               //delay, in float seconds, when win condition happens, and before pausing game, for purposes of showing UI panmel, or playing SFX, before continue 
     public bool isPaused;                                  //main bool to determine if game is paused, therefore don't update certain things that check for game pause
     public bool gameReady;                                 //bool to determine when game is ready for things, like spawning the player
-    
-    
+
     [Header("Engage Params")]
     public bool isEngaged;                                  //bool to determine when player has agro, used for animation purposes, or check if engaged in combat
     [SerializeField] private int tempAgro;                  //int determine check if or how many things has agro against the player
@@ -34,7 +37,7 @@ public class GameManager : MonoBehaviour
     [Header("Respawn Params")]
     [SerializeField] private bool isDead;                  //bool used to check if player dead, changed from playerhealth script or respawn
     public bool isRespawning;                              //bool used to check if player is currently respawning, so wait for now
-    [SerializeField] private bool hasSpawnedPlayer;        //bool used to check if player done respawning, so now can do things
+    public bool hasSpawnedPlayer;                          //bool used to check if player done respawning, so now can do things
     [SerializeField] private float respawnCounter;         //float, in seconds, that counts up the duration player is respawning
     [SerializeField] private float respawnCD;              //float, in seconds, that determines the full duration to delay for purposes of allowing animation of respawn, instantiation, audio, etc., before calling it good to change bools etc.
     public int lastPlayerWaypoint;                         //location of last waypoint the player reached, for purposes of respawning
@@ -58,6 +61,15 @@ public class GameManager : MonoBehaviour
 
     [Header("UI Params")]
     public bool isOverUI;                                  //bool to set from UI elements, which when hovered, we want to know in order to prevent player input among other things 
+    [SerializeField] private float durationLimit;               //float for max duration in milliseconds, for example, 999 hours 59 minutes 59 seconds 999 milliseconds is 3,599,999,999 milliseconds
+
+    [Header("UI References")]
+    [SerializeField] private GameObject progressPanel;      //Progression panel reference, to set active for levels, and inactive for level select or credits
+    [SerializeField] private TextMeshProUGUI durationTextHour;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextMinute;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextSecond;      //TMP reference, to set level duration timer text to
+    [SerializeField] private TextMeshProUGUI durationTextMillisecond;      //TMP reference, to set level duration timer text to
+    [SerializeField] private GameObject durationPanel;      //Level Duration panel reference, to set active for levels, and inactive for level select or credits
 
     [Header("Preference Params")]
     public bool hasSetPreferences;                         //bool for scripts to check if preferences have indeed benn loaded already, and so this script doesnt do it again
@@ -65,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        //ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
+        ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
     }
 
     void ResetPlayerPrefs()
@@ -177,19 +189,70 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetGameReady(bool isready)
+    public void FailLevel()
     {
-        gameReady = isready;
+        devLevelSelect.ActivateFailMenuButtons();
+
+        GamePausedEsc();
     }
 
-    public void SetIsRespawning(bool isspawning)
+    public void PlayFailAudio()
     {
-        isRespawning = isspawning;
+        // Play SFX
+        audioManager.Play("LevelFailed");
+    }
+
+    public void VictoryLevel()
+    {
+        devLevelSelect.ActivateVictoryMenuButtons();
+
+        GamePausedEsc();
+    }
+
+    public void PlayVictoryAudio()
+    {
+        // Play SFX
+        audioManager.Play("LevelVictory");
+    }
+
+    public void SetGameReady(bool isReady)
+    {
+        gameReady = isReady;
+    }
+
+    public void SetIsRespawning(bool isSpawning)
+    {
+        isRespawning = isSpawning;
     }
 
     public void SetRespawnCounter(float duration)
     {
         respawnCounter = duration;
+    }
+
+    public void SetNewRespawnPoint(int newPointIndex)
+    {
+        //index refers to the playerSpawners of Spawn Manager, 0 is center while 1 through 4 are left sides, left to right, and 5 through 8 are right side, left to right
+
+        if (newPointIndex < 0)
+        {
+            newPointIndex = 0;                                                      //setting the index to first of the array if less than zero
+        }
+
+        if (spawnManager != null)
+        {
+            if (newPointIndex > (spawnManager.playerSpawners.Length - 1))
+            {
+                newPointIndex = (spawnManager.playerSpawners.Length - 1);           //setting the index to max index if greater than the array
+            }
+
+            SpawnPlayer newSpawner = spawnManager.playerSpawners[newPointIndex]; //Spawn Player is a script, grabbing the new Spawn Player index within SpawnManager array of Spawn Players
+
+            if (newSpawner != null)
+            {
+                spawnManager.ChangeSpawnPoint(newSpawner);                      //if not null, calling a Change of spawning point to the new Spawn Player - these spawn players at their position
+            }
+        }
     }
 
     private void HandleRespawn()  //explained in update
@@ -208,7 +271,7 @@ public class GameManager : MonoBehaviour
 
                 if (hasSetPreferences)
                 {
-                    SpawnPlayer();
+                    SpawnCat();
                 }
             }
 
@@ -224,7 +287,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SpawnPlayer()  //function to trigger a spawn of the player via SpawnManager
+    private void SpawnCat()  //function to trigger a spawn of the player via SpawnManager
     {
         if (!hasSpawnedPlayer)
         {
@@ -402,6 +465,148 @@ public class GameManager : MonoBehaviour
         growCounter = 0f;
     }
 
+    public void AdjustDurationUI(float currentDuration)  //function to adjust duration player has been in level
+    {
+        if (currentDuration < 0f)
+        {
+            currentDuration = 0f;
+        }
+
+        if (currentDuration > durationLimit)
+        {
+            currentDuration = durationLimit;
+        }
+
+        //do the magic
+
+        float milliFloat = currentDuration;
+        float secondFloat = currentDuration * 0.001f;
+        float minuteFloat = (currentDuration * 0.001f) / 60f;
+        float hourFloat = (currentDuration * 0.001f) / 3600f;
+        string durationFormatted = "" + currentDuration;
+
+        int milli = Mathf.FloorToInt(milliFloat);
+        int second = 0;
+        int minute = 0;
+        int hour = 0;
+
+        if (milliFloat > 999f)
+        {
+            while (milliFloat > 999f)
+            {
+                second++;
+
+                if(second >= 60)
+                {
+                    second = 0;
+                }
+
+                milliFloat -= 999f;
+            }
+        }
+
+        milli = Mathf.FloorToInt(milliFloat);
+
+        if (secondFloat > 59f)
+        {
+            while (secondFloat > 59f)
+            {
+                minute++;
+
+                if (minute >= 60)
+                {
+                    minute = 0;
+                }
+
+                secondFloat -= 59f;
+            }
+        }
+
+        if (minuteFloat > 59f)
+        {
+            while (minuteFloat > 59f)
+            {
+                hour++;
+
+                minuteFloat -= 59f;
+            }
+        }
+
+        string hourForm = "" + hour;
+        string minuteForm = "" + minute;
+        string secondForm = "" + second;
+        string milliForm = "" + milli;
+
+        if (hour > 99.999)
+        {
+            hourForm = "" + hour;
+        }
+        else if (hour > 9.999)
+        {
+            hourForm = "0" + hour;
+        }
+        else
+        {
+            hourForm = "00" + hour;
+        }
+
+        if (minute > 9.999)
+        {
+            minuteForm = "" + minute;
+        }
+        else
+        {
+            minuteForm = "0" + minute;
+        }
+
+        if (second > 9.999)
+        {
+            secondForm = "" + second;
+        }
+        else
+        {
+            secondForm = "0" + second;
+        }
+
+        if (milli > 99.999)
+        {
+            milliForm = "" + milli;
+        }
+        else if (milli > 9.999)
+        {
+            milliForm = "0" + milli;
+        } else
+        {
+            milliForm = "00" + milli;
+        }
+
+        /*
+        durationFormatted = hourForm + " : " + minuteForm + " : " + secondForm + " : " + milliForm;           
+
+        durationText.text = durationFormatted;
+        */
+
+        if (durationTextHour != null)
+        {
+            durationTextHour.text = hourForm; 
+        }
+
+        if (durationTextMinute != null)
+        {
+            durationTextMinute.text = minuteForm;
+        }
+
+        if (durationTextSecond != null)
+        {
+            durationTextSecond.text = secondForm;
+        }
+
+        if (durationTextMillisecond != null)
+        {
+            durationTextMillisecond.text = milliForm;
+        }
+    }
+
     public void PlayHealEffect()  //function to instantiate heal effect
     {
         if (healEffect != null)
@@ -501,6 +706,61 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("QUIT");
         StartCoroutine(LoadDelayQG(quitDelay));
+    }
+
+    public void SetProgressPanel(bool showPanel)
+    {
+        if (progressPanel != null)
+        {
+            progressPanel.SetActive(showPanel);
+        }
+    }
+
+    public bool CheckDurationCompletion(float durationToCheck, int level)       //checked by Level Manager to determine if duration is a new record
+    {
+        if(durationToCheck < 0f)
+        {
+            durationToCheck = 0f;
+        }
+
+        if (level < 1 || level > 35)
+        {
+            return false;
+
+            Debug.Log("returned false because level was not correct");
+        }
+
+        if (playerPrefsManager != null)
+        {
+            bool checkPrefsForRecord = playerPrefsManager.CheckCompletionTime(level, durationToCheck);
+
+            Debug.Log("checked Record from prefs is " + checkPrefsForRecord);
+
+            if (checkPrefsForRecord)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+
+                Debug.Log("returned false because check for prefs was false");
+            }
+        }
+        else
+        {
+            return false;
+
+            Debug.Log("returned false because PlayerPrefs Manager was null");
+        }
+    }
+
+    public void SaveNewStar(int level, int slot)
+    {
+        if (playerPrefsManager != null)
+        {
+            playerPrefsManager.SaveNewStar(level, slot);
+        }
     }
 
     IEnumerator LoadDelayQG(float delay)  //set game time to normal if paused, then delay applying quit, to play audio, before quitting

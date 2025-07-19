@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class MakeShiftCatController : MonoBehaviour
 {
+    [Header("Player States")]
+    public bool isEngaged;
+    public bool isOverUI;
+    [SerializeField] private bool isDead;
+    [SerializeField] private bool isInCutscene;
+
     [Header("Movement Details")]
     [SerializeField] private Vector3 movement = Vector3.zero;
     [SerializeField] private Vector3 velocity = Vector3.zero;
@@ -22,11 +28,6 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform ankleCheck;
-
-    [Header("Player States")]
-    public bool isEngaged;
-    [SerializeField] private bool isDead;
-    [SerializeField] private bool isInCutscene;
 
     [Header("Movement Params")]
     [SerializeField] private float moveSpeed;
@@ -1010,6 +1011,11 @@ public class MakeShiftCatController : MonoBehaviour
             }
 
         }
+    }
+
+    public void ApplyDeath()
+    {
+        // called from game manager
     }
 
     //optional
