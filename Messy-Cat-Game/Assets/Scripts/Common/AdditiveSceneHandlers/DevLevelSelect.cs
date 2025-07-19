@@ -448,7 +448,7 @@ public class DevLevelSelect : MonoBehaviour
         hasLoadedStars = false;
         hasLoadedLevelButtons = false;
 
-        Debug.Log("Reset Level Select Stars and Level bool for trigger");
+        //Debug.Log("Reset Level Select Stars and Level bool for trigger");
     }
 
     public void LoadStars()
@@ -629,7 +629,7 @@ public class DevLevelSelect : MonoBehaviour
             victoryText.SetActive(false);
         }
 
-        Debug.Log("activated new level buttons");
+        //Debug.Log("activated new level buttons");
     }
 
     public void ActivateFailMenuButtons()              //menu button set for fail level
@@ -679,7 +679,7 @@ public class DevLevelSelect : MonoBehaviour
             victoryText.SetActive(false);
         }
 
-        Debug.Log("activated fail level buttons");
+        //Debug.Log("activated fail level buttons");
     }
 
     public void ActivateVictoryMenuButtons()              //menu button set for victory of level
@@ -729,7 +729,7 @@ public class DevLevelSelect : MonoBehaviour
             victoryText.SetActive(true);
         }
 
-        Debug.Log("activated win level buttons");
+        //Debug.Log("activated win level buttons");
     }
 
     public void ActivateLevelSelectMenuButtons()              //menu button set level select scene
@@ -779,7 +779,7 @@ public class DevLevelSelect : MonoBehaviour
             victoryText.SetActive(false);
         }
 
-        Debug.Log("activated level select buttons");
+        //Debug.Log("activated level select buttons");
     }
 
     public void ActivateCreditsMenuButtons()              //menu button set level select scene
@@ -829,6 +829,6 @@ public class DevLevelSelect : MonoBehaviour
             victoryText.SetActive(false);
         }
 
-        Debug.Log("activated credits buttons");
+        //Debug.Log("activated credits buttons");
     }
 }

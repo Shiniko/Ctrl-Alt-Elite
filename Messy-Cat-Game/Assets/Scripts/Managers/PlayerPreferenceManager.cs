@@ -51,13 +51,13 @@ public class PlayerPreferenceManager : MonoBehaviour
             {
                 LoadPlayerPrefs();  //load prefs cause previously set
 
-                Debug.Log("loading instead of setting");
+                //Debug.Log("loading instead of setting");
             }
             else
             {
                 SetPlayerPrefs();  //set prefs because first time
 
-                Debug.Log("setting instead of loading");
+                //Debug.Log("setting instead of loading");
             }
         }
 
@@ -192,8 +192,8 @@ public class PlayerPreferenceManager : MonoBehaviour
             randSlot = 3;
         }
 
-        Debug.Log("Random Level: " + randLevel);
-        Debug.Log("Random Slot: " + randSlot);
+        //Debug.Log("Random Level: " + randLevel);
+        //Debug.Log("Random Slot: " + randSlot);
 
         SaveNewStar(randLevel, randSlot);
     }
@@ -354,7 +354,7 @@ public class PlayerPreferenceManager : MonoBehaviour
                 {
                     return false;
 
-                    Debug.Log("Check duration is not less than or equal to bestDuration");
+                    //Debug.Log("Check duration is not less than or equal to bestDuration");
                 }
             }
             else

@@ -82,7 +82,7 @@ public class SpawnManager : MonoBehaviour
 
     public void ChangeSpawnPoint(SpawnPlayer spawner)
     {
-        Debug.Log("Called change spawn point");
+        //Debug.Log("Called change spawn point");
 
         if (spawner.GetComponent<SpawnPlayer>() != null)
         {
@@ -111,7 +111,7 @@ public class SpawnManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("LastWayPoint", lastPlayerWaypoint);
 
-                Debug.Log("Changed last waypoint to " + lastPlayerWaypoint);
+                //Debug.Log("Changed last waypoint to " + lastPlayerWaypoint);
 
                 if (gameManager != null)
                 {

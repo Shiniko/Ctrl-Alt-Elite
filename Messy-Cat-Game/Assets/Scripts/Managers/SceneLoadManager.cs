@@ -111,7 +111,7 @@ public class SceneLoadManager : MonoBehaviour
         {
             devSelect.isLevelSelect = isSelect;
 
-            Debug.Log("SLM set DVS isSelect to " +isSelect);
+            //Debug.Log("SLM set DVS isSelect to " +isSelect);
         }
     }
 
@@ -121,7 +121,7 @@ public class SceneLoadManager : MonoBehaviour
         {
             devSelect.isCredits = isCredits;
 
-            Debug.Log("SLM set DVS isCredits to " + isCredits);
+            //Debug.Log("SLM set DVS isCredits to " + isCredits);
         }
     }
 

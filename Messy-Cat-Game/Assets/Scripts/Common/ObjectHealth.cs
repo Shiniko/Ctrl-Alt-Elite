@@ -23,7 +23,7 @@ public class ObjectHealth : MonoBehaviour
 
                     ApplyHeal(bonusMaxHealth);
 
-                    Debug.Log("Added bonus max health of " + bonusMaxHealth);
+                    //Debug.Log("Added bonus max health of " + bonusMaxHealth);
                 }
 
                 bonusMaxHealth = 0f;
@@ -46,7 +46,7 @@ public class ObjectHealth : MonoBehaviour
         adjustedMaxHealth = maxHealth;
         currentHealth = maxHealth;
 
-        Debug.Log("set initial health to " + maxHealth);
+        //Debug.Log("set initial health to " + maxHealth);
 
         setInitialHealth = true;
 

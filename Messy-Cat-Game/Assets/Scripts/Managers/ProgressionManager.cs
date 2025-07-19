@@ -160,13 +160,13 @@ public class ProgressionManager : MonoBehaviour
             isStarDog = true;
             starScore++;
 
-            Debug.Log("Added Star for dog in Progression Manager");
+            //Debug.Log("Added Star for dog in Progression Manager");
         }
     }
 
     public void ResetProgress()
     {
-        Debug.Log("resetting progressioin manager");
+        Debug.Log("resetting progression manager");
 
         starForMessCompletion.GetComponent<Image>().color = darkenImage();
         starForMessCompletionCollapsed.GetComponent<Image>().color = darkenImage();

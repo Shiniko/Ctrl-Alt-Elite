@@ -77,10 +77,10 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
+        //ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
     }
 
-    void ResetPlayerPrefs()
+    public void ResetPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();  //for dev purposes, sometimes you need to test things or need a fresh player prefs because of changes etc.
     }
@@ -734,7 +734,7 @@ public class GameManager : MonoBehaviour
         {
             bool checkPrefsForRecord = playerPrefsManager.CheckCompletionTime(level, durationToCheck);
 
-            Debug.Log("checked Record from prefs is " + checkPrefsForRecord);
+            //Debug.Log("checked Record from prefs is " + checkPrefsForRecord);
 
             if (checkPrefsForRecord)
             {
@@ -744,7 +744,7 @@ public class GameManager : MonoBehaviour
             {
                 return false;
 
-                Debug.Log("returned false because check for prefs was false");
+                //Debug.Log("returned false because check for prefs was false");
             }
         }
         else
