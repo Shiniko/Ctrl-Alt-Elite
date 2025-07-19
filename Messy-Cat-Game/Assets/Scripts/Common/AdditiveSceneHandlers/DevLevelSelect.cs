@@ -16,6 +16,7 @@ public class DevLevelSelect : MonoBehaviour
     [SerializeField] private SceneLoadManager slm;
     [SerializeField] private GameObject levelSelectPanel;
     [SerializeField] private PlayerPreferenceManager ppm;
+    [SerializeField] private GameManager gm;
     [SerializeField] private StarGrabber starGrabber;
 
     [Header("Button References")]
@@ -118,6 +119,8 @@ public class DevLevelSelect : MonoBehaviour
                 levelSelectScene[0] = levelSelect;
                 sl.SetScenesToLoad(levelSelectScene);
 
+                //Debug.Log("DVS SelectSceneAndLoad called scene loader to SetScenesToLoad as levelSelectScene: " + levelSelectScene[0]);
+
                 DeActivateLevelSelectPanel();
 
                 DeActivateCreditsPanel();
@@ -131,17 +134,36 @@ public class DevLevelSelect : MonoBehaviour
                 levelUnloadScene[0] = "LevelSelect";
                 sl.SetScenesToUnLoad(levelUnloadScene);
 
+                //Debug.Log("DVS SelectSceneAndLoad called scene loader to SetScenesToUnLoad as levelUnloadScene: " + levelUnloadScene[0]);
+
                 slm.UnLoadScene();
             }
+        }
+        else
+        {
+            //Debug.Log("DVS checked _levelSelected, and it was true");
         }
     }
 
     public void LoadLevelSelectScene()
     {
+        //Debug.Log("LoadLevelSelectScene running with isLevelSelect as "+ isLevelSelect);
+        if(gm != null)
+        {
+            if (gm.isRespawning)
+            {
+                //do something extra if player clicks level select before respawn is done in game manager
+                gm.hasSpawnedPlayer = true;
+                gm.isRespawning = false;
+            }
+        }
+
         //setting scenesToLoad array as single level string
         string[] levelSelectScene = new string[1];
         levelSelectScene[0] = "LevelSelect";
         sl.SetScenesToLoad(levelSelectScene);
+
+        //Debug.Log("DVS LoadLevelSelectScene called scene loader to SetScenesToLoad as levelSelectScene: " + levelSelectScene[0]);
 
         if (!isLevelSelect)
         {
@@ -150,13 +172,16 @@ public class DevLevelSelect : MonoBehaviour
             ActivateLevelSelectMenuButtons();
 
             slm.LoadScene();
+
+            //Debug.Log("DVS LoadLevelSelectScene called scene loader manager LoadScene, scene is: " + sl._scenesToLoad_Check[0]);
         }
         else
         {
-
             ActivateNewLevelMenuButtons();
 
             slm.LoadLevelSelectScene();
+
+            //Debug.Log("DVS LoadLevelSelectScene called scene loader manager LoadLevelSelectScene(), scene is: " + sl._scenesToLoad_Check[0]);
 
         }
 
@@ -182,10 +207,23 @@ public class DevLevelSelect : MonoBehaviour
 
     public void LoadCreditsScene()
     {
+
+        if (gm != null)
+        {
+            if (gm.isRespawning)
+            {
+                //do something extra if player clicks level select before respawn is done in game manager
+                gm.hasSpawnedPlayer = true;
+                gm.isRespawning = false;
+            }
+        }
+
         //setting scenesToLoad array as single level string
         string[] levelSelectScene = new string[1];
         levelSelectScene[0] = "Credits";
         sl.SetScenesToLoad(levelSelectScene);
+
+        //Debug.Log("DVS LoadCreditsScene called scene loader to SetScenesToLoad as levelSelectScene: " + levelSelectScene[0]);
 
         if (!isCredits)
         {
@@ -206,13 +244,21 @@ public class DevLevelSelect : MonoBehaviour
             levelUnloadScene[0] = levelSelect;
             sl.SetScenesToUnLoad(levelUnloadScene);
 
+            //Debug.Log("DVS LoadCreditsScene, for !isCredits, called scene loader to SetScenesToUnLoad as levelUnloadScene: " + levelUnloadScene[0]);
+
             slm.UnLoadScene();
+
+            //need to set Credits as unload for next here after unloading a level select
+            levelSelect = "Credits";
         }
         else
         {
             string[] levelUnloadScene = new string[1];
             levelUnloadScene[0] = "Credits";
             sl.SetScenesToUnLoad(levelUnloadScene);
+
+            //Debug.Log("DVS LoadCreditsScene,for isCredits true, called scene loader to SetScenesToUnLoad as levelUnloadScene: " + levelUnloadScene[0]);
+
             slm.DeActivateLoadPanel();
         }
     }
@@ -225,6 +271,8 @@ public class DevLevelSelect : MonoBehaviour
     public void ReloadSameLevel()
     {
         int level = currentLevel;
+
+        //Debug.Log("DVS running ReloadSameLevel; currentLevel = "+currentLevel);
 
         if(level <1 || level > 35)
         {
@@ -284,8 +332,6 @@ public class DevLevelSelect : MonoBehaviour
         {
             creditsPanel.SetActive(true);
         }
-
-        ResetLoadStars();
     }
 
     private void ResetLoadStars()
@@ -385,7 +431,7 @@ public class DevLevelSelect : MonoBehaviour
         {
             if (levelButtons.Length != finishStars.Length)
             {
-                Debug.Log("returning out due to mismatch of finish stars and level button lengths");
+                //Debug.Log("returning out due to mismatch of finish stars and level button lengths");
 
                 return;
             }

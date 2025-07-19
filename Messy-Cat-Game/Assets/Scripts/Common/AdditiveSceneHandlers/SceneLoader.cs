@@ -13,6 +13,10 @@ public class SceneLoader : MonoBehaviour
 
     private AsyncOperation asyncUnload;
 
+    //for debugging
+    public string[] _scenesToLoad_Check;
+    public string[] _scenesToUnload_Check;
+
     void Update()
     {
         if (asyncUnload != null && asyncUnload.isDone)
@@ -23,6 +27,10 @@ public class SceneLoader : MonoBehaviour
 
             asyncUnload = null; // Prevent repeated checks
         }
+
+        //for debugging, comment in or out if you need to check load or unload scenes from this script
+        _scenesToLoad_Check = _scenesToLoad;
+        _scenesToUnload_Check = _scenesToUnload;
     }
 
     public void LoadScenes()

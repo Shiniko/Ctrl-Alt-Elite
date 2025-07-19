@@ -45,7 +45,8 @@ public class SceneLoaded : MonoBehaviour
         {
             if (!triggeredLoad)
             {
-                slm.SetSceneLoaderLevelSelect(isLevelSelect);  
+                slm.SetSceneLoaderLevelSelect(isLevelSelect);
+                slm.SetSceneLoaderCredits(isCredits);
 
                 if (sceneLoaded)
                 {

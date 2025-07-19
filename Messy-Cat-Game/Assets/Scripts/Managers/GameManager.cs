@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     [Header("Respawn Params")]
     [SerializeField] private bool isDead;                  //bool used to check if player dead, changed from playerhealth script or respawn
     public bool isRespawning;                              //bool used to check if player is currently respawning, so wait for now
-    [SerializeField] private bool hasSpawnedPlayer;        //bool used to check if player done respawning, so now can do things
+    public bool hasSpawnedPlayer;                          //bool used to check if player done respawning, so now can do things
     [SerializeField] private float respawnCounter;         //float, in seconds, that counts up the duration player is respawning
     [SerializeField] private float respawnCD;              //float, in seconds, that determines the full duration to delay for purposes of allowing animation of respawn, instantiation, audio, etc., before calling it good to change bools etc.
     public int lastPlayerWaypoint;                         //location of last waypoint the player reached, for purposes of respawning
@@ -221,14 +221,14 @@ public class GameManager : MonoBehaviour
         GamePausedEsc();
     }
 
-    public void SetGameReady(bool isready)
+    public void SetGameReady(bool isReady)
     {
-        gameReady = isready;
+        gameReady = isReady;
     }
 
-    public void SetIsRespawning(bool isspawning)
+    public void SetIsRespawning(bool isSpawning)
     {
-        isRespawning = isspawning;
+        isRespawning = isSpawning;
     }
 
     public void SetRespawnCounter(float duration)

@@ -110,6 +110,18 @@ public class SceneLoadManager : MonoBehaviour
         if (devSelect != null)
         {
             devSelect.isLevelSelect = isSelect;
+
+            Debug.Log("SLM set DVS isSelect to " +isSelect);
+        }
+    }
+
+    public void SetSceneLoaderCredits(bool isCredits)
+    {
+        if (devSelect != null)
+        {
+            devSelect.isCredits = isCredits;
+
+            Debug.Log("SLM set DVS isCredits to " + isCredits);
         }
     }
 
