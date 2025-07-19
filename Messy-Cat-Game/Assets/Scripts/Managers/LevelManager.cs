@@ -22,11 +22,12 @@ public class LevelManager : MonoBehaviour
     public float winDelay;          //delay needed to save stars and duration
 
     [Header("References")]
-    [SerializeField] private ProgressionManager progressionManager;
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] private DevLevelSelect devLevelSelect;
-    public LevelDetails levelDetails;
-    [SerializeField] private GameObject player;
+    [SerializeField] private ProgressionManager progressionManager;            //reference to Progression Manager script
+    [SerializeField] private GameManager gameManager;                            //reference to Game Manager script
+    [SerializeField] private DevLevelSelect devLevelSelect;                     //reference to Dev Level Select script
+    public LevelDetails levelDetails;                                           //reference to Level Details script
+    [SerializeField] private GameObject player;                                //reference to player object
+    [SerializeField] private MakeShiftCatController catController;            //reference to player controller
 
     [SerializeField] private GameObject durationPanel;
     [SerializeField] private GameObject newRecordText;
@@ -118,22 +119,59 @@ public class LevelManager : MonoBehaviour
             // Debug for testing level victory
             if (Input.GetKeyDown(KeyCode.W))
             {
+                //for testing
+                AddMessStar();
+
+                //for testing
+                AddHiddenStar();
+
+                //for testing
                 LevelVictory();
+            }
+        }
+    }
+
+    private void AddMessStar()
+    {
+        if (!triggerMessStar)  //saves from trying to add more than one
+        {
+            triggerMessStar = true;  //after first time, no more
+
+            hasMessStar = true;         //sets the star in level manager as true
+
+            if (progressionManager != null)         //simple check for progression manager
+            {
+                progressionManager.AddStarForMessComplete();        //adds the star in progression manager, Visual UI
+            }
+        }
+    }
+
+    private void AddHiddenStar()
+    {
+        if (!triggerHiddenStar)  //saves from trying to add more than one
+        {
+            triggerHiddenStar = true;  //after first time, no more
+
+            hasHiddenStar = true;         //sets the star in level manager as true
+
+            if (progressionManager != null)         //simple check for progression manager
+            {
+                progressionManager.AddStarForSpecialItem();        //adds the star in progression manager, Visual UI
             }
         }
     }
 
     public void DogSeesCat()
     {
-        if (!triggerAvoidStarLoss)
+        if (!triggerAvoidStarLoss)  //saves from trying to remove more than one
         {
-            triggerAvoidStarLoss = true;
+            triggerAvoidStarLoss = true;  //after first time, no more
 
-            hasAvoidStar = false;
+            hasAvoidStar = false;           //sets the star in level manager as false
 
-            if(progressionManager  != null)
+            if (progressionManager  != null)         //simple check for progression manager
             {
-                progressionManager.RemoveStarForDog();
+                progressionManager.RemoveStarForDog();        //removes the star in progression manager, Visual UI
             }
         }
     }
@@ -171,6 +209,11 @@ public class LevelManager : MonoBehaviour
         messMade = false;
         exitRevealed = false;
 
+        if(progressionManager != null)
+        {
+            progressionManager.ResetProgress();
+        }
+
         if (durationPanel != null)
         {
             durationPanel.SetActive(false);
@@ -184,27 +227,35 @@ public class LevelManager : MonoBehaviour
 
     public void LevelVictory()
     {
-        if (!triggerVictory)
+        if (!triggerFail)  //saves from running victory if already failed, see LevelFail
         {
-            triggerVictory = true;
-
-            if (durationPanel != null)
+            if (!triggerVictory)  //saves from trying to do more victories
             {
-                durationPanel.SetActive(true);
+                triggerVictory = true;  //after first time, no more, and also prevents a fail if victory in progress, see LevelFail function
+
+                if(gameManager != null)
+                {
+                    gameManager.PlayVictoryAudio();
+                }
+
+                if (durationPanel != null)
+                {
+                    durationPanel.SetActive(true);
+                }
+
+                CheckDurationOfCompletion();
+
+                if (victoryStarPanel != null)
+                {
+                    victoryStarPanel.SetActive(true);
+
+                    messVictoryStar.SetActive(false);
+                    avoidVictoryStar.SetActive(false);
+                    hiddenVictoryStar.SetActive(false);
+                }
+
+                CheckVictoryStars();
             }
-
-            CheckDurationOfCompletion();
-
-            if (victoryStarPanel != null)
-            {
-                victoryStarPanel.SetActive(true);
-
-                messVictoryStar.SetActive(false);
-                avoidVictoryStar.SetActive(false);
-                hiddenVictoryStar.SetActive(false);
-            }
-
-            CheckVictoryStars();
         }
     }
 
@@ -212,11 +263,20 @@ public class LevelManager : MonoBehaviour
     {
         if (!triggerVictory)
         {
+            triggerFail = true;  // prevents a victory if fail in progress, see LevelVictory function
+
+            if (gameManager != null)
+            {
+                gameManager.PlayFailAudio();
+            }
+
+            //set active to true, if want to see time even if fail
             if (durationPanel != null)
             {
                 durationPanel.SetActive(false);
             }
 
+            //set active to true, if want to see stars even if fail, note that the coroutine display stars is what activates them on delay for each, for visuals
             if (victoryStarPanel != null)
             {
                 victoryStarPanel.SetActive(false);
@@ -271,32 +331,59 @@ public class LevelManager : MonoBehaviour
         {
             if (hasMessStar || hasAvoidStar || hasHiddenStar)
             {
-                Debug.Log("About to call SaveStars coroutine");
+                gameManager.PlayVictoryAudio();
 
-                StartCoroutine(SaveStars(winDelay));
+                if (hasMessStar)
+                {
+                    gameManager.SaveNewStar(currentLevel, 1);
+                }
+
+                if (hasAvoidStar)
+                {
+                    gameManager.SaveNewStar(currentLevel, 2);
+                }
+
+                if (hasHiddenStar)
+                {
+                    gameManager.SaveNewStar(currentLevel, 3);
+                }
+
+                // Debug.Log("About to call SaveStars coroutine");
+
+                StartCoroutine(DisplayStars(winDelay));
+
+                //comment this part in if you want the pause menu to appear before and during the star animation, instead of after in coroutine, but pause may prevent the coroutine to resolve, meaning no star animations for you
+                /*
+                if (gameManager != null)  //call this last as it pauses game
+                {
+                    gameManager.VictoryLevel();
+                }
+                */
             }
         }        
     }
 
-    IEnumerator SaveStars(float delay)  //delay for animating Stars
+    IEnumerator DisplayStars(float delay)  //delay for animating Stars
     {
+        //Debug.Log("Starting SavesStars Coroutine");
+
         yield return new WaitForSeconds(delay * 0.1f);
 
         if (hasMessStar)
         {
             messVictoryStar.SetActive(true);
-
-            gameManager.SaveNewStar(currentLevel, 1);
         }
+
+        //Debug.Log("about to wait for avoid star");
 
         yield return new WaitForSeconds(delay * 0.35f);
 
         if (hasAvoidStar)
         {
             avoidVictoryStar.SetActive(true);
-
-            gameManager.SaveNewStar(currentLevel, 2);
         }
+
+        //Debug.Log("about to wait for hidden star");
 
         yield return new WaitForSeconds(delay * 0.35f);
 
@@ -307,11 +394,24 @@ public class LevelManager : MonoBehaviour
             gameManager.SaveNewStar(currentLevel, 3);
         }
 
+        //Debug.Log("about to wait for pause");  //comment this back in if you want the menu buttons to wait until after stars populate
+      
         yield return new WaitForSeconds(delay * 0.35f);
 
         if (gameManager != null)  //call this last as it pauses game
         {
-            gameManager.VictoryLevel();
+            if (triggerVictory)
+            {
+                gameManager.VictoryLevel();
+            }
+            else
+            {
+                if (triggerFail)
+                {
+                    gameManager.FailLevel();
+                }
+            }
         }
+        
     }
 }

@@ -23140,12 +23140,13 @@ MonoBehaviour:
   spawnIndex: 0
   totalMessNeeded: 0
   readyForNext: 0
-  winDelay: 3
+  winDelay: 2
   progressionManager: {fileID: 4857546362193823540}
   gameManager: {fileID: 1952553494}
   devLevelSelect: {fileID: 1127769905}
   levelDetails: {fileID: 0}
   player: {fileID: 0}
+  catController: {fileID: 0}
   durationPanel: {fileID: 464977997}
   newRecordText: {fileID: 934790120}
   victoryStarPanel: {fileID: 425327414}
@@ -27767,8 +27768,8 @@ MonoBehaviour:
   levelManager: {fileID: 1667583833}
   devLevelSelect: {fileID: 1127769905}
   player: {fileID: 0}
-  playerHealth: {fileID: 0}
   catController: {fileID: 0}
+  playerHealth: {fileID: 0}
   playerAnim: {fileID: 0}
   pausePanel: {fileID: 1939498503}
   quitDelay: 1

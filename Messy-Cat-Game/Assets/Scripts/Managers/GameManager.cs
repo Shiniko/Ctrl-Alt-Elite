@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Player References")]
     [SerializeField] private GameObject player;            //reference to player
+    [SerializeField] private MakeShiftCatController catController;            //reference to player controller
     [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
-    [SerializeField] private CatController catController;  //reference to player controller
     [SerializeField] private AnimHandler playerAnim;       //reference to Animator Handler script, attached to player
     [SerializeField] private GameObject pausePanel;        //reference to UI panel when paused
 
@@ -191,22 +191,28 @@ public class GameManager : MonoBehaviour
 
     public void FailLevel()
     {
-        // Play SFX
-        audioManager.Play("LevelFailed");
-
         devLevelSelect.ActivateFailMenuButtons();
 
         GamePausedEsc();
     }
 
+    public void PlayFailAudio()
+    {
+        // Play SFX
+        audioManager.Play("LevelFailed");
+    }
+
     public void VictoryLevel()
+    {
+        devLevelSelect.ActivateVictoryMenuButtons();
+
+        GamePausedEsc();
+    }
+
+    public void PlayVictoryAudio()
     {
         // Play SFX
         audioManager.Play("LevelVictory");
-
-        devLevelSelect.ActivateVictoryMenuButtons();
-
-        //GamePausedEsc();
     }
 
     public void SetGameReady(bool isReady)
@@ -751,7 +757,10 @@ public class GameManager : MonoBehaviour
 
     public void SaveNewStar(int level, int slot)
     {
-        SaveNewStar(level, slot);
+        if (playerPrefsManager != null)
+        {
+            playerPrefsManager.SaveNewStar(level, slot);
+        }
     }
 
     IEnumerator LoadDelayQG(float delay)  //set game time to normal if paused, then delay applying quit, to play audio, before quitting

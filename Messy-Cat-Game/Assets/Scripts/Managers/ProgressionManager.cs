@@ -42,6 +42,7 @@ public class ProgressionManager : MonoBehaviour
     void Update()
     {
         // For debugging
+        /*
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             AddMess();
@@ -74,6 +75,7 @@ public class ProgressionManager : MonoBehaviour
         {
             RemoveStarForDog();
         }
+        */
     }
 
     public int GetStarScore()
