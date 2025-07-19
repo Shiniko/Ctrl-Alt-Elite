@@ -16,7 +16,6 @@ public class Dog_InvestigateState : StateMachineBehaviour
         _transform = animator.transform;
         _dogContext = animator.GetComponent<DogContext>();
         suspiciousEvent = _dogContext.currentSuspiciousEvent;
-        _dogContext.distracted = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

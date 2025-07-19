@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Rigidbody))]
 //Required for collision detection
 [RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Animator))]
+
 public class DogContext : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
@@ -20,8 +20,6 @@ public class DogContext : MonoBehaviour
     public SphereCollider dogHearing { get; private set; }
     public DogVision vision { get; private set; }
     public SuspiciousEvent currentSuspiciousEvent { get; private set; }
-    public bool distracted;
-    private Animator animator;
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;
@@ -39,15 +37,9 @@ public class DogContext : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        animator.SetBool("Distracted", distracted);
-    }
-
     public void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
         if(!GetComponentInChildren<DogVision>())
         {
             Debug.LogError("A DogVision script is not attached to a child of this object!! DogContext requires a DogVision script to be in a child object",this);
