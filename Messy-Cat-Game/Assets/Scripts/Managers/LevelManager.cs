@@ -21,6 +21,10 @@ public class LevelManager : MonoBehaviour
     public bool readyForNext;       //check when done with victory, so display menu
     public float winDelay;          //delay needed to save stars and duration
 
+    [Header("Making Messes")]
+    [SerializeField] private int currentMesses;
+    [SerializeField] private GameObject exitPortal;                            //reference to exit portal, the portal can be anything, like a door or window, but essential turns on the interact part of it
+
     [Header("References")]
     [SerializeField] private ProgressionManager progressionManager;            //reference to Progression Manager script
     [SerializeField] private GameManager gameManager;                            //reference to Game Manager script
@@ -131,7 +135,7 @@ public class LevelManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //for testing
-                AddMessStar();
+                //AddMessStar();
 
                 //for testing
                 AddHiddenStar();
@@ -146,6 +150,56 @@ public class LevelManager : MonoBehaviour
             {
                 durationPanel.SetActive(false);
             }
+        }
+    }
+
+    //accessible functions
+
+    public void MakeAMess()
+    {
+        if (!triggerMessGain)
+        {
+            triggerMessGain = true;
+
+            currentMesses++;
+
+            if (progressionManager != null)
+            {
+                progressionManager.AddMess();
+
+                if (currentMesses >= totalMessNeeded)
+                {
+                    currentMesses = totalMessNeeded;
+
+                    messMade = true;
+
+                    if (!triggerMessStar)
+                    {
+                        triggerMessStar = true;
+
+                        progressionManager.AddStarForMessComplete();
+                    }
+
+                    if (!exitRevealed)
+                    {
+                        exitRevealed = true;
+
+                        RevealExit();
+                    }
+                }
+            }
+
+            triggerMessGain = false;
+        }
+    }
+
+    //other functions
+
+    private void RevealExit()
+    {
+        if(exitPortal != null)
+        {
+            exitPortal.SetActive(true);
         }
     }
 

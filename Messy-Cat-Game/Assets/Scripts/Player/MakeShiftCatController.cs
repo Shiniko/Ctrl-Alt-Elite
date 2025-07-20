@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class MakeShiftCatController : MonoBehaviour
 {
-    [SerializeField] private CatInteractions catInteractions; 
+    [Header("Player Targets")]
+    public Exit_Interact exitTarget;
+    public Hide_Interact hideTarget;
+    public Spill_Interact spillTarget;
+    public Scratch_Interact scratchTarget;
+    public Break_Interact breakTarget;
 
     [Header("Player States")]
     [SerializeField] private bool canMove; // when player inputs can move player
@@ -10,7 +15,7 @@ public class MakeShiftCatController : MonoBehaviour
     public bool triggerHide;
     public GameObject hideCoat;
     public GameObject catCoat;
-    public Hide_Interact hideTarget;
+
     public bool isEngaged;
     public bool isOverUI;
     [SerializeField] private bool isDead;
@@ -102,14 +107,6 @@ public class MakeShiftCatController : MonoBehaviour
         if (anim == null)
         {
             anim = GetComponentInChildren<Animator>(); // set animator if null
-        }
-
-        if(catInteractions == null)
-        {
-            if(gameObject.GetComponent<CatInteractions>() != null)
-            {
-                catInteractions = gameObject.GetComponent<CatInteractions>();
-            }
         }
     }
 
@@ -311,11 +308,7 @@ public class MakeShiftCatController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (hideTarget != null)
-                {
-                    TryToHide();
-                    return;
-                }
+                CheckInteracts();
             }
 
             /*
@@ -477,6 +470,21 @@ public class MakeShiftCatController : MonoBehaviour
 
     }
 
+    private void CheckInteracts()
+    {
+        if (hideTarget != null)
+        {
+            TryToHide();
+            return;
+        }
+
+        if (spillTarget != null)
+        {
+            TryToSpill();
+            return;
+        }
+    }
+
     public void TryToHide()
     {
         if (!triggerHide)
@@ -500,7 +508,18 @@ public class MakeShiftCatController : MonoBehaviour
                 }
             }
         }
-    } 
+    }
+
+    public void TryToSpill()
+    {
+        // other logic
+        if (spillTarget != null)
+        {
+            spillTarget.Interact();
+        }
+
+        StartSpilling();
+    }
 
     void MoveCharacter()
     {
@@ -945,7 +964,7 @@ public class MakeShiftCatController : MonoBehaviour
 
         if(rb != null)
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
         }
 
         if (!facingRight)
@@ -1004,6 +1023,23 @@ public class MakeShiftCatController : MonoBehaviour
             }
 
             isHidden = true;
+        }
+    }
+
+    public void StartSpilling()
+    {
+        if (spillTarget != null)
+        {
+            float spillX = spillTarget.transform.position.x;
+            Vector3 newPosition = new Vector3(spillX, transform.position.y, transform.position.z);
+
+            transform.position = newPosition;
+        }
+
+        if (anim != null)
+        {
+            anim.SetBool("isSpilling", true);
+            anim.Play("Start_Spill");
         }
     }
 
