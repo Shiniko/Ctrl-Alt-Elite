@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MakeShiftCatController : MonoBehaviour
 {
+    [SerializeField] private CatInteractions catInteractions; 
+
     [Header("Player States")]
     [SerializeField] private bool canMove; // when player inputs can move player
     public bool isHidden;
@@ -100,6 +102,14 @@ public class MakeShiftCatController : MonoBehaviour
         if (anim == null)
         {
             anim = GetComponentInChildren<Animator>(); // set animator if null
+        }
+
+        if(catInteractions == null)
+        {
+            if(gameObject.GetComponent<CatInteractions>() != null)
+            {
+                catInteractions = gameObject.GetComponent<CatInteractions>();
+            }
         }
     }
 
@@ -301,25 +311,15 @@ public class MakeShiftCatController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (!triggerHide)
+                if (catInteractions != null)
                 {
-                    triggerHide = true;
-
-                    if (!isHidden)
+                    if (hideTarget != null)
                     {
-                        if (hideTarget != null)
-                        {
-                            hideTarget.Interact();
-
-                            Debug.Log("calling start hiding because, pressed E when triggerHide false, is Hidden false, and hideTarget not null");
-                            StartHiding();
-                        } else
-                        {
-                            Debug.Log("hideTarget is null so setting triggerhide to false");
-                            triggerHide = false;
-
-                        }
+                        TryToHide();
+                        return;
                     }
+
+                    catInteractions.TryToInteract();
                 }
             }
 
@@ -481,6 +481,31 @@ public class MakeShiftCatController : MonoBehaviour
         }
 
     }
+
+    public void TryToHide()
+    {
+        if (!triggerHide)
+        {
+            triggerHide = true;
+
+            if (!isHidden)
+            {
+                if (hideTarget != null)
+                {
+                    hideTarget.Interact();
+
+                    //Debug.Log("calling start hiding because, pressed E when triggerHide false, is Hidden false, and hideTarget not null");
+                    StartHiding();
+                }
+                else
+                {
+                    Debug.Log("hideTarget is null so setting triggerhide to false");
+                    triggerHide = false;
+
+                }
+            }
+        }
+    } 
 
     void MoveCharacter()
     {
@@ -920,18 +945,25 @@ public class MakeShiftCatController : MonoBehaviour
 
     public void StartHiding()
     {
-        movement = new Vector3(0, 0, 0).normalized;
+        movement = new Vector3(0f, 0f, 0f).normalized;
+        moveX = 0f;
 
-        if (hideTarget != null)
+        if(rb != null)
         {
-            float hideX = hideTarget.transform.position.x;
-
-            transform.position = new Vector3(hideX, transform.position.y, transform.position.z);
+            rb.velocity = Vector3.zero;
         }
 
         if (!facingRight)
         {
             FlipFace();
+        }
+
+        if (hideTarget != null)
+        {
+            float hideX = hideTarget.transform.position.x;
+            Vector3 newPosition = new Vector3(hideX, transform.position.y, transform.position.z);
+
+            transform.position = newPosition;
         }
 
         if (anim != null)

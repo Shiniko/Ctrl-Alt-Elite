@@ -3,26 +3,32 @@ using UnityEngine;
 public class Hide_Interact : MonoBehaviour, IInteractable
 {
     private bool triggeredInteract;
+    private bool playerInRange;
     [SerializeField] private HideyHole hideHole;
     [SerializeField] private GameObject interactDisplay;
 
     public void Interact()
     {
-        Debug.Log("Interacted with!");
-
-        if (!triggeredInteract)
+        if (playerInRange)
         {
-            triggeredInteract = true;
-
-            if (hideHole != null)
+            if (!triggeredInteract)
             {
-                hideHole.EnterHole();
-            }
+                triggeredInteract = true;
 
-            if (interactDisplay != null)
-            {
-                interactDisplay.SetActive(false);
+                if (hideHole != null)
+                {
+                    hideHole.EnterHole();
+                }
+
+                if (interactDisplay != null)
+                {
+                    interactDisplay.SetActive(false);
+                }
             }
+        }
+        else
+        {
+            Debug.Log("Tried to interact, but player not in range");
         }
     }
 
@@ -31,10 +37,20 @@ public class Hide_Interact : MonoBehaviour, IInteractable
         triggeredInteract = false;
     }
 
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            playerInRange = true;
+        }
+    }
+
     private void OnTriggerStay(Collider col)
     {
         if (col.CompareTag("Player"))
         {
+            playerInRange = true;
+
             if (interactDisplay != null)
             {
                 if (!triggeredInteract)
@@ -54,6 +70,8 @@ public class Hide_Interact : MonoBehaviour, IInteractable
     {
         if (col.CompareTag("Player"))
         {
+            playerInRange = false;
+
             if (interactDisplay != null)
             {
                 interactDisplay.SetActive(false);              
