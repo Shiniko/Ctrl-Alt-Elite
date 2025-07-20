@@ -1,6 +1,6 @@
 using UnityEngine;
 [RequireComponent(typeof(Collider))]
-public class DoorInteract : IInteractable
+public class DoorInteract : Interactable
 {
     private bool triggeredInteract;
     [SerializeField] private ExitRoom exitRoom;
