@@ -13,7 +13,8 @@ public class Hide_Interact : Interactable
 
     public override void Interact()
     {
-        catController.StartHiding();
+        base.Interact();
+        catController.TryToHide();
     }
 
     public override void OnTriggerEnter(Collider col)

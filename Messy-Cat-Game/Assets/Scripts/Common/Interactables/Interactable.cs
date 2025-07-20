@@ -5,6 +5,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] protected GameObject interactDisplay;
+    [SerializeField] protected bool playerInRange;
     public virtual void Awake()
     {
         if(TryGetComponent<Collider>(out Collider col))
@@ -42,6 +43,7 @@ public class Interactable : MonoBehaviour
         {
             return;
         }
+        playerInRange = true;
         if (interactDisplay == null)
         {
             return;
@@ -89,6 +91,7 @@ public class Interactable : MonoBehaviour
         {
             return;
         }
+        playerInRange = false;
         if (interactDisplay == null)
         {
             return;

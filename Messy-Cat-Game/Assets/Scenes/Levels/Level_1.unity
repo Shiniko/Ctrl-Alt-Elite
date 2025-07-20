@@ -873,6 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b4cbf90e0f81a45b9ea74b3cd1acfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactDisplay: {fileID: 0}
   exitRoom: {fileID: 0}
 --- !u!114 &274900404
 MonoBehaviour:
@@ -1143,7 +1144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e483647e96536824e9c066de277a60e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hideHole: {fileID: 281646204}
   interactDisplay: {fileID: 36838217}
 --- !u!65 &573895831
 BoxCollider:
@@ -2433,8 +2433,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4928152016310491543, guid: d07e10078e3000845b90c6b5c440a619, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1505161097}
   m_SourcePrefab: {fileID: 100100000, guid: d07e10078e3000845b90c6b5c440a619, type: 3}
+--- !u!1 &1505161096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4928152016310491543, guid: d07e10078e3000845b90c6b5c440a619, type: 3}
+  m_PrefabInstance: {fileID: 1505161095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1505161097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505161096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729a5daae6431474fa4498889dd1a763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactKey: 101
 --- !u!1 &1584498930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4023,6 +4044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4d9657804befe458beecefa65eacda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactDisplay: {fileID: 1127548979}
   triggeredInteract: 0
   playerInRange: 0
   messAnim: {fileID: 535203857}

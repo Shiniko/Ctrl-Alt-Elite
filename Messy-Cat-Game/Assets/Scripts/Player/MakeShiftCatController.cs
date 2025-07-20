@@ -495,8 +495,6 @@ public class MakeShiftCatController : MonoBehaviour
             {
                 if (hideTarget != null)
                 {
-                    hideTarget.Interact();
-
                     //Debug.Log("calling start hiding because, pressed E when triggerHide false, is Hidden false, and hideTarget not null");
                     StartHiding();
                 }

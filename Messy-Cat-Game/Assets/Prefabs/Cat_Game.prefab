@@ -10943,6 +10943,7 @@ GameObject:
   - component: {fileID: 6748710606052052154}
   - component: {fileID: 2872030979541781211}
   - component: {fileID: 1392029880376075265}
+  - component: {fileID: 4416592487112112165}
   m_Layer: 0
   m_Name: Cat_Game
   m_TagString: Player
@@ -11029,13 +11030,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da09e0b6298ad5c48ac9dad55f053b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catInteractions: {fileID: 0}
+  exitTarget: {fileID: 0}
+  hideTarget: {fileID: 0}
+  spillTarget: {fileID: 0}
+  scratchTarget: {fileID: 0}
+  breakTarget: {fileID: 0}
   canMove: 0
   isHidden: 0
   triggerHide: 0
   hideCoat: {fileID: 4206362451613033099}
   catCoat: {fileID: 8157664328317241554}
-  hideTarget: {fileID: 0}
   isEngaged: 0
   isOverUI: 0
   isDead: 0
@@ -11117,6 +11121,19 @@ MonoBehaviour:
   canSwitch: 0
   triggerSwitch: 0
   newState: Idle-1
+--- !u!114 &4416592487112112165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928152016310491543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 729a5daae6431474fa4498889dd1a763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactKey: 101
 --- !u!1 &5001843819104381385
 GameObject:
   m_ObjectHideFlags: 0

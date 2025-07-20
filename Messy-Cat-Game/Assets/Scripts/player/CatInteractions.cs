@@ -15,7 +15,6 @@ public class CatInteractions : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
 
     public KeyCode GetInteractKey()
