@@ -5,6 +5,12 @@ public class Hide_Interact : Interactable
     private bool triggeredInteract;
     private MakeShiftCatController catController;
 
+
+    public void ResetTrigger()
+    {
+        triggeredInteract = false;
+    }
+
     public override void Interact()
     {
         catController.StartHiding();
