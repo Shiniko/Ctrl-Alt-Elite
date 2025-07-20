@@ -68,6 +68,7 @@ public class Interactable : MonoBehaviour
         {
             Debug.LogError("No instance of the <color=lime> CatInteractions </color> script is present in the scene!! Interactions will be <color=red>disabled...</color>", this);
             this.enabled = false;
+            return;
         }
 
         if (Input.GetKeyDown(CatInteractions.Instance.GetInteractKey()))
