@@ -174,7 +174,7 @@ public class LevelManager : MonoBehaviour
                     {
                         triggerMessStar = true;
 
-                        progressionManager.AddMessStar();
+                        progressionManager.AddStarForMessComplete()();
                     }
 
                     if (!exitRevealed)
