@@ -74,16 +74,29 @@ public class DogContext : MonoBehaviour
     /// <returns>Vector3</returns>
     public Vector3 GetNewRoamLocation()
     {
+        Vector3 newLocation;
         switch (movementAxis) 
         {
             case MovementAxis.X:
-                return (Vector3.right * Random.Range(_minRoamDistance,_maxRoamDistance + 0.5f)) + new Vector3(0,transform.position.y, transform.position.z);
+                newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
+                while (Vector3.Distance(newLocation,transform.position) < _minimumTravelDistance)
+                {
+                    newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
+                }
+                break;
             case MovementAxis.Z:
-                return Vector3.forward * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f) + new Vector3(transform.position.x, transform.position.y,0);
+                newLocation = Vector3.forward * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f) + new Vector3(transform.position.x, transform.position.y, 0);
+                while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
+                {
+                    newLocation = Vector3.forward * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f) + new Vector3(transform.position.x, transform.position.y, 0);
+                }
+                break;
             default:
                 Debug.LogError("Movement Axis has not been set to a valid value!!", this);
-                return Vector3.zero;
+                newLocation = Vector3.zero;
+                break;
         }
+        return newLocation;
 
     }
 
