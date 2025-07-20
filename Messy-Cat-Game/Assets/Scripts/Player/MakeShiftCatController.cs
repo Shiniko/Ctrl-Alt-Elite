@@ -311,15 +311,10 @@ public class MakeShiftCatController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (catInteractions != null)
+                if (hideTarget != null)
                 {
-                    if (hideTarget != null)
-                    {
-                        TryToHide();
-                        return;
-                    }
-
-                    catInteractions.TryToInteract();
+                    TryToHide();
+                    return;
                 }
             }
 
