@@ -41,11 +41,13 @@ public class DogContextCustomInspector : Editor
         SerializedProperty axisProp = serializedObject.FindProperty("movementAxis");
         SerializedProperty stallTimeProp = serializedObject.FindProperty("stallTime");
         SerializedProperty startRoamingProp = serializedObject.FindProperty("startRoaming");
+        SerializedProperty minimumTravelDistanceProp = serializedObject.FindProperty("_minimumTravelDistance");
         EditorGUILayout.PropertyField(maxRoamProp);
         EditorGUILayout.PropertyField(minRoamProp);
         EditorGUILayout.PropertyField(axisProp, new GUIContent("Movement Axis", "The axis for the dog to walk along during its roaming state"));
         EditorGUILayout.PropertyField(stallTimeProp, new GUIContent("Stall Time","This controls how long (in seconds) the dog will stay in a location during the roaming state."));
-        EditorGUILayout.PropertyField(startRoamingProp);
+        EditorGUILayout.PropertyField(startRoamingProp, new GUIContent("Start Roaming", "Decides whether or not the dog should immediately go into the roaming state at game start."));
+        EditorGUILayout.PropertyField(minimumTravelDistanceProp, new GUIContent("Minimum Travel Distance", "The minimum distance the dog will travel between roaming points. This ensures the dog doesnt jitter by only moving a few steps forward and allows for more realistic movement."));
 
         // Gizmo Settings
         EditorGUILayout.Space();
