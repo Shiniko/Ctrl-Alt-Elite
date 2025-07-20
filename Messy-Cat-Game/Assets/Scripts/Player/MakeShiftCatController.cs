@@ -3,6 +3,8 @@ using UnityEngine;
 public class MakeShiftCatController : MonoBehaviour
 {
     [Header("Player States")]
+    public bool isHidden;
+    public GameObject hideCoat;
     public bool isEngaged;
     public bool isOverUI;
     [SerializeField] private bool isDead;
@@ -104,7 +106,7 @@ public class MakeShiftCatController : MonoBehaviour
             if (!isRespawning)
             {
                 canMove = true;
-                
+
                 checkingGround = true;
                 checkingWall = true;
                 inputsFrozen = false;
@@ -219,7 +221,7 @@ public class MakeShiftCatController : MonoBehaviour
 
     private void CheckInputs()
     {
-        
+
         if (canMove)
         {
             // Get input and set animator parameters
@@ -257,6 +259,13 @@ public class MakeShiftCatController : MonoBehaviour
                     anim.SetFloat("moveX", Mathf.Abs(moveX));
                     anim.SetFloat("moveY", moveY);
                 }
+
+                if (isHidden)
+                {
+                    isHidden = false;
+
+                    StopHiding();
+                }
             }
             else
             {
@@ -270,7 +279,7 @@ public class MakeShiftCatController : MonoBehaviour
                 movement = new Vector3(moveX, 0, 0).normalized;
                 currentInputVector = new Vector2(moveX, 0).normalized;
             }
-        
+
 
             /*
             if (canJump && Input.GetButtonDown("Jump"))
@@ -427,7 +436,7 @@ public class MakeShiftCatController : MonoBehaviour
         {
             ApplyGravity();
         }
-        
+
     }
 
     void MoveCharacter()
@@ -470,7 +479,7 @@ public class MakeShiftCatController : MonoBehaviour
 
     void CheckGround()
     {
-        
+
         if (groundCheck != null)
         {
             if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
@@ -866,9 +875,40 @@ public class MakeShiftCatController : MonoBehaviour
 
     //Anim Dealer Collabs
 
+    public void StartHiding()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("isHiding", true);
+        }
+    }
+
+    public void StopHiding()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("isHiding", false);
+        }
+
+        if (hideCoat != null)
+        {
+            hideCoat.SetActive(false);
+        }
+    }
+
+    public void FinishedHiding()
+    {
+        if (hideCoat != null)
+        {
+            hideCoat.SetActive(false);
+        }
+
+        isHidden = true;
+    }
+
     public void EndVictory()
     {
-        if(anim != null)
+        if (anim != null)
         {
             anim.SetBool("isVictorious", false);
         }
@@ -878,7 +918,7 @@ public class MakeShiftCatController : MonoBehaviour
     {
         // add 33 progress to target
 
-        if(target != null)
+        if (target != null)
         {
             currentDamageProgress += 33;
 
@@ -987,7 +1027,7 @@ public class MakeShiftCatController : MonoBehaviour
 
         target = ot;
 
-        if(ot.GetComponentInChildren<ObjectHealth>() != null)
+        if (ot.GetComponentInChildren<ObjectHealth>() != null)
         {
             objectHealth = ot.GetComponentInChildren<ObjectHealth>();
 

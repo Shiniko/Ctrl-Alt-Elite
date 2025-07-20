@@ -35,4 +35,12 @@ public class Cat_Anim_Dealer : MonoBehaviour
             catController.FullScratch();
         }
     }
+
+    public void DoneHiding()
+    {
+        if (catController != null)
+        {
+            catController.FinishedHiding();
+        }
+    }
 }
