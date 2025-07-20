@@ -1,13 +1,13 @@
 using UnityEngine;
 [RequireComponent(typeof(Collider))]
-public class Hide_Interact : MonoBehaviour, IInteractable
+public class Hide_Interact : IInteractable
 {
     private bool triggeredInteract;
     private bool playerInRange;
     [SerializeField] private HideyHole hideHole;
     [SerializeField] private GameObject interactDisplay;
 
-    public void Interact()
+    public override void Interact()
     {
         if (playerInRange)
         {
