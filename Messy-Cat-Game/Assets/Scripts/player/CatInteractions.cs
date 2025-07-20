@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 //The player input behavior should be set to "Invoke Unity Events"
 //Find the interact event Events/Player/Interact and set it to call the TryToInteract function
-[RequireComponent(typeof(PlayerInput))]
 public class CatInteractions : MonoBehaviour
 {
     [Tooltip("The max distance the object can be away from the player but still interactable")]
@@ -14,13 +13,24 @@ public class CatInteractions : MonoBehaviour
     [SerializeField] private LayerMask interactableLayers;
     [Tooltip("Controls whether the player should try interacting with trigger colliders or not(Change to ignore if not needed)")]
     [SerializeField] private QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Collide;
+    [SerializeField] private KeyCode interactKey = KeyCode.E;
     //The max interactions allowed at any one time is equal to the size of this array
     private RaycastHit[] hits = new RaycastHit[1];
+
+    private bool interacting = false;
+    private void Update()
+    {
+        if (Input.GetKeyDown(interactKey) && !interacting)
+        {
+            TryToInteract();
+        }
+    }
 
     //Im thinking this function can be called by an animation event however right now its being called by the PlayerInput system (in other words when you press E)
     public void TryToInteract()
     {
         Debug.Log("Trying to interact...", this);
+        interacting = true;
         Vector3 direction;
 
         switch (facingDirection) 
@@ -64,6 +74,7 @@ public class CatInteractions : MonoBehaviour
 
         // Clears the hits array to ensure it doesn't retain old data
         System.Array.Clear(hits, 0, hits.Length);
+        interacting = false;
     }
 
     enum FacingDirection 
