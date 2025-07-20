@@ -6,12 +6,17 @@
 
 public class DogContext : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float walkSpeed = 2f;
+    [SerializeField] private float runSpeed = 6f;
+    [SerializeField] private float canterSpeed = 4f;
+
 
     [SerializeField] private float _maxRoamDistance = -1;
     [SerializeField] private float _minRoamDistance = 1;
+    [SerializeField] private float _minimumTravelDistance = 2f;
     [SerializeField] private float stallTime = 2f;
     [SerializeField] private MovementAxis movementAxis;
+    [SerializeField] private bool startRoaming = true;
 
     [SerializeField] private float _size = 0.25f;
     [SerializeField] private Color _gizmoColor = Color.green;
@@ -37,12 +42,29 @@ public class DogContext : MonoBehaviour
         }
     }
 
-    public void Awake()
+    private void OnValidate()
+    {
+        if(Mathf.Abs(_maxRoamDistance) < _minimumTravelDistance || Mathf.Abs(_minRoamDistance) < _minimumTravelDistance)
+        {
+            Debug.LogWarning("Roam distance(s) is less than the minimum travel distance! This will cause the dog to move past these points!", this);
+        }
+    }
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody>();
         if(!GetComponentInChildren<DogVision>())
         {
             Debug.LogError("A DogVision script is not attached to a child of this object!! DogContext requires a DogVision script to be in a child object",this);
+        }
+    }
+
+    void Start()
+    {
+        if (startRoaming)
+        {
+            //Start roaming
+            GetComponent<Animator>().SetBool("Roaming", true);
         }
     }
 
@@ -78,9 +100,9 @@ public class DogContext : MonoBehaviour
     /// Returns the speed of a dog
     /// </summary>
     /// <returns>float</returns>
-    public float GetSpeed()
+    public float GetWalkSpeed()
     {
-        return speed;
+        return walkSpeed;
     }
 
     public float GetStallTime()

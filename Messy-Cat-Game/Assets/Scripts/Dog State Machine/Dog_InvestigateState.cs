@@ -22,7 +22,7 @@ public class Dog_InvestigateState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Time.deltaTime is not used here because it causes weird movement behavior
-        _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, suspiciousEvent.origin, _dogContext.GetSpeed() * Time.fixedDeltaTime));
+        _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, suspiciousEvent.origin, _dogContext.GetWalkSpeed() * Time.fixedDeltaTime));
 
         //If the dog has reached the destination, reset the goTo variable
         if (Vector3.Distance(_transform.position, suspiciousEvent.origin) < 0.1f)

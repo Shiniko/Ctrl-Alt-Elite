@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Dog_RoamingState : StateMachineBehaviour
@@ -41,13 +40,12 @@ public class Dog_RoamingState : StateMachineBehaviour
 
 
         //Time.deltaTime is not used here because it causes weird movement behavior
-        _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, _goTo, _dogContext.GetSpeed() * Time.fixedDeltaTime));
-
+        _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, _goTo, _dogContext.GetWalkSpeed() * Time.fixedDeltaTime));
+        _rigidbody.transform.LookAt(new Vector3(_goTo.x, _transform.position.y, _goTo.z));
         //If the dog has reached the destination, reset the goTo variable
-        if(Vector3.Distance(_transform.position, _goTo) < 0.1f)
+        if (Vector3.Distance(_transform.position, _goTo) < 0.1f)
         {
-            _dogContext.StartCoroutine(Wait());
-            _goToSet = false;
+            animator.SetBool("Stalling", true);
         }
     }
 
@@ -55,12 +53,5 @@ public class Dog_RoamingState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-    }
-
-    public IEnumerator Wait()
-    {
-        stalling = true;
-        yield return new WaitForSeconds(_dogContext.GetStallTime());
-        stalling = false;
     }
 }

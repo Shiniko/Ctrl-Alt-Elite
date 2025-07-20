@@ -1,23 +1,35 @@
+using System.Collections;
 using UnityEngine;
-//This script is for when the dog has seen the cat for a brief moment
-//Gets triggered when the cat has entered the dog's field of view
-public class Dog_SuspiciousState : StateMachineBehaviour
+
+public class Dog_Stalling : StateMachineBehaviour
 {
+    DogContext _dogContext;
+    private bool _stalling;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        _dogContext = animator.GetComponent<DogContext>();
+        _stalling = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        if(_stalling == false)
+        {
+            _dogContext.StartCoroutine(Stall());
+        }
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+
+    }
+
+    IEnumerator Stall()
+    {
+        _stalling = true;
+        yield return new WaitForSeconds(_dogContext.GetStallTime());
+        _dogContext.GetComponent<Animator>().SetBool("Stalling",false);
     }
 }
