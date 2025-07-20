@@ -24,7 +24,7 @@ public class DogContext : MonoBehaviour
     private Rigidbody rb;
     public SphereCollider dogHearing { get; private set; }
     public DogVision vision { get; private set; }
-    public SuspiciousEvent currentSuspiciousEvent { get; private set; }
+    public SuspiciousEvent currentSuspiciousEvent;
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;

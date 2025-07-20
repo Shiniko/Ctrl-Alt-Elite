@@ -9,7 +9,7 @@ public class DogVision : Ticker
     [SerializeField] public List<GameObject> viewableObjects;
     [SerializeField] private List<GameObject> objectsInViewZone;
     [SerializeField] private LayerMask layerMask;
-    [SerializeField] private Animator animator;
+
     RaycastHit hit;
 
     [Header("Gizmo Settings")]
@@ -17,24 +17,31 @@ public class DogVision : Ticker
     [SerializeField] private float lineTime;
 
     private Transform parentTransform;
+    private Animator animator;
+    private DogContext dogContext;
     private void OnEnable()
     {
         OnTickAction += UpdateViewableObjects;
-        OnTickAction += CanSeeCat;
     }
 
     private void OnDisable()
     {
         OnTickAction -= UpdateViewableObjects;
-        OnTickAction -= CanSeeCat;
     }
 
     private void Awake()
     {
         parentTransform = GetComponentInParent<Transform>();
+        animator = GetComponentInParent<Animator>();
+        dogContext = GetComponentInParent<DogContext>();
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            dogContext.currentSuspiciousEvent = new SuspiciousEvent(other.transform.position);
+            animator.SetTrigger("Suspicious");
+        }
         if (objectsInViewZone.Contains(other.gameObject))
         {
             return; // If the object is already in the view zone, do nothing
@@ -59,20 +66,6 @@ public class DogVision : Ticker
     public bool IsVisible(GameObject other)
     {
         return viewableObjects.Contains(other);
-    }
-
-
-    private void CanSeeCat()
-    {
-        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
-        if (player.Length <= 0)
-        {
-            return; // If no player is found, do nothing
-        }
-        if (viewableObjects.Contains(FindAnyObjectByType<MakeShiftCatController>().gameObject))
-        {
-            animator.SetTrigger("Suspicious");
-        }
     }
 
     private void UpdateViewableObjects()
