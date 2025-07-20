@@ -6,8 +6,9 @@ public class Spill_Interact : Interactable
     [SerializeField] private Animator messAnim;
     [SerializeField] private LevelManager levelManager;
 
-    public void Interact()
+    public override void Interact()
     {
+        base.Interact();
         if (playerInRange)
         {
             if (!triggeredInteract)
