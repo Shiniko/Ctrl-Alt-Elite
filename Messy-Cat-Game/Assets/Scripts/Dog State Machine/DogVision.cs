@@ -9,19 +9,29 @@ public class DogVision : Ticker
     [SerializeField] public List<GameObject> viewableObjects;
     [SerializeField] private List<GameObject> objectsInViewZone;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private Animator animator;
     RaycastHit hit;
 
     [Header("Gizmo Settings")]
     [Tooltip("The length of time the debug line appears for, set to 0 for the line to update in real time")]
     [SerializeField] private float lineTime;
+
+    private Transform parentTransform;
     private void OnEnable()
     {
         OnTickAction += UpdateViewableObjects;
+        OnTickAction += CanSeeCat;
     }
 
     private void OnDisable()
     {
         OnTickAction -= UpdateViewableObjects;
+        OnTickAction -= CanSeeCat;
+    }
+
+    private void Awake()
+    {
+        parentTransform = GetComponentInParent<Transform>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -52,6 +62,19 @@ public class DogVision : Ticker
     }
 
 
+    private void CanSeeCat()
+    {
+        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        if (player.Length <= 0)
+        {
+            return; // If no player is found, do nothing
+        }
+        if (viewableObjects.Contains(FindAnyObjectByType<MakeShiftCatController>().gameObject))
+        {
+            animator.SetTrigger("Suspicious");
+        }
+    }
+
     private void UpdateViewableObjects()
     {
         foreach (GameObject other in objectsInViewZone)
@@ -61,8 +84,8 @@ public class DogVision : Ticker
                 continue; // Skip null objects
             }
             //Shoot raycast
-            float distance = Vector3.Distance(transform.position, other.transform.position) + 0.1f;
-            Vector3 direction = (other.transform.position - transform.position).normalized;
+            float distance = Vector3.Distance(parentTransform.position, other.transform.position) + 0.1f;
+            Vector3 direction = (other.transform.position - parentTransform.position).normalized;
             //If we failt to hit anything with our raycast, then we skip the rest of the code
             if(!Physics.Raycast(transform.position, direction, out hit, distance, layerMask))
             {
@@ -72,7 +95,7 @@ public class DogVision : Ticker
             //Check if the raycast hit the object
             if (hit.collider.gameObject == other.gameObject)
             {
-                Debug.DrawLine(transform.position, other.transform.position, Color.green, lineTime,true);
+                Debug.DrawLine(parentTransform.position, other.transform.position, Color.green, lineTime,true);
                 if (!viewableObjects.Contains(other))
                 {
                     viewableObjects.Add(other.gameObject);
@@ -80,7 +103,7 @@ public class DogVision : Ticker
             }
             else
             {
-                Debug.DrawLine(transform.position, other.transform.position, Color.red, lineTime,true);
+                Debug.DrawLine(parentTransform.position, other.transform.position, Color.red, lineTime,true);
             }
         }
 
