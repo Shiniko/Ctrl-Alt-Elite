@@ -11029,8 +11029,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da09e0b6298ad5c48ac9dad55f053b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 0
   isHidden: 0
+  triggerHide: 0
   hideCoat: {fileID: 4206362451613033099}
+  catCoat: {fileID: 8157664328317241554}
+  hideTarget: {fileID: 0}
   isEngaged: 0
   isOverUI: 0
   isDead: 0
@@ -11057,7 +11061,6 @@ MonoBehaviour:
   moveSpeed: 1
   runfactor: 6
   gravity: 14.8
-  canMove: 0
   triggeredFall: 0
   velToTriggerFall: -5.5
   velToTriggerHardLand: -10.5

@@ -7,6 +7,7 @@ public class MakeShiftCatController : MonoBehaviour
     public bool isHidden;
     public bool triggerHide;
     public GameObject hideCoat;
+    public GameObject catCoat;
     public Hide_Interact hideTarget;
     public bool isEngaged;
     public bool isOverUI;
@@ -954,6 +955,11 @@ public class MakeShiftCatController : MonoBehaviour
         {
             hideCoat.SetActive(false);
         }
+
+        if(catCoat != null)
+        {
+            catCoat.SetActive(true);
+        }
     }
 
     public void FinishedHiding()
@@ -963,6 +969,11 @@ public class MakeShiftCatController : MonoBehaviour
             if (hideCoat != null)
             {
                 hideCoat.SetActive(true);
+            }
+
+            if (catCoat != null)
+            {
+                catCoat.SetActive(false);
             }
 
             isHidden = true;
