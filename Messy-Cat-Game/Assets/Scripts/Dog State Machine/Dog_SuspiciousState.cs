@@ -1,5 +1,6 @@
 using UnityEngine;
 //This script is for when the dog has seen the cat for a brief moment
+//Gets triggered when the cat has entered the dog's field of view
 public class Dog_SuspiciousState : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
