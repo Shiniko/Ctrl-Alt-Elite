@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Making Messes")]
     [SerializeField] private int currentMesses;
+    [SerializeField] private GameObject exitPortal;                            //reference to exit portal, the portal can be anything, like a door or window, but essential turns on the interact part of it
 
     [Header("References")]
     [SerializeField] private ProgressionManager progressionManager;            //reference to Progression Manager script
@@ -166,15 +167,17 @@ public class LevelManager : MonoBehaviour
             {
                 progressionManager.AddMess();
 
-                if (currentMesses > totalMessNeeded)
+                if (currentMesses >= totalMessNeeded)
                 {
+                    currentMesses = totalMessNeeded;
+
                     messMade = true;
 
                     if (!triggerMessStar)
                     {
                         triggerMessStar = true;
 
-                        progressionManager.AddStarForMessComplete()();
+                        progressionManager.AddStarForMessComplete();
                     }
 
                     if (!exitRevealed)
@@ -185,6 +188,8 @@ public class LevelManager : MonoBehaviour
                     }
                 }
             }
+
+            triggerMessGain = false;
         }
     }
 
@@ -192,7 +197,10 @@ public class LevelManager : MonoBehaviour
 
     private void RevealExit()
     {
-
+        if(exitPortal != null)
+        {
+            exitPortal.SetActive(true);
+        }
     }
 
     private void AddMessStar()

@@ -7,6 +7,7 @@ public class Hide_Interact : MonoBehaviour, IInteractable
     [SerializeField] private HideyHole hideHole;
     [SerializeField] private GameObject interactDisplay;
 
+
     public void Interact()
     {
         if (playerInRange)
