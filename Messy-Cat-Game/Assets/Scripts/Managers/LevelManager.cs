@@ -21,6 +21,9 @@ public class LevelManager : MonoBehaviour
     public bool readyForNext;       //check when done with victory, so display menu
     public float winDelay;          //delay needed to save stars and duration
 
+    [Header("Making Messes")]
+    [SerializeField] private int currentMesses;
+
     [Header("References")]
     [SerializeField] private ProgressionManager progressionManager;            //reference to Progression Manager script
     [SerializeField] private GameManager gameManager;                            //reference to Game Manager script
@@ -131,7 +134,7 @@ public class LevelManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //for testing
-                AddMessStar();
+                //AddMessStar();
 
                 //for testing
                 AddHiddenStar();
@@ -147,6 +150,49 @@ public class LevelManager : MonoBehaviour
                 durationPanel.SetActive(false);
             }
         }
+    }
+
+    //accessible functions
+
+    public void MakeAMess()
+    {
+        if (!triggerMessGain)
+        {
+            triggerMessGain = true;
+
+            currentMesses++;
+
+            if (progressionManager != null)
+            {
+                progressionManager.AddMess();
+
+                if (currentMesses > totalMessNeeded)
+                {
+                    messMade = true;
+
+                    if (!triggerMessStar)
+                    {
+                        triggerMessStar = true;
+
+                        progressionManager.AddMessStar();
+                    }
+
+                    if (!exitRevealed)
+                    {
+                        exitRevealed = true;
+
+                        RevealExit();
+                    }
+                }
+            }
+        }
+    }
+
+    //other functions
+
+    private void RevealExit()
+    {
+
     }
 
     private void AddMessStar()
