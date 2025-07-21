@@ -118,18 +118,18 @@ public class MakeShiftCatController : MonoBehaviour
             {
                 if (!triggerHide)
                 {
-                    Debug.Log("setting canmove to true because, not triggerhide");
+                    // Debug.Log("setting canmove to true because, not triggerhide");
 
                     canMove = true;
                 }
                 else
                 {
-                    Debug.Log("intial setting canmove to false because, triggerhide");
+                    // Debug.Log("intial setting canmove to false because, triggerhide");
                     canMove = false;
 
                     if (isHidden)
                     {
-                        Debug.Log("setting canmove to true because, triggerhide and isHidden");
+                        // Debug.Log("setting canmove to true because, triggerhide and isHidden");
                         canMove = true;
                     }
                 }
