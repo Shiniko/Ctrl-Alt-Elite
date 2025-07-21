@@ -109,7 +109,7 @@ public class DevLevelSelect : MonoBehaviour
     {
         if(levelSuffix < 0 || levelSuffix > numberOfLevels)
         {
-            Debug.Log("Returning in DLS because selectsceneandload has levelSuffix greate than number of levels or less than zero");
+            //Debug.Log("Returning in DLS because selectsceneandload has levelSuffix greate than number of levels or less than zero");
 
             return;
         }
@@ -333,7 +333,7 @@ public class DevLevelSelect : MonoBehaviour
             level = numberOfLevels;
             currentLevel = level;
 
-            Debug.Log("Loading credits cause finsihed last level");
+            //Debug.Log("Loading credits cause finsihed last level");
             LoadCreditsScene();
 
             return;
@@ -519,7 +519,7 @@ public class DevLevelSelect : MonoBehaviour
             }
             else
             {
-                Debug.Log("ppm not has set prefs");
+                //Debug.Log("ppm not has set prefs");
             }
         }
     }

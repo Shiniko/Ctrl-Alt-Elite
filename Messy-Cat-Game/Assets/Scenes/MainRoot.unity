@@ -2559,18 +2559,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1667583833}
-        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
-        m_MethodName: ResetLevel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1127769905}
         m_TargetAssemblyTypeName: DevLevelSelect, Assembly-CSharp
         m_MethodName: ReloadSameLevel
@@ -13637,6 +13625,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1767864415786845935, guid: 450c3c9cd77b5eb4ba7ebd6b82b358ac, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1843233033881461388, guid: 450c3c9cd77b5eb4ba7ebd6b82b358ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -3.388144
@@ -24136,6 +24128,8 @@ MonoBehaviour:
   totalMessNeeded: 0
   readyForNext: 0
   winDelay: 2
+  currentMesses: 0
+  exitPortal: {fileID: 0}
   progressionManager: {fileID: 4857546362193823540}
   gameManager: {fileID: 1952553494}
   devLevelSelect: {fileID: 1127769905}
@@ -28777,8 +28771,9 @@ MonoBehaviour:
   currentAgro: 0
   agroItems: []
   isDead: 0
-  isRespawning: 0
+  setNewSpawnPoint: 0
   hasSpawnedPlayer: 0
+  isRespawning: 0
   respawnCounter: 0
   respawnCD: 1
   lastPlayerWaypoint: 0

@@ -88,6 +88,11 @@ public class Spill_Interact : MonoBehaviour, IInteractable
             {
                 interactDisplay.SetActive(false);
             }
+
+            if (col.GetComponent<MakeShiftCatController>() != null)
+            {
+                col.GetComponent<MakeShiftCatController>().spillTarget = null;
+            }
         }
     }
 }

@@ -36,8 +36,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Respawn Params")]
     [SerializeField] private bool isDead;                  //bool used to check if player dead, changed from playerhealth script or respawn
-    public bool isRespawning;                              //bool used to check if player is currently respawning, so wait for now
-    public bool hasSpawnedPlayer;                          //bool used to check if player done respawning, so now can do things
+    public bool setNewSpawnPoint;                              //bool used to check if new spawnpoint
+    public bool hasSpawnedPlayer;
+    public bool isRespawning;                               //bool used to check if player done respawning, so now can do things
     [SerializeField] private float respawnCounter;         //float, in seconds, that counts up the duration player is respawning
     [SerializeField] private float respawnCD;              //float, in seconds, that determines the full duration to delay for purposes of allowing animation of respawn, instantiation, audio, etc., before calling it good to change bools etc.
     public int lastPlayerWaypoint;                         //location of last waypoint the player reached, for purposes of respawning
@@ -267,11 +268,19 @@ public class GameManager : MonoBehaviour
             {
                 respawnCounter = respawnCD;
 
-                isRespawning = false;
-
                 if (hasSetPreferences)
                 {
-                    SpawnCat();
+                    if (setNewSpawnPoint)
+                    {
+                        Debug.Log("new spawnPoint has been set in GM before SpawnCat is called");
+                    }
+
+                isRespawning = false;
+
+                    if (levelManager != null)
+                    {
+                        SpawnCat();
+                    }
                 }
             }
 
@@ -318,7 +327,6 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(player, 0.1f);
             }
-
         }
     }
 
@@ -772,10 +780,13 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-#if (UNITY_STANDALONE) 
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif (UNITY_STANDALONE)
         Application.Quit();
 #elif (UNITY_WEBGL)
-        Application.OpenURL("about:blank");
+        //Application.OpenURL("about:blank");
+        Application.ExternalEval("window.open('" + "https://calcoa.itch.io/ctrl-alt-elite-messy-game" + "','_self')");
 #endif
 
         Application.Quit();

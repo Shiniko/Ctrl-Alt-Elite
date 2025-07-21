@@ -21,7 +21,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (asyncUnload != null && asyncUnload.isDone)
         {
-            Debug.Log("Level " + currentLevel + " has finished unloading!");
+            //Debug.Log("Level " + currentLevel + " has finished unloading!");
 
             LoadSameLevel();
 
