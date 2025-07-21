@@ -48,6 +48,16 @@ public class DogContextCustomInspector : Editor
         EditorGUILayout.PropertyField(stallTimeProp, new GUIContent("Stall Time","This controls how long (in seconds) the dog will stay in a location during the roaming state."));
         EditorGUILayout.PropertyField(startRoamingProp, new GUIContent("Start Roaming", "Decides whether or not the dog should immediately go into the roaming state at game start."));
         EditorGUILayout.PropertyField(minimumTravelDistanceProp, new GUIContent("Minimum Travel Distance", "The minimum distance the dog will travel between roaming points. This ensures the dog doesnt jitter by only moving a few steps forward and allows for more realistic movement."));
+        if (Mathf.Abs(maxRoamProp.floatValue - minRoamProp.floatValue) < minimumTravelDistanceProp.floatValue)
+        {
+            EditorGUILayout.HelpBox("Roam distance(s) is less than the minimum travel distance! This will cause the dog to move past these points!", MessageType.Warning);
+        }
+
+        //Vision Settings
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Vision Settings", EditorStyles.boldLabel);
+        SerializedProperty seeCatTimeProp = serializedObject.FindProperty("seeCatTime");
+        EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "The amount of time (in seconds) the dog must see the cat before it starts to chase it."));
 
         // Gizmo Settings
         EditorGUILayout.Space();
