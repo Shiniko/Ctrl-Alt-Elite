@@ -1,16 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [RequireComponent(typeof(Collider))]
 // This script is used to track which objects are currently within the dog's field of vision.
 // I recommend changing the layers it collides with to as few as possible in order free up computer resources
 //Should be on a child object of the dog
 public class DogVision : Ticker
 {
+    [Header("Vision Arrays")]
     [SerializeField] public List<GameObject> viewableObjects;
     [SerializeField] private List<GameObject> objectsInViewZone;
+    [Header("Settings")]
     [SerializeField] private LayerMask layerMask;
+    [Header("Rerefences")]
 
-    RaycastHit hit;
+
 
     [Header("Gizmo Settings")]
     [Tooltip("The length of time the debug line appears for, set to 0 for the line to update in real time")]
@@ -19,6 +23,8 @@ public class DogVision : Ticker
     private Transform parentTransform;
     private Animator animator;
     private DogContext dogContext;
+    private Slider agroMeter;
+    RaycastHit hit;
     private void OnEnable()
     {
         OnTickAction += UpdateViewableObjects;
@@ -35,6 +41,12 @@ public class DogVision : Ticker
         animator = GetComponentInParent<Animator>();
         dogContext = GetComponentInParent<DogContext>();
     }
+
+    private void Start()
+    {
+        agroMeter = dogContext.GetAgroMeter();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -56,6 +68,11 @@ public class DogVision : Ticker
         {
             viewableObjects.Remove(other.gameObject);
         }
+    }
+
+    private new void Update()
+    {
+        
     }
 
     /// <summary>
@@ -99,7 +116,7 @@ public class DogVision : Ticker
                 Debug.DrawLine(parentTransform.position, other.transform.position, Color.red, lineTime,true);
             }
         }
-
     }
+
 }
 
