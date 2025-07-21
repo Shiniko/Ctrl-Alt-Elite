@@ -57,7 +57,10 @@ public class DogContextCustomInspector : Editor
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Vision Settings", EditorStyles.boldLabel);
         SerializedProperty seeCatTimeProp = serializedObject.FindProperty("seeCatTime");
+        SerializedProperty dogAgroMeterProp = serializedObject.FindProperty("dogAgroMeter");
         EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "The amount of time (in seconds) the dog must see the cat before it starts to chase it."));
+        EditorGUILayout.PropertyField(dogAgroMeterProp);
+        
 
         // Gizmo Settings
         EditorGUILayout.Space();

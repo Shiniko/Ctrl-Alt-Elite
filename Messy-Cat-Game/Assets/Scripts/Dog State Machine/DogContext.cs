@@ -29,6 +29,7 @@ public class DogContext : MonoBehaviour
     private Rigidbody rb;
     public SuspiciousEvent currentSuspiciousEvent;
     public DogVision dogVision { get; private set; }
+    public GameObject player { get; private set; }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;
@@ -51,7 +52,7 @@ public class DogContext : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         if(!GetComponentInChildren<DogVision>())
         {
-            Debug.LogError("A DogVision script is not attached to a child of this object!! DogContext requires a DogVision script to be in a child object.",this);
+            Debug.LogError("A <color=lime>DogVision</color> script is <color=yellow>not attached to a child</color> of this object!! <color=lime>DogContext</color> <color=red>requires</color> a <color=lime>DogVision</color> script to be in a child object.", this);
         }
         else
         {
@@ -60,12 +61,15 @@ public class DogContext : MonoBehaviour
         if(dogAgroMeter == null)
         {
             Debug.LogWarning("<color=lime>DogContext</color> is missing a reference to a <color=lime>slider</color> for the <color=yellow>dogAgroMeter</color> variable");
+            dogVision.enabled = false;
+            Debug.LogWarning("Disabling DogVision to prevent futher errors");
         }
         else
         {
             dogAgroMeter.value = 0f;
             dogAgroMeter.maxValue = seeCatTime;
         }
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()

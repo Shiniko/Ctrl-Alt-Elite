@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Collider))]
@@ -24,7 +25,10 @@ public class DogVision : Ticker
     private Animator animator;
     private DogContext dogContext;
     private Slider agroMeter;
+
+    public bool suspicious;
     RaycastHit hit;
+
     private void OnEnable()
     {
         OnTickAction += UpdateViewableObjects;
@@ -40,6 +44,18 @@ public class DogVision : Ticker
         parentTransform = GetComponentInParent<Transform>();
         animator = GetComponentInParent<Animator>();
         dogContext = GetComponentInParent<DogContext>();
+
+        int dogLayer = LayerMask.NameToLayer("Dog");
+        if(dogLayer == -1)
+        {
+            Debug.LogError("Dog layer does not exist! Please create a layer named 'Dog' in the Unity editor.", this);
+            return;
+        }
+        if(!(gameObject.layer == dogLayer))
+        {
+            Debug.LogWarning("This object needs to be on the dog layer! Automatically setting it...", this);
+            gameObject.layer = dogLayer;
+        }
     }
 
     private void Start()
@@ -49,11 +65,6 @@ public class DogVision : Ticker
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            dogContext.currentSuspiciousEvent = new SuspiciousEvent(other.transform.position);
-            animator.SetTrigger("Suspicious");
-        }
         if (objectsInViewZone.Contains(other.gameObject))
         {
             return; // If the object is already in the view zone, do nothing
@@ -72,7 +83,8 @@ public class DogVision : Ticker
 
     private new void Update()
     {
-        
+        base.Update();
+        IfCatVisible();
     }
 
     /// <summary>
@@ -85,34 +97,59 @@ public class DogVision : Ticker
         return viewableObjects.Contains(other);
     }
 
+    void IfCatVisible()
+    {
+        if (IsVisible(dogContext.player))
+        {
+            if (!suspicious)
+            {
+                suspicious = true;
+                dogContext.currentSuspiciousEvent = new SuspiciousEvent(dogContext.transform.position);
+                animator.SetTrigger("Suspicious");
+            }
+
+            agroMeter.gameObject.SetActive(true);
+
+            agroMeter.value += Time.deltaTime;
+        }
+        else
+        {
+            agroMeter.gameObject.SetActive(false);
+        }
+    }
+
     private void UpdateViewableObjects()
     {
         foreach (GameObject other in objectsInViewZone)
         {
             if(other == null)
             {
+                Debug.Log("Skipping null object", this);
                 continue; // Skip null objects
             }
             //Shoot raycast
             float distance = Vector3.Distance(parentTransform.position, other.transform.position) + 0.1f;
             Vector3 direction = (other.transform.position - parentTransform.position).normalized;
-            //If we failt to hit anything with our raycast, then we skip the rest of the code
-            if(!Physics.Raycast(transform.position, direction, out hit, distance, layerMask))
+            //If we fail to hit anything with our raycast, then we skip the rest of the code
+            if(!Physics.Raycast(parentTransform.position, direction, out hit, distance, layerMask))
             {
+                Debug.Log("Raycast failed to hit anything");
                 continue;
             }
 
             //Check if the raycast hit the object
-            if (hit.collider.gameObject == other.gameObject)
+            if (hit.collider.gameObject == other)
             {
+               Debug.Log("Object is visible");
                 Debug.DrawLine(parentTransform.position, other.transform.position, Color.green, lineTime,true);
                 if (!viewableObjects.Contains(other))
                 {
-                    viewableObjects.Add(other.gameObject);
+                    viewableObjects.Add(other);
                 }
             }
             else
             {
+                Debug.Log("Object is not visible instead we hit" + hit.collider.gameObject.name);
                 Debug.DrawLine(parentTransform.position, other.transform.position, Color.red, lineTime,true);
             }
         }
