@@ -1,6 +1,6 @@
 using UnityEngine;
 [RequireComponent(typeof(Collider))]
-public class Spill_Interact : MonoBehaviour, IInteractable
+public class Spill_Interact : MonoBehaviour
 {
     [SerializeField] private bool triggeredInteract;
     [SerializeField] private bool playerInRange;

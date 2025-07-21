@@ -733,9 +733,9 @@ public class GameManager : MonoBehaviour
 
         if (level < 1 || level > 35)
         {
-            return false;
-
             Debug.Log("returned false because level was not correct");
+
+            return false;
         }
 
         if (playerPrefsManager != null)

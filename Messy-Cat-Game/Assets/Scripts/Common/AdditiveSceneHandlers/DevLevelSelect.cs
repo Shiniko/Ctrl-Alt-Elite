@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class DevLevelSelect : MonoBehaviour
 {
+    public bool testLevel;
+
     [Header("Accesible Params")]
     public int currentLevel;
     public int numberOfLevels;
@@ -59,33 +61,40 @@ public class DevLevelSelect : MonoBehaviour
 
     void Start()
     {
-        ActivateLevelSelectMenuButtons();
+        if (!testLevel)
+        {
+            ActivateLevelSelectMenuButtons();
+        }
     }
 
     void Update()
     {
-        if (_triggered) //after triggering, want to wait a frame in order to set LevelSelect scene for loading
+        if (!testLevel)
         {
-            if (!_loaded)
+            if (_triggered) //after triggering, want to wait a frame in order to set LevelSelect scene for loading
             {
-                _loaded = true;
+                if (!_loaded)
+                {
+                    _loaded = true;
 
-                sl.LoadScenes();
+                    sl.LoadScenes();
+                }
             }
-        }
 
-        if (!_triggered)
-        {
-            if(sl != null)
+            if (!_triggered)
             {
-                //setting scenesToLoad array as single levelSelect string
-                string[] levelSelectScene = new string[1];
-                levelSelectScene[0] = levelSelect;
-                sl.SetScenesToLoad(levelSelectScene);
+                if (sl != null)
+                {
 
-                _triggered = true;
+                    //setting scenesToLoad array as single levelSelect string
+                    string[] levelSelectScene = new string[1];
+                    levelSelectScene[0] = levelSelect;
+                    sl.SetScenesToLoad(levelSelectScene);
 
-                ActivateLevelSelectPanel();
+                    _triggered = true;
+
+                    ActivateLevelSelectPanel();
+                }
             }
         }
 
