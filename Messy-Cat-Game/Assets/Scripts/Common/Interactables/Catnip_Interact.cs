@@ -6,6 +6,10 @@ public class Catnip_Interact : MonoBehaviour
     private GameObject catnipJar;
     [SerializeField]
     private ProgressionManager progressionManager;
+
+    [SerializeField]
+    private LevelManager levelManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,6 +34,14 @@ public class Catnip_Interact : MonoBehaviour
                 }
             }
 
+            if (levelManager == null)
+            {
+                if (GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>() != null)
+                {
+                    levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+                    levelManager.AddHiddenStar();
+                }
+            }
         }
     }
 }

@@ -228,7 +228,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void AddHiddenStar()
+    public void AddHiddenStar()
     {
         if (!triggerHiddenStar)  //saves from trying to add more than one
         {
