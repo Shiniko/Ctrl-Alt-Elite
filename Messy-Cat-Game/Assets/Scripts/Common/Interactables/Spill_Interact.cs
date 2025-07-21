@@ -1,14 +1,15 @@
 using UnityEngine;
 [RequireComponent(typeof(Collider))]
-public class Spill_Interact : Interactable
+public class Spill_Interact : MonoBehaviour
 {
     [SerializeField] private bool triggeredInteract;
+    [SerializeField] private bool playerInRange;
     [SerializeField] private Animator messAnim;
+    [SerializeField] private GameObject interactDisplay;
     [SerializeField] private LevelManager levelManager;
 
-    public override void Interact()
+    public void Interact()
     {
-        base.Interact();
         if (playerInRange)
         {
             if (!triggeredInteract)
@@ -48,12 +49,50 @@ public class Spill_Interact : Interactable
         }
     }
 
-    public override void OnTriggerStay(Collider col)
+    private void OnTriggerEnter(Collider col)
     {
-        base.OnTriggerStay(col);
-        if (col.GetComponent<MakeShiftCatController>() != null)
+        if (col.CompareTag("Player"))
         {
-            col.GetComponent<MakeShiftCatController>().spillTarget = this;
+            playerInRange = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            playerInRange = true;
+
+            if (interactDisplay != null)
+            {
+                if (!triggeredInteract)
+                {
+                    interactDisplay.SetActive(true);
+                }
+            }
+
+            if (col.GetComponent<MakeShiftCatController>() != null)
+            {
+                col.GetComponent<MakeShiftCatController>().spillTarget = this;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            playerInRange = false;
+
+            if (interactDisplay != null)
+            {
+                interactDisplay.SetActive(false);
+            }
+
+            if (col.GetComponent<MakeShiftCatController>() != null)
+            {
+                col.GetComponent<MakeShiftCatController>().spillTarget = null;
+            }
         }
     }
 }

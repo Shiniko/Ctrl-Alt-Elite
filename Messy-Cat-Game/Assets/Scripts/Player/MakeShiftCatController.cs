@@ -13,6 +13,7 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private bool canMove; // when player inputs can move player
     public bool isHidden;
     public bool triggerHide;
+    public bool triggerExit;
     public GameObject hideCoat;
     public GameObject catCoat;
 
@@ -118,25 +119,33 @@ public class MakeShiftCatController : MonoBehaviour
             {
                 if (!triggerHide)
                 {
-                    // Debug.Log("setting canmove to true because, not triggerhide");
+                    //Debug.Log("setting canmove to true because, not triggerhide");
 
                     canMove = true;
                 }
                 else
                 {
-                    // Debug.Log("intial setting canmove to false because, triggerhide");
+                    //Debug.Log("intial setting canmove to false because, triggerhide");
                     canMove = false;
 
                     if (isHidden)
                     {
-                        // Debug.Log("setting canmove to true because, triggerhide and isHidden");
+                        //Debug.Log("setting canmove to true because, triggerhide and isHidden");
                         canMove = true;
                     }
                 }
 
                 checkingGround = true;
                 checkingWall = true;
-                inputsFrozen = false;
+
+                if (triggerExit)
+                {
+                    inputsFrozen = true;
+                }
+                else
+                {
+                    inputsFrozen = false;
+                }
             }
             else
             {
@@ -483,6 +492,32 @@ public class MakeShiftCatController : MonoBehaviour
             TryToSpill();
             return;
         }
+
+        if (exitTarget != null)
+        {
+            TryToExit();
+            return;
+        }
+    }
+
+    public void TryToExit()
+    {
+        if (isHidden)
+        {
+            StopHiding();   //if exiting we dont want to show hidden coat, because we want to show victory dance in regular coat
+        }
+        
+        if(!triggerExit)
+        {
+            triggerExit = true;
+
+            if (exitTarget != null)
+            {
+                exitTarget.Interact();      //this interact will call level manager victory
+            }
+
+            StartExiting();     //this will freeze movement and inputs, and then set an anim bool for victory dance
+        }
     }
 
     public void TryToHide()
@@ -495,6 +530,8 @@ public class MakeShiftCatController : MonoBehaviour
             {
                 if (hideTarget != null)
                 {
+                    hideTarget.Interact();
+
                     //Debug.Log("calling start hiding because, pressed E when triggerHide false, is Hidden false, and hideTarget not null");
                     StartHiding();
                 }
@@ -1026,18 +1063,26 @@ public class MakeShiftCatController : MonoBehaviour
 
     public void StartSpilling()
     {
-        if (spillTarget != null)
-        {
-            float spillX = spillTarget.transform.position.x;
-            Vector3 newPosition = new Vector3(spillX, transform.position.y, transform.position.z);
-
-            transform.position = newPosition;
-        }
-
         if (anim != null)
         {
             anim.SetBool("isSpilling", true);
             anim.Play("Start_Spill");
+        }
+    }
+
+    public void StartExiting()
+    {
+        movement = new Vector3(0f, 0f, 0f).normalized;
+        moveX = 0f;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }
+
+        if (anim != null)
+        {
+            anim.SetBool("isVictorious", true);
         }
     }
 

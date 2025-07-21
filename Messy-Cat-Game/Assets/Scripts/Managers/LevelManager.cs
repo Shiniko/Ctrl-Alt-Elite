@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Making Messes")]
     [SerializeField] private int currentMesses;
-    [SerializeField] private GameObject exitPortal;                            //reference to exit portal, the portal can be anything, like a door or window, but essential turns on the interact part of it
+    public GameObject exitPortal;                                                   //reference to exit portal, the portal can be anything, like a door or window, but essential turns on the interact part of it
 
     [Header("References")]
     [SerializeField] private ProgressionManager progressionManager;            //reference to Progression Manager script
@@ -84,6 +84,16 @@ public class LevelManager : MonoBehaviour
         else
         {
             levelActive = true;
+
+            if (catController == null)
+            {
+                {
+                    if (player.GetComponent<MakeShiftCatController>() != null)
+                    {
+                        catController = player.GetComponent<MakeShiftCatController>();
+                    }
+                }
+            }
         }
 
         if (levelActive)
@@ -117,6 +127,11 @@ public class LevelManager : MonoBehaviour
                 if (gameManager != null)
                 {
                     gameManager.AdjustDurationUI(levelDuration);
+                }
+
+                if(triggerDuration && durationPanel != null && !durationPanel.activeInHierarchy)
+                {
+                    triggerDuration = false;
                 }
             }
 
@@ -171,14 +186,7 @@ public class LevelManager : MonoBehaviour
                 {
                     currentMesses = totalMessNeeded;
 
-                    messMade = true;
-
-                    if (!triggerMessStar)
-                    {
-                        triggerMessStar = true;
-
-                        progressionManager.AddStarForMessComplete();
-                    }
+                    AddMessStar();
 
                     if (!exitRevealed)
                     {
@@ -207,6 +215,8 @@ public class LevelManager : MonoBehaviour
     {
         if (!triggerMessStar)  //saves from trying to add more than one
         {
+            messMade = true;
+
             triggerMessStar = true;  //after first time, no more
 
             hasMessStar = true;         //sets the star in level manager as true
@@ -388,7 +398,7 @@ public class LevelManager : MonoBehaviour
             newRecord = gameManager.CheckDurationCompletion(levelDuration, currentLevel);
         }
 
-        Debug.Log("New Record is " + newRecord);
+        //Debug.Log("New Record is " + newRecord);
 
         if (newRecordText != null)
         {
