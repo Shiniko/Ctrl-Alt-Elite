@@ -3,6 +3,7 @@
 [RequireComponent(typeof(Rigidbody))]
 //Required for collision detection
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Animator))]
 
 public class DogContext : MonoBehaviour
 {

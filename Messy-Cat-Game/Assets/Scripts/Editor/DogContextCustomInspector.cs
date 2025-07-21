@@ -17,7 +17,7 @@ public class DogContextCustomInspector : Editor
         // Required References
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Required References", EditorStyles.boldLabel);
-        EditorGUILayout.HelpBox("This script requires an Animator, Collider, and Rigidbody to be present on the object at all times. These references are automatically grabbed during game start.", MessageType.Info);
+        EditorGUILayout.HelpBox("This script requires an Animator (Animator needs to be using the 'Dog State Machine' controller), Collider, and Rigidbody to be present on the object at all times. These references are automatically grabbed during game start.", MessageType.Info);
 
         // Movement Settings
         EditorGUILayout.Space();
