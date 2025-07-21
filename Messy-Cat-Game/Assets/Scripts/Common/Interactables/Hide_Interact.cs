@@ -1,92 +1,38 @@
 using UnityEngine;
 [RequireComponent(typeof(Collider))]
-public class Hide_Interact : MonoBehaviour, IInteractable
+public class Hide_Interact : Interactable
 {
     private bool triggeredInteract;
-    private bool playerInRange;
-    [SerializeField] private HideyHole hideHole;
-    [SerializeField] private GameObject interactDisplay;
+    private MakeShiftCatController catController;
 
-
-    public void Interact()
-    {
-        if (playerInRange)
-        {
-            if (!triggeredInteract)
-            {
-                triggeredInteract = true;
-
-                if (hideHole != null)
-                {
-                    hideHole.EnterHole();
-                }
-
-                if (interactDisplay != null)
-                {
-                    interactDisplay.SetActive(false);
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("Tried to interact, but player not in range");
-        }
-    }
 
     public void ResetTrigger()
     {
         triggeredInteract = false;
     }
 
-    private void OnTriggerEnter(Collider col)
+    public override void Interact()
     {
-        if (col.CompareTag("Player"))
+        base.Interact();
+        catController.TryToHide();
+    }
+
+    public override void OnTriggerEnter(Collider col)
+    {
+        base.OnTriggerEnter(col);
+        if (col.GetComponent<MakeShiftCatController>() != null)
         {
-            playerInRange = true;
+            col.GetComponent<MakeShiftCatController>().hideTarget = this;
+            catController = col.GetComponent<MakeShiftCatController>();
         }
     }
 
-    private void OnTriggerStay(Collider col)
+    public override void OnTriggerExit(Collider col)
     {
-        if (col.CompareTag("Player"))
+        base.OnTriggerExit(col);
+        if (col.GetComponent<MakeShiftCatController>() != null)
         {
-            playerInRange = true;
-
-            if (interactDisplay != null)
-            {
-                if (!triggeredInteract)
-                {
-                    interactDisplay.SetActive(true);
-                }
-            }
-
-            if(col.GetComponent<MakeShiftCatController>() != null)
-            {
-                col.GetComponent<MakeShiftCatController>().hideTarget = this;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider col)
-    {
-        if (col.CompareTag("Player"))
-        {
-            playerInRange = false;
-
-            if (interactDisplay != null)
-            {
-                interactDisplay.SetActive(false);              
-            }
-
-            if (triggeredInteract)
-            {
-                ResetTrigger();
-            }
-
-            if (col.GetComponent<MakeShiftCatController>() != null)
-            {
-                col.GetComponent<MakeShiftCatController>().hideTarget = null;
-            }
+            col.GetComponent<MakeShiftCatController>().hideTarget = null;
         }
     }
 }

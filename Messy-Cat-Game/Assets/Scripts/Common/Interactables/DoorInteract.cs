@@ -1,11 +1,11 @@
 using UnityEngine;
 [RequireComponent(typeof(Collider))]
-public class DoorInteract : MonoBehaviour, IInteractable
+public class DoorInteract : Interactable
 {
     private bool triggeredInteract;
     [SerializeField] private ExitRoom exitRoom;
 
-    void Interact()
+    public override void Interact()
     {
         Debug.Log("Interacted with!");
 
