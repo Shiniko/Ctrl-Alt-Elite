@@ -124,7 +124,7 @@ public class DogVision : Ticker
         {
             if(other == null)
             {
-                Debug.Log("Skipping null object", this);
+                //Debug.Log("Skipping null object", this);
                 continue; // Skip null objects
             }
             //Shoot raycast
@@ -133,14 +133,14 @@ public class DogVision : Ticker
             //If we fail to hit anything with our raycast, then we skip the rest of the code
             if(!Physics.Raycast(parentTransform.position, direction, out hit, distance, layerMask))
             {
-                Debug.Log("Raycast failed to hit anything");
+                //Debug.Log("Raycast failed to hit anything");
                 continue;
             }
 
             //Check if the raycast hit the object
             if (hit.collider.gameObject == other)
             {
-               Debug.Log("Object is visible");
+                //Debug.Log("Object is visible");
                 Debug.DrawLine(parentTransform.position, other.transform.position, Color.green, lineTime,true);
                 if (!viewableObjects.Contains(other))
                 {
@@ -149,7 +149,7 @@ public class DogVision : Ticker
             }
             else
             {
-                Debug.Log("Object is not visible instead we hit" + hit.collider.gameObject.name);
+                //Debug.Log("Object is not visible, instead we hit" + hit.collider.gameObject.name);
                 Debug.DrawLine(parentTransform.position, other.transform.position, Color.red, lineTime,true);
             }
         }
