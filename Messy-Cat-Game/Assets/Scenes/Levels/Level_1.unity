@@ -754,28 +754,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-<<<<<<< HEAD
-  m_Size: {x: 1.1176164, y: 2.5647485, z: 0.14169168}
-  m_Center: {x: 0.0018869638, y: 0.7823738, z: -0.0064769983}
---- !u!114 &274900403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274900400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b4cbf90e0f81a45b9ea74b3cd1acfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactDisplay: {fileID: 0}
-  playerInRange: 0
-  exitRoom: {fileID: 0}
-=======
   m_Size: {x: 1.3664494, y: 1.4051561, z: 4.0603685}
   m_Center: {x: 0, y: 0, z: -1.3277985}
->>>>>>> main
 --- !u!114 &274900404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,7 +924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e483647e96536824e9c066de277a60e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hideHole: {fileID: 281646204}
   interactDisplay: {fileID: 36838217}
   playerInRange: 0
 --- !u!65 &573895831
@@ -1641,11 +1620,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8df1939b545e77047a9c50fbd4d2a19e, type: 3}
---- !u!1 &1127548979 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6652164297895917903, guid: 8df1939b545e77047a9c50fbd4d2a19e, type: 3}
-  m_PrefabInstance: {fileID: 1127548978}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1201723634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,14 +3440,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4d9657804befe458beecefa65eacda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  interactDisplay: {fileID: 1127548979}
-=======
   triggeredInteract: 0
->>>>>>> main
   playerInRange: 0
-  triggeredInteract: 0
   messAnim: {fileID: 535203857}
+  interactDisplay: {fileID: 0}
   levelManager: {fileID: 0}
 --- !u!1 &2121825492
 GameObject:
