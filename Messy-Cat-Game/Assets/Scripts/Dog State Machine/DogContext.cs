@@ -27,6 +27,8 @@ public class DogContext : MonoBehaviour
     //Agro settings
     [SerializeField] private float seeCatTime = 2f;
     [SerializeField] private Slider dogAgroMeter;
+    [SerializeField] private float barkingRange = 2f;
+    
 
     //Gizmo settings
     [SerializeField] private float _size = 0.25f;
@@ -128,11 +130,6 @@ public class DogContext : MonoBehaviour
         GetComponent<Animator>().SetTrigger("Investigate");
     }
 
-    public void TestRoamingState()
-    {
-        GetComponent<Animator>().SetBool("Roaming",true);
-    }
-
 
     /// <summary>
     /// Returns the rigidbody that is attached to the same game object as the Dog Context script
@@ -142,6 +139,11 @@ public class DogContext : MonoBehaviour
     {
         return rb;
     }
+
+    public float GetBarkingRange()
+    {
+        return barkingRange;
+    }   
 
     /// <summary>
     /// Returns the speed of a dog

@@ -7,7 +7,7 @@ public class DogContextCustomInspector : Editor
 {
     #region dropdowns
     private bool showRoamingSettings = false;
-    private bool showVisionSettings = false;
+    private bool showAgroSettings = false;
     private bool showInvestigateSettings = false;
     private bool showGizmoSettings = false;
     private bool showMovementSettings = false;
@@ -64,24 +64,21 @@ public class DogContextCustomInspector : Editor
             {
                 EditorGUILayout.HelpBox("The roaming range is less than the minimum travel distance! This will cause the dog to move past these points! The max value based on current settings is " + Mathf.Abs(maxRoamProp.floatValue - minRoamProp.floatValue), MessageType.Warning);
             }
-            EditorGUILayout.HelpBox("This button only works in play mode! Causes the dog to transition to the roaming state for testing purposes", MessageType.Info);
-            if (GUILayout.Button("Test Roaming State"))
-            {
-                dogContext.TestRoamingState();
-            }
         }
         EditorGUILayout.EndFoldoutHeaderGroup();
 
 
-        //Vision Settings
+        //Agro Settings
         EditorGUILayout.Space();
-        showVisionSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showVisionSettings, "Vision Settings");
-        if (showVisionSettings)
+        showAgroSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showAgroSettings, "Agro Settings");
+        if (showAgroSettings)
         {
             SerializedProperty seeCatTimeProp = serializedObject.FindProperty("seeCatTime");
             SerializedProperty dogAgroMeterProp = serializedObject.FindProperty("dogAgroMeter");
+            SerializedProperty barkingRangeProp = serializedObject.FindProperty("barkingRange");
             EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "The amount of time (in seconds) the dog must see the cat before it starts to chase it."));
             EditorGUILayout.PropertyField(dogAgroMeterProp);
+            EditorGUILayout.PropertyField(barkingRangeProp, new GUIContent("Barking Range", "The distance at which the dog will bark at the cat. This is used to alert the person."));
         }
         EditorGUILayout.EndFoldoutHeaderGroup();
 
