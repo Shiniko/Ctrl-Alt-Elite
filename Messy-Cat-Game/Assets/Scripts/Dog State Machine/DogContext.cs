@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 //Required for movement
 [RequireComponent(typeof(Rigidbody))]
 //Required for collision detection
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Animator))]
 
 public class DogContext : MonoBehaviour
 {
@@ -18,13 +20,16 @@ public class DogContext : MonoBehaviour
     [SerializeField] private MovementAxis movementAxis;
     [SerializeField] private bool startRoaming = true;
 
+    [SerializeField] private float seeCatTime = 2f;
+    [SerializeField] private Slider dogAgroMeter;
+
     [SerializeField] private float _size = 0.25f;
     [SerializeField] private Color _gizmoColor = Color.green;
 
     private Rigidbody rb;
-    public SphereCollider dogHearing { get; private set; }
-    public DogVision vision { get; private set; }
     public SuspiciousEvent currentSuspiciousEvent;
+    public DogVision dogVision { get; private set; }
+    public GameObject player { get; private set; }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;
@@ -42,21 +47,29 @@ public class DogContext : MonoBehaviour
         }
     }
 
-    private void OnValidate()
-    {
-        if(Mathf.Abs(_maxRoamDistance) < _minimumTravelDistance || Mathf.Abs(_minRoamDistance) < _minimumTravelDistance)
-        {
-            Debug.LogWarning("Roam distance(s) is less than the minimum travel distance! This will cause the dog to move past these points!", this);
-        }
-    }
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         if(!GetComponentInChildren<DogVision>())
         {
-            Debug.LogError("A DogVision script is not attached to a child of this object!! DogContext requires a DogVision script to be in a child object",this);
+            Debug.LogError("A <color=lime>DogVision</color> script is <color=yellow>not attached to a child</color> of this object!! <color=lime>DogContext</color> <color=red>requires</color> a <color=lime>DogVision</color> script to be in a child object.", this);
         }
+        else
+        {
+            dogVision = GetComponentInChildren<DogVision>();
+        }
+        if(dogAgroMeter == null)
+        {
+            Debug.LogWarning("<color=lime>DogContext</color> is missing a reference to a <color=lime>slider</color> for the <color=yellow>dogAgroMeter</color> variable");
+            dogVision.enabled = false;
+            Debug.LogWarning("Disabling DogVision to prevent futher errors");
+        }
+        else
+        {
+            dogAgroMeter.value = 0f;
+            dogAgroMeter.maxValue = seeCatTime;
+        }
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Start()
@@ -121,6 +134,11 @@ public class DogContext : MonoBehaviour
     public float GetStallTime()
     {
         return stallTime;
+    }
+
+    public Slider GetAgroMeter()
+    {
+        return dogAgroMeter;
     }
 
     enum MovementAxis
