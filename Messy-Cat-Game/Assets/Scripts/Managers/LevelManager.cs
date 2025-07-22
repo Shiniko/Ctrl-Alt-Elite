@@ -292,7 +292,9 @@ public class LevelManager : MonoBehaviour
         messMade = false;
         exitRevealed = false;
 
-        if(progressionManager != null)
+        DeactivateNewRecordText();
+
+        if (progressionManager != null)
         {
             progressionManager.ResetProgress();
         }
@@ -386,6 +388,14 @@ public class LevelManager : MonoBehaviour
         if (progressionManager != null)
         {
             progressionManager.AddStarForDog();
+        }
+    }
+
+    public void DeactivateNewRecordText()
+    {
+        if (newRecordText != null)
+        {
+            newRecordText.SetActive(false);
         }
     }
 
