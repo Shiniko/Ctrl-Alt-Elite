@@ -36,6 +36,7 @@ public class DevLevelSelect : MonoBehaviour
     [SerializeField] private GameObject victoryText;
     [SerializeField] private GameObject failText;
     [SerializeField] private GameObject creditsPanel;
+    [SerializeField] private GameObject gameWinPanel;
 
     [Header("Load and Unload params")]
     [SerializeField] private string levelSelect;
@@ -342,8 +343,18 @@ public class DevLevelSelect : MonoBehaviour
             level = numberOfLevels;
             currentLevel = level;
 
-            //Debug.Log("Loading credits cause finsihed last level");
-            LoadCreditsScene();
+            //disable victory text (from level complete panel)
+            if (victoryText != null)
+            {
+                victoryText.SetActive(false);
+            }
+            //disable load screen
+            if (slm != null)
+            {
+                slm.DeActivateLoadPanel();
+            }
+            //enable game win panel
+            gameWinPanel.SetActive(true);
 
             return;
         }
@@ -449,6 +460,13 @@ public class DevLevelSelect : MonoBehaviour
         if (creditsPanel != null)
         {
             creditsPanel.SetActive(true);
+        }
+    }
+    public void ActivateGameWinPanel()
+    {
+        if (gameWinPanel != null)
+        {
+            gameWinPanel.SetActive(true);
         }
     }
 
