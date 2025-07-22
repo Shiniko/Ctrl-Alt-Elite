@@ -381,7 +381,8 @@ public class PlayerPreferenceManager : MonoBehaviour
 
     public float GetTotalGameCompletionTime()
     {
-        float totalCompletionDuration;
+
+        float totalCompletionDuration = 0f;
 
         for (int i = 0; i < levelCompleteDurations.Length; i++)
         {
@@ -393,7 +394,7 @@ public class PlayerPreferenceManager : MonoBehaviour
 
     public int GetTotalGameStars()
     {
-        float totalGameStars;
+        int totalGameStars = 0;
 
         for (int i = 0; i < levelStars.Length; i++)
         {
