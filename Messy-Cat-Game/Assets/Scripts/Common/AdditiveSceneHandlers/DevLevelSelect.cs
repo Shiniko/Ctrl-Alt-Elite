@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DevLevelSelect : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class DevLevelSelect : MonoBehaviour
     [SerializeField] private GameObject failText;
     [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject gameWinPanel;
+    [SerializeField] private TMP_Text totalCompletionTimeHours;
+    [SerializeField] private TMP_Text totalCompletionTimeMinutes;
+    [SerializeField] private TMP_Text totalCompletionTimeSeconds;
+    [SerializeField] private TMP_Text totalCompletionTimeMilliseconds;
 
     [Header("Load and Unload params")]
     [SerializeField] private string levelSelect;
@@ -52,6 +57,8 @@ public class DevLevelSelect : MonoBehaviour
     [SerializeField] private Image[] finishStarImages;                           //level star image for mess completion value to 1 or 0, 1 is earned, 0 is not
     [SerializeField] private Image[] avoidStarImages;                           //level star image for dog avoidance value to 1 or 0, 1 is earned, 0 is not
     [SerializeField] private Image[] hiddenStarImages;                          //level star image for get hidden item value to 1 or 0, 1 is earned, 0 is not
+    [SerializeField] private TMP_Text totalStarsCollected;                 //UI element tracking total stars collected in game across all levels
+    [SerializeField] private TMP_Text totalCompletionTime;                //UI element tracking total of shortest completion time across all levels
 
     [SerializeField] private Color darkColor;
     [SerializeField] private Color lightColor;
@@ -355,6 +362,22 @@ public class DevLevelSelect : MonoBehaviour
             }
             //enable game win panel
             gameWinPanel.SetActive(true);
+
+            //update stats for total stars and completion time
+            if (ppm != null)
+            {
+                totalStarsCollected.text = ppm.GetTotalGameStars().ToString();
+                
+                float time = ppm.GetTotalGameCompletionTime();
+                float hours = Mathf.Floor(time / 3600000);
+                float minutes = Mathf.Floor((time % 3600000) / 60000);
+                float seconds = Mathf.Floor((time % 60000) / 1000);
+                float milliseconds = Mathf.Floor(time % 1000);
+                totalCompletionTimeHours.text = hours.ToString();
+                totalCompletionTimeMinutes.text = minutes.ToString();
+                totalCompletionTimeSeconds.text = seconds.ToString();
+                totalCompletionTimeMilliseconds.text = milliseconds.ToString();
+            }
 
             return;
         }

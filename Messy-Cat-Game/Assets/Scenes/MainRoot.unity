@@ -442,7 +442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &469309832
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22590,6 +22590,10 @@ MonoBehaviour:
   failText: {fileID: 2883593570321212827}
   creditsPanel: {fileID: 0}
   gameWinPanel: {fileID: 469309831}
+  totalCompletionTimeHours: {fileID: 1449985498}
+  totalCompletionTimeMinutes: {fileID: 1817960011}
+  totalCompletionTimeSeconds: {fileID: 1309716403}
+  totalCompletionTimeMilliseconds: {fileID: 1718061918}
   levelSelect: LevelSelect
   _triggered: 0
   _levelSelected: 0
@@ -22600,6 +22604,8 @@ MonoBehaviour:
   finishStarImages: []
   avoidStarImages: []
   hiddenStarImages: []
+  totalStarsCollected: {fileID: 1333492186}
+  totalCompletionTime: {fileID: 913157949}
   darkColor: {r: 0, g: 0, b: 0, a: 1}
   lightColor: {r: 1, g: 1, b: 1, a: 1}
   levelButtons: []
