@@ -1,5 +1,4 @@
 using UnityEngine;
-[RequireComponent(typeof(Collider))]
 public class Hide_Interact : Interactable
 {
     private bool triggeredInteract;
