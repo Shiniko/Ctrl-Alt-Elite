@@ -28,7 +28,6 @@ public class Dog_InvestigateState : StateMachineBehaviour
         if (Vector3.Distance(_transform.position, suspiciousEvent.origin) < 0.1f)
         {
             animator.SetBool("Distracted",true);
-            //Play sniffing animation
         }
     }
 

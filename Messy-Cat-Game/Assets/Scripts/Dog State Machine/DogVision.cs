@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Collider))]
@@ -24,10 +23,15 @@ public class DogVision : Ticker
     private Transform parentTransform;
     private Animator animator;
     private DogContext dogContext;
-    private Slider agroMeter;
 
-    public bool suspicious;
+
+    private bool suspicious;
+    private bool chasing;
     RaycastHit hit;
+
+    //String Hashes
+    private int _suspiciousBool = Animator.StringToHash("Suspicious");
+    private int _chasingBool = Animator.StringToHash("Chasing");
 
     private void OnEnable()
     {
@@ -58,11 +62,6 @@ public class DogVision : Ticker
         }
     }
 
-    private void Start()
-    {
-        agroMeter = dogContext.GetAgroMeter();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (objectsInViewZone.Contains(other.gameObject))
@@ -83,8 +82,20 @@ public class DogVision : Ticker
 
     private new void Update()
     {
+        //Tick system Update
         base.Update();
-        IfCatVisible();
+
+        suspicious = animator.GetBool(_suspiciousBool);
+        chasing = animator.GetBool(_chasingBool);
+
+        if (CanSee(dogContext.player))
+        {
+            if (!suspicious && !chasing)
+            {
+                dogContext.currentSuspiciousEvent = new SuspiciousEvent(dogContext.transform.position);
+                animator.SetBool(_suspiciousBool, true);
+            }
+        }
     }
 
     /// <summary>
@@ -92,30 +103,9 @@ public class DogVision : Ticker
     /// </summary>
     /// <param name="other">The game object to check if its visible</param>
     /// <returns></returns>
-    public bool IsVisible(GameObject other)
+    public bool CanSee(GameObject other)
     {
         return viewableObjects.Contains(other);
-    }
-
-    void IfCatVisible()
-    {
-        if (IsVisible(dogContext.player))
-        {
-            if (!suspicious)
-            {
-                suspicious = true;
-                dogContext.currentSuspiciousEvent = new SuspiciousEvent(dogContext.transform.position);
-                animator.SetTrigger("Suspicious");
-            }
-
-            agroMeter.gameObject.SetActive(true);
-
-            agroMeter.value += Time.deltaTime;
-        }
-        else
-        {
-            agroMeter.gameObject.SetActive(false);
-        }
     }
 
     private void UpdateViewableObjects()
