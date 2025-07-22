@@ -9,28 +9,21 @@ public class Dog_RoamingState : StateMachineBehaviour
 
     Vector3 _goTo;
     bool _goToSet = false;
-    //Makes the dog stop moving for a short time after reaching its destination to simulate sniffing around
-    private bool stalling;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Debug.Log("Roaming State Started...");
         _dogContext = animator.GetComponent<DogContext>();
         _transform = _dogContext.transform;
         _rigidbody = _dogContext.GetRigidbody();
 
-        _goToSet = false;
-        stalling = false;
+        _goToSet = false;    
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(stalling == true)
-        {
-            return;
-        }
-
-
+        Debug.Log("Roaming Update...");
         if(_goToSet == false)
         {
             //Get a new location to roam to
@@ -41,11 +34,13 @@ public class Dog_RoamingState : StateMachineBehaviour
 
         //Time.deltaTime is not used here because it causes weird movement behavior
         _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, _goTo, _dogContext.GetWalkSpeed() * Time.fixedDeltaTime));
+        Debug.Log("Moving ");
         _rigidbody.transform.LookAt(new Vector3(_goTo.x, _transform.position.y, _goTo.z));
         //If the dog has reached the destination, reset the goTo variable
         if (Vector3.Distance(_transform.position, _goTo) < 0.1f)
         {
             animator.SetBool("Stalling", true);
+            Debug.Log("Stalling...");
         }
     }
 
