@@ -771,6 +771,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UnlockAllLevels()
+    {
+        if (playerPrefsManager != null)
+        {
+            for (int i = 0; i < playerPrefsManager.numberOfLevels; i++)
+            {
+                playerPrefsManager.SaveNewStar(i + 1, 1);
+            }
+        }
+
+        if(devLevelSelect != null)
+        {
+            devLevelSelect.ResetLoadStars();
+        }
+    }
+
     IEnumerator LoadDelayQG(float delay)  //set game time to normal if paused, then delay applying quit, to play audio, before quitting
     {
         if (Time.timeScale != 1f)

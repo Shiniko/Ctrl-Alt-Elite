@@ -378,4 +378,29 @@ public class PlayerPreferenceManager : MonoBehaviour
 
         PlayerPrefs.SetInt("DoneTutorialCode", doneTutorialCode);
     }
+
+    public float GetTotalGameCompletionTime()
+    {
+
+        float totalCompletionDuration = 0f;
+
+        for (int i = 0; i < levelCompleteDurations.Length; i++)
+        {
+            totalCompletionDuration += levelCompleteDurations[i];
+        }
+
+        return totalCompletionDuration;
+    }
+
+    public int GetTotalGameStars()
+    {
+        int totalGameStars = 0;
+
+        for (int i = 0; i < levelStars.Length; i++)
+        {
+            totalGameStars += levelStars[i];
+        }
+
+        return totalGameStars;
+    }
 }
