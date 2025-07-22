@@ -12,7 +12,7 @@ public class Interactable : MonoBehaviour
         {
             if(col.isTrigger == false)
             {
-                Debug.LogWarning("The collider was not set to <color=yellow> trigger! </color> Setting it to trigger.",this);
+                Debug.LogWarning("The collider was not set to <color=yellow> trigger! </color> Setting it to trigger...",this);
                 col.isTrigger = true;
             }
         }
