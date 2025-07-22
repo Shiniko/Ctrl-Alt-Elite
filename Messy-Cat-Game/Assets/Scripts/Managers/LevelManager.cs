@@ -150,7 +150,7 @@ public class LevelManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //for testing
-                //AddMessStar();
+                AddMessStar();
 
                 //for testing
                 AddHiddenStar();
