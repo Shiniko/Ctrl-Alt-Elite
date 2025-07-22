@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
     public float winDelay;          //delay needed to save stars and duration
 
     [Header("Making Messes")]
-    [SerializeField] private int currentMesses;
+    public int currentMesses;
     public GameObject exitPortal;                                                   //reference to exit portal, the portal can be anything, like a door or window, but essential turns on the interact part of it
 
     [Header("References")]
