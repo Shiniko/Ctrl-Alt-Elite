@@ -97,12 +97,18 @@ public class DogContext : MonoBehaviour
     /// <returns>Vector3</returns>
     public Vector3 GetNewRoamLocation()
     {
+        if(Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _minRoamDistance)) < _minimumTravelDistance && Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _maxRoamDistance)) < _minimumTravelDistance)
+        {
+            Debug.LogWarning("There is no place to move the dog according to the minimum travel distance!! Ignoring it for now...");
+            return (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
+        }
+
         Vector3 newLocation;
         switch (movementAxis) 
         {
             case MovementAxis.X:
                 newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
-                while (Vector3.Distance(newLocation,transform.position) < _minimumTravelDistance)
+                while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
                 {
                     newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
                 }
@@ -120,7 +126,6 @@ public class DogContext : MonoBehaviour
                 break;
         }
         return newLocation;
-
     }
 
 
@@ -137,6 +142,7 @@ public class DogContext : MonoBehaviour
     /// <returns></returns>
     public Rigidbody GetRigidbody()
     {
+        Debug.Log("Returning rigidbody...");
         return rb;
     }
 
