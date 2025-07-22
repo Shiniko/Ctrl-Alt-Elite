@@ -452,7 +452,7 @@ public class DevLevelSelect : MonoBehaviour
         }
     }
 
-    private void ResetLoadStars()
+    public void ResetLoadStars()
     {
         hasLoadedStars = false;
         hasLoadedLevelButtons = false;
