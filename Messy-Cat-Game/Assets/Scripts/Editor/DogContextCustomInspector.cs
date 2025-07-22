@@ -5,11 +5,13 @@ using UnityEngine;
 [CustomEditor(typeof(DogContext))]
 public class DogContextCustomInspector : Editor
 {
+    #region dropdowns
     private bool showRoamingSettings = false;
     private bool showVisionSettings = false;
     private bool showInvestigateSettings = false;
     private bool showGizmoSettings = false;
     private bool showMovementSettings = false;
+    #endregion
     public override void OnInspectorGUI()
     {
         // Get reference to the target object
@@ -62,6 +64,11 @@ public class DogContextCustomInspector : Editor
             {
                 EditorGUILayout.HelpBox("The roaming range is less than the minimum travel distance! This will cause the dog to move past these points! The max value based on current settings is " + Mathf.Abs(maxRoamProp.floatValue - minRoamProp.floatValue), MessageType.Warning);
             }
+            EditorGUILayout.HelpBox("This button only works in play mode! Causes the dog to transition to the roaming state for testing purposes", MessageType.Info);
+            if (GUILayout.Button("Test Roaming State"))
+            {
+                dogContext.TestRoamingState();
+            }
         }
         EditorGUILayout.EndFoldoutHeaderGroup();
 
@@ -85,9 +92,9 @@ public class DogContextCustomInspector : Editor
         {
             SerializedProperty investigationTimeProp = serializedObject.FindProperty("investigationTime");
             EditorGUILayout.PropertyField(investigationTimeProp, new GUIContent("Investigation Time", "The amount of time (in seconds) the dog will investigate a suspicious event before returning to idle"));
+            EditorGUILayout.HelpBox("This button only works in play mode! Causes the dog to transition to the investigate state for testing purposes", MessageType.Info);
             if (GUILayout.Button("Test Investigate State"))
             {
-                EditorGUILayout.HelpBox("This button only works in play mode! Causes the dog to transition to the investigate state for testing purposes", MessageType.Warning);
                 dogContext.TestInvestigateState();
             }
         }

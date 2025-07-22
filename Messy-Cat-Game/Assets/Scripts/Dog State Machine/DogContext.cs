@@ -128,6 +128,11 @@ public class DogContext : MonoBehaviour
         GetComponent<Animator>().SetTrigger("Investigate");
     }
 
+    public void TestRoamingState()
+    {
+        GetComponent<Animator>().SetBool("Roaming",true);
+    }
+
 
     /// <summary>
     /// Returns the rigidbody that is attached to the same game object as the Dog Context script

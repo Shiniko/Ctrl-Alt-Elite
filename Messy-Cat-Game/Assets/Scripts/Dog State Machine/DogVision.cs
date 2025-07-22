@@ -62,6 +62,10 @@ public class DogVision : Ticker
         }
     }
 
+    /// <summary>
+    /// Adds the object to the list of objects in view zone when it enters the trigger collider.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (objectsInViewZone.Contains(other.gameObject))
@@ -71,6 +75,10 @@ public class DogVision : Ticker
         objectsInViewZone.Add(other.gameObject);
     }
 
+    /// <summary>
+    /// Update the list of objects in view zone and viewable when an object exits the trigger collider.
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
         objectsInViewZone.Remove(other.gameObject);
