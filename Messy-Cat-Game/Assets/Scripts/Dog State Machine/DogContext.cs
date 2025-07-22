@@ -8,11 +8,12 @@ using UnityEngine.UI;
 
 public class DogContext : MonoBehaviour
 {
+    //Movement settings
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 6f;
     [SerializeField] private float canterSpeed = 4f;
 
-
+    //Roming settings
     [SerializeField] private float _maxRoamDistance = -1;
     [SerializeField] private float _minRoamDistance = 1;
     [SerializeField] private float _minimumTravelDistance = 2f;
@@ -20,11 +21,18 @@ public class DogContext : MonoBehaviour
     [SerializeField] private MovementAxis movementAxis;
     [SerializeField] private bool startRoaming = true;
 
+    //Investigation settings
+    [SerializeField] private float investigationTime = 5f;
+
+    //Agro settings
     [SerializeField] private float seeCatTime = 2f;
     [SerializeField] private Slider dogAgroMeter;
 
+    //Gizmo settings
     [SerializeField] private float _size = 0.25f;
     [SerializeField] private Color _gizmoColor = Color.green;
+
+
 
     private Rigidbody rb;
     public SuspiciousEvent currentSuspiciousEvent;
@@ -113,6 +121,14 @@ public class DogContext : MonoBehaviour
 
     }
 
+
+    public void TestInvestigateState()
+    {
+        currentSuspiciousEvent = new SuspiciousEvent(GetNewRoamLocation());
+        GetComponent<Animator>().SetTrigger("Investigate");
+    }
+
+
     /// <summary>
     /// Returns the rigidbody that is attached to the same game object as the Dog Context script
     /// </summary>
@@ -139,6 +155,21 @@ public class DogContext : MonoBehaviour
     public Slider GetAgroMeter()
     {
         return dogAgroMeter;
+    }
+
+    public float GetRunSpeed()
+    {
+        return runSpeed;
+    }
+
+    public float GetCanterSpeed()
+    {
+        return canterSpeed;
+    }
+
+    public float GetInvestigationTime()
+    {
+        return investigationTime;
     }
 
     enum MovementAxis

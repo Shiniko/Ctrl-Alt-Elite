@@ -50,7 +50,7 @@ public class DogContextCustomInspector : Editor
         EditorGUILayout.PropertyField(minimumTravelDistanceProp, new GUIContent("Minimum Travel Distance", "The minimum distance the dog will travel between roaming points. This ensures the dog doesnt jitter by only moving a few steps forward and allows for more realistic movement."));
         if (Mathf.Abs(maxRoamProp.floatValue - minRoamProp.floatValue) < minimumTravelDistanceProp.floatValue)
         {
-            EditorGUILayout.HelpBox("Roam distance(s) is less than the minimum travel distance! This will cause the dog to move past these points!", MessageType.Warning);
+            EditorGUILayout.HelpBox("The roaming range is less than the minimum travel distance! This will cause the dog to move past these points! The max value based on current settings is " + Mathf.Abs(maxRoamProp.floatValue - minRoamProp.floatValue), MessageType.Warning);
         }
 
         //Vision Settings
@@ -60,7 +60,13 @@ public class DogContextCustomInspector : Editor
         SerializedProperty dogAgroMeterProp = serializedObject.FindProperty("dogAgroMeter");
         EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "The amount of time (in seconds) the dog must see the cat before it starts to chase it."));
         EditorGUILayout.PropertyField(dogAgroMeterProp);
-        
+
+        //Investigate Settings
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("Investigate Settings", EditorStyles.boldLabel);
+        SerializedProperty investigationTimeProp = serializedObject.FindProperty("investigationTime");
+        EditorGUILayout.PropertyField(investigationTimeProp, new GUIContent("Investigation Time", "The amount of time (in seconds) the dog will investigate a suspicious event before returning to idle"));
+
 
         // Gizmo Settings
         EditorGUILayout.Space();
@@ -72,5 +78,10 @@ public class DogContextCustomInspector : Editor
 
         // Apply changes to serialized properties
         serializedObject.ApplyModifiedProperties();
+
+        if(GUILayout.Button("Test Insvestigate State"))
+        {
+            dogContext.TestInvestigateState();
+        }
     }
 }
