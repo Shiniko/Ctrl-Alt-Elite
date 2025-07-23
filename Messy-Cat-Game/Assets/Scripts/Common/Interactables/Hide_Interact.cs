@@ -26,6 +26,19 @@ public class Hide_Interact : Interactable
         }
     }
 
+    public override void OnTriggerStay(Collider col)
+    {
+        base.OnTriggerStay(col);
+        if (col.GetComponent<MakeShiftCatController>() != null)
+        {
+            if(col.GetComponent<MakeShiftCatController>().hideTarget == null)
+            {
+                col.GetComponent<MakeShiftCatController>().hideTarget = this;
+                catController = col.GetComponent<MakeShiftCatController>();
+            }
+        }
+    }
+
     public override void OnTriggerExit(Collider col)
     {
         base.OnTriggerExit(col);

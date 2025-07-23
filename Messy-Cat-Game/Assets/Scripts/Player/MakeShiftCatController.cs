@@ -493,6 +493,18 @@ public class MakeShiftCatController : MonoBehaviour
             return;
         }
 
+        if (breakTarget != null)
+        {
+            TryToBreak();
+            return;
+        }
+
+        if (scratchTarget != null)
+        {
+            TryToScratch();
+            return;
+        }
+
         if (exitTarget != null)
         {
             TryToExit();
@@ -554,6 +566,28 @@ public class MakeShiftCatController : MonoBehaviour
         }
 
         StartSpilling();
+    }
+
+    public void TryToBreak()
+    {
+        // other logic
+        if (breakTarget != null)
+        {
+            breakTarget.Interact();
+        }
+
+        StartBreaking();
+    }
+
+    public void TryToScratch()
+    {
+        // other logic
+        if (scratchTarget != null)
+        {
+            scratchTarget.Interact();
+        }
+
+        StartScratching();
     }
 
     void MoveCharacter()
@@ -1070,6 +1104,15 @@ public class MakeShiftCatController : MonoBehaviour
         }
     }
 
+    public void StartBreaking()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("isSpilling", true);
+            anim.Play("Start_Spill");
+        }
+    }
+
     public void StartExiting()
     {
         movement = new Vector3(0f, 0f, 0f).normalized;
@@ -1091,6 +1134,15 @@ public class MakeShiftCatController : MonoBehaviour
         if (anim != null)
         {
             anim.SetBool("isVictorious", false);
+        }
+    }
+
+    public void StartScratching()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("isScratching", true);
+            anim.Play("Start_Scratching");
         }
     }
 
