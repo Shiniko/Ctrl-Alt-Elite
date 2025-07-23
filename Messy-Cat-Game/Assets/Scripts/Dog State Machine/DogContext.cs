@@ -18,7 +18,6 @@ public class DogContext : MonoBehaviour
     [SerializeField] private float _minRoamDistance = 1;
     [SerializeField] private float _minimumTravelDistance = 2f;
     [SerializeField] private float stallTime = 2f;
-    [SerializeField] private MovementAxis movementAxis;
     [SerializeField] private bool startRoaming = true;
 
     //Investigation settings
@@ -164,11 +163,6 @@ public class DogContext : MonoBehaviour
     public float GetInvestigationTime()
     {
         return investigationTime;
-    }
-
-    enum MovementAxis
-    {
-        X, Z
     }
 }
 
