@@ -43,18 +43,8 @@ public class DogContext : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;
-        //Dog roaming distance gizmos
-        switch (movementAxis)
-        {
-            case MovementAxis.X:
-                Gizmos.DrawWireSphere(new(_minRoamDistance, transform.position.y, transform.position.z), _size);
-                Gizmos.DrawWireSphere(new(_maxRoamDistance, transform.position.y, transform.position.z), _size);
-                break;
-            case MovementAxis.Z:
-                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _minRoamDistance), _size);
-                Gizmos.DrawWireSphere(new(transform.position.x, transform.position.y, _maxRoamDistance), _size);
-                break;
-        }
+        Gizmos.DrawWireSphere(new(_minRoamDistance, transform.position.y, transform.position.z), _size);
+        Gizmos.DrawWireSphere(new(_maxRoamDistance, transform.position.y, transform.position.z), _size);
     }
 
     void Awake()
@@ -110,27 +100,12 @@ public class DogContext : MonoBehaviour
         }
 
         Vector3 newLocation;
-        switch (movementAxis) 
+        newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
+        while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
         {
-            case MovementAxis.X:
-                newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
-                while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
-                {
-                    newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
-                }
-                break;
-            case MovementAxis.Z:
-                newLocation = Vector3.forward * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f) + new Vector3(transform.position.x, transform.position.y, 0);
-                while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
-                {
-                    newLocation = Vector3.forward * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f) + new Vector3(transform.position.x, transform.position.y, 0);
-                }
-                break;
-            default:
-                Debug.LogError("Movement Axis has not been set to a valid value!!", this);
-                newLocation = Vector3.zero;
-                break;
+            newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
         }
+
         return newLocation;
     }
 
