@@ -25,7 +25,7 @@ public class DogContext : MonoBehaviour
 
     //Agro settings
     [SerializeField] private float seeCatTime = 2f;
-    [SerializeField] private Slider dogAgroMeter;
+    [SerializeField] private Image dogAgroMeter;
     [SerializeField] private float barkingRange = 2f;
     
 
@@ -65,8 +65,8 @@ public class DogContext : MonoBehaviour
         }
         else
         {
-            dogAgroMeter.value = 0f;
-            dogAgroMeter.maxValue = seeCatTime;
+            dogAgroMeter.type = Image.Type.Filled;
+            dogAgroMeter.fillAmount = 0f;
         }
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -151,9 +151,14 @@ public class DogContext : MonoBehaviour
         return stallTime;
     }
 
-    public Slider GetAgroMeter()
+    public Image GetAgroMeter()
     {
         return dogAgroMeter;
+    }
+
+    public float GetSeeCatTime()
+    {
+        return seeCatTime;
     }
 
     public float GetRunSpeed()

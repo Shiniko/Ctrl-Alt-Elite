@@ -8,7 +8,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
     DogContext dogContext;
     SuspiciousEvent suspiciousEvent;
 
-    private Slider agroMeter;
+    private Image agroMeter;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -26,19 +26,19 @@ public class Dog_SuspiciousState : StateMachineBehaviour
         agroMeter.gameObject.SetActive(true);
         if (dogVision.CanSee(dogContext.player))
         {
-            agroMeter.value += Time.fixedDeltaTime;
+            agroMeter.fillAmount += Time.fixedDeltaTime / dogContext.GetSeeCatTime();
         }
         else
         {
-             agroMeter.value -= Time.fixedDeltaTime;
+             agroMeter.fillAmount -= Time.fixedDeltaTime;
         }
         
-        if(agroMeter.value == 0)
+        if(agroMeter.fillAmount <= 0)
         {
             agroMeter.gameObject.SetActive(false);
             animator.SetBool("Suspicious", false);
         }
-        else if (Mathf.Approximately(agroMeter.value,agroMeter.maxValue))
+        else if (Mathf.Approximately(agroMeter.fillAmount, agroMeter.fillAmount))
         {
             animator.SetBool("Suspicious", false);
             animator.SetBool("Chasing", true);
