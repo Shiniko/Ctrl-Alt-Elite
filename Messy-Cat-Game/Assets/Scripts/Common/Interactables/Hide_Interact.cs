@@ -4,10 +4,14 @@ public class Hide_Interact : Interactable
     private bool triggeredInteract;
     private MakeShiftCatController catController;
 
-
     public void ResetTrigger()
     {
         triggeredInteract = false;
+
+        if (interactDisplay != null)
+        {
+            interactDisplay.SetActive(true);
+        }
     }
 
     public override void Interact()

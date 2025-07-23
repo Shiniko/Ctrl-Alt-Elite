@@ -1075,6 +1075,11 @@ public class MakeShiftCatController : MonoBehaviour
         {
             catCoat.SetActive(true);
         }
+
+        if(hideTarget != null)
+        {
+            hideTarget.ResetTrigger();
+        }      
     }
 
     public void FinishedHiding()
