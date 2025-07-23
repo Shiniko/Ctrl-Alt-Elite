@@ -33,8 +33,6 @@ public class ProgressionManager : MonoBehaviour
     void Start()
     {
         ResetProgress();
-        messBar.GetComponent<Image>().fillAmount = 0f;
-        messIncrement = 1f / totalMessAmount;
     }
 
 
@@ -179,5 +177,6 @@ public class ProgressionManager : MonoBehaviour
         isStarDog = false;
         starScore = 0;
         messBar.GetComponent<Image>().fillAmount = 0f;
+        messIncrement = 1f / totalMessAmount;
     }
 }
