@@ -92,6 +92,7 @@ public class DogContext : MonoBehaviour
     /// <returns>Vector3</returns>
     public Vector3 GetNewRoamLocation()
     {
+        int countTime = 0;
         if(Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _minRoamDistance)) < _minimumTravelDistance && Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _maxRoamDistance)) < _minimumTravelDistance)
         {
             Debug.LogWarning("There is no place to move the dog according to the minimum travel distance!! Ignoring it for now...");
@@ -102,6 +103,12 @@ public class DogContext : MonoBehaviour
         newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
         while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
         {
+            countTime++;
+            if(countTime > 20)
+            {
+                Debug.LogWarning("Preventing <color=red>infinite loop</color> (the function has looped for 20 times) and returning a<color=yellow> potentially wrong </color>location...(this is a soft fix for a bug)");
+                break; //Prevent infinite loop
+            }
             newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
         }
 
@@ -122,7 +129,6 @@ public class DogContext : MonoBehaviour
     /// <returns></returns>
     public Rigidbody GetRigidbody()
     {
-        Debug.Log("Returning rigidbody...");
         return rb;
     }
 
