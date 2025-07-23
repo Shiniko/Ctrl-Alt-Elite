@@ -76,7 +76,7 @@ public class DogContextCustomInspector : Editor
             SerializedProperty seeCatTimeProp = serializedObject.FindProperty("seeCatTime");
             SerializedProperty dogAgroMeterProp = serializedObject.FindProperty("dogAgroMeter");
             SerializedProperty barkingRangeProp = serializedObject.FindProperty("barkingRange");
-            EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "The amount of time (in seconds) the dog must see the cat before it starts to chase it."));
+            EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "Controls the length of the agro meter which intern controls how long it takes to transition to the chasing state."));
             EditorGUILayout.PropertyField(dogAgroMeterProp);
             EditorGUILayout.PropertyField(barkingRangeProp, new GUIContent("Barking Range", "The distance at which the dog will bark at the cat. This is used to alert the person."));
         }

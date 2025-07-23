@@ -17,7 +17,6 @@ public class Dog_SuspiciousState : StateMachineBehaviour
 
         suspiciousEvent = dogContext.currentSuspiciousEvent;
         agroMeter = dogContext.GetAgroMeter();
-        agroMeter.gameObject.SetActive(false);
         dogContext.transform.LookAt(suspiciousEvent.origin);
     }
 
@@ -27,15 +26,16 @@ public class Dog_SuspiciousState : StateMachineBehaviour
         agroMeter.gameObject.SetActive(true);
         if (dogVision.CanSee(dogContext.player))
         {
-            agroMeter.value += Time.deltaTime;
+            agroMeter.value += Time.fixedDeltaTime;
         }
         else
         {
-             agroMeter.value -= Time.deltaTime;
+             agroMeter.value -= Time.fixedDeltaTime;
         }
         
         if(agroMeter.value == 0)
         {
+            agroMeter.gameObject.SetActive(false);
             animator.SetBool("Suspicious", false);
         }
         else if (Mathf.Approximately(agroMeter.value,agroMeter.maxValue))

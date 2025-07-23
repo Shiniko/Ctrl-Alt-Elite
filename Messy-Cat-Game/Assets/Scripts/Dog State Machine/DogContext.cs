@@ -89,6 +89,12 @@ public class DogContext : MonoBehaviour
             //Start roaming
             GetComponent<Animator>().SetBool("Roaming", true);
         }
+
+        if (dogAgroMeter.gameObject.activeInHierarchy)
+        {
+            Debug.LogWarning("<color=yellow>Dog Agro Meter</color> is active in hierarchy! This should be set to <color=yellow>inactive</color> by default and only activated when the dog is suspicious of the player", this);
+            dogAgroMeter.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
