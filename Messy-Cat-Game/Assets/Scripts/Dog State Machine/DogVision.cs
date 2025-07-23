@@ -121,6 +121,8 @@ public class DogVision : Ticker
             float distance = Vector3.Distance(parentTransform.position, other.transform.position) + 0.1f;
             Vector3 direction = (other.transform.position - parentTransform.position).normalized;
             Vector3 origin = new(transform.position.x,transform.position.y + 0.1f,transform.position.z);
+
+            //Debug.DrawRay(origin, direction * distance, Color.cyan);
             //If we fail to hit anything with our raycast, then we skip the rest of the code
             if (!Physics.Raycast(origin, direction, out hit, distance, layerMask))
             {
