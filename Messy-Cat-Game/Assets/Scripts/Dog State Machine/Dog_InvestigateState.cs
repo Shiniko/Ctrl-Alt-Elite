@@ -23,7 +23,7 @@ public class Dog_InvestigateState : StateMachineBehaviour
     {
         //Time.deltaTime is not used here because it causes weird movement behavior
         _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, suspiciousEvent.origin, _dogContext.GetWalkSpeed() * Time.fixedDeltaTime));
-
+        _rigidbody.transform.LookAt(new Vector3(suspiciousEvent.origin.x, _transform.position.y, suspiciousEvent.origin.z));
         //If the dog has reached the destination, reset the goTo variable
         if (Vector3.Distance(_transform.position, suspiciousEvent.origin) < 0.1f)
         {
