@@ -31,14 +31,14 @@ public class Break_Interact : Interactable
                 messAnim.SetBool("hasMessed", true);
             }
 
-            if (interactDisplay != null)
-            {
-                interactDisplay.SetActive(false);
-            }
-
             if (levelManager != null)
             {
                 levelManager.MakeAMess();
+            }
+
+            if (GetComponent<MakeShiftCatController>() != null)
+            {
+                GetComponent<MakeShiftCatController>().breakTarget = null;
             }
         }
         else
