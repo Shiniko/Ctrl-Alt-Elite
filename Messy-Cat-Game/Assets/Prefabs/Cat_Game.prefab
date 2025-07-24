@@ -11052,7 +11052,7 @@ MonoBehaviour:
   velocityY: 0
   topmaxYvelocity: 0
   topminYvelocity: 0
-  maxYvelocity: 8.1
+  maxYvelocity: 6.5
   minYvelocity: -42.6
   rb: {fileID: 455856236736640233}
   anim: {fileID: 848796508813055180}
@@ -11069,7 +11069,8 @@ MonoBehaviour:
   gravity: 14.8
   triggeredFall: 0
   velToTriggerFall: -5.5
-  velToTriggerHardLand: -10.5
+  velToTriggerHardLand: -13.5
+  triggeredLand: 0
   smoothInputSpeed: 0.25
   target: {fileID: 0}
   objectHealth: {fileID: 0}
@@ -11090,7 +11091,7 @@ MonoBehaviour:
   canJump: 0
   isJumping: 0
   triggeredJump: 0
-  jumpForce: 50
+  jumpForce: 8
   jumpCount: 0
   jumpMax: 2
 --- !u!114 &1392029880376075265

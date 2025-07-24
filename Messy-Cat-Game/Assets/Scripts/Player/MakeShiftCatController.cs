@@ -51,6 +51,7 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private bool triggeredFall;
     [SerializeField] private float velToTriggerFall;
     [SerializeField] private float velToTriggerHardLand;
+    [SerializeField] private bool triggeredLand;
 
     [Header("Smoothing Params")]
     [SerializeField] private float smoothInputSpeed;  //smoothing rate
@@ -339,7 +340,7 @@ public class MakeShiftCatController : MonoBehaviour
                     if (!triggeredJump)
                     {
                         triggeredJump = true;
-                        anim.SetTrigger("triggerJump");
+                        anim.SetBool("triggerJump",true);
                     }
 
                     anim.SetBool("isFalling", false);
@@ -374,12 +375,36 @@ public class MakeShiftCatController : MonoBehaviour
 
     public void JumpAscended()
     {
+        if (anim != null)
+        {
+            anim.SetBool("triggerJump", false);
+        }
+
         triggeredJump = false;
         isJumping = false;
     }
 
+    public void DoneLanding()
+    {
+        triggeredLand = false;
+
+        if (anim != null)
+        {
+            anim.SetBool("triggerLand", false);
+            anim.SetBool("hardLand", false);
+
+            Debug.Log("Done Landing");
+        }
+    }
+
     private void CheckInteracts()
     {
+        if (exitTarget != null) //needed to place this first because of base interact exists
+        {
+            TryToExit();
+            return;
+        }
+
         if (hideTarget != null)
         {
             TryToHide();
@@ -404,11 +429,7 @@ public class MakeShiftCatController : MonoBehaviour
             return;
         }
 
-        if (exitTarget != null)
-        {
-            TryToExit();
-            return;
-        }
+
     }
 
     public void TryToExit()
@@ -551,10 +572,28 @@ public class MakeShiftCatController : MonoBehaviour
             }
         }
 
-        if(isGrounded && !isJumping)
+        if (isGrounded && !isJumping)
         {
             canJump = true;
             jumpCount = 0;
+
+            if (airBorn)
+            {
+                airBorn = false;
+
+                triggeredLand = true;
+
+                Debug.Log("About to set anim bool for triggerland");
+                if (anim != null)
+                {
+                    anim.SetBool("triggerLand", true);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("isGrounded " + isGrounded);
+            Debug.Log("isJumping " + isJumping);
         }
 
         ApplyGroundState();
@@ -573,96 +612,6 @@ public class MakeShiftCatController : MonoBehaviour
                 isNearWall = false;
             }
         }
-
-        /*
-        if (ankleCheck != null)
-        {
-            if (Physics.CheckSphere(ankleCheck.position, wallDistance, groundMask))
-            {
-                isNearWall = true;
-                ankleWall = true;
-            }
-            else
-            {
-                ankleWall = false;
-            }
-        }
-
-        if (midCheck != null)
-        {
-            if (Physics.CheckSphere(midCheck.position, wallDistance, groundMask))
-            {
-                isNearWall = true;
-                midWall = true;
-            }
-            else
-            {
-                midWall = false;
-            }
-        }
-
-        if (thighCheck != null)
-        {
-            if (Physics.CheckSphere(thighCheck.position, wallDistance, groundMask))
-            {
-                isNearWall = true;
-                thighWall = true;
-            }
-            else
-            {
-                thighWall = false;
-            }
-        }
-
-        if (faceCheck != null)
-        {
-            if (Physics.CheckSphere(faceCheck.position, wallDistance, groundMask))
-            {
-                isNearWall = true;
-                faceWall = true;
-            }
-            else
-            {
-                faceWall = false;
-            }
-        }
-
-        if (!ankleWall && !midWall && !thighWall && !faceWall)
-        {
-            isNearWall = false;
-        }
-
-        if (isNearWall)
-        {
-            if (!faceWall && midWall && !isGrounded)
-            {
-                hangStart = true;
-            }
-            else
-            {
-                hangStart = false;
-            }
-
-            if (!faceWall && !midWall && !isGrounded)
-            {
-                miniClimb = true;
-            }
-            else
-            {
-                miniClimb = false;
-            }
-
-            if (hangStart)
-            {
-                if (!triggeredHang)
-                {
-                    triggeredHang = true;
-
-                    StartHangSequence();
-                }
-            }
-        }
-        */
     }
 
     void ApplyGravity()
@@ -700,13 +649,11 @@ public class MakeShiftCatController : MonoBehaviour
                     triggeredFall = true;
                     triggeredJump = false;
 
-                    Debug.Log("setting triggered jump to false based on falling velocity");
-
-                    anim.ResetTrigger("triggerJump");
+                    anim.SetBool("triggerJump",false);
 
                     anim.SetBool("isFalling", true);
 
-                    Debug.Log("Triggered Fall");// and vel is " + velocityY);
+                    Debug.Log("Triggered Fall and vel is " + velocityY);
                 }
             }
         }
@@ -720,7 +667,7 @@ public class MakeShiftCatController : MonoBehaviour
                     {
                         anim.SetBool("isFalling", false);
 
-                        Debug.Log("Reset Triggered Fall cause velocity above threshold");
+                        Debug.Log("triggered Fall to false cause velocity above threshold");
                     }
 
                     triggeredFall = false;
@@ -827,7 +774,6 @@ public class MakeShiftCatController : MonoBehaviour
     {
         if (anim != null)
         {
-            anim.SetBool("isSpilling", true);
             anim.Play("Start_Spill");
         }
     }
@@ -836,7 +782,6 @@ public class MakeShiftCatController : MonoBehaviour
     {
         if (anim != null)
         {
-            anim.SetBool("isSpilling", true);
             anim.Play("Start_Spill");
         }
     }
