@@ -10990,7 +10990,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 120
@@ -11038,6 +11038,7 @@ MonoBehaviour:
   canMove: 0
   isHidden: 0
   triggerHide: 0
+  triggerExit: 0
   hideCoat: {fileID: 4206362451613033099}
   catCoat: {fileID: 8157664328317241554}
   isEngaged: 0
@@ -11072,7 +11073,7 @@ MonoBehaviour:
   smoothInputSpeed: 0.25
   target: {fileID: 0}
   objectHealth: {fileID: 0}
-  groundDistance: 0.5
+  groundDistance: 0.2
   checkingGround: 0
   isGrounded: 0
   wallDistance: 0.075
@@ -11085,14 +11086,13 @@ MonoBehaviour:
   respawnCD: 0.5
   triggeredDeath: 0
   evaporateDelay: 0.5
+  airBorn: 0
   canJump: 0
   isJumping: 0
   triggeredJump: 0
-  jumpForce: 0
+  jumpForce: 50
   jumpCount: 0
-  jumpMax: 0
-  jumpCounter: 0
-  jumpCD: 0
+  jumpMax: 2
 --- !u!114 &1392029880376075265
 MonoBehaviour:
   m_ObjectHideFlags: 0

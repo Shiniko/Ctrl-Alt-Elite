@@ -86,14 +86,13 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private float evaporateDelay;
 
     [Header("Jump Params")]
+    [SerializeField] private bool airBorn;
     [SerializeField] private bool canJump;
     [SerializeField] private bool isJumping;
     [SerializeField] private bool triggeredJump;
     [SerializeField] private float jumpForce;
     [SerializeField] private int jumpCount;
     public int jumpMax;
-    [SerializeField] private float jumpCounter;
-    [SerializeField] private float jumpCD;
 
     void Start()
     {
@@ -257,7 +256,6 @@ public class MakeShiftCatController : MonoBehaviour
 
     private void CheckInputs()
     {
-
         if (canMove)
         {
             // Get input and set animator parameters
@@ -320,13 +318,12 @@ public class MakeShiftCatController : MonoBehaviour
                 CheckInteracts();
             }
 
-            /*
             if (canJump && Input.GetButtonDown("Jump"))
             {
-                // because multiple jumps can happen, set rb velocity of y to dimishing amount
+                // because multiple jumps can happen, set rb velocity of y to diminishing amount
                 if (rb != null)
                 {
-                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.25f, 0);
+                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * 0.25f, 0);
 
                     rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
                 }
@@ -335,137 +332,33 @@ public class MakeShiftCatController : MonoBehaviour
 
                 isJumping = true;
 
-                if (isHanging)
-                {
-                    Debug.Log("player was able to jump while hanging");
-
-                    isHanging = false;
-                    triggeredClimb = false;
-                    triggeredHang = false;
-
-                    if (anim != null)
-                    {
-                        anim.ResetTrigger("triggerHang");
-                        anim.SetBool("isHanging", false);
-
-                        anim.ResetTrigger("climUp");
-                    }
-                }
-
-                if (isWallGrabbing)
-                {
-                    // change wall grab stuffs
-                }
-
                 if (anim != null)
                 {
                     anim.SetBool("isJumping", true);
 
                     if (!triggeredJump)
                     {
+                        triggeredJump = true;
                         anim.SetTrigger("triggerJump");
                     }
 
-                    anim.SetBool("isGliding", false);
                     anim.SetBool("isFalling", false);
 
                     if (triggeredFall)
                     {
                         triggeredFall = false;
-                        anim.ResetTrigger("triggerFall");
-
-                        Debug.Log("Reset triggerfall");
                     }
                 }
 
                 if (jumpCount >= jumpMax)
                 {
                     canJump = false;
-                    jumpCounter = 0f;
                 }
                 else
                 {
                     canJump = true;
-                    jumpCounter = 0f;
                 }
             }
-
-            if (isJumping)
-            {
-                if (Input.GetButtonUp("Jump"))
-                {
-                    if (rb != null)
-                    {
-                        if (!isGliding)
-                        {
-                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, 0);
-                        }
-                    }
-                }
-            }
-
-            if (hasGlide)
-            {
-                if (canGlide && Input.GetButton("Jump"))
-                {
-                    if (!isJumping)
-                    {
-                        if (!isHanging)
-                        {
-                            if (!isGliding)
-                            {
-                                if (!initialDescent)
-                                {
-                                    if (rb != null)
-                                    {
-                                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, 0);
-                                        initialDescent = true;
-                                    }
-                                }
-
-                                isGliding = true;
-
-                                if (anim != null)
-                                {
-                                    anim.SetBool("isGliding", true);
-                                    anim.SetBool("isFalling", false);
-
-                                    anim.ResetTrigger("triggerJump");
-
-                                    triggeredFall = false;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (isGliding && Input.GetButtonUp("Jump"))
-                {
-                    isGliding = false;
-                    initialDescent = false;
-
-                    if (anim != null)
-                    {
-                        anim.SetBool("isGliding", false);
-                    }
-                }
-            }
-
-            if (hasSlide)
-            {
-                // check for slide input
-            }
-
-            if (hasGrapple)
-            {
-                // check for grapple input
-            }
-
-            if (hasWallGrab)
-            {
-                // check for wall grab input, similar to 
-            }
-        */
 
             if (rb != null)
             {
@@ -477,6 +370,12 @@ public class MakeShiftCatController : MonoBehaviour
             ApplyGravity();
         }
 
+    }
+
+    public void JumpAscended()
+    {
+        triggeredJump = false;
+        isJumping = false;
     }
 
     private void CheckInteracts()
@@ -518,8 +417,8 @@ public class MakeShiftCatController : MonoBehaviour
         {
             StopHiding();   //if exiting we dont want to show hidden coat, because we want to show victory dance in regular coat
         }
-        
-        if(!triggerExit)
+
+        if (!triggerExit)
         {
             triggerExit = true;
 
@@ -630,92 +529,33 @@ public class MakeShiftCatController : MonoBehaviour
 
     void CheckGround()
     {
-
         if (groundCheck != null)
         {
             if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
             {
                 isGrounded = true;
+
                 //midGrounded = true;
 
                 Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.green);
             }
             else
             {
+                isGrounded = false;
+                airBorn = true;
                 //midGrounded = false;
+
+                isJumping = false;
 
                 Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.red);
             }
         }
 
-        /*
-        if (edgeCheck != null)
+        if(isGrounded && !isJumping)
         {
-            if (Physics.CheckSphere(edgeCheck.position, groundDistance, groundMask))
-            {
-                isGrounded = true;
-                frontGrounded = true;
-
-                Debug.DrawRay(edgeCheck.position, Vector3.down * groundDistance, Color.green);
-            }
-            else
-            {
-                frontGrounded = false;
-
-                Debug.DrawRay(edgeCheck.position, Vector3.down * groundDistance, Color.red);
-            }
+            canJump = true;
+            jumpCount = 0;
         }
-
-        if (edgeCheckRear != null)
-        {
-            if (Physics.CheckSphere(edgeCheckRear.position, groundDistance, groundMask))
-            {
-                isGrounded = true;
-                rearGrounded = true;
-
-                Debug.DrawRay(edgeCheckRear.position, Vector3.down * groundDistance, Color.green);
-            }
-            else
-            {
-                rearGrounded = false;
-
-                Debug.DrawRay(edgeCheckRear.position, Vector3.down * groundDistance, Color.red);
-            }
-        }
-
-        if (!frontGrounded && !midGrounded && !rearGrounded)
-        {
-            isGrounded = false;
-        }
-
-        if (!frontGrounded && !midGrounded && rearGrounded)
-        {
-            nearEdgeRear = true;
-        }
-        else
-        {
-            nearEdgeRear = false;
-        }
-
-        if (frontGrounded && !midGrounded && !rearGrounded)
-        {
-            nearEdgeFront = true;
-        }
-        else
-        {
-            nearEdgeFront = false;
-        }
-
-        if (!frontGrounded && midGrounded && !rearGrounded)
-        {
-            isTeetering = true;
-        }
-        else
-        {
-            isTeetering = false;
-        }
-
-        */
 
         ApplyGroundState();
     }
@@ -833,7 +673,7 @@ public class MakeShiftCatController : MonoBehaviour
 
             //Debug.Log("appplying regular gravity");
 
-            if (rb.linearVelocity.y > velToTriggerFall)
+            if (rb.linearVelocity.y < velToTriggerFall)
             {
                 if (rb.linearVelocity.y < -0.1f)
                 {
@@ -851,82 +691,23 @@ public class MakeShiftCatController : MonoBehaviour
             }
         }
 
-        /*
-        if (!isGrounded)
-        {
-            if (!isHanging)
-            {
-                if (!isWallGrabbing)
-                {
-                    if (!isGliding)
-                    {
-                        rb.velocity += new Vector3(0, -(gravity * Time.deltaTime), 0);
-
-                        //Debug.Log("appplying regular gravity");
-
-                        if (rb.velocity.y > velToTriggerFall)
-                        {
-                            if (rb.velocity.y < -0.1f)
-                            {
-                                rb.velocity += new Vector3(0, -(gravity * Time.deltaTime), 0);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((velocityY + gravity) >= (gravity * 0.9f))
-                        {
-                            rb.velocity += new Vector3(0, -(gravity * glideModifier * Time.deltaTime), 0); //glide modifier should be between 0 and 1
-                        }
-                        else
-                        {
-                            if ((velocityY + gravity) >= (gravity * 0.75f))
-                            {
-                                rb.velocity += new Vector3(0, gravity * glideModifier * 0.5f * Time.deltaTime, 0);
-                            }
-                            else
-                            {
-                                rb.velocity += new Vector3(0, 0, 0); //glide modifier should be between 0 and 1
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (!isJumping)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, 0, 0);
-
-                velocityY = rb.velocity.y;
-            }
-        }
-
         if (velocityY < velToTriggerFall)
         {
-            if (!isHanging && !isGliding && !isAttacking && !isWallGrabbing)
+            if (anim != null)
             {
-                if (anim != null)
+                if (!triggeredFall)
                 {
-                    if (!triggeredFall)
-                    {
-                        triggeredFall = true;
-                        triggeredJump = false;
+                    triggeredFall = true;
+                    triggeredJump = false;
 
-                        anim.ResetTrigger("triggerJump");
+                    Debug.Log("setting triggered jump to false based on falling velocity");
 
-                        anim.SetBool("isFalling", true);
-                        anim.SetTrigger("triggerFall");
+                    anim.ResetTrigger("triggerJump");
 
-                        Debug.Log("Triggered Fall");// and vel is " + velocityY);
-                    }
+                    anim.SetBool("isFalling", true);
+
+                    Debug.Log("Triggered Fall");// and vel is " + velocityY);
                 }
-            }
-            else
-            {
-                // check things here is fall not triggering correctly
-                Debug.Log("something stopped falling to trigger");
             }
         }
         else
@@ -938,7 +719,6 @@ public class MakeShiftCatController : MonoBehaviour
                     if (anim != null)
                     {
                         anim.SetBool("isFalling", false);
-                        anim.ResetTrigger("triggerFall");
 
                         Debug.Log("Reset Triggered Fall cause velocity above threshold");
                     }
@@ -947,19 +727,17 @@ public class MakeShiftCatController : MonoBehaviour
                 }
             }
         }
-        */
-    }
+    } 
 
     void ApplyGroundState()
     {
-
         if (isGrounded)
         {
             //Debug.Log("isGrounded");
 
             if (rb != null)
             {
-                if (rb.linearVelocity.y < -0.1f || rb.linearVelocity.y > 0.1f)
+                if (rb.linearVelocity.y < -0.1f) // || rb.linearVelocity.y > 0.1f)
                 {
                     rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, 0);
 
@@ -967,61 +745,6 @@ public class MakeShiftCatController : MonoBehaviour
                 }
             }
         }
-
-        /*
-            initialDescent = false;
-
-            if (isGliding)
-            {
-                isGliding = false;
-            }
-
-            if (jumpCounter >= jumpCD)
-            {
-                canJump = true;
-                jumpCount = 0;
-                isJumping = false;
-
-                if (anim != null)
-                {
-                    anim.SetBool("isJumping", false);
-                }
-            }
-
-            if (slideCounter >= slideCD)
-            {
-                canSlide = true;
-                slideCount = 0;
-            }
-
-            canGlide = false;
-            triggeredFall = false;
-
-            if (anim != null)
-            {
-                if (!isJumping)
-                {
-                    anim.SetBool("isGrounded", true);
-                    anim.ResetTrigger("triggerFall");
-                }
-
-                anim.SetBool("isGliding", false);
-                anim.SetBool("isFalling", false);
-            }
-        }
-        else
-        {
-            if (!isHanging)
-            {
-                canGlide = true;
-            }
-
-            if (anim != null)
-            {
-                anim.SetBool("isGrounded", false);
-            }
-        }
-        */
     }
 
     //Anim Dealer Collabs
