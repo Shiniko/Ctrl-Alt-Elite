@@ -85,7 +85,7 @@ public class DogVision : Ticker
         suspicious = animator.GetBool(_suspiciousBool);
         chasing = animator.GetBool(_chasingBool);
 
-        if (CanSee(dogContext.player))
+        if (CanSee(dogContext.player.gameObject))
         {
             if (!suspicious && !chasing)
             {

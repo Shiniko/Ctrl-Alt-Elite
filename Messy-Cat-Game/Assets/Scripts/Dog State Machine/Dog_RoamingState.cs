@@ -6,7 +6,7 @@ public class Dog_RoamingState : StateMachineBehaviour
     DogContext _dogContext;
     Transform _transform;
     Rigidbody _rigidbody;
-
+    Animator _animator;
     Vector3 _goTo;
     bool _goToSet;
 
@@ -14,14 +14,20 @@ public class Dog_RoamingState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _dogContext = animator.GetComponent<DogContext>();
-        _transform = _dogContext.transform;
-        _rigidbody = _dogContext.GetRigidbody();
-
+        _transform = animator.transform;
+        _rigidbody = _dogContext.rb;
+        this._animator = animator;
         _goToSet = false;
+
+        Ticker.OnTickAction += UpdateMovement;
+    }
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        Ticker.OnTickAction -= UpdateMovement;
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public void UpdateMovement()
     {
         if (_goToSet == false)
         {
@@ -31,20 +37,13 @@ public class Dog_RoamingState : StateMachineBehaviour
 
         }
 
-
         //Time.deltaTime is not used here because it causes weird movement behavior
         _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, _goTo, _dogContext.GetWalkSpeed() * Time.fixedDeltaTime));
         _rigidbody.transform.LookAt(new Vector3(_goTo.x, _transform.position.y, _goTo.z));
         //If the dog has reached the destination, reset the goTo variable
         if (Vector3.Distance(_transform.position, _goTo) < 0.1f)
         {
-            animator.SetBool(DogContext.stallingHash, true);
+            _animator.SetBool(DogContext.stallingHash, true);
         }
-    }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
     }
 }

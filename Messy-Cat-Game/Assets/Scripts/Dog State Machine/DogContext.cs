@@ -35,10 +35,10 @@ public class DogContext : MonoBehaviour
 
 
 
-    private Rigidbody rb;
+    public Rigidbody rb { get; private set; }
     public SuspiciousEvent currentSuspiciousEvent;
     public DogVision dogVision { get; private set; }
-    public GameObject player { get; private set; }
+    public Transform player { get; private set; }
 
     // Animator hash variables
     public static readonly int stallingHash = Animator.StringToHash("Stalling");
@@ -46,8 +46,12 @@ public class DogContext : MonoBehaviour
     public static readonly int investigateHash = Animator.StringToHash("Investigate");
     public static readonly int roamingHash = Animator.StringToHash("Roaming");
     public static readonly int barkingHash = Animator.StringToHash("Barking");
-
     private static readonly string playerHash = "Player";
+
+    //Vector3 cache variables
+    Vector3 newLocation;
+    //Int cache variables
+    int countTime = 0;
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;
@@ -77,7 +81,7 @@ public class DogContext : MonoBehaviour
             dogAgroMeter.type = Image.Type.Filled;
             dogAgroMeter.fillAmount = 0f;
         }
-        player = GameObject.FindGameObjectWithTag(playerHash);
+        player = GameObject.FindGameObjectWithTag(playerHash).transform;
     }
 
     void Start()
@@ -101,14 +105,11 @@ public class DogContext : MonoBehaviour
     /// <returns>Vector3</returns>
     public Vector3 GetNewRoamLocation()
     {
-        int countTime = 0;
         if(Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _minRoamDistance)) < _minimumTravelDistance && Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _maxRoamDistance)) < _minimumTravelDistance)
         {
             Debug.LogWarning("There is no place to move the dog according to the minimum travel distance!! Ignoring it for now...");
             return (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
         }
-
-        Vector3 newLocation;
         newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
         while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
         {
@@ -120,7 +121,7 @@ public class DogContext : MonoBehaviour
             }
             newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
         }
-
+        countTime = 0; //Reset the count time for the next call
         return newLocation;
     }
 
@@ -129,16 +130,6 @@ public class DogContext : MonoBehaviour
     {
         currentSuspiciousEvent = new SuspiciousEvent(GetNewRoamLocation());
         GetComponent<Animator>().SetTrigger(investigateHash);
-    }
-
-
-    /// <summary>
-    /// Returns the rigidbody that is attached to the same game object as the Dog Context script
-    /// </summary>
-    /// <returns></returns>
-    public Rigidbody GetRigidbody()
-    {
-        return rb;
     }
 
     public float GetBarkingRange()

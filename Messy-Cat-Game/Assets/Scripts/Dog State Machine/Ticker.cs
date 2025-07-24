@@ -7,9 +7,9 @@ public class Ticker : MonoBehaviour
 
     protected float _tickerTimer;
 
-    protected delegate void TickAction();
+    public delegate void TickAction();
     //subscribe to this event to use the ticker
-    protected static event TickAction OnTickAction;
+    public static event TickAction OnTickAction;
 
     protected void Update()
     {

@@ -24,7 +24,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agroMeter.gameObject.SetActive(true);
-        if (dogVision.CanSee(dogContext.player))
+        if (dogVision.CanSee(dogContext.player.gameObject))
         {
             agroMeter.fillAmount += Time.fixedDeltaTime / dogContext.GetSeeCatTime();
         }
