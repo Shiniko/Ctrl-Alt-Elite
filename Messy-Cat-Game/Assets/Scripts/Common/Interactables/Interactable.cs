@@ -17,7 +17,7 @@ public class Interactable : MonoBehaviour
     /// If true when this script's interact function gets called for the first time it'll deactive the script after the function completes. By default it is true.
     /// </summary>
     /// <seealso cref="Interact"> </seealso>
-    [SerializeField] protected bool oneUse;
+    [SerializeField] protected bool oneUse = true;
 
     protected bool interactedWith;
     public virtual void Awake()
@@ -30,7 +30,6 @@ public class Interactable : MonoBehaviour
                 col.isTrigger = true;
             }
         }
-        oneUse = true;
     }
 
     /// <summary>
