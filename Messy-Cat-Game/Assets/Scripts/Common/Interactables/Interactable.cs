@@ -2,10 +2,24 @@ using UnityEngine;
 
 //Change the layeroverrides so only the player can collide with it.
 [RequireComponent(typeof(Collider))]
+//Make sure this script is on its own GameObject, not on the same object as the visuals for example.
 public class Interactable : MonoBehaviour
 {
+    /// <summary>
+    /// The button prompt to enable when the player is within range of the object
+    /// </summary>
     [SerializeField] protected GameObject interactDisplay;
+    /// <summary>
+    /// returns true if the player is staying inside the trigger collider, and false otherwise
+    /// </summary>
     [SerializeField] protected bool playerInRange;
+
+    /// <summary>
+    /// If true when this script's interact function gets called for the first time it'll deactive the script after the function completes. By default it is true.
+    /// </summary>
+    /// <seealso cref="Interact"> </seealso>
+    protected bool oneUse;
+
     public virtual void Awake()
     {
         if(TryGetComponent<Collider>(out Collider col))
@@ -16,6 +30,7 @@ public class Interactable : MonoBehaviour
                 col.isTrigger = true;
             }
         }
+        oneUse = true;
     }
 
     /// <summary>
@@ -29,6 +44,12 @@ public class Interactable : MonoBehaviour
             return;
         }
         interactDisplay.SetActive(false);
+        if (oneUse)
+        {
+            Debug.Log("<color=yellow>Disabling interaction object</color> because <color=green>oneUse</color> is set to<color=aqua> true</color>,if this was a mistake please set the variable to false.", this);
+            gameObject.SetActive(false);// Disable the script after interaction
+        }
+
     }
 
     /// <summary>

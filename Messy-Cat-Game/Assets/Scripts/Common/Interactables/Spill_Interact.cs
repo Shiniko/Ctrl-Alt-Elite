@@ -31,11 +31,6 @@ public class Spill_Interact : Interactable
                 messAnim.SetBool("hasMessed", true);
             }
 
-            if (interactDisplay != null)
-            {
-                interactDisplay.SetActive(false);
-            }
-
             if (levelManager != null)
             {
                 levelManager.MakeAMess();
