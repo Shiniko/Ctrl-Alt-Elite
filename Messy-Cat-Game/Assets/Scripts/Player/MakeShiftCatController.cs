@@ -320,10 +320,10 @@ public class MakeShiftCatController : MonoBehaviour
                 CheckInteracts();
             }
 
-            /*
+            
             if (canJump && Input.GetButtonDown("Jump"))
             {
-                // because multiple jumps can happen, set rb velocity of y to dimishing amount
+                // because multiple jumps can happen, set rb velocity of y to diminishing amount
                 if (rb != null)
                 {
                     rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.25f, 0);
@@ -335,28 +335,6 @@ public class MakeShiftCatController : MonoBehaviour
 
                 isJumping = true;
 
-                if (isHanging)
-                {
-                    Debug.Log("player was able to jump while hanging");
-
-                    isHanging = false;
-                    triggeredClimb = false;
-                    triggeredHang = false;
-
-                    if (anim != null)
-                    {
-                        anim.ResetTrigger("triggerHang");
-                        anim.SetBool("isHanging", false);
-
-                        anim.ResetTrigger("climUp");
-                    }
-                }
-
-                if (isWallGrabbing)
-                {
-                    // change wall grab stuffs
-                }
-
                 if (anim != null)
                 {
                     anim.SetBool("isJumping", true);
@@ -366,106 +344,25 @@ public class MakeShiftCatController : MonoBehaviour
                         anim.SetTrigger("triggerJump");
                     }
 
-                    anim.SetBool("isGliding", false);
                     anim.SetBool("isFalling", false);
 
                     if (triggeredFall)
                     {
                         triggeredFall = false;
-                        anim.ResetTrigger("triggerFall");
-
-                        Debug.Log("Reset triggerfall");
                     }
                 }
 
                 if (jumpCount >= jumpMax)
                 {
                     canJump = false;
-                    jumpCounter = 0f;
+                    //jumpCounter = 0f;
                 }
                 else
                 {
                     canJump = true;
-                    jumpCounter = 0f;
+                    //jumpCounter = 0f;
                 }
             }
-
-            if (isJumping)
-            {
-                if (Input.GetButtonUp("Jump"))
-                {
-                    if (rb != null)
-                    {
-                        if (!isGliding)
-                        {
-                            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, 0);
-                        }
-                    }
-                }
-            }
-
-            if (hasGlide)
-            {
-                if (canGlide && Input.GetButton("Jump"))
-                {
-                    if (!isJumping)
-                    {
-                        if (!isHanging)
-                        {
-                            if (!isGliding)
-                            {
-                                if (!initialDescent)
-                                {
-                                    if (rb != null)
-                                    {
-                                        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, 0);
-                                        initialDescent = true;
-                                    }
-                                }
-
-                                isGliding = true;
-
-                                if (anim != null)
-                                {
-                                    anim.SetBool("isGliding", true);
-                                    anim.SetBool("isFalling", false);
-
-                                    anim.ResetTrigger("triggerJump");
-
-                                    triggeredFall = false;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (isGliding && Input.GetButtonUp("Jump"))
-                {
-                    isGliding = false;
-                    initialDescent = false;
-
-                    if (anim != null)
-                    {
-                        anim.SetBool("isGliding", false);
-                    }
-                }
-            }
-
-            if (hasSlide)
-            {
-                // check for slide input
-            }
-
-            if (hasGrapple)
-            {
-                // check for grapple input
-            }
-
-            if (hasWallGrab)
-            {
-                // check for wall grab input, similar to 
-            }
-        */
 
             if (rb != null)
             {
