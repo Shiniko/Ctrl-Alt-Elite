@@ -9,6 +9,7 @@ public class Dog_RoamingState : StateMachineBehaviour
 
     Vector3 _goTo;
     bool _goToSet;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -37,7 +38,7 @@ public class Dog_RoamingState : StateMachineBehaviour
         //If the dog has reached the destination, reset the goTo variable
         if (Vector3.Distance(_transform.position, _goTo) < 0.1f)
         {
-            animator.SetBool("Stalling", true);
+            animator.SetBool(DogContext.stallingHash, true);
         }
     }
 

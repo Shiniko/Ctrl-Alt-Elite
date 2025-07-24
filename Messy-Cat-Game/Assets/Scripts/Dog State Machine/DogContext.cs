@@ -39,6 +39,15 @@ public class DogContext : MonoBehaviour
     public SuspiciousEvent currentSuspiciousEvent;
     public DogVision dogVision { get; private set; }
     public GameObject player { get; private set; }
+
+    // Animator hash variables
+    public static readonly int stallingHash = Animator.StringToHash("Stalling");
+    public static readonly int distractedHash = Animator.StringToHash("Distracted");
+    public static readonly int investigateHash = Animator.StringToHash("Investigate");
+    public static readonly int roamingHash = Animator.StringToHash("Roaming");
+    public static readonly int barkingHash = Animator.StringToHash("Barking");
+
+    private static readonly string playerHash = "Player";
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;
@@ -68,7 +77,7 @@ public class DogContext : MonoBehaviour
             dogAgroMeter.type = Image.Type.Filled;
             dogAgroMeter.fillAmount = 0f;
         }
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag(playerHash);
     }
 
     void Start()
@@ -76,7 +85,7 @@ public class DogContext : MonoBehaviour
         if (startRoaming)
         {
             //Start roaming
-            GetComponent<Animator>().SetBool("Roaming", true);
+            GetComponent<Animator>().SetBool(roamingHash, true);
         }
 
         if (dogAgroMeter.gameObject.activeInHierarchy)
@@ -119,7 +128,7 @@ public class DogContext : MonoBehaviour
     public void TestInvestigateState()
     {
         currentSuspiciousEvent = new SuspiciousEvent(GetNewRoamLocation());
-        GetComponent<Animator>().SetTrigger("Investigate");
+        GetComponent<Animator>().SetTrigger(investigateHash);
     }
 
 

@@ -5,6 +5,8 @@ public class Dog_Sniffing : StateMachineBehaviour
 {
     DogContext dogContext;
     Animator animator;
+
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -17,6 +19,6 @@ public class Dog_Sniffing : StateMachineBehaviour
     private IEnumerator InvestigateTimeOut()
     {
         yield return new WaitForSeconds(dogContext.GetInvestigationTime());
-        animator.SetBool("Distracted", false);
+        animator.SetBool(DogContext.distractedHash, false);
     }
 }

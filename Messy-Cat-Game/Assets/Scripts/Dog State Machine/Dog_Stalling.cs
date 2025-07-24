@@ -5,6 +5,7 @@ public class Dog_Stalling : StateMachineBehaviour
 {
     DogContext _dogContext;
     private bool _stalling;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -30,6 +31,6 @@ public class Dog_Stalling : StateMachineBehaviour
     {
         _stalling = true;
         yield return new WaitForSeconds(_dogContext.GetStallTime());
-        _dogContext.GetComponent<Animator>().SetBool("Stalling",false);
+        _dogContext.GetComponent<Animator>().SetBool(DogContext.stallingHash, false);
     }
 }

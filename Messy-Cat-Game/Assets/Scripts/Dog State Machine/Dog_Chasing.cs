@@ -9,6 +9,7 @@ public class Dog_Chasing : StateMachineBehaviour
     //Memory Variables
     Vector3 newPosition;
     Vector3 newLookAt;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -30,7 +31,7 @@ public class Dog_Chasing : StateMachineBehaviour
         if (Vector3.Distance(_dogContext.transform.position, playerTransform.position) <= _dogContext.GetBarkingRange())
         {
             //If the dog is close enough to the player, bark
-            animator.SetTrigger("Bark");
+            animator.SetTrigger(DogContext.barkingHash);
         }
     }
 

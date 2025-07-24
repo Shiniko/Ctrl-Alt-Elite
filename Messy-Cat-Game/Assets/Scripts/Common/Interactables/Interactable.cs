@@ -1,6 +1,6 @@
 using UnityEngine;
 
-//Change the layeroverrides so only the player can collide with it.
+//Change the layer overrides so only the player can collide with it.
 [RequireComponent(typeof(Collider))]
 public class Interactable : MonoBehaviour
 {
