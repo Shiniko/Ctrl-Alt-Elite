@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.Audio;
+using System.Collections;
 
 public class LevelMusicController : MonoBehaviour
 {
+    public bool triggerChange;
+
     [Header("Music Layers")]
     public AudioSource musicLayer1;  // always present
     public AudioSource musicLayer2;  // ignored if 1-2 messes to make, fades in at second mess if 3 messes to make, fades in at 33% if 4+ messes to make
@@ -18,11 +22,19 @@ public class LevelMusicController : MonoBehaviour
 
     private void Update()
     {
-        if (levelManager == null || levelManager.totalMessNeeded == 0)
-            return;
+        if (levelManager != null)
+        {
+            if (levelManager.totalMessNeeded > 0)
+            {
+                if (triggerChange)
+                {
+                    triggerChange = false;
 
-        messProgress = (float)levelManager.currentMesses / levelManager.totalMessNeeded;
-        UpdateMusicLayers();
+                    messProgress = (float)levelManager.currentMesses / levelManager.totalMessNeeded;
+                    UpdateMusicLayers();
+                }
+            }
+        }
     }
 
     public void StartLevelMusic()
@@ -130,7 +142,7 @@ public class LevelMusicController : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator FadeVolume(AudioSource source, float targetVolume)
+    IEnumerator FadeVolume(AudioSource source, float targetVolume)
     {
         float startVolume = source.volume;
         float elapsed = 0f;
