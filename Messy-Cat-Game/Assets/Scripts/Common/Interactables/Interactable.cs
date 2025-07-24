@@ -2,7 +2,6 @@ using UnityEngine;
 
 //Change the layeroverrides so only the player can collide with it.
 [RequireComponent(typeof(Collider))]
-//Make sure this script is on its own GameObject, not on the same object as the visuals for example.
 public class Interactable : MonoBehaviour
 {
     /// <summary>
@@ -18,8 +17,9 @@ public class Interactable : MonoBehaviour
     /// If true when this script's interact function gets called for the first time it'll deactive the script after the function completes. By default it is true.
     /// </summary>
     /// <seealso cref="Interact"> </seealso>
-    protected bool oneUse;
+    [SerializeField] protected bool oneUse;
 
+    protected bool interactedWith;
     public virtual void Awake()
     {
         if(TryGetComponent<Collider>(out Collider col))
@@ -38,6 +38,11 @@ public class Interactable : MonoBehaviour
     /// </summary>
     public virtual void Interact()
     {
+        if (oneUse && interactedWith)
+        {
+            return;
+        }
+        interactedWith = true;
         Debug.Log("Interacted with!",this);
         if (interactDisplay == null)
         {
@@ -47,7 +52,6 @@ public class Interactable : MonoBehaviour
         if (oneUse)
         {
             Debug.Log("<color=yellow>Disabling interaction object</color> because <color=green>oneUse</color> is set to<color=aqua> true</color>,if this was a mistake please set the variable to false.", this);
-            gameObject.SetActive(false);// Disable the script after interaction
         }
 
     }
@@ -60,6 +64,10 @@ public class Interactable : MonoBehaviour
     /// <param name="col"></param>
     public virtual void OnTriggerEnter(Collider col)
     {
+        if (oneUse && interactedWith)
+        {
+            return;
+        }
         if (!col.CompareTag("Player"))
         {
             return;
@@ -82,6 +90,10 @@ public class Interactable : MonoBehaviour
     /// logic.</param>
     public virtual void OnTriggerStay(Collider col)
     {
+        if (oneUse && interactedWith)
+        {
+            return;
+        }
         if (!col.CompareTag("Player"))
         {
             return;
@@ -108,6 +120,10 @@ public class Interactable : MonoBehaviour
     /// <param name="col"></param>
     public virtual void OnTriggerExit(Collider col)
     {
+        if (oneUse && interactedWith)
+        {
+            return;
+        }
         if (!col.CompareTag("Player"))
         {
             return;
