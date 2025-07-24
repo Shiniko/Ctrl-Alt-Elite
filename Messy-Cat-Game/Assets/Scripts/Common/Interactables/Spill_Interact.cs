@@ -35,6 +35,11 @@ public class Spill_Interact : Interactable
             {
                 levelManager.MakeAMess();
             }
+
+            if (GetComponent<MakeShiftCatController>() != null)
+            {
+                GetComponent<MakeShiftCatController>().spillTarget = null;
+            }
         }
         else
         {
@@ -55,12 +60,17 @@ public class Spill_Interact : Interactable
     public override void OnTriggerStay(Collider col)
     {
         base.OnTriggerStay(col);
-        if (col.GetComponent<MakeShiftCatController>() != null)
+        if (!triggeredInteract)
         {
-            if (col.GetComponent<MakeShiftCatController>().spillTarget == null)
+            if (col.GetComponent<MakeShiftCatController>() != null)
             {
-                col.GetComponent<MakeShiftCatController>().spillTarget = this;
-                catController = col.GetComponent<MakeShiftCatController>();
+                if (col.GetComponent<MakeShiftCatController>().spillTarget == null)
+                {
+                    col.GetComponent<MakeShiftCatController>().spillTarget = this;
+                    catController = col.GetComponent<MakeShiftCatController>();
+
+                    Debug.Log("setting spill target again");
+                }
             }
         }
     }

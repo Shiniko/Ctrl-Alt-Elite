@@ -43,4 +43,20 @@ public class Cat_Anim_Dealer : MonoBehaviour
             catController.FinishedHiding();
         }
     }
+
+    public void DoneLanding()
+    {
+        if (catController != null)
+        {
+            catController.DoneLanding();
+        }
+    }
+
+    public void JumpAscended()
+    {
+        if (catController != null)
+        {
+            catController.JumpAscended();
+        }
+    }
 }

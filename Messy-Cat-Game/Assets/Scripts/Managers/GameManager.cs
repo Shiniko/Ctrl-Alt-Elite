@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviour
 
             if(player != null)
             {
-                Destroy(player, 0.1f);
+                Destroy(player, 0.01f);
             }
         }
     }
