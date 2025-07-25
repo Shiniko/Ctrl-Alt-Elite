@@ -190,14 +190,19 @@ public class DevLevelSelect : MonoBehaviour
             }
         }
 
-        //setting scenesToLoad array as single level string
+        //setting scenesToLoad array as single level string, in this case the Level Select Scene
         string[] levelSelectScene = new string[1];
         levelSelectScene[0] = "LevelSelect";
         sl.SetScenesToLoad(levelSelectScene);
 
+        if (isCredits)
+        {
+            DeActivateCreditsPanel();                      
+        }
+
         //Debug.Log("DVS LoadLevelSelectScene called scene loader to SetScenesToLoad as levelSelectScene: " + levelSelectScene[0]);
 
-        if (!isLevelSelect)
+        if (!isLevelSelect) //checking that it is not already level select scene, and if it is NOT proceed normally
         {
             ActivateLevelSelectPanel();
 
@@ -207,7 +212,7 @@ public class DevLevelSelect : MonoBehaviour
 
             //Debug.Log("DVS LoadLevelSelectScene called scene loader manager LoadScene, scene is: " + sl._scenesToLoad_Check[0]);
         }
-        else
+        else    //But if it happens to already be level select scene
         {
             ActivateNewLevelMenuButtons();
 
@@ -222,15 +227,17 @@ public class DevLevelSelect : MonoBehaviour
         if (!isLevelSelect)
         {
             string[] levelUnloadScene = new string[1];
-            levelUnloadScene[0] = levelSelect;
+            levelUnloadScene[0] = levelSelect;              //setting to what last level select was
             sl.SetScenesToUnLoad(levelUnloadScene);
 
             slm.UnLoadScene();
+
+            levelSelect = "LevelSelect";
         }
         else
         {
             string[] levelUnloadScene = new string[1];
-            levelUnloadScene[0] = "LevelSelect";
+            levelUnloadScene[0] = "LevelSelect";            //if already is level select, unload itsself to load itsself
             sl.SetScenesToUnLoad(levelUnloadScene);
 
             slm.DeActivateLoadPanel();
@@ -239,7 +246,6 @@ public class DevLevelSelect : MonoBehaviour
 
     public void LoadCreditsScene()
     {
-
         if (gm != null)
         {
             if (gm.isRespawning)
@@ -248,8 +254,6 @@ public class DevLevelSelect : MonoBehaviour
                 gm.hasSpawnedPlayer = true;
                 gm.isRespawning = false;
             }
-
-
         }
 
         //setting scenesToLoad array as single level string
@@ -475,6 +479,16 @@ public class DevLevelSelect : MonoBehaviour
             creditsPanel.SetActive(false);
         }
 
+        // Debug.Log("Activated Credits Panel");
+
+        if (GameObject.FindGameObjectWithTag("CreditScroller") != null)
+        {
+            CreditScroller cs = GameObject.FindGameObjectWithTag("CreditScroller").GetComponent<CreditScroller>();
+            cs.DisableCredits();
+
+            Debug.Log("DLS called CS to DisableCredits");
+        }
+
         ResetLoadStars();
     }
 
@@ -484,6 +498,8 @@ public class DevLevelSelect : MonoBehaviour
         {
             creditsPanel.SetActive(true);
         }
+
+       // Debug.Log("Activated Credits Panel");
     }
 
     public void ActivateGameWinPanel()
