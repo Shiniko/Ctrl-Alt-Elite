@@ -36,7 +36,7 @@ public class DogContext : MonoBehaviour
 
 
     public Rigidbody rb { get; private set; }
-    public SuspiciousEvent currentSuspiciousEvent;
+    public Vector3 currentSuspiciousEvent;
     public DogVision dogVision { get; private set; }
     public Transform player { get; private set; }
 
@@ -125,9 +125,11 @@ public class DogContext : MonoBehaviour
         return newLocation;
     }
 
+    
+
     public void TestInvestigateState()
     {
-        currentSuspiciousEvent = new SuspiciousEvent(GetNewRoamLocation());
+        currentSuspiciousEvent =GetNewRoamLocation();
         GetComponent<Animator>().SetTrigger(investigateHash);
     }
 

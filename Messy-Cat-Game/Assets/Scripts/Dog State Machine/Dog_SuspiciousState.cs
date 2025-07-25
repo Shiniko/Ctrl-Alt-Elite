@@ -6,7 +6,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
 {
     DogVision dogVision;
     DogContext dogContext;
-    SuspiciousEvent suspiciousEvent;
+    Vector3 suspiciousEvent;
 
     private Image agroMeter;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
@@ -17,7 +17,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
 
         suspiciousEvent = dogContext.currentSuspiciousEvent;
         agroMeter = dogContext.GetAgroMeter();
-        dogContext.transform.LookAt(suspiciousEvent.origin);
+        dogContext.transform.LookAt(suspiciousEvent);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

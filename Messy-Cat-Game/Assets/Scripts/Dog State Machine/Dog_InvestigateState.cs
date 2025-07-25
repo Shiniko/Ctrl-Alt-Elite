@@ -4,7 +4,7 @@ using UnityEngine;
 public class Dog_InvestigateState : StateMachineBehaviour
 {
     // The suspicious Event the dog will investigate
-    SuspiciousEvent _suspiciousEvent;
+    Vector3 _suspiciousEvent;
 
     Rigidbody _rigidbody;
     Transform _transform;
@@ -23,10 +23,10 @@ public class Dog_InvestigateState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //Time.deltaTime is not used here because it causes weird movement behavior
-        _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, _suspiciousEvent.origin, _dogContext.GetWalkSpeed() * Time.fixedDeltaTime));
-        _rigidbody.transform.LookAt(new Vector3(_suspiciousEvent.origin.x, _transform.position.y, _suspiciousEvent.origin.z));
+        _rigidbody.MovePosition(Vector3.MoveTowards(_transform.position, _suspiciousEvent, _dogContext.GetWalkSpeed() * Time.fixedDeltaTime));
+        _rigidbody.transform.LookAt(new Vector3(_suspiciousEvent.x, _transform.position.y, _suspiciousEvent.z));
         //If the dog has reached the destination, reset the goTo variable
-        if (Vector3.Distance(_transform.position, _suspiciousEvent.origin) < 0.1f)
+        if (Vector3.Distance(_transform.position, _suspiciousEvent) < 0.1f)
         {
             animator.SetBool(DogContext.distractedHash,true);
         }

@@ -81,7 +81,6 @@ public class DogVision : Ticker
     {
         //Tick system Update
         base.Update();
-
         suspicious = animator.GetBool(_suspiciousBool);
         chasing = animator.GetBool(_chasingBool);
 
@@ -89,7 +88,7 @@ public class DogVision : Ticker
         {
             if (!suspicious && !chasing)
             {
-                dogContext.currentSuspiciousEvent = new SuspiciousEvent(dogContext.transform.position);
+                dogContext.currentSuspiciousEvent = dogContext.transform.position;
                 animator.SetBool(_suspiciousBool, true);
             }
         }
