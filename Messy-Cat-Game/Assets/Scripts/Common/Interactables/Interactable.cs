@@ -9,14 +9,13 @@ public class Interactable : MonoBehaviour
     /// </summary>
     [SerializeField] protected GameObject interactDisplay;
     /// <summary>
-    /// returns true if the player is staying inside the trigger collider, and false otherwise
+    /// Returns true if the player is staying inside the trigger collider, and false otherwise
     /// </summary>
     [SerializeField] protected bool playerInRange;
 
     /// <summary>
-    /// If true when this script's interact function gets called for the first time it'll deactive the script after the function completes. By default it is true.
+    /// If true when this script's <see cref="Interact"/> function gets called for the first time it'll deactive the script after the function completes. By default this is set to true.
     /// </summary>
-    /// <seealso cref="Interact"> </seealso>
     [SerializeField] protected bool oneUse = true;
 
     protected bool interactedWith;
@@ -33,7 +32,7 @@ public class Interactable : MonoBehaviour
     }
 
     /// <summary>
-    /// Gets called when the player presses the interact key(specified in CatInteractions) while in a trigger collider attached to this object.
+    /// Gets called when the player presses the <see cref="CatInteractions.interactKey"/> while in a trigger collider attached to this object.
     /// </summary>
     public virtual void Interact()
     {
@@ -56,10 +55,9 @@ public class Interactable : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// This method checks if the specified <paramref name="col"/> has the "Player" tag and, if so,
+    /// sets the <see cref="interactDisplay"/> to active
     /// </summary>
-    /// <remarks>This method checks if the specified <paramref name="col"/> has the "Player" tag and, if so,
-    /// sets the interactDisplay to active</remarks>
     /// <param name="col"></param>
     public virtual void OnTriggerEnter(Collider col)
     {
@@ -81,12 +79,10 @@ public class Interactable : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// This method checks if the specified <paramref name="col"/> has the "Player" tag and, if so,
+    /// listens for the interaction key press to invoke the  <see cref="Interact"/> logic.
+    /// <param name="col"/>The <see cref="Collider"/> that is staying within the trigger.
     /// </summary>
-    /// <remarks>This method checks if the specified <paramref name="col"/> has the "Player" tag and, if so,
-    /// listens for the interaction key press to invoke the interaction logic.</remarks>
-    /// <param name="col">The <see cref="Collider"/> that is staying within the trigger. Must have the tag "Player" to trigger interaction
-    /// logic.</param>
     public virtual void OnTriggerStay(Collider col)
     {
         if (oneUse && interactedWith)
@@ -112,10 +108,9 @@ public class Interactable : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// This method checks if the specified <paramref name="col"/> has the "Player" tag and, if so,
+    /// sets the <see cref="interactDisplay"/> to innactive
     /// </summary>
-    /// <remarks>This method checks if the specified <paramref name="col"/> has the "Player" tag and, if so,
-    /// sets the interactDisplay to innactive</remarks>
     /// <param name="col"></param>
     public virtual void OnTriggerExit(Collider col)
     {

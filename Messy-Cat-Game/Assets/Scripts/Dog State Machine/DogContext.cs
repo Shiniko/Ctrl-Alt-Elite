@@ -125,7 +125,6 @@ public class DogContext : MonoBehaviour
         return newLocation;
     }
 
-
     public void TestInvestigateState()
     {
         currentSuspiciousEvent = new SuspiciousEvent(GetNewRoamLocation());
