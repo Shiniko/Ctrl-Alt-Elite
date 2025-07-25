@@ -942,8 +942,8 @@ MonoBehaviour:
   - {fileID: 354755930627856553, guid: ee4a707e0207fd24ab1b54ae1a0bddaf, type: 3}
   - {fileID: 354755930627856553, guid: 11f0659276e120c4c84311f6b4d9187c, type: 3}
   - {fileID: 2889314830901899468, guid: 3d127b919fc63364d8e13fa9a6bbf267, type: 3}
-  creditsTime: 36
-  nextCreditTime: 4
+  creditsTime: 59
+  nextCreditTime: 5
   levelMusicController: {fileID: 7977403589605080157}
   audioManager: {fileID: 5394534717268775675}
 --- !u!4 &681953458
@@ -27305,6 +27305,14 @@ MonoBehaviour:
   - name: MutedTheme
     clip: {fileID: 8300000, guid: a633a2fc8fcef4d4484bf0853af03032, type: 3}
     volume: 0.01
+    pitch: 1
+    loop: 1
+    music: 1
+    sfx: 0
+    source: {fileID: 0}
+  - name: CreditTheme
+    clip: {fileID: 8300000, guid: ee79b4423cf69b44dba1cdf06daef9d4, type: 3}
+    volume: 0.6
     pitch: 1
     loop: 1
     music: 1
