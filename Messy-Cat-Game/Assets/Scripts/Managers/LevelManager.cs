@@ -393,10 +393,8 @@ public class LevelManager : MonoBehaviour
 
         if(levelMusicController != null)
         {
-            levelMusicController.StartLevelMusic(); //
+            levelMusicController.StartLevelMusic();
         }
-
-        //AudioManager.instance.Stop("MainTheme");
     }
 
     public void DeactivateNewRecordText()

@@ -164,7 +164,7 @@ public class ProgressionManager : MonoBehaviour
 
     public void ResetProgress()
     {
-        Debug.Log("resetting progression manager");
+        //Debug.Log("resetting progression manager");
 
         starForMessCompletion.GetComponent<Image>().color = darkenImage();
         starForMessCompletionCollapsed.GetComponent<Image>().color = darkenImage();

@@ -71,7 +71,7 @@ public class DevLevelSelect : MonoBehaviour
     {
         if (!testLevel)
         {
-            ActivateLevelSelectMenuButtons();
+           ActivateLevelSelectMenuButtons();
         }
     }
 
@@ -206,9 +206,9 @@ public class DevLevelSelect : MonoBehaviour
         {
             ActivateLevelSelectPanel();
 
-            ActivateLevelSelectMenuButtons();
-
             slm.LoadScene();
+
+            ActivateLevelSelectMenuButtons();
 
             //Debug.Log("DVS LoadLevelSelectScene called scene loader manager LoadScene, scene is: " + sl._scenesToLoad_Check[0]);
         }

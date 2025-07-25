@@ -20,6 +20,9 @@ public class CreditScroller : MonoBehaviour
     private float nextCreditCounter;
     private bool endOfCredits;
 
+    [SerializeField] private LevelMusicController levelMusicController;
+    [SerializeField] private AudioManager audioManager;
+
     void Start()
     {
         creditsLength = creditsPrefabs.Length;
@@ -93,10 +96,38 @@ public class CreditScroller : MonoBehaviour
                 Destroy(creditsSpawned[i]);
             }
         }
+
+        if (audioManager != null)
+        {
+            if (!audioManager.playingMainTheme)
+            {
+                audioManager.MainTheme("CreditsTheme");
+            }
+        }
     }
 
     public void StartCredits()
     {
+        if (audioManager != null)
+        {
+            if (audioManager.playingMainTheme)  //coming from level select
+            {
+                audioManager.SwapMusic("CreditsTheme");
+            }
+            else
+            {
+                //means level music playing
+                if (levelMusicController != null)
+                {
+                    levelMusicController.StopLevelMusic(); //stop leveling music to play credit later
+                }
+
+                audioManager.Stop("MutedTheme");
+
+                audioManager.Play("CreditsTheme");
+            }
+        }
+
         if (creditsPanel != null)
         {
             creditsPanel.SetActive(true);
@@ -104,7 +135,7 @@ public class CreditScroller : MonoBehaviour
 
         creditCount = 0;
         creditsCounter = 0f;
-        nextCreditCounter = 3f;
+        nextCreditCounter = 1f;
 
         activateCredits = true;
     }
