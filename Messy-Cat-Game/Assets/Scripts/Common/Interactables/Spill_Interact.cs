@@ -2,7 +2,6 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Spill_Interact : Interactable
 {
-    [SerializeField] private bool triggeredInteract;
     [SerializeField] private Animator messAnim;
     [SerializeField] private LevelManager levelManager;
     private MakeShiftCatController catController;
@@ -22,10 +21,8 @@ public class Spill_Interact : Interactable
     {
         base.Interact();
 
-        if (!triggeredInteract)
+        if (!interactedWith)
         {
-            triggeredInteract = true;
-
             if (messAnim != null)
             {
                 messAnim.SetBool("hasMessed", true);
@@ -60,7 +57,7 @@ public class Spill_Interact : Interactable
     public override void OnTriggerStay(Collider col)
     {
         base.OnTriggerStay(col);
-        if (!triggeredInteract)
+        if (!interactedWith)
         {
             if (col.GetComponent<MakeShiftCatController>() != null)
             {
