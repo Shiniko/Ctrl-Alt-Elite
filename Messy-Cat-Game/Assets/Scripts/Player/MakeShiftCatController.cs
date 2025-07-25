@@ -399,7 +399,7 @@ public class MakeShiftCatController : MonoBehaviour
 
     private void CheckInteracts()
     {
-        if (exitTarget != null) //needed to place this first because of base interact exists
+        if (exitTarget != null)
         {
             TryToExit();
             return;

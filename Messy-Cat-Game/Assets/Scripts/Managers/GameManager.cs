@@ -801,7 +801,6 @@ public class GameManager : MonoBehaviour
 #elif (UNITY_STANDALONE)
         Application.Quit();
 #elif (UNITY_WEBGL)
-        //Application.OpenURL("about:blank");
         Application.ExternalEval("window.open('" + "https://calcoa.itch.io/ctrl-alt-elite-messy-game" + "','_self')");
 #endif
 

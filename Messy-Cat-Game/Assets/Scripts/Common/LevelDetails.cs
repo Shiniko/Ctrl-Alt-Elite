@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class LevelDetails : MonoBehaviour
 {
+    [Header("Accessible Params")]
     public int totalMessesNeeded;
-
-    [SerializeField] private ProgressionManager progressionManager;
-    [SerializeField] private bool pmSet;
     public int spawnIndex;
 
-    [SerializeField] private LevelManager levelManager;
-    [SerializeField] private bool lmSet;
+    private ProgressionManager progressionManager;
+    private bool pmSet;
+
+    private LevelManager levelManager;
+    private bool lmSet;
 
     void Update()
     {
@@ -24,7 +25,7 @@ public class LevelDetails : MonoBehaviour
         {
             if (!pmSet)
             {
-                SetProgressManager(); 
+                SetProgressManager();
 
                 pmSet = true;
             }

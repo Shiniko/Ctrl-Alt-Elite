@@ -5,6 +5,7 @@ public class Spill_Interact : Interactable
     [SerializeField] private Animator messAnim;
     [SerializeField] private LevelManager levelManager;
     private MakeShiftCatController catController;
+    private bool messTrigger;
 
     void Update()
     {
@@ -21,8 +22,10 @@ public class Spill_Interact : Interactable
     {
         base.Interact();
 
-        if (!interactedWith)
+        if (!messTrigger)
         {
+            messTrigger = true;
+
             if (messAnim != null)
             {
                 messAnim.SetBool("hasMessed", true);
