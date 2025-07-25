@@ -135,7 +135,7 @@ public class CreditScroller : MonoBehaviour
 
         creditCount = 0;
         creditsCounter = 0f;
-        nextCreditCounter = 1f;
+        nextCreditCounter = 2.5f;
         endOfCredits = false;
 
         activateCredits = true;
