@@ -247,6 +247,11 @@ public class Human_Controller : MonoBehaviour
     {
         if(gameObject != null)
         {
+            if(levelManager != null)
+            {
+                levelManager.triggerHuman = false;
+            }
+
             Destroy(gameObject);
         }
     }

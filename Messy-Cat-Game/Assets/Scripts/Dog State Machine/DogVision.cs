@@ -20,7 +20,7 @@ public class DogVision : Ticker
     private Transform parentTransform;
     private Animator animator;
     private DogContext dogContext;
-
+    private Transform player;
 
     private bool suspicious;
     private bool chasing;
@@ -82,12 +82,22 @@ public class DogVision : Ticker
         suspicious = animator.GetBool(_suspiciousBool);
         chasing = animator.GetBool(_chasingBool);
 
-        if (CanSee(dogContext.player.gameObject))
+        if (player! = null)
         {
-            if (!suspicious && !chasing)
+            if (CanSee(dogContext.player.gameObject))
             {
-                dogContext.currentSuspiciousEvent = dogContext.transform.position;
-                animator.SetBool(_suspiciousBool, true);
+                if (!suspicious && !chasing)
+                {
+                    dogContext.currentSuspiciousEvent = dogContext.transform.position;
+                    animator.SetBool(_suspiciousBool, true);
+                }
+            }
+        }
+        else
+        {
+            if (GameObject.FindGameObjectWithTag("Player") != null)
+            {
+                player = GameObject.FindGameObjectWithTag("Player").transform;
             }
         }
     }

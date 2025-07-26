@@ -83,7 +83,8 @@ public class DogContext : MonoBehaviour
             dogAgroMeter.type = Image.Type.Filled;
             dogAgroMeter.fillAmount = 0f;
         }
-        player = GameObject.FindGameObjectWithTag(playerHash).transform;
+
+        //player = GameObject.FindGameObjectWithTag(playerHash).transform;
     }
 
     void Start()
@@ -98,6 +99,17 @@ public class DogContext : MonoBehaviour
         {
             Debug.LogWarning("<color=yellow>Dog Agro Meter</color> is active in hierarchy! This should be set to <color=yellow>inactive</color> by default and only activated when the dog is suspicious of the player", this);
             dogAgroMeter.gameObject.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if(player == null)
+        {
+            if (GameObject.FindGameObjectWithTag("Player") != null)
+            {
+                player = GameObject.FindGameObjectWithTag("Player").transform;
+            }
         }
     }
 
@@ -182,6 +194,11 @@ public class DogContext : MonoBehaviour
     public void SetAngry()
     {
         isAngry = true;
+
+        if (GameObject.FindGameObjectWithTag("LevelManager") != null)
+        {
+            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().DogSeesCat();
+        }
     }
 
     public void SetNoLongerAngry()

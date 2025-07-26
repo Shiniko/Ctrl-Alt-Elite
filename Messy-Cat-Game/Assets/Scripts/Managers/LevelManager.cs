@@ -32,7 +32,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private DevLevelSelect devLevelSelect;                     //reference to Dev Level Select script
     public LevelDetails levelDetails;                                           //reference to Level Details script
     [SerializeField] private GameObject player;                                //reference to player object
-    [SerializeField] private MakeShiftCatController catController;            //reference to player controller
+    [SerializeField] private MakeShiftCatController catController;             //reference to player controller
+    [SerializeField] private GameObject human;                                //reference to human prefab to spawn in
+    [SerializeField] private Transform humanSpawnLocation;                      //reference to human spawn transform location                                                                           
 
     [SerializeField] private GameObject durationPanel;
     [SerializeField] private GameObject newRecordText;
@@ -43,6 +45,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject hiddenVictoryStar;
 
     [Header("Triggers and Checks")]
+  public bool triggerHuman;
     [SerializeField] private bool triggerDuration;
     [SerializeField] private bool triggerFail;
     [SerializeField] private bool triggerVictory;
@@ -146,6 +149,7 @@ public class LevelManager : MonoBehaviour
                     LevelFail();
                 }
             }
+
 
             // Debug for testing level victory
             if (Input.GetKeyDown(KeyCode.W))
@@ -257,6 +261,18 @@ public class LevelManager : MonoBehaviour
                 progressionManager.RemoveStarForDog();        //removes the star in progression manager, Visual UI
             }
         }
+
+        if(human != null && !triggerHuman)
+        {
+            triggerHuman = true;
+
+            SpawnHuman();
+        }
+    }
+
+    private void SpawnHuman()
+    {
+        Instantiate(human, humanSpawnLocation.position, Quaternion.identity);
     }
 
     public void HumanSeesCat()
