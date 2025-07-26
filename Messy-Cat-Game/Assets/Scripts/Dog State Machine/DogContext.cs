@@ -40,6 +40,8 @@ public class DogContext : MonoBehaviour
     public DogVision dogVision { get; private set; }
     public Transform player { get; private set; }
 
+    private Animator animator;
+
     // Animator hash variables
     public static readonly int stallingHash = Animator.StringToHash("Stalling");
     public static readonly int distractedHash = Animator.StringToHash("Distracted");
@@ -62,7 +64,8 @@ public class DogContext : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        if(!GetComponentInChildren<DogVision>())
+        animator = GetComponent<Animator>();
+        if (!GetComponentInChildren<DogVision>())
         {
             Debug.LogError("A <color=lime>DogVision</color> script is <color=yellow>not attached to a child</color> of this object!! <color=lime>DogContext</color> <color=red>requires</color> a <color=lime>DogVision</color> script to be in a child object.", this);
         }
@@ -81,8 +84,6 @@ public class DogContext : MonoBehaviour
             dogAgroMeter.type = Image.Type.Filled;
             dogAgroMeter.fillAmount = 0f;
         }
-
-        //player = GameObject.FindGameObjectWithTag(playerHash).transform;
     }
 
     void Start()
@@ -90,7 +91,7 @@ public class DogContext : MonoBehaviour
         if (startRoaming)
         {
             //Start roaming
-            GetComponent<Animator>().SetBool(roamingHash, true);
+            animator.SetBool(roamingHash, true);
         }
 
         if (dogAgroMeter.gameObject.activeInHierarchy)
@@ -104,9 +105,9 @@ public class DogContext : MonoBehaviour
     {
         if(player == null)
         {
-            if (GameObject.FindGameObjectWithTag("Player") != null)
+            if (GameObject.FindGameObjectWithTag(playerHash) != null)
             {
-                player = GameObject.FindGameObjectWithTag("Player").transform;
+                player = GameObject.FindGameObjectWithTag(playerHash).transform;
             }
         }
     }
@@ -142,7 +143,7 @@ public class DogContext : MonoBehaviour
     public void TestInvestigateState()
     {
         currentSuspiciousEvent =GetNewRoamLocation();
-        GetComponent<Animator>().SetTrigger(investigateHash);
+        animator.SetTrigger(investigateHash);
     }
 
     public float GetBarkingRange()
@@ -201,19 +202,25 @@ public class DogContext : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the dog to no longer be angry, resets the animator triggers and sets the chasing bool to false
+    /// </summary>
     public void SetNoLongerAngry()
     {
         isAngry = false;
-        GetComponent<Animator>().ResetTrigger("Calm Down");
-        GetComponent<Animator>().SetBool("Chasing", false);
+        animator.ResetTrigger("Calm Down");
+        animator.SetBool("Chasing", false);
     }
 
+    /// <summary>
+    /// Sets the dog to be calm, resets the animator triggers and sets the chasing bool to false
+    /// </summary>
     public void CalmDog()
     {
         isAngry = false;                                        //set this so human doesnt re-pet the dog
-        GetComponent<Animator>().SetTrigger("Calm Down");
-        GetComponent<Animator>().ResetTrigger("Bark");
-        GetComponent<Animator>().SetBool("Chasing", false);
+        animator.SetTrigger("Calm Down");
+        animator.ResetTrigger("Bark");
+        animator.SetBool("Chasing", false);
     }
 }
 
