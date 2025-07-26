@@ -15,6 +15,8 @@ public class Human_Controller : MonoBehaviour
 
     private MakeShiftCatController catController;
     private LevelManager levelManager;
+    private WindowPointer windowPointer;
+    private bool setPointer;
 
     private Vector3 startLocation;
     private bool isRetreating;
@@ -52,7 +54,23 @@ public class Human_Controller : MonoBehaviour
             }
         }
 
-        if(player != null && catController == null)
+        if (windowPointer == null)
+        {
+            if (GameObject.FindGameObjectWithTag("Pointer") != null)
+            {
+                windowPointer = GameObject.FindGameObjectWithTag("Pointer").GetComponent<WindowPointer>();
+            }
+        }
+        else
+        {
+            if (!setPointer)
+            {
+                setPointer = true;
+                windowPointer.SetTarget(gameObject.transform);
+            }
+        }
+
+        if (player != null && catController == null)
         {
             if(player.GetComponent<MakeShiftCatController>() != null)
             {
@@ -242,6 +260,12 @@ public class Human_Controller : MonoBehaviour
 
         currentTargetLocation = startLocation;
         MoveToNextLocation(startLocation);
+
+        if (windowPointer != null)
+        {
+            windowPointer.target = gameObject.transform;
+            windowPointer.SetOff();
+        }
     }
 
     private void MoveToNextLocation(Vector3 targetLocation)

@@ -50,7 +50,7 @@ public class AudioDispatcher : MonoBehaviour
                 {
                     if (clipCounters[i] < clipCoolDowns[i])
                     {
-                        clipCounters[i] += Time.deltaTime;
+                        clipCounters[i] += Time.unscaledDeltaTime;
                     }
                     else
                     {

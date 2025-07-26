@@ -329,6 +329,12 @@ public class MakeShiftCatController : MonoBehaviour
                     rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
                 }
 
+                if (triggerHide || isHidden)
+                {
+                    // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and pressed jump button");
+                    StopHiding();
+                }
+
                 jumpCount++;
 
                 isJumping = true;

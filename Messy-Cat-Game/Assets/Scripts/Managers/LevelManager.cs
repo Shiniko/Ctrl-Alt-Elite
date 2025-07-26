@@ -226,7 +226,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
     //other functions
 
     private void RevealExit()
@@ -315,6 +314,7 @@ public class LevelManager : MonoBehaviour
     public void ResetLevel()
     {
         currentLevel = 0;
+        humanSpawnCounter = 0f;
 
         levelActive = false;
         catHidden = false;
