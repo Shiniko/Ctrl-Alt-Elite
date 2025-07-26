@@ -192,7 +192,6 @@ public class LevelManager : MonoBehaviour
                     if (!exitRevealed)
                     {
                         exitRevealed = true;
-
                         RevealExit();
                     }
                 }
@@ -201,6 +200,7 @@ public class LevelManager : MonoBehaviour
             triggerMessGain = false;
         }
     }
+
 
     //other functions
 
@@ -277,6 +277,7 @@ public class LevelManager : MonoBehaviour
         catHidden = false;
         dogSeenCat = false;
         humanSeenCat = false;
+        currentMesses = 0;
 
         levelDuration = 0f;
         countDuration = false;
@@ -319,10 +320,12 @@ public class LevelManager : MonoBehaviour
             {
                 triggerVictory = true;  //after first time, no more, and also prevents a fail if victory in progress, see LevelFail function
 
-                if(gameManager != null)
+                if (levelMusicController != null)
                 {
-                    gameManager.PlayVictoryAudio();
+                    levelMusicController.StopLevelMusic();
                 }
+
+                
 
                 if (durationPanel != null)
                 {
@@ -350,6 +353,11 @@ public class LevelManager : MonoBehaviour
         if (!triggerVictory)
         {
             triggerFail = true;  // prevents a victory if fail in progress, see LevelVictory function
+
+            if (levelMusicController != null)
+            {
+                levelMusicController.StopLevelMusic();
+            }
 
             if (gameManager != null)
             {
@@ -435,7 +443,7 @@ public class LevelManager : MonoBehaviour
         {
             if (hasMessStar || hasAvoidStar || hasHiddenStar)
             {
-                gameManager.PlayVictoryAudio();
+                
 
                 if (hasMessStar)
                 {
@@ -476,6 +484,9 @@ public class LevelManager : MonoBehaviour
         if (hasMessStar)
         {
             messVictoryStar.SetActive(true);
+
+            if (gameManager != null)
+                gameManager.PlayStarEarned1();
         }
 
         //Debug.Log("about to wait for avoid star");
@@ -485,6 +496,9 @@ public class LevelManager : MonoBehaviour
         if (hasAvoidStar)
         {
             avoidVictoryStar.SetActive(true);
+
+            if (gameManager != null)
+                gameManager.PlayStarEarned2();
         }
 
         //Debug.Log("about to wait for hidden star");
@@ -494,6 +508,9 @@ public class LevelManager : MonoBehaviour
         if (hasHiddenStar)
         {
             hiddenVictoryStar.SetActive(true);
+
+            if (gameManager != null)
+                gameManager.PlayStarEarned3();
 
             gameManager.SaveNewStar(currentLevel, 3);
         }
@@ -507,6 +524,7 @@ public class LevelManager : MonoBehaviour
             if (triggerVictory)
             {
                 gameManager.VictoryLevel();
+                gameManager.PlayVictoryAudio();
             }
             else
             {

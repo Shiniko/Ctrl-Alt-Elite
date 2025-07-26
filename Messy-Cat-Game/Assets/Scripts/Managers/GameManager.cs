@@ -216,6 +216,24 @@ public class GameManager : MonoBehaviour
         audioManager.Play("LevelVictory");
     }
 
+    public void PlayStarEarned1()
+    {
+        // Play SFX
+        audioManager.Play("StarEarned1");
+    }
+
+    public void PlayStarEarned2()
+    {
+        // Play SFX
+        audioManager.Play("StarEarned2");
+    }
+
+    public void PlayStarEarned3()
+    {
+        // Play SFX
+        audioManager.Play("StarEarned3");
+    }
+
     public void SetGameReady(bool isReady)
     {
         gameReady = isReady;

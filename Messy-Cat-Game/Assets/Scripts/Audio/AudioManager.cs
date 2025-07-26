@@ -155,8 +155,8 @@ public class AudioManager : MonoBehaviour
         if (s != null)
         {
             float v = s.volume;
-            s.volume = 0.01f;
-            s.source.volume = 0.01f;
+            s.volume = 0.0001f;
+            s.source.volume = 0.0001f;
 
             s.source.Play();
 
@@ -167,8 +167,8 @@ public class AudioManager : MonoBehaviour
 
             while (fadeInElapsed < fadeInDuration)
             {
-                s.volume = Mathf.Lerp(0.01f, v, fadeInElapsed / fadeInDuration);
-                s.source.volume = Mathf.Lerp(0.01f, v, fadeInElapsed / fadeInDuration);
+                s.volume = Mathf.Lerp(0.0001f, v, fadeInElapsed / fadeInDuration);
+                s.source.volume = Mathf.Lerp(0.0001f, v, fadeInElapsed / fadeInDuration);
                 fadeInElapsed += Time.deltaTime;
                 //Testing while for pause
                 if (isPaused)
@@ -213,8 +213,8 @@ public class AudioManager : MonoBehaviour
 
             while (fadeOutElapsed < fadeOutDuration)
             {
-                s.volume = Mathf.Lerp(v, 0.01f, fadeOutElapsed / fadeOutDuration);
-                s.source.volume = Mathf.Lerp(v, 0.01f, fadeOutElapsed / fadeOutDuration);
+                s.volume = Mathf.Lerp(v, 0.0001f, fadeOutElapsed / fadeOutDuration);
+                s.source.volume = Mathf.Lerp(v, 0.0001f, fadeOutElapsed / fadeOutDuration);
                 fadeOutElapsed += Time.deltaTime;
                 yield return null;
             }
