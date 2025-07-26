@@ -30,7 +30,7 @@ public class WindowPointer : MonoBehaviour
     {
         if (target != null)
         {
-            targetPosition = target.transform.position;
+            targetPosition = target.position;
             toPosition = targetPosition;
 
             fromPosition = Camera.main.transform.position;

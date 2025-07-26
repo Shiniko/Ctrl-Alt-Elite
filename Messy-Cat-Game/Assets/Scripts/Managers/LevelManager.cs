@@ -226,7 +226,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
     //other functions
 
     private void RevealExit()
