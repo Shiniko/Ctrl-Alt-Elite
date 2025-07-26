@@ -52,8 +52,6 @@ public class DogContext : MonoBehaviour
     Vector3 newLocation;
     //Int cache variables
     int countTime = 0;
-
-    Animator animator;
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = _gizmoColor;
@@ -64,8 +62,7 @@ public class DogContext : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        if (!GetComponentInChildren<DogVision>())
+        if(!GetComponentInChildren<DogVision>())
         {
             Debug.LogError("A <color=lime>DogVision</color> script is <color=yellow>not attached to a child</color> of this object!! <color=lime>DogContext</color> <color=red>requires</color> a <color=lime>DogVision</color> script to be in a child object.", this);
         }
@@ -207,15 +204,16 @@ public class DogContext : MonoBehaviour
     public void SetNoLongerAngry()
     {
         isAngry = false;
-        animator.ResetTrigger("Calm Down");
-        Debug.Log("setting dog as not Angry");
+        GetComponent<Animator>().ResetTrigger("Calm Down");
+        GetComponent<Animator>().SetBool("Chasing", false);
     }
 
     public void CalmDog()
     {
-        animator.SetTrigger("Calm Down");
-        animator.ResetTrigger("Bark");
-        animator.SetBool("Chasing", false);
+        isAngry = false;                                        //set this so human doesnt re-pet the dog
+        GetComponent<Animator>().SetTrigger("Calm Down");
+        GetComponent<Animator>().ResetTrigger("Bark");
+        GetComponent<Animator>().SetBool("Chasing", false);
     }
 }
 
