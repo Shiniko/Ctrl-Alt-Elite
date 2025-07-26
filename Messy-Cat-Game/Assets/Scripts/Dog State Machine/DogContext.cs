@@ -47,7 +47,7 @@ public class DogContext : MonoBehaviour
     public static readonly int distractedHash = Animator.StringToHash("Distracted");
     public static readonly int investigateHash = Animator.StringToHash("Investigate");
     public static readonly int roamingHash = Animator.StringToHash("Roaming");
-    public static readonly int barkingHash = Animator.StringToHash("Barking");
+    public static readonly int barkingHash = Animator.StringToHash("Bark");
     private static readonly string playerHash = "Player";
 
     //Vector3 cache variables
@@ -110,9 +110,9 @@ public class DogContext : MonoBehaviour
         if(Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _minRoamDistance)) < _minimumTravelDistance && Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _maxRoamDistance)) < _minimumTravelDistance)
         {
             Debug.LogWarning("There is no place to move the dog according to the minimum travel distance!! Ignoring it for now...");
-            return (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
+            return (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0f, transform.position.y, transform.position.z);
         }
-        newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
+        newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0f, transform.position.y, transform.position.z);
         while (Vector3.Distance(newLocation, transform.position) < _minimumTravelDistance)
         {
             countTime++;
@@ -121,7 +121,7 @@ public class DogContext : MonoBehaviour
                 Debug.LogWarning("Preventing <color=red>infinite loop</color> (the function has looped for 20 times) and returning a<color=yellow> potentially wrong </color>location...(this is a soft fix for a bug)");
                 break; //Prevent infinite loop
             }
-            newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0, transform.position.y, transform.position.z);
+            newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0f, transform.position.y, transform.position.z);
         }
         countTime = 0; //Reset the count time for the next call
         return newLocation;

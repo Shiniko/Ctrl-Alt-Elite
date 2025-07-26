@@ -22,7 +22,7 @@ public class Dog_Chasing : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _newPosition = Vector3.MoveTowards(_dogContext.transform.position, _playerTransform.position, _dogContext.GetCanterSpeed() * Time.fixedDeltaTime);
+        _newPosition = Vector3.MoveTowards(_dogContext.transform.position, new(_playerTransform.position.x, _playerTransform.position.y, 0f), _dogContext.GetCanterSpeed() * Time.fixedDeltaTime);
         _rigidbody.MovePosition(_newPosition);
 
         _newLookAt = new Vector3(_playerTransform.position.x, _dogContext.transform.position.y, _playerTransform.position.z);
