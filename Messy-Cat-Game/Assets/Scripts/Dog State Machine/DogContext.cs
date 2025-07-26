@@ -191,7 +191,7 @@ public class DogContext : MonoBehaviour
 
     public void CalmDog()
     {
-        GetComponent<Animator>().SetTrigger(investigateHash);
+        GetComponent<Animator>().SetTrigger("Calm Down");
     }
 }
 

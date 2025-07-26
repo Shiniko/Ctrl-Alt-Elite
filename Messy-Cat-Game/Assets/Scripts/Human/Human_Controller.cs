@@ -125,10 +125,9 @@ public class Human_Controller : MonoBehaviour
                 //make shift code for checking if dog is angry and which ones
 
                 int tempAngryDogs = 0;
-                //if(allDogs[i].GetComponent<DogContext>().isAngry){allAngryDogs[i] = allDogs[i]; tempAngryDogs ++;}
-                if (allDogs[i].GetComponent<Animator>() != null)
+                if (allDogs[i].GetComponent<DogContext>() != null)
                 {
-                    if (allDogs[i].GetComponent<Animator>().GetBool("Barking"))
+                    if (allDogs[i].GetComponent<DogContext>().isAngry)
                     {
                         allAngryDogs[i] = allDogs[i];
                         tempAngryDogs++;
@@ -138,14 +137,11 @@ public class Human_Controller : MonoBehaviour
                         Debug.Log("bool for barking came back false for " + allDogs[i]);
                     }
 
-                    if (tempAngryDogs != angryDogCount)
-                    {
-                        angryDogCount = tempAngryDogs;
-                    }
+                    angryDogCount = tempAngryDogs;
                 }
                 else
                 {
-                    Debug.Log("Was not able to reference animator");
+                    Debug.Log("Was not able to reference dog context");
                 }
             }
         }
@@ -230,6 +226,11 @@ public class Human_Controller : MonoBehaviour
                 if (anim != null)
                 {
                     anim.SetBool("dogReached", true);
+                }
+
+                if (nextAngryDog.GetComponent<DogContext>() != null)
+                {
+                    nextAngryDog.GetComponent<DogContext>().CalmDog();
                 }
             }
         }
