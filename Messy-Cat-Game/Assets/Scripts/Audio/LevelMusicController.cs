@@ -8,7 +8,7 @@ public class LevelMusicController : MonoBehaviour
 
     [Header("Music Layers")]
     public AudioSource musicLayer1;  // always present
-    public AudioSource musicLayer2;  // ignored if 1-2 messes to make, fades in at second mess if 3 messes to make, fades in at 33% if 4+ messes to make
+    public AudioSource musicLayer2;  // ignored if 1 mess to make, fades in at second mess if 2-3 messes to make, fades in at 33% if 4+ messes to make
     public AudioSource musicLayer3;  // ignored if 1-3 messes to make, fades in at 66% if 4+ messes to make
 
     [Header("Music Settings")]
@@ -22,18 +22,10 @@ public class LevelMusicController : MonoBehaviour
 
     private void Update()
     {
-        if (levelManager != null)
+        if (levelManager != null && levelManager.totalMessNeeded > 0)
         {
-            if (levelManager.totalMessNeeded > 0)
-            {
-                if (triggerChange)
-                {
-                    triggerChange = false;
-
-                    messProgress = (float)levelManager.currentMesses / levelManager.totalMessNeeded;
-                    UpdateMusicLayers();
-                }
-            }
+            messProgress = (float)levelManager.currentMesses / levelManager.totalMessNeeded;
+            UpdateMusicLayers();
         }
     }
 
@@ -41,20 +33,32 @@ public class LevelMusicController : MonoBehaviour
     {
         if (levelManager == null) return;
 
-        // Start all layers together (muted)
-        if (!musicLayer1.isPlaying) musicLayer1.Play();
-        if (!musicLayer2.isPlaying) musicLayer2.Play();
-        if (!musicLayer3.isPlaying) musicLayer3.Play();
+        // Means music will start from the beginning, Point of difference from Resume, which will play from where we're up to in the music
+        musicLayer1.Stop();
+        musicLayer2.Stop();
+        musicLayer3.Stop();
 
-        // Recalculate from current progress
-        UpdateMusicLayers(true);
+        // Set volumes to starting state
+        musicLayer1.volume = 1f;
+        musicLayer2.volume = 0.0001f;
+        musicLayer3.volume = 0.0001f;
+
+        // Play all layers again
+        musicLayer1.Play();
+        musicLayer2.Play();
+        musicLayer3.Play();
+
+        // Reset tracking so fades work again
+        lastIntensity = -1;
     }
+
+
 
     public void MuteLevelMusic()    // I figured a mute instead of pause could be good when playing the dog or human music?
     {
-        FadeTo(musicLayer1, 0.01f, false);
-        FadeTo(musicLayer2, 0.01f, false);
-        FadeTo(musicLayer3, 0.01f, false);
+        FadeTo(musicLayer1, 0.0001f, false);
+        FadeTo(musicLayer2, 0.0001f, false);
+        FadeTo(musicLayer3, 0.0001f, false);
     }
 
     public void ResumeLevelMusic()    // restores volumes after music has been muted (e.g. dog or human music ends)
@@ -73,19 +77,12 @@ public class LevelMusicController : MonoBehaviour
 
     private void UpdateMusicLayers(bool forceImmediate = false)
     {
-        if (levelManager.totalMessNeeded <= 2)
+        if (levelManager.totalMessNeeded <= 3)
         {
-            // 1–2 messes: only layer 1
+            // 1-3 messes: fade in layer 2 when second mess is made
             FadeTo(musicLayer1, 1f, forceImmediate);
-            FadeTo(musicLayer2, 0.01f, forceImmediate);
-            FadeTo(musicLayer3, 0.01f, forceImmediate);
-        }
-        else if (levelManager.totalMessNeeded == 3)
-        {
-            // 3 messes: fade in layer 2 when second mess is made
-            FadeTo(musicLayer1, 1f, forceImmediate);
-            bool secondMessReached = levelManager.currentMesses >= 2;
-            FadeTo(musicLayer2, secondMessReached ? 1f : 0.01f, forceImmediate);
+            bool secondMessReached = levelManager.currentMesses >= 1;
+            FadeTo(musicLayer2, secondMessReached ? 1f : 0.0001f, forceImmediate);
             FadeTo(musicLayer3, 0.01f, forceImmediate);
         }
         else
@@ -99,13 +96,13 @@ public class LevelMusicController : MonoBehaviour
                 {
                     case 0:
                         FadeTo(musicLayer1, 1f, forceImmediate);
-                        FadeTo(musicLayer2, 0.01f, forceImmediate);
-                        FadeTo(musicLayer3, 0.01f, forceImmediate);
+                        FadeTo(musicLayer2, 0.0001f, forceImmediate);
+                        FadeTo(musicLayer3, 0.0001f, forceImmediate);
                         break;
                     case 1:
                         FadeTo(musicLayer1, 1f, forceImmediate);
                         FadeTo(musicLayer2, 1f, forceImmediate);
-                        FadeTo(musicLayer3, 0.01f, forceImmediate);
+                        FadeTo(musicLayer3, 0.0001f, forceImmediate);
                         break;
                     case 2:
                         FadeTo(musicLayer1, 1f, forceImmediate);
@@ -129,7 +126,7 @@ public class LevelMusicController : MonoBehaviour
     private void FadeTo(AudioSource source, float targetVolume, bool immediate = false)
     {
         // Unity may treat 0 as inactive — minimum is 0.01
-        targetVolume = Mathf.Max(targetVolume, 0.01f);
+        targetVolume = Mathf.Max(targetVolume, 0.0001f);
 
         if (immediate)
         {

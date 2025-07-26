@@ -192,7 +192,6 @@ public class LevelManager : MonoBehaviour
                     if (!exitRevealed)
                     {
                         exitRevealed = true;
-
                         RevealExit();
                     }
                 }
@@ -201,6 +200,7 @@ public class LevelManager : MonoBehaviour
             triggerMessGain = false;
         }
     }
+
 
     //other functions
 
@@ -277,6 +277,7 @@ public class LevelManager : MonoBehaviour
         catHidden = false;
         dogSeenCat = false;
         humanSeenCat = false;
+        currentMesses = 0;
 
         levelDuration = 0f;
         countDuration = false;
@@ -319,7 +320,12 @@ public class LevelManager : MonoBehaviour
             {
                 triggerVictory = true;  //after first time, no more, and also prevents a fail if victory in progress, see LevelFail function
 
-                if(gameManager != null)
+                if (levelMusicController != null)
+                {
+                    levelMusicController.StopLevelMusic();
+                }
+
+                if (gameManager != null)
                 {
                     gameManager.PlayVictoryAudio();
                 }
@@ -350,6 +356,11 @@ public class LevelManager : MonoBehaviour
         if (!triggerVictory)
         {
             triggerFail = true;  // prevents a victory if fail in progress, see LevelVictory function
+
+            if (levelMusicController != null)
+            {
+                levelMusicController.StopLevelMusic();
+            }
 
             if (gameManager != null)
             {
