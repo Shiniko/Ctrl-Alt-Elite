@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class DogContext : MonoBehaviour
 {
+    public bool isAngry;
+
     //Movement settings
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 6f;
@@ -175,6 +177,21 @@ public class DogContext : MonoBehaviour
     public float GetInvestigationTime()
     {
         return investigationTime;
+    }
+
+    public void SetAngry()
+    {
+        isAngry = true;
+    }
+
+    public void SetNoLongerAngry()
+    {
+        isAngry = false;
+    }
+
+    public void CalmDog()
+    {
+        GetComponent<Animator>().SetTrigger(investigateHash);
     }
 }
 
