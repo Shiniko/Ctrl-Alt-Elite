@@ -325,10 +325,7 @@ public class LevelManager : MonoBehaviour
                     levelMusicController.StopLevelMusic();
                 }
 
-                if (gameManager != null)
-                {
-                    gameManager.PlayVictoryAudio();
-                }
+                
 
                 if (durationPanel != null)
                 {
@@ -446,7 +443,7 @@ public class LevelManager : MonoBehaviour
         {
             if (hasMessStar || hasAvoidStar || hasHiddenStar)
             {
-                gameManager.PlayVictoryAudio();
+                
 
                 if (hasMessStar)
                 {
@@ -487,6 +484,9 @@ public class LevelManager : MonoBehaviour
         if (hasMessStar)
         {
             messVictoryStar.SetActive(true);
+
+            if (gameManager != null)
+                gameManager.PlayStarEarned1();
         }
 
         //Debug.Log("about to wait for avoid star");
@@ -496,6 +496,9 @@ public class LevelManager : MonoBehaviour
         if (hasAvoidStar)
         {
             avoidVictoryStar.SetActive(true);
+
+            if (gameManager != null)
+                gameManager.PlayStarEarned2();
         }
 
         //Debug.Log("about to wait for hidden star");
@@ -505,6 +508,9 @@ public class LevelManager : MonoBehaviour
         if (hasHiddenStar)
         {
             hiddenVictoryStar.SetActive(true);
+
+            if (gameManager != null)
+                gameManager.PlayStarEarned3();
 
             gameManager.SaveNewStar(currentLevel, 3);
         }
@@ -518,6 +524,7 @@ public class LevelManager : MonoBehaviour
             if (triggerVictory)
             {
                 gameManager.VictoryLevel();
+                gameManager.PlayVictoryAudio();
             }
             else
             {
