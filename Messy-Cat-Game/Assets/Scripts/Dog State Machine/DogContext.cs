@@ -205,11 +205,12 @@ public class DogContext : MonoBehaviour
     {
         isAngry = false;
         GetComponent<Animator>().ResetTrigger("Calm Down");
-        Debug.Log("setting dog as not Angry");
+        GetComponent<Animator>().SetBool("Chasing", false);
     }
 
     public void CalmDog()
     {
+        isAngry = false;                                        //set this so human doesnt re-pet the dog
         GetComponent<Animator>().SetTrigger("Calm Down");
         GetComponent<Animator>().ResetTrigger("Bark");
         GetComponent<Animator>().SetBool("Chasing", false);
