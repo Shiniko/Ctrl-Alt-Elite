@@ -13,7 +13,6 @@ public class WindowPointer : MonoBehaviour
     [SerializeField] private Transform pointer;
     [SerializeField] private Sprite arrow;
     [SerializeField] private Sprite noArrow;
-    [SerializeField] private Sprite gateArrow;
     [SerializeField] private Image pointerImage;
 
     private Vector3 toPosition;
@@ -48,16 +47,13 @@ public class WindowPointer : MonoBehaviour
     {
         if (target != null)
         {
-
-                targetPosition = target.transform.position;
-                toPosition = targetPosition;
+            targetPosition = target.transform.position;
+            toPosition = targetPosition;
 
             fromPosition = Camera.main.transform.position;
             fromPosition.z = 0f;
 
             direction = (toPosition - fromPosition).normalized;
-
-            //Debug.DrawRay(pointer.position, direction, Color.blue);
 
             angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
@@ -69,8 +65,7 @@ public class WindowPointer : MonoBehaviour
             {
                 isOffScreen = true;
 
-
-                    pointerImage.sprite = arrow;
+                pointerImage.sprite = arrow;
 
             }
             else
@@ -78,9 +73,7 @@ public class WindowPointer : MonoBehaviour
                 isOffScreen = false;
                 pointerImage.sprite = noArrow;
 
-
-                    target = null;
-
+                target = null;
             }
 
             if (isOffScreen)
@@ -110,7 +103,6 @@ public class WindowPointer : MonoBehaviour
                 pointerWorldPosition = uiCamera.ScreenToWorldPoint(cappedTargetScreenPosition);
                 pointer.position = pointerWorldPosition;
                 pointer.localPosition = new Vector3(pointer.localPosition.x, pointer.localPosition.y, 0f);
-
             }
         }
         else
@@ -127,5 +119,8 @@ public class WindowPointer : MonoBehaviour
         target = null;
     }
 
-
+    public void SetOn()
+    {
+        pointerImage.sprite = arrow;
+    }
 }
