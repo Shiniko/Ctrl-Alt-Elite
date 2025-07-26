@@ -8,6 +8,7 @@ public class WindowPointer : MonoBehaviour
     [SerializeField] private Camera uiCamera;
 
     public Transform target;
+    public Transform player;
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private Vector3 targetPosScreenPoint;
     [SerializeField] private Transform pointer;
@@ -15,8 +16,6 @@ public class WindowPointer : MonoBehaviour
     [SerializeField] private Sprite noArrow;
     [SerializeField] private Image pointerImage;
 
-    private Vector3 toPosition;
-    private Vector3 fromPosition;
     private Vector3 direction;
     [SerializeField] private float angle;
     private Vector3 pointerWorldPosition;
@@ -28,19 +27,25 @@ public class WindowPointer : MonoBehaviour
 
     private void Update()
     {
-        if (target != null)
+        if (player == null)
         {
-            targetPosition = target.position;
-            toPosition = targetPosition;
+            if (GameObject.FindGameObjectWithTag("Player") != null)
+            {
+                player = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+        }
 
-            fromPosition = Camera.main.transform.position;
-            fromPosition.z = 0f;
+        if (target != null && player != null)
+        {
+            float yFix = player.position.y;
+            Vector3 fixedPosition = new Vector3(target.position.x, yFix, target.position.z);
 
-            direction = (toPosition - fromPosition).normalized;
-
-            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
+            direction = (fixedPosition - player.position).normalized;
+            angle = (Vector3.SignedAngle(direction,player.forward, Vector3.up));
             pointer.localEulerAngles = new Vector3(0f, 0f, angle);
+
+            //offscreen magic
+            targetPosition = target.position;
 
             targetPosScreenPoint = Camera.main.WorldToScreenPoint(targetPosition);
 
@@ -83,17 +88,20 @@ public class WindowPointer : MonoBehaviour
                     cappedTargetScreenPosition.y = (Screen.height - borderSize);
                 }
 
+                /*
                 pointerWorldPosition = uiCamera.ScreenToWorldPoint(cappedTargetScreenPosition);
                 pointer.position = pointerWorldPosition;
                 pointer.localPosition = new Vector3(pointer.localPosition.x, pointer.localPosition.y, 0f);
+                */
+
             }
+            
         }
         else
         {
             isOffScreen = false;
             pointerImage.sprite = noArrow;
         }
-
     }
 
     public void SetOff()
