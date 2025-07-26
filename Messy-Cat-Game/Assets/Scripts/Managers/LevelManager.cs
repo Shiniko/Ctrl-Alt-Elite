@@ -8,6 +8,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private bool countDuration;
 
     [Header("Accesible Params")]
+    public bool triggerHuman;
+    public bool spawnedHuman;
+
     public bool levelActive;
     public bool catHidden;
     public bool dogSeenCat;
@@ -35,6 +38,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private MakeShiftCatController catController;             //reference to player controller
     [SerializeField] private GameObject human;                                //reference to human prefab to spawn in
     [SerializeField] private Transform humanSpawnLocation;                      //reference to human spawn transform location                                                                           
+    [SerializeField] private float humanSpawnDelay;                      //float for how long in seconds to spawn in human      
+    private float humanSpawnCounter;
 
     [SerializeField] private GameObject durationPanel;
     [SerializeField] private GameObject newRecordText;
@@ -45,7 +50,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject hiddenVictoryStar;
 
     [Header("Triggers and Checks")]
-  public bool triggerHuman;
     [SerializeField] private bool triggerDuration;
     [SerializeField] private bool triggerFail;
     [SerializeField] private bool triggerVictory;
@@ -133,9 +137,26 @@ public class LevelManager : MonoBehaviour
                     gameManager.AdjustDurationUI(levelDuration);
                 }
 
-                if(triggerDuration && durationPanel != null && !durationPanel.activeInHierarchy)
+                if (triggerDuration && durationPanel != null && !durationPanel.activeInHierarchy)
                 {
                     triggerDuration = false;
+                }
+            }
+
+            if (triggerHuman)
+            {
+                if (!spawnedHuman)
+                {
+                    if (humanSpawnCounter < humanSpawnDelay)
+                    {
+                        humanSpawnCounter += Time.deltaTime;
+                    }
+                    else
+                    {
+                        spawnedHuman = true;
+
+                        SpawnHuman();
+                    }
                 }
             }
 
@@ -210,7 +231,7 @@ public class LevelManager : MonoBehaviour
 
     private void RevealExit()
     {
-        if(exitPortal != null)
+        if (exitPortal != null)
         {
             exitPortal.SetActive(true);
         }
@@ -256,23 +277,29 @@ public class LevelManager : MonoBehaviour
 
             hasAvoidStar = false;           //sets the star in level manager as false
 
-            if (progressionManager  != null)         //simple check for progression manager
+            if (progressionManager != null)         //simple check for progression manager
             {
                 progressionManager.RemoveStarForDog();        //removes the star in progression manager, Visual UI
             }
         }
 
-        if(human != null && !triggerHuman)
+        if (human != null && !triggerHuman)
         {
             triggerHuman = true;
-
-            SpawnHuman();
         }
     }
 
     private void SpawnHuman()
     {
+        Debug.Log("Spawned Human");
         Instantiate(human, humanSpawnLocation.position, Quaternion.identity);
+    }
+
+    public void ResetHuman()
+    {
+        triggerHuman = false;
+        spawnedHuman = false;
+        humanSpawnCounter = 0f;
     }
 
     public void HumanSeesCat()
@@ -341,7 +368,7 @@ public class LevelManager : MonoBehaviour
                     levelMusicController.StopLevelMusic();
                 }
 
-                
+
 
                 if (durationPanel != null)
                 {
@@ -392,10 +419,7 @@ public class LevelManager : MonoBehaviour
                 victoryStarPanel.SetActive(false);
             }
 
-            if (gameManager != null)  //call this last as it pauses game
-            {
-                gameManager.FailLevel();
-            }
+            StartCoroutine(DisplayFail(winDelay));
         }
     }
 
@@ -403,7 +427,7 @@ public class LevelManager : MonoBehaviour
     {
         ResetLevel();
 
-        if(gameManager != null)
+        if (gameManager != null)
         {
             gameManager.SetNewRespawnPoint(spawnIndex);  //index refers to the playerSpawners of Spawn Manager, 0 is center while 1 through 4 are left sides, left to right, and 5 through 8 are right side, left to right
         }
@@ -415,7 +439,7 @@ public class LevelManager : MonoBehaviour
             progressionManager.AddStarForDog();
         }
 
-        if(levelMusicController != null)
+        if (levelMusicController != null)
         {
             levelMusicController.StartLevelMusic();
         }
@@ -459,7 +483,7 @@ public class LevelManager : MonoBehaviour
         {
             if (hasMessStar || hasAvoidStar || hasHiddenStar)
             {
-                
+
 
                 if (hasMessStar)
                 {
@@ -488,7 +512,7 @@ public class LevelManager : MonoBehaviour
                 }
                 */
             }
-        }        
+        }
     }
 
     IEnumerator DisplayStars(float delay)  //delay for animating Stars
@@ -532,7 +556,7 @@ public class LevelManager : MonoBehaviour
         }
 
         //Debug.Log("about to wait for pause");  //comment this back in if you want the menu buttons to wait until after stars populate
-      
+
         yield return new WaitForSeconds(delay * 0.35f);
 
         if (gameManager != null)  //call this last as it pauses game
@@ -542,14 +566,17 @@ public class LevelManager : MonoBehaviour
                 gameManager.VictoryLevel();
                 gameManager.PlayVictoryAudio();
             }
-            else
-            {
-                if (triggerFail)
-                {
-                    gameManager.FailLevel();
-                }
-            }
         }
-        
+    }
+
+    IEnumerator DisplayFail(float delay)  //delay for pausing for fail
+    {
+        yield return new WaitForSeconds(delay * 0.5f);
+
+        if (gameManager != null)  //call this last as it pauses game
+        {
+            gameManager.FailLevel();
+        }
     }
 }
+

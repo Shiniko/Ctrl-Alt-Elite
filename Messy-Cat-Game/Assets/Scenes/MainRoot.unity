@@ -14427,7 +14427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &2317531053851749476
 GameObject:
   m_ObjectHideFlags: 0
@@ -27727,7 +27727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -39043,6 +39043,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelDuration: 0
   countDuration: 0
+  triggerHuman: 0
+  spawnedHuman: 0
   levelActive: 0
   catHidden: 0
   dogSeenCat: 0
@@ -39061,6 +39063,9 @@ MonoBehaviour:
   levelDetails: {fileID: 0}
   player: {fileID: 0}
   catController: {fileID: 0}
+  human: {fileID: 8751260923963813628, guid: 8bccb19033d80d1438f4f7a02d7f9d72, type: 3}
+  humanSpawnLocation: {fileID: 8096996278428083387}
+  humanSpawnDelay: 0
   durationPanel: {fileID: 3000635529088677904}
   newRecordText: {fileID: 8320589478361057761}
   victoryStarPanel: {fileID: 2384389271084464204}

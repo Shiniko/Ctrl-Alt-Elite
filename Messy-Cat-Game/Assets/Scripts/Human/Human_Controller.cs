@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class Human_Controller : MonoBehaviour
 {
-    private Animator anim;
+    [SerializeField] private Animator anim;
 
     private GameObject player;
     private bool checkingForCat;
     private bool triggerCheckingForCat;
 
-    private GameObject[] allDogs;
-    private GameObject[] allAngryDogs;
-    private GameObject nextAngryDog;
-    private int angryDogCount;
+    [SerializeField] private GameObject[] allDogs;
+    [SerializeField] private GameObject[] allAngryDogs;
+    [SerializeField] private GameObject nextAngryDog;
+    [SerializeField] private int angryDogCount;
 
     private MakeShiftCatController catController;
     private LevelManager levelManager;
@@ -19,14 +19,18 @@ public class Human_Controller : MonoBehaviour
     private Vector3 startLocation;
     private bool isRetreating;
     private bool isMoving;
+    private bool isPetting;
 
     [SerializeField] private float minDistance;
     [SerializeField] private float humanSpeed;
     [SerializeField] private Vector3 currentTargetLocation;
 
+    [SerializeField] private float petDelay;
+    [SerializeField] private float petCounter;
+
     void Awake()
     {
-        startLocation = gameObject.transform.position;
+        startLocation = transform.position;
 
         nextAngryDog = null;
         angryDogCount = 0;
@@ -86,6 +90,26 @@ public class Human_Controller : MonoBehaviour
         {
             MoveToNextLocation(currentTargetLocation);
         }
+
+        if (isPetting)
+        {
+            if (petCounter < petDelay)
+            {
+                petCounter += Time.deltaTime;
+            }
+            else
+            {
+                isPetting = false;
+                petCounter = 0f;
+
+                if (nextAngryDog.GetComponent<DogContext>() != null)
+                {
+                    nextAngryDog.GetComponent<DogContext>().CalmDog();
+                }
+
+                CheckForAngryDogs();
+            }
+        }
     }
 
     private void CheckForCat()
@@ -94,9 +118,16 @@ public class Human_Controller : MonoBehaviour
         {
             if (!catController.isHidden)
             {
-                //Human Sees cat, fail level
+                if (!catController.triggerHide)
+                {
+                    //Human Sees cat, fail level
 
-                HumanSeesCat();
+                    HumanSeesCat();
+                }
+                else
+                {
+                    Debug.Log("CLOSE CALL cat almost seen!");
+                }
             }
         }
     }
@@ -134,7 +165,7 @@ public class Human_Controller : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("bool for barking came back false for " + allDogs[i]);
+                        allAngryDogs[i] = null;
                     }
 
                     angryDogCount = tempAngryDogs;
@@ -200,8 +231,14 @@ public class Human_Controller : MonoBehaviour
 
     private void RetreatToHumanSpace()
     {
+        isMoving = true;
         checkingForCat = false;
         isRetreating = true;
+
+        if (anim != null)
+        {
+            anim.SetBool("dogReached", false);
+        }
 
         currentTargetLocation = startLocation;
         MoveToNextLocation(startLocation);
@@ -228,10 +265,7 @@ public class Human_Controller : MonoBehaviour
                     anim.SetBool("dogReached", true);
                 }
 
-                if (nextAngryDog.GetComponent<DogContext>() != null)
-                {
-                    nextAngryDog.GetComponent<DogContext>().CalmDog();
-                }
+                isPetting = true;
             }
         }
         else
@@ -249,8 +283,10 @@ public class Human_Controller : MonoBehaviour
         {
             if(levelManager != null)
             {
-                levelManager.triggerHuman = false;
+                levelManager.ResetHuman();
             }
+
+            Debug.Log("Killed Human");
 
             Destroy(gameObject);
         }

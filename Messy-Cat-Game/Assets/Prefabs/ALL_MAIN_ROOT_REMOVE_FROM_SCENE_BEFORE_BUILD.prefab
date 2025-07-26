@@ -1583,6 +1583,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 4652916868720637574}
+    - target: {fileID: 7681251164819762269, guid: 8e8e699288470434488ec208d83dff5a, type: 3}
+      propertyPath: m_Color.a
+      value: 0.3137255
+      objectReference: {fileID: 0}
     - target: {fileID: 7726681807548441225, guid: 8e8e699288470434488ec208d83dff5a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2256,6 +2260,10 @@ PrefabInstance:
       value: Managers
       objectReference: {fileID: 0}
     - target: {fileID: 5095758033349495187, guid: 3843f13ccf2eb384db5346b8c1de9a29, type: 3}
+      propertyPath: human
+      value: 
+      objectReference: {fileID: 8751260923963813628, guid: 8bccb19033d80d1438f4f7a02d7f9d72, type: 3}
+    - target: {fileID: 5095758033349495187, guid: 3843f13ccf2eb384db5346b8c1de9a29, type: 3}
       propertyPath: durationPanel
       value: 
       objectReference: {fileID: 1101534604463911109}
@@ -2283,6 +2291,10 @@ PrefabInstance:
       propertyPath: hiddenVictoryStar
       value: 
       objectReference: {fileID: 754059536371712348}
+    - target: {fileID: 5095758033349495187, guid: 3843f13ccf2eb384db5346b8c1de9a29, type: 3}
+      propertyPath: humanSpawnLocation
+      value: 
+      objectReference: {fileID: 6247414934078860398}
     - target: {fileID: 5095758033349495187, guid: 3843f13ccf2eb384db5346b8c1de9a29, type: 3}
       propertyPath: progressionManager
       value: 
@@ -2425,6 +2437,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd956c94e3a8f94da20372be484bde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6247414934078860398 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6367216403726487924, guid: 3843f13ccf2eb384db5346b8c1de9a29, type: 3}
+  m_PrefabInstance: {fileID: 1076258459383889178}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7475201016044740554 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7589300833056563920, guid: 3843f13ccf2eb384db5346b8c1de9a29, type: 3}

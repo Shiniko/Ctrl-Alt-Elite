@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class DogContext : MonoBehaviour
 {
-    public bool isAngry;
-
     //Movement settings
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 6f;
@@ -29,7 +27,7 @@ public class DogContext : MonoBehaviour
     [SerializeField] private float seeCatTime = 2f;
     [SerializeField] private Image dogAgroMeter;
     [SerializeField] private float barkingRange = 2f;
-    
+    public bool isAngry;
 
     //Gizmo settings
     [SerializeField] private float _size = 0.25f;
@@ -195,6 +193,8 @@ public class DogContext : MonoBehaviour
     {
         isAngry = true;
 
+        Debug.Log("setting dog as isAngry");
+
         if (GameObject.FindGameObjectWithTag("LevelManager") != null)
         {
             GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().DogSeesCat();
@@ -204,11 +204,15 @@ public class DogContext : MonoBehaviour
     public void SetNoLongerAngry()
     {
         isAngry = false;
+        GetComponent<Animator>().ResetTrigger("Calm Down");
+        Debug.Log("setting dog as not Angry");
     }
 
     public void CalmDog()
     {
         GetComponent<Animator>().SetTrigger("Calm Down");
+        GetComponent<Animator>().ResetTrigger("Bark");
+        GetComponent<Animator>().SetBool("Chasing", false);
     }
 }
 

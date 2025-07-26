@@ -297,7 +297,7 @@ public class MakeShiftCatController : MonoBehaviour
 
                 if (triggerHide || isHidden)
                 {
-                    Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
+                   // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
                     StopHiding();
                 }
             }
@@ -393,7 +393,7 @@ public class MakeShiftCatController : MonoBehaviour
             anim.SetBool("triggerLand", false);
             anim.SetBool("hardLand", false);
 
-            Debug.Log("Done Landing");
+            //Debug.Log("Done Landing");
         }
     }
 
@@ -469,7 +469,7 @@ public class MakeShiftCatController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("hideTarget is null so setting triggerhide to false");
+                    //Debug.Log("hideTarget is null so setting triggerhide to false");
                     triggerHide = false;
 
                 }
@@ -583,7 +583,7 @@ public class MakeShiftCatController : MonoBehaviour
 
                 triggeredLand = true;
 
-                Debug.Log("About to set anim bool for triggerland");
+                //Debug.Log("About to set anim bool for triggerland");
                 if (anim != null)
                 {
                     anim.SetBool("triggerLand", true);
@@ -592,8 +592,8 @@ public class MakeShiftCatController : MonoBehaviour
         }
         else
         {
-            Debug.Log("isGrounded " + isGrounded);
-            Debug.Log("isJumping " + isJumping);
+            //Debug.Log("isGrounded " + isGrounded);
+            //Debug.Log("isJumping " + isJumping);
         }
 
         ApplyGroundState();
@@ -653,7 +653,7 @@ public class MakeShiftCatController : MonoBehaviour
 
                     anim.SetBool("isFalling", true);
 
-                    Debug.Log("Triggered Fall and vel is " + velocityY);
+                    //Debug.Log("Triggered Fall and vel is " + velocityY);
                 }
             }
         }
@@ -667,7 +667,7 @@ public class MakeShiftCatController : MonoBehaviour
                     {
                         anim.SetBool("isFalling", false);
 
-                        Debug.Log("triggered Fall to false cause velocity above threshold");
+                       // Debug.Log("triggered Fall to false cause velocity above threshold");
                     }
 
                     triggeredFall = false;
