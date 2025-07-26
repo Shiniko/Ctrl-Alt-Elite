@@ -78,6 +78,7 @@ public class DogContext : MonoBehaviour
             Debug.LogWarning("<color=lime>DogContext</color> is missing a reference to a <color=lime>slider</color> for the <color=yellow>dogAgroMeter</color> variable");
             dogVision.enabled = false;
             Debug.LogWarning("Disabling DogVision to prevent futher errors");
+            dogAgroMeter.GetComponentInParent<Transform>().gameObject.SetActive(false);
         }
         else
         {
@@ -138,23 +139,58 @@ public class DogContext : MonoBehaviour
         return newLocation;
     }
 
-    
 
+    /// <summary>
+    /// This function is used for testing the investigate state of the dog with the editor button.
+    /// </summary>
     public void TestInvestigateState()
     {
-        currentSuspiciousEvent =GetNewRoamLocation();
+        currentSuspiciousEvent = GetNewRoamLocation();
         animator.SetTrigger(investigateHash);
     }
 
+
+    //gets called in an animation event
+    public void SetAngry()
+    {
+        isAngry = true;
+
+        Debug.Log("setting dog as isAngry",this);
+
+        if (GameObject.FindGameObjectWithTag("LevelManager") != null)
+        {
+            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().DogSeesCat();
+        }
+    }
+
+    /// <summary>
+    /// Sets the dog to no longer be angry, resets the animator triggers and sets the chasing bool to false
+    /// </summary>
+    public void SetNoLongerAngry()
+    {
+        isAngry = false;
+        animator.ResetTrigger("Calm Down");
+        animator.SetBool("Chasing", false);
+    }
+
+    /// <summary>
+    /// Sets the dog to be calm, resets the animator triggers and sets the chasing bool to false
+    /// </summary>
+    /// gets called in an animation event
+    public void CalmDog()
+    {
+        isAngry = false;                                        //set this so human doesnt re-pet the dog
+        animator.SetTrigger("Calm Down");
+        animator.ResetTrigger("Bark");
+        animator.SetBool("Chasing", false);
+    }
+
+    #region Getters
     public float GetBarkingRange()
     {
         return barkingRange;
-    }   
+    }
 
-    /// <summary>
-    /// Returns the speed of a dog
-    /// </summary>
-    /// <returns>float</returns>
     public float GetWalkSpeed()
     {
         return walkSpeed;
@@ -189,39 +225,7 @@ public class DogContext : MonoBehaviour
     {
         return investigationTime;
     }
-
-    public void SetAngry()
-    {
-        isAngry = true;
-
-        Debug.Log("setting dog as isAngry");
-
-        if (GameObject.FindGameObjectWithTag("LevelManager") != null)
-        {
-            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().DogSeesCat();
-        }
-    }
-
-    /// <summary>
-    /// Sets the dog to no longer be angry, resets the animator triggers and sets the chasing bool to false
-    /// </summary>
-    public void SetNoLongerAngry()
-    {
-        isAngry = false;
-        animator.ResetTrigger("Calm Down");
-        animator.SetBool("Chasing", false);
-    }
-
-    /// <summary>
-    /// Sets the dog to be calm, resets the animator triggers and sets the chasing bool to false
-    /// </summary>
-    public void CalmDog()
-    {
-        isAngry = false;                                        //set this so human doesnt re-pet the dog
-        animator.SetTrigger("Calm Down");
-        animator.ResetTrigger("Bark");
-        animator.SetBool("Chasing", false);
-    }
+    #endregion
 }
 
 

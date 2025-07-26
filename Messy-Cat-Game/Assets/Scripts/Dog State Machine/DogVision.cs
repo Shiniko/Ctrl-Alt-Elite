@@ -108,7 +108,7 @@ public class DogVision : Ticker
     /// <param name="other">The game object to check if its visible</param>
     /// <returns></returns>
     public bool CanSee(GameObject other)
-    {
+    {   
         return viewableObjects.Contains(other);
     }
 
@@ -119,11 +119,6 @@ public class DogVision : Ticker
     {
         foreach (GameObject other in objectsInViewZone)
         {
-            if(other == null)
-            {
-                Debug.Log("Skipping null object", this);
-                continue; // Skip null objects
-            }
             //Shoot raycast
             float distance = Vector3.Distance(parentTransform.position, other.transform.position) + 0.1f;
             Vector3 direction = (other.transform.position - parentTransform.position).normalized;
@@ -132,7 +127,7 @@ public class DogVision : Ticker
             if(!Physics.Raycast(origin, direction, out hit, distance, layerMask))
             {
                 // The raycast didn't hit anything within the specified range and layers
-                Debug.Log("Raycast didn't hit anything on the designated layers towards " + other.name, this);
+              //  Debug.Log("Raycast didn't hit anything on the designated layers towards " + other.name, this);
                 Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
             }
 
@@ -140,7 +135,7 @@ public class DogVision : Ticker
             if (hit.collider.gameObject != other)
             {
                 // An object (likely a wall) is obstructing the view
-                Debug.Log("Object is not visible, instead we hit " + hit.collider.gameObject.name, this);
+               // Debug.Log("Object is not visible, instead we hit " + hit.collider.gameObject.name, hit.collider.gameObject);
                 Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
             }
 
@@ -158,7 +153,7 @@ public class DogVision : Ticker
             }
             else
             {
-                Debug.Log("Object is visible " + hit.collider.gameObject.name, this);
+                //Debug.Log("Object is visible " + hit.collider.gameObject.name, hit.collider.gameObject);
                 Debug.DrawLine(origin, other.transform.position, Color.green, lineTime, true);
                 viewableObjects.Add(other);
             }

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 //This script is for when the dog has seen the cat for a brief moment
@@ -6,20 +7,19 @@ public class Dog_SuspiciousState : StateMachineBehaviour
 {
     DogVision dogVision;
     DogContext dogContext;
-    Vector3 suspiciousEvent;
 
     private Image agroMeter;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         dogVision = animator.GetComponent<DogContext>().dogVision;
         dogContext = animator.GetComponent<DogContext>();
 
-        suspiciousEvent = dogContext.currentSuspiciousEvent;
         agroMeter = dogContext.GetAgroMeter();
-        agroMeter.fillAmount = 0;
+        agroMeter.GetComponentInParent<Transform>().gameObject.SetActive(true);
         agroMeter.gameObject.SetActive(true);
-        dogContext.transform.LookAt(suspiciousEvent);
+        agroMeter.fillAmount = 0;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -39,9 +39,9 @@ public class Dog_SuspiciousState : StateMachineBehaviour
             agroMeter.gameObject.SetActive(false);
             animator.SetBool("Suspicious", false);
         }
-        else if (Mathf.Approximately(agroMeter.fillAmount, agroMeter.fillAmount))
+        else if (Mathf.Approximately(agroMeter.fillAmount, 1))
         {
-            animator.SetBool("Suspicious", false);
+            agroMeter.gameObject.SetActive(false);
             animator.SetBool("Chasing", true);
         }
     }
@@ -49,6 +49,6 @@ public class Dog_SuspiciousState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        animator.SetBool("Suspicious", false);
     }
 }
