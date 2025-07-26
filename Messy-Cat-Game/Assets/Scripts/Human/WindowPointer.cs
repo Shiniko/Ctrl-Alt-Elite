@@ -26,23 +26,6 @@ public class WindowPointer : MonoBehaviour
     [SerializeField] private bool isOnScreen;
     [SerializeField] private Vector3 cappedTargetScreenPosition;
 
-
-    void Awake()
-    {
-        if (pointer == null)
-        {
-            if (GameObject.FindGameObjectWithTag("Pointer") != null)
-            {
-                pointer = GameObject.FindGameObjectWithTag("Pointer").transform;
-
-                if (pointerImage == null)
-                {
-                    pointerImage = GameObject.FindGameObjectWithTag("Pointer").GetComponentInChildren<Image>();
-                }
-            }
-        }
-    }
-
     private void Update()
     {
         if (target != null)
@@ -119,8 +102,8 @@ public class WindowPointer : MonoBehaviour
         target = null;
     }
 
-    public void SetOn()
+    public void SetTarget(Transform newTarget)
     {
-        pointerImage.sprite = arrow;
+        target = newTarget;
     }
 }

@@ -346,6 +346,11 @@ public class GameManager : MonoBehaviour
                 Destroy(player, 0.01f);
             }
         }
+
+        if(GameObject.FindGameObjectWithTag("Human") != null)
+        {
+            GameObject.FindGameObjectWithTag("Human").GetComponent<Human_Controller>().KillHuman();
+        }
     }
 
     public void ButtonReSpawnPlayer()  //function to trigger a spawn of the player via SpawnManager
