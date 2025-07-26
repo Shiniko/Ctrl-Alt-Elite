@@ -17,13 +17,14 @@ public class Dog_SuspiciousState : StateMachineBehaviour
 
         suspiciousEvent = dogContext.currentSuspiciousEvent;
         agroMeter = dogContext.GetAgroMeter();
+        agroMeter.fillAmount = 0;
+        agroMeter.gameObject.SetActive(true);
         dogContext.transform.LookAt(suspiciousEvent);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        agroMeter.gameObject.SetActive(true);
         if (dogVision.CanSee(dogContext.player.gameObject))
         {
             agroMeter.fillAmount += Time.fixedDeltaTime / dogContext.GetSeeCatTime();

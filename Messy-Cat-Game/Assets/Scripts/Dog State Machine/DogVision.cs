@@ -129,68 +129,38 @@ public class DogVision : Ticker
             Vector3 direction = (other.transform.position - parentTransform.position).normalized;
             Vector3 origin = new(transform.position.x,transform.position.y + 0.1f,transform.position.z);
 
-            //Debug.DrawRay(origin, direction * distance, Color.cyan);
-            //If we fail to hit anything with our raycast, then we skip the rest of the code
-
-            /*
-            if (!Physics.Raycast(origin, direction, out hit, distance, layerMask))
+            if(!Physics.Raycast(origin, direction, out hit, distance, layerMask))
             {
-                //Debug.Log("Raycast failed to hit anything");
-                continue;
+                // The raycast didn't hit anything within the specified range and layers
+                Debug.Log("Raycast didn't hit anything on the designated layers towards " + other.name, this);
+                Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
             }
-            
 
-            //Check if the raycast hit the object
-            if (hit.collider.gameObject == other)
+            // Check if the first object hit by the ray is indeed our target object
+            if (hit.collider.gameObject != other)
             {
-                //Debug.Log("Object is visible " + hit.collider.gameObject.name);
-                Debug.DrawLine(origin, other.transform.position, Color.green, lineTime,true);
-                if (!viewableObjects.Contains(other))
+                // An object (likely a wall) is obstructing the view
+                Debug.Log("Object is not visible, instead we hit " + hit.collider.gameObject.name, this);
+                Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
+            }
+
+            if (viewableObjects.Contains(other))
+            {
+                continue; // If the object is already in the viewableObjects list, skip it
+            }
+
+            if (other.GetComponent<MakeShiftCatController>() != null)
+            {
+                if (!other.GetComponent<MakeShiftCatController>().isHidden)
                 {
                     viewableObjects.Add(other);
                 }
             }
             else
             {
-                //Debug.Log("Object is not visible, instead we hit " + hit.collider.gameObject.name);
-                Debug.DrawLine(origin, other.transform.position, Color.red, lineTime,true);
-            }
-            */
-
-            if (Physics.Raycast(origin, direction, out hit, distance, layerMask, QueryTriggerInteraction.Collide))
-            {
-                // Check if the first object hit by the ray is indeed our target object
-                if (hit.collider.gameObject == other)
-                {
-                    Debug.Log("Object is visible " + hit.collider.gameObject.name);
-                    Debug.DrawLine(origin, other.transform.position, Color.green, lineTime, true);
-                    if (!viewableObjects.Contains(other))
-                    {
-                        if (other.GetComponent<MakeShiftCatController>() != null)
-                        {
-                            if (!other.GetComponent<MakeShiftCatController>().isHidden)
-                            {
-                                viewableObjects.Add(other);
-                            }
-                        }
-                        else
-                        {
-                            viewableObjects.Add(other);
-                        }
-                    }
-                }
-                else
-                {
-                    // An object (likely a wall) is obstructing the view
-                    Debug.Log("Object is not visible, instead we hit " + hit.collider.gameObject.name);
-                    Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
-                }
-            }
-            else
-            {
-                // The raycast didn't hit anything within the specified range and layers
-                Debug.Log("Raycast didn't hit anything on the designated layers towards " + other.name);
-                Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
+                Debug.Log("Object is visible " + hit.collider.gameObject.name, this);
+                Debug.DrawLine(origin, other.transform.position, Color.green, lineTime, true);
+                viewableObjects.Add(other);
             }
         }
     }
