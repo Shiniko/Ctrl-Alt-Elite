@@ -12,6 +12,8 @@ public class Scratch_Interact : Interactable
     public bool triggerHurt;        //cat controller will call this for the mperiod to react
     public bool isDead;
 
+    public bool isForward;
+
     void Update()
     {
         if (levelManager == null)
@@ -33,6 +35,16 @@ public class Scratch_Interact : Interactable
                     messAnim.SetTrigger("isHurt");
                 }
             }
+        }
+
+        if (isDead)
+        {
+            if (interactDisplay != null)
+            {
+                interactDisplay.SetActive(false);
+            }
+
+            triggeredInteract = true;
         }
     }
 
@@ -79,16 +91,20 @@ public class Scratch_Interact : Interactable
 
     public override void Interact()
     {
+        base.Interact();
+
         if (!isDead)
         {
-            base.Interact();
-            catController.TryToScratch();
+            if(catController != null)
+            {
+                catController.TryToScratch();
+            }
 
             if (messAnim != null)
             {
                 messAnim.SetBool("hasMessed", true);
             }
-        }
+        } 
     }
 
     public override void OnTriggerEnter(Collider col)

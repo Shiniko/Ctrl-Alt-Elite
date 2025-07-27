@@ -8,6 +8,7 @@ public class Add_Broken_Force : MonoBehaviour
     public float explosionDelay = 0.1f; // Add a slight delay to allow children to activate
     private float splodeCounter; // timer realated to delay
     [SerializeField] private GameObject child; // timer realated to delay
+    private bool triggeredExplosion;
 
     void Awake()
     {
@@ -19,15 +20,20 @@ public class Add_Broken_Force : MonoBehaviour
 
     void Update()
     {
-        if (splodeCounter < explosionDelay)
+        if (!triggeredExplosion)
         {
-            splodeCounter += Time.deltaTime;
-        }
-        else
-        {
-            Debug.Log("Sploded");
+            if (splodeCounter < explosionDelay)
+            {
+                splodeCounter += Time.deltaTime;
+            }
+            else
+            {
+                triggeredExplosion = true;
 
-            Splode();
+                Debug.Log("Sploded");
+
+                Splode();
+            }
         }
     }
 
