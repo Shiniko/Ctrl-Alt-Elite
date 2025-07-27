@@ -3,6 +3,7 @@ public class Hide_Interact : Interactable
 {
     private bool triggeredInteract;
     private MakeShiftCatController catController;
+    public HideyHole hideyHole;
 
     public void ResetTrigger()
     {
