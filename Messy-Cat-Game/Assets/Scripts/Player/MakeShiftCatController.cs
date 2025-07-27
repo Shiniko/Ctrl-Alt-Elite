@@ -13,6 +13,8 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private bool canMove; // when player inputs can move player
     public bool isHidden;
     public bool triggerHide;
+    public bool doneScratching;
+    public bool triggerScratch;
     public bool triggerExit;
     public GameObject hideCoat;
     public GameObject catCoat;
@@ -507,13 +509,24 @@ public class MakeShiftCatController : MonoBehaviour
 
     public void TryToScratch()
     {
-        // other logic
-        if (scratchTarget != null)
+        if (!triggerScratch)
         {
-            scratchTarget.Interact();
-        }
+            triggerScratch = true;
 
-        StartScratching();
+            if (!doneScratching)
+            {
+                if (scratchTarget != null)
+                {
+                    scratchTarget.Interact();
+
+                    StartScratching();
+                }
+            }
+            else
+            {
+                triggerScratch = false;
+            }
+        }
     }
 
     void MoveCharacter()
@@ -824,15 +837,53 @@ public class MakeShiftCatController : MonoBehaviour
 
     public void StartScratching()
     {
-        if (anim != null)
+        Debug.Log("started scaratching");
+
+        movement = new Vector3(0f, 0f, 0f).normalized;
+        moveX = 0f;
+
+        if (rb != null)
         {
-            anim.SetBool("isScratching", true);
-            anim.Play("Start_Scratching");
+            rb.linearVelocity = Vector3.zero;
         }
 
-        if(scratchTarget.objectHealth  != null)
+        if (!facingRight)
         {
-            objectHealth = scratchTarget.objectHealth;
+            FlipFace();
+        }
+
+        if (scratchTarget != null)
+        {
+            float scratchX = scratchTarget.transform.position.x;
+            Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
+
+            transform.position = newPosition;
+
+            if (anim != null)
+            {
+                if (scratchTarget.isForward)
+                {
+                    anim.SetBool("isForward", true);
+                }
+                else
+                {
+                    anim.SetBool("isForward", false);
+                }
+
+                anim.SetBool("isScratching", true);
+                anim.Play("Start_Scratch");
+            }
+
+            if (scratchTarget.objectHealth != null)
+            {
+                objectHealth = scratchTarget.objectHealth;
+
+                SetObjectTarget(objectHealth);
+            }
+            else
+            {
+                ResetObjectTarget();
+            }
         }
     }
 
@@ -940,39 +991,34 @@ public class MakeShiftCatController : MonoBehaviour
         damageToInflict = 0f;
     }
 
-    public void SetObjectTarget(GameObject ot)
+    public void SetObjectTarget(ObjectHealth ot)
     {
         if (ot == null)
         {
             return;
         }
 
-        target = ot;
+        target = ot.gameObject;
 
-        if (ot.GetComponentInChildren<ObjectHealth>() != null)
+        float currentObjectHealth = objectHealth.currentHealth;
+        float maxObjectHealth = objectHealth.adjustedMaxHealth;
+        float healthRatio = 0f;
+
+        if (maxObjectHealth > 0.1f)
         {
-            objectHealth = ot.GetComponentInChildren<ObjectHealth>();
-
-            float currentObjectHealth = objectHealth.currentHealth;
-            float maxObjectHealth = objectHealth.adjustedMaxHealth;
-            float healthRatio = 0f;
-
-            if (maxObjectHealth > 0.1f)
-            {
-                healthRatio = currentObjectHealth / maxObjectHealth;
-            }
-
-            if (healthRatio > 0.99f)
-            {
-                currentDamageProgress = 0;
-            }
-            else
-            {
-                int ratioToInt = Mathf.CeilToInt((1f - healthRatio) * 100f);
-                currentDamageProgress = ratioToInt;
-            }
-
+            healthRatio = currentObjectHealth / maxObjectHealth;
         }
+
+        if (healthRatio > 0.99f)
+        {
+            currentDamageProgress = 0;
+        }
+        else
+        {
+            int ratioToInt = Mathf.CeilToInt((1f - healthRatio) * 100f);
+            currentDamageProgress = ratioToInt;
+        }
+
     }
 
     public void ApplyDeath()
