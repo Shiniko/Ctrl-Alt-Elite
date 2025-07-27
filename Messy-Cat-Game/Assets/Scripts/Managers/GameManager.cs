@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
     [Header("Player References")]
     [SerializeField] private GameObject player;            //reference to player
     [SerializeField] private MakeShiftCatController catController;            //reference to player controller
-    [SerializeField] private PlayerHealth playerHealth;    //reference to playerhealth
-    [SerializeField] private AnimHandler playerAnim;       //reference to Animator Handler script, attached to player
     [SerializeField] private GameObject pausePanel;        //reference to UI panel when paused
 
     [Header("Functional Params")]

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ObjectHealth : MonoBehaviour
 {
+    public bool isScratchable;
+
     public float adjustedMaxHealth;
     public float currentHealth;
     [SerializeField] private float maxHealth;
@@ -73,6 +75,11 @@ public class ObjectHealth : MonoBehaviour
     private void ApplyObjectDeath()
     {
         //to do: apply mess count and stuff
+
+        if (isScratchable)
+        {
+            GetComponentInChildren<Scratch_Interact>().FinishedScratching();
+        }
     }
 
     private void ApplyHeal(float amount)

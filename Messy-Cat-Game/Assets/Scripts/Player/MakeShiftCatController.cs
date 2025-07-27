@@ -755,6 +755,7 @@ public class MakeShiftCatController : MonoBehaviour
         if(hideTarget != null)
         {
             hideTarget.ResetTrigger();
+            hideTarget.hideyHole.EnterHole();
         }      
     }
 
@@ -773,6 +774,11 @@ public class MakeShiftCatController : MonoBehaviour
             }
 
             isHidden = true;
+
+            if(hideTarget.hideyHole != null)
+            {
+                hideTarget.hideyHole.EnterHole();
+            }
         }
     }
 
@@ -823,6 +829,11 @@ public class MakeShiftCatController : MonoBehaviour
             anim.SetBool("isScratching", true);
             anim.Play("Start_Scratching");
         }
+
+        if(scratchTarget.objectHealth  != null)
+        {
+            objectHealth = scratchTarget.objectHealth;
+        }
     }
 
     public void ThirtyThreeScratch()
@@ -867,9 +878,9 @@ public class MakeShiftCatController : MonoBehaviour
         {
             if (target != null)
             {
-                if (objectHealth != null)
+                if (scratchTarget.objectHealth != null)
                 {
-                    float damageLeft = objectHealth.currentHealth;
+                    float damageLeft = scratchTarget.objectHealth.currentHealth;
                     damageToInflict = damageLeft * 1.05f;
 
                     ApplyObjectDamage(damageToInflict);
@@ -884,7 +895,7 @@ public class MakeShiftCatController : MonoBehaviour
         }
         else
         {
-            if (objectHealth != null)
+            if (scratchTarget.objectHealth != null)
             {
                 float damageLeft = objectHealth.currentHealth;
                 float damageMax = objectHealth.adjustedMaxHealth;

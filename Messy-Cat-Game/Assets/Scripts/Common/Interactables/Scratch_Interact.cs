@@ -3,24 +3,92 @@ using UnityEngine;
 public class Scratch_Interact : Interactable
 {
     private bool triggeredInteract;
+    [SerializeField] private Animator messAnim;
+    [SerializeField] private LevelManager levelManager;
+    [SerializeField] private GameObject specialEffect;
+    public ObjectHealth objectHealth;               //cat controller will access this to do damage
     private MakeShiftCatController catController;
-    [SerializeField] private GameObject interactDisplay;
 
+    public bool triggerHurt;        //cat controller will call this for the mperiod to react
+    public bool isDead;
+
+    void Update()
+    {
+        if (levelManager == null)
+        {
+            if (GameObject.FindGameObjectWithTag("LevelManager") != null)
+            {
+                levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+            }
+        }
+
+        if(triggerHurt)
+        {
+            if (!isDead)
+            {
+                triggerHurt = false;
+
+                if (messAnim != null)
+                {
+                    messAnim.SetTrigger("isHurt");
+                }
+            }
+        }
+    }
 
     public void ResetTrigger()
     {
         triggeredInteract = false;
 
-        if(interactDisplay != null)
+        triggerHurt = false;
+
+        if (interactDisplay != null)
         {
             interactDisplay.SetActive(true);
         }
     }
 
+    public void ScratchEffect()
+    {
+        if (specialEffect != null)
+        {
+            Instantiate(specialEffect, transform.position, Quaternion.identity);
+        }
+    }
+
+    public void FinishedScratching()  // called by object health to finish the object
+    {
+        isDead = true;
+
+        if (interactDisplay != null)
+        {
+            interactDisplay.SetActive(false);
+        }
+
+        if (messAnim != null)
+        {
+            messAnim.SetBool("isDead", true);
+            messAnim.SetTrigger("triggerDead");
+        }
+
+        if (levelManager != null)
+        {
+            levelManager.MakeAMess();
+        }
+    }
+
     public override void Interact()
     {
-        base.Interact();
-        catController.TryToScratch();
+        if (!isDead)
+        {
+            base.Interact();
+            catController.TryToScratch();
+
+            if (messAnim != null)
+            {
+                messAnim.SetBool("hasMessed", true);
+            }
+        }
     }
 
     public override void OnTriggerEnter(Collider col)

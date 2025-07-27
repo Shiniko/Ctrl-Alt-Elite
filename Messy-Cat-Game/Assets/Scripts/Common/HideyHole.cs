@@ -11,14 +11,14 @@ public class HideyHole : MonoBehaviour
         if (!triggerHide)
         {
             triggerHide = true;
+
+            //place your effects here if any
+
         }
     }
 
     public void ExitHole()
     {
-        if(hint != null)
-        {
-            hint.ResetTrigger();
-        }
+        // Just in case you want exiting effect
     }
 }
