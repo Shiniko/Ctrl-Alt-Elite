@@ -40,6 +40,7 @@ public class DogContext : MonoBehaviour
     public Vector3 currentSuspiciousEvent;
     public DogVision dogVision { get; private set; }
     public Transform player { get; private set; }
+    private AudioDispatcher audioDispatcher;
 
     private Animator animator;
 
@@ -112,6 +113,14 @@ public class DogContext : MonoBehaviour
                 player = GameObject.FindGameObjectWithTag(playerHash).transform;
             }
         }
+
+        if (audioDispatcher == null)
+        {
+            if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+            {
+                audioDispatcher = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>();
+            }
+        }
     }
 
     /// <summary>
@@ -162,6 +171,11 @@ public class DogContext : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().DogSeesCat();
         }
+
+        if(audioDispatcher != null)
+        {
+            audioDispatcher.PlayClip("DogBarking");
+        }
     }
 
     /// <summary>
@@ -184,6 +198,11 @@ public class DogContext : MonoBehaviour
         animator.SetTrigger("Calm Down");
         animator.ResetTrigger("Bark");
         animator.SetBool("Chasing", false);
+
+        if (audioDispatcher != null)
+        {
+            audioDispatcher.PlayClip("DogCalming");
+        }
     }
 
     #region Getters

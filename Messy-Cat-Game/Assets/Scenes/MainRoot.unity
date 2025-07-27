@@ -28551,6 +28551,22 @@ MonoBehaviour:
     music: 0
     sfx: 1
     source: {fileID: 0}
+  - name: DogBarking
+    clip: {fileID: 8300000, guid: 7ffccc1ae05e4814aa774a6f492cb8a7, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
+  - name: DogCalming
+    clip: {fileID: 8300000, guid: 2d7b13b54ed915b4fa9a77def36da8b5, type: 3}
+    volume: 0.65
+    pitch: 1
+    loop: 0
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 55407561363406e45a7927ae61f6732c, type: 2}
   audioMixerMusic: {fileID: 4711423674153841127, guid: 55407561363406e45a7927ae61f6732c, type: 2}
   audioMixerSFX: {fileID: 4586498377649475417, guid: 55407561363406e45a7927ae61f6732c, type: 2}
@@ -37588,6 +37604,8 @@ MonoBehaviour:
   - StartGame
   - ButtonClickUI
   - ButtonHover
+  - DogBarking
+  - DogCalming
   clipCoolDowns:
   - 0.5
   - 0.5
@@ -37596,7 +37614,11 @@ MonoBehaviour:
   - 0.5
   - 0.2
   - 0.025
+  - 0.7
+  - 0.7
   clipCounters:
+  - 0
+  - 0
   - 0
   - 0
   - 0
