@@ -129,6 +129,8 @@ public class DogContext : MonoBehaviour
     /// <returns>Vector3</returns>
     public Vector3 GetNewRoamLocation()
     {
+        Debug.Log("Getting New Location");
+
         if(Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _minRoamDistance)) < _minimumTravelDistance && Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _maxRoamDistance)) < _minimumTravelDistance)
         {
             Debug.LogWarning("There is no place to move the dog according to the minimum travel distance!! Ignoring it for now...");
