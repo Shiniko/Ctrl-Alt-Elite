@@ -847,8 +847,13 @@ private bool triggeredJump;
 
     public void EndVictory()
     {
+        movement = new Vector3(0f, 0f, 0f).normalized;
+        moveX = 0f;
+
         if (anim != null)
         {
+            anim.SetBool("isMoving", false);
+            anim.SetFloat("moveX", Mathf.Abs(moveX));
             anim.SetBool("isVictorious", false);
         }
     }

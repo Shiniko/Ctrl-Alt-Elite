@@ -6,6 +6,7 @@ public class MainMenuCat : MonoBehaviour
 
     [SerializeField] private int idleNum;
     [SerializeField] private int idleNumMax;
+    [SerializeField] private int lastIdleNum;
 
     [SerializeField] private float currentIdleDuration;
     [SerializeField] private float currentIdleCounter;
@@ -61,12 +62,18 @@ public class MainMenuCat : MonoBehaviour
 
         int tempNum = Random.Range(1, idleNumMax + 1);
 
+        if (lastIdleNum == tempNum)
+        {
+            tempNum++;
+        }
+
         if (tempNum > idleNumMax)
         {
             tempNum = 1;
         }
 
         idleNum = tempNum;
+        lastIdleNum = idleNum;
 
         newState = "Idle-" + idleNum;
 
@@ -74,12 +81,12 @@ public class MainMenuCat : MonoBehaviour
         {
             //anim.Play(newState);
 
-            anim.SetInteger("IdleNum",idleNum);
+            anim.SetInteger("IdleNum", idleNum);
         }
 
-        if(idleNum < idleDurations.Length)
+        if (idleNum < idleDurations.Length)
         {
-            currentIdleDuration = idleDurations[idleNum-1];
+            currentIdleDuration = idleDurations[idleNum - 1];
         }
     }
 
