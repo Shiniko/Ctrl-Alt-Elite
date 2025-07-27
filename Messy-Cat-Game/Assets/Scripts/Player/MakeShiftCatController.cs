@@ -13,6 +13,7 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private bool canMove; // when player inputs can move player
     public bool isHidden;
     public bool triggerHide;
+    public bool isScratching;
     public bool doneScratching;
     public bool triggerScratch;
     public bool triggerExit;
@@ -119,7 +120,7 @@ public class MakeShiftCatController : MonoBehaviour
         {
             if (!isRespawning)
             {
-                if (!triggerHide)
+                if (!triggerHide && !triggerScratch)
                 {
                     //Debug.Log("setting canmove to true because, not triggerhide");
 
@@ -133,6 +134,11 @@ public class MakeShiftCatController : MonoBehaviour
                     if (isHidden)
                     {
                         //Debug.Log("setting canmove to true because, triggerhide and isHidden");
+                        canMove = true;
+                    }
+
+                    if (isScratching)
+                    {
                         canMove = true;
                     }
                 }
@@ -302,6 +308,12 @@ public class MakeShiftCatController : MonoBehaviour
                    // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
                     StopHiding();
                 }
+
+                if (triggerScratch || isScratching)
+                {
+                    // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
+                    StopScratching();
+                }
             }
             else
             {
@@ -335,6 +347,12 @@ public class MakeShiftCatController : MonoBehaviour
                 {
                     // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and pressed jump button");
                     StopHiding();
+                }
+
+                if (triggerScratch || isScratching)
+                {
+                    // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
+                    StopScratching();
                 }
 
                 jumpCount++;
@@ -873,6 +891,19 @@ public class MakeShiftCatController : MonoBehaviour
                 anim.SetBool("isScratching", true);
                 anim.Play("Start_Scratch");
             }
+        }
+    }
+
+    public void PreparedScratching()
+    {
+        if (!isScratching)
+        {
+            iScratching = true;
+
+            if(scratchTarget != null)
+            {
+                scratchTarget.ScratchEffect();
+            }
 
             if (scratchTarget.objectHealth != null)
             {
@@ -885,6 +916,28 @@ public class MakeShiftCatController : MonoBehaviour
                 ResetObjectTarget();
             }
         }
+    }
+
+    public void StopScratching()
+    {
+        isScratching = false;
+        triggerScratch = false;
+
+        if (anim != null)
+        {
+            anim.SetBool("isScratching", false);
+            anim.SetBool("isForward", false);
+        }
+
+        if (scratchTarget != null)
+        {
+            scratchTarget.ResetTrigger();
+        }
+
+        currentDamageProgress = 0;
+        target = null;
+        objectHealth = null;
+        damageToInflict = 0f;
     }
 
     public void ThirtyThreeScratch()
@@ -921,6 +974,8 @@ public class MakeShiftCatController : MonoBehaviour
 
             CheckScratchProgress();
         }
+
+        StopScratching();
     }
 
     private void CheckScratchProgress()
