@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Break_Interact : Interactable
 {
-    [SerializeField] private bool triggeredInteract;
+    [SerializeField] private bool breakOnInteract;
+    [SerializeField] private GameObject brokenParts;
+    [SerializeField] private GameObject intactParts;
+
+    private bool triggeredInteract;
     [SerializeField] private Animator messAnim;
-    [SerializeField] private LevelManager levelManager;
+private LevelManager levelManager;
     private MakeShiftCatController catController;
 
     void Update()
@@ -39,6 +43,19 @@ public class Break_Interact : Interactable
             if (GetComponent<MakeShiftCatController>() != null)
             {
                 GetComponent<MakeShiftCatController>().breakTarget = null;
+            }
+
+            if (breakOnInteract)
+            {
+                if (brokenParts != null)
+                {
+                    brokenParts.SetActive(true);
+                }
+
+                if (intactParts != null)
+                {
+                    intactParts.SetActive(false);
+                }
             }
         }
         else

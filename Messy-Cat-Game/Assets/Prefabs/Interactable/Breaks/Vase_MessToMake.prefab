@@ -6124,7 +6124,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8522822663091203152}
-  - component: {fileID: 7846785436432392990}
   m_Layer: 0
   m_Name: Vase_MessToMake
   m_TagString: Untagged
@@ -6150,22 +6149,6 @@ Transform:
   - {fileID: 3124514877308514937}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7846785436432392990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6839532624458986438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee28c90e2caada34b8f97b2446c3730a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adjustedMaxHealth: 0
-  currentHealth: 0
-  maxHealth: 100
-  bonusMaxHealth: 0
 --- !u!1 &7146877191345623696
 GameObject:
   m_ObjectHideFlags: 0
