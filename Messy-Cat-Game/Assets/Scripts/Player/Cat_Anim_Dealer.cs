@@ -44,6 +44,14 @@ public class Cat_Anim_Dealer : MonoBehaviour
         }
     }
 
+    public void DonePreppingScratch()
+    {
+        if (catController != null)
+        {
+            catController.PreparedScratching();
+        }
+    }
+
     public void DoneLanding()
     {
         if (catController != null)

@@ -36,6 +36,16 @@ public class Scratch_Interact : Interactable
                 }
             }
         }
+
+        if (isDead)
+        {
+            if (interactDisplay != null)
+            {
+                interactDisplay.SetActive(false);
+            }
+
+            triggeredInteract = true;
+        }
     }
 
     public void ResetTrigger()
@@ -94,7 +104,7 @@ public class Scratch_Interact : Interactable
             {
                 messAnim.SetBool("hasMessed", true);
             }
-        }
+        } 
     }
 
     public override void OnTriggerEnter(Collider col)
