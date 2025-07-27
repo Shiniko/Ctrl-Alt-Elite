@@ -26,6 +26,7 @@ public class DogContext : MonoBehaviour
     //Agro settings
     [SerializeField] private float seeCatTime = 2f;
     [SerializeField] private Image dogAgroMeter;
+    [SerializeField] private GameObject dogAgroMeterParent;
     [SerializeField] private float barkingRange = 2f;
     public bool isAngry;
 
@@ -97,8 +98,8 @@ public class DogContext : MonoBehaviour
 
         if (dogAgroMeter.gameObject.activeInHierarchy)
         {
-            Debug.LogWarning("<color=yellow>Dog Agro Meter</color> is active in hierarchy! This should be set to <color=yellow>inactive</color> by default and only activated when the dog is suspicious of the player", this);
-            dogAgroMeter.gameObject.SetActive(false);
+            Debug.LogWarning("<color=yellow>Dog Agro Meter Parent</color> is active in hierarchy! This should be set to <color=yellow>inactive</color> by default and only activated when the dog is suspicious of the player", this);
+            dogAgroMeterParent.gameObject.SetActive(false);
         }
     }
 
@@ -189,6 +190,11 @@ public class DogContext : MonoBehaviour
     public float GetBarkingRange()
     {
         return barkingRange;
+    }
+
+    public GameObject GetAgroMeterParent()
+    {
+        return dogAgroMeterParent;
     }
 
     public float GetWalkSpeed()

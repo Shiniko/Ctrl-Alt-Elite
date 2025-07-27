@@ -119,6 +119,10 @@ public class DogVision : Ticker
     {
         foreach (GameObject other in objectsInViewZone)
         {
+            if (other == null)
+            {
+                continue;
+            }
             //Shoot raycast
             float distance = Vector3.Distance(parentTransform.position, other.transform.position) + 0.1f;
             Vector3 direction = (other.transform.position - parentTransform.position).normalized;
@@ -129,6 +133,11 @@ public class DogVision : Ticker
                 // The raycast didn't hit anything within the specified range and layers
               //  Debug.Log("Raycast didn't hit anything on the designated layers towards " + other.name, this);
                 Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
+            }
+
+            if(hit.collider == null)
+            {
+                continue; //If the object doesnt have a collider, skip it
             }
 
             // Check if the first object hit by the ray is indeed our target object

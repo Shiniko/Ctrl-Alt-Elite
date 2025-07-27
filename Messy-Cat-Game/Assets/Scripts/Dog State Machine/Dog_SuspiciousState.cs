@@ -9,7 +9,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
     DogContext dogContext;
 
     private Image agroMeter;
-
+    private GameObject agroMeterParent;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -17,8 +17,8 @@ public class Dog_SuspiciousState : StateMachineBehaviour
         dogContext = animator.GetComponent<DogContext>();
 
         agroMeter = dogContext.GetAgroMeter();
-        agroMeter.GetComponentInParent<Transform>().gameObject.SetActive(true);
-        agroMeter.gameObject.SetActive(true);
+        agroMeterParent = dogContext.GetAgroMeterParent();
+        agroMeterParent.SetActive(true);
         agroMeter.fillAmount = 0;
     }
 
@@ -36,12 +36,10 @@ public class Dog_SuspiciousState : StateMachineBehaviour
         
         if(agroMeter.fillAmount <= 0)
         {
-            agroMeter.gameObject.SetActive(false);
             animator.SetBool("Suspicious", false);
         }
         else if (Mathf.Approximately(agroMeter.fillAmount, 1))
         {
-            agroMeter.gameObject.SetActive(false);
             animator.SetBool("Chasing", true);
         }
     }
@@ -49,6 +47,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        agroMeterParent.SetActive(false);
         animator.SetBool("Suspicious", false);
     }
 }
