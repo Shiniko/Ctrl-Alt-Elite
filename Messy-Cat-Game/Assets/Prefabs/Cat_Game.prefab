@@ -10944,7 +10944,7 @@ GameObject:
   - component: {fileID: 2872030979541781211}
   - component: {fileID: 1392029880376075265}
   - component: {fileID: 4416592487112112165}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cat_Game
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -11038,18 +11038,14 @@ MonoBehaviour:
   canMove: 0
   isHidden: 0
   triggerHide: 0
+  isScratching: 0
+  doneScratching: 0
+  triggerScratch: 0
   triggerExit: 0
   hideCoat: {fileID: 4206362451613033099}
   catCoat: {fileID: 8157664328317241554}
   isEngaged: 0
   isOverUI: 0
-  isDead: 0
-  isInCutscene: 0
-  movement: {x: 0, y: 0, z: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  moveX: 0
-  moveY: 0
-  velocityY: 0
   topmaxYvelocity: 0
   topminYvelocity: 0
   maxYvelocity: 6.5
@@ -11067,30 +11063,20 @@ MonoBehaviour:
   moveSpeed: 1
   runfactor: 6
   gravity: 14.8
-  triggeredFall: 0
   velToTriggerFall: -5.5
   velToTriggerHardLand: -13.5
-  triggeredLand: 0
   smoothInputSpeed: 0.25
   target: {fileID: 0}
   objectHealth: {fileID: 0}
+  currentDamageProgress: 0
+  damageToInflict: 0
   groundDistance: 0.2
-  checkingGround: 0
   isGrounded: 0
   wallDistance: 0.075
-  checkingWall: 0
-  isNearWall: 0
-  inputsFrozen: 0
-  facingRight: 1
   isRespawning: 1
-  respawnCounter: 0
   respawnCD: 0.5
   triggeredDeath: 0
   evaporateDelay: 0.5
-  airBorn: 0
-  canJump: 0
-  isJumping: 0
-  triggeredJump: 0
   jumpForce: 8
   jumpCount: 0
   jumpMax: 2
@@ -11841,9 +11827,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5928875791951111052}
   - component: {fileID: 2859809499153461292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HeadTrigger
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

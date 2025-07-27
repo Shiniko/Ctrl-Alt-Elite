@@ -43,7 +43,6 @@ public class Human_Controller : MonoBehaviour
         CheckForAngryDogs();
     }
 
-
     void Update()
     {
         if (player == null)
@@ -167,26 +166,30 @@ public class Human_Controller : MonoBehaviour
 
     private void CheckForAngryDogs()
     {
+        angryDogCount = 0;
+
         for (int i = 0; i < allDogs.Length; i++)
         {
             if (allDogs[i] != null)
             {
                 //make shift code for checking if dog is angry and which ones
 
-                int tempAngryDogs = 0;
                 if (allDogs[i].GetComponent<DogContext>() != null)
                 {
                     if (allDogs[i].GetComponent<DogContext>().isAngry)
                     {
+                        //Debug.Log("Setting an angry dog");
                         allAngryDogs[i] = allDogs[i];
-                        tempAngryDogs++;
+
+                        //Debug.Log("increasing angry dog count");
+                        angryDogCount++;
+
+                        //Debug.Log("Angry dog count should be " + angryDogCount);
                     }
                     else
                     {
                         allAngryDogs[i] = null;
-                    }
-
-                    angryDogCount = tempAngryDogs;
+                    }                
                 }
                 else
                 {
