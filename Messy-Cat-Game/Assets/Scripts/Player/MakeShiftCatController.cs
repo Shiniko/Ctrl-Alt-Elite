@@ -22,15 +22,15 @@ public class MakeShiftCatController : MonoBehaviour
 
     public bool isEngaged;
     public bool isOverUI;
-    [SerializeField] private bool isDead;
-    [SerializeField] private bool isInCutscene;
+private bool isDead;
+private bool isInCutscene;
 
     [Header("Movement Details")]
-    [SerializeField] private Vector3 movement = Vector3.zero;
-    [SerializeField] private Vector3 velocity = Vector3.zero;
-    [SerializeField] private float moveX;
-    [SerializeField] private float moveY;
-    [SerializeField] private float velocityY;
+private Vector3 movement = Vector3.zero;
+private Vector3 velocity = Vector3.zero;
+private float moveX;
+private float moveY;
+private float velocityY;
     [SerializeField] private float topmaxYvelocity;
     [SerializeField] private float topminYvelocity;
     [SerializeField] private float maxYvelocity;
@@ -51,10 +51,10 @@ public class MakeShiftCatController : MonoBehaviour
     [SerializeField] private float runfactor;
     [SerializeField] private float gravity;
 
-    [SerializeField] private bool triggeredFall;
+private bool triggeredFall;
     [SerializeField] private float velToTriggerFall;
     [SerializeField] private float velToTriggerHardLand;
-    [SerializeField] private bool triggeredLand;
+private bool triggeredLand;
 
     [Header("Smoothing Params")]
     [SerializeField] private float smoothInputSpeed;  //smoothing rate
@@ -64,36 +64,36 @@ public class MakeShiftCatController : MonoBehaviour
     [Header("Target Params")]
     public GameObject target;                               //game object to pass in as victim to cat scratching
     [SerializeField] private ObjectHealth objectHealth;     //reference to health script of object
-    private int currentDamageProgress;                      //generalized progress in increments of 33, 66, and 100, given by animation events of the scratching
-    private float damageToInflict;                          //calculated damage to pass on to health script of object
+    [SerializeField] private int currentDamageProgress;                      //generalized progress in increments of 33, 66, and 100, given by animation events of the scratching
+    [SerializeField] private float damageToInflict;                          //calculated damage to pass on to health script of object
 
     [Header("GroundChecks")]
     [SerializeField] private float groundDistance; // Distance to check for ground
-    [SerializeField] private bool checkingGround; // when actively checking if grounded
+private bool checkingGround; // when actively checking if grounded
     [SerializeField] private bool isGrounded; // Flag to indicate if object is grounded
 
     [Header("WallChecks")]
     [SerializeField] private float wallDistance; // Distance to check for ground
-    [SerializeField] private bool checkingWall; // when actively checking if grounded
-    [SerializeField] private bool isNearWall;
+private bool checkingWall; // when actively checking if grounded
+private bool isNearWall;
 
     [Header("Input Params")]
-    [SerializeField] private bool inputsFrozen;
-    [SerializeField] private bool facingRight = true;
+private bool inputsFrozen;
+private bool facingRight = true;
 
     [Header("Respawn Params")]
     public bool isRespawning = true;
-    [SerializeField] private float respawnCounter;
+private float respawnCounter;
     [SerializeField] private float respawnCD;
 
     public bool triggeredDeath;
     [SerializeField] private float evaporateDelay;
 
     [Header("Jump Params")]
-    [SerializeField] private bool airBorn;
-    [SerializeField] private bool canJump;
-    [SerializeField] private bool isJumping;
-    [SerializeField] private bool triggeredJump;
+private bool airBorn;
+private bool canJump;
+private bool isJumping;
+private bool triggeredJump;
     [SerializeField] private float jumpForce;
     [SerializeField] private int jumpCount;
     public int jumpMax;
@@ -898,7 +898,7 @@ public class MakeShiftCatController : MonoBehaviour
     {
         if (!isScratching)
         {
-            iScratching = true;
+            isScratching = true;
 
             if(scratchTarget != null)
             {
@@ -914,6 +914,11 @@ public class MakeShiftCatController : MonoBehaviour
             else
             {
                 ResetObjectTarget();
+            }
+
+            if (scratchTarget != null)
+            {
+                scratchTarget.ScratchEffect();
             }
         }
     }
@@ -942,6 +947,8 @@ public class MakeShiftCatController : MonoBehaviour
 
     public void ThirtyThreeScratch()
     {
+        Debug.Log("Adding 33 and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+
         // add 33 progress to target
 
         if (target != null)
@@ -950,11 +957,18 @@ public class MakeShiftCatController : MonoBehaviour
 
             CheckScratchProgress();
         }
+
+        if(scratchTarget != null)
+        {
+            scratchTarget.ScratchEffect();
+        }
     }
 
     public void SixtySixScratch()
     {
         // add another 33 progress to target
+        Debug.Log("Adding 33 MORE and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+
 
         if (target != null)
         {
@@ -962,11 +976,18 @@ public class MakeShiftCatController : MonoBehaviour
 
             CheckScratchProgress();
         }
+
+        if (scratchTarget != null)
+        {
+            scratchTarget.ScratchEffect();
+        }
     }
 
     public void FullScratch()
     {
         // add 100 progress to target
+
+        Debug.Log("Adding FullScratch and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
 
         if (target != null)
         {
@@ -990,6 +1011,8 @@ public class MakeShiftCatController : MonoBehaviour
                     damageToInflict = damageLeft * 1.05f;
 
                     ApplyObjectDamage(damageToInflict);
+
+                    scratchTarget.isDead = true;
                 }
 
                 ResetObjectTarget();
@@ -1007,18 +1030,20 @@ public class MakeShiftCatController : MonoBehaviour
                 float damageMax = objectHealth.adjustedMaxHealth;
                 float damageCompare = damageMax * 0.333f;
 
+                Debug.Log("Damage Compare = " + damageCompare);
+
                 if (damageCompare > damageLeft)
                 {
                     damageToInflict = damageLeft * 1.05f;
                 }
                 else
                 {
-                    damageToInflict = damageMax;
+                    damageToInflict = damageCompare;
                 }
 
                 ApplyObjectDamage(damageToInflict);
 
-                if (damageToInflict >= damageCompare)
+                if (damageToInflict >= damageLeft)
                 {
                     ResetObjectTarget();
                 }
@@ -1035,6 +1060,8 @@ public class MakeShiftCatController : MonoBehaviour
         if (objectHealth != null)
         {
             objectHealth.ApplyDamage(damage);
+
+            Debug.Log("Dealt " + damage + " damage to " + target);
         }
     }
 
@@ -1050,6 +1077,8 @@ public class MakeShiftCatController : MonoBehaviour
     {
         if (ot == null)
         {
+            Debug.Log("ObjectHealth null when not expected not be");
+
             return;
         }
 
