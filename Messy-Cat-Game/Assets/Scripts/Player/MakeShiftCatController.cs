@@ -928,11 +928,11 @@ private bool triggeredJump;
 
                 if (!facingRight)
                 {
-                    scratchX += 0.5f;
+                    scratchX += 1f;
                 }
                 else
                 {
-                    scratchX -= 0.5f;
+                    scratchX -= 1f;
                 }
 
                 Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
@@ -1000,6 +1000,7 @@ private bool triggeredJump;
         if (scratchTarget != null)
         {
             scratchTarget.ResetTrigger();
+            scratchTarget = null;
         }
 
         currentDamageProgress = 0;
