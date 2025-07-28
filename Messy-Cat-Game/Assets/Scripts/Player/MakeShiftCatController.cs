@@ -898,17 +898,47 @@ private bool triggeredJump;
             rb.linearVelocity = Vector3.zero;
         }
 
-        if (!facingRight)
-        {
-            FlipFace();
-        }
-
         if (scratchTarget != null)
         {
-            float scratchX = scratchTarget.transform.position.x;
-            Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
+            if (!facingRight)
+            {
+                if (transform.position.x < scratchTarget.transform.position.x)
+                {
+                    FlipFace();
+                }
+            }
+            else
+            {
+                if (transform.position.x > scratchTarget.transform.position.x)
+                {
+                    FlipFace();
+                }
+            }
 
-            transform.position = newPosition;
+            if (!scratchTarget.isForward)
+            {
+                float scratchX = scratchTarget.transform.position.x;
+                Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
+
+                transform.position = newPosition;
+            }
+            else
+            {
+                float scratchX = scratchTarget.transform.position.x;
+
+                if (!facingRight)
+                {
+                    scratchX += 0.5f;
+                }
+                else
+                {
+                    scratchX -= 0.5f;
+                }
+
+                Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
+
+                transform.position = newPosition;
+            }
 
             if (anim != null)
             {
