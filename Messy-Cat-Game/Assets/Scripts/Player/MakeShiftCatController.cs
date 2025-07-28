@@ -344,6 +344,11 @@ private bool triggeredJump;
                     rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * 0.25f, 0);
 
                     rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+
+                    if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+                    {
+                        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Jump");
+                    }
                 }
 
                 if (triggerHide || isHidden)
@@ -426,6 +431,14 @@ private bool triggeredJump;
         }
     }
 
+    public void LandedHard()
+    {
+        if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+        {
+            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Hard_Land");
+        }
+    }
+
     private void CheckInteracts()
     {
         if (exitTarget != null)
@@ -440,6 +453,17 @@ private bool triggeredJump;
             return;
         }
 
+        if (scratchTarget != null)
+        {
+            TryToScratch();
+            return;
+        }
+
+        if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+        {
+            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Push");
+        }
+
         if (spillTarget != null)
         {
             TryToSpill();
@@ -451,14 +475,6 @@ private bool triggeredJump;
             TryToBreak();
             return;
         }
-
-        if (scratchTarget != null)
-        {
-            TryToScratch();
-            return;
-        }
-
-
     }
 
     public void TryToExit()
@@ -815,7 +831,14 @@ private bool triggeredJump;
         {
             hideTarget.ResetTrigger();
             hideTarget.hideyHole.EnterHole();
-        }      
+        }
+
+        if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+        {
+            Debug.Log("Trying to stop purr");
+            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Stop("Cat_Purring");
+            Debug.Log("Stop purr sent");
+        }
     }
 
     public void FinishedHiding()
@@ -837,6 +860,11 @@ private bool triggeredJump;
             if(hideTarget.hideyHole != null)
             {
                 hideTarget.hideyHole.EnterHole();
+            }
+
+            if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+            {
+                GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Play("Cat_Purring");
             }
         }
     }

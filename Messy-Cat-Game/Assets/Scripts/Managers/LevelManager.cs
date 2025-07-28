@@ -307,6 +307,11 @@ public class LevelManager : MonoBehaviour
         {
             triggerFail = true;
 
+            if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+            {
+                GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Fail");
+            }
+
             LevelFail();
         }
     }

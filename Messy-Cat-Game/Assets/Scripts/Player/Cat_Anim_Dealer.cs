@@ -60,6 +60,14 @@ public class Cat_Anim_Dealer : MonoBehaviour
         }
     }
 
+    public void LandedHard()
+    {
+        if (catController != null)
+        {
+            catController.LandedHard();
+        }
+    }
+
     public void JumpAscended()
     {
         if (catController != null)

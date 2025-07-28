@@ -3687,7 +3687,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1808411923
@@ -28567,6 +28567,46 @@ MonoBehaviour:
     music: 0
     sfx: 1
     source: {fileID: 0}
+  - name: Cat_Hard_Land
+    clip: {fileID: 8300000, guid: b87347756be5e6d499780a9257926fd4, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
+  - name: Cat_Purring
+    clip: {fileID: 8300000, guid: bc7647ff3d2d03e4ab51ce422d950a09, type: 3}
+    volume: 0.35
+    pitch: 1
+    loop: 1
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
+  - name: Cat_Push
+    clip: {fileID: 8300000, guid: f0270becd6e78574fbe20264dec85f13, type: 3}
+    volume: 1
+    pitch: 0.8
+    loop: 0
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
+  - name: Cat_Jump
+    clip: {fileID: 8300000, guid: e2872ed9b3ea8c94893358aaea806e0f, type: 3}
+    volume: 0.8
+    pitch: 1.2
+    loop: 0
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
+  - name: Cat_Fail
+    clip: {fileID: 8300000, guid: a18b7891c33c76845b706a4dde19b7ae, type: 3}
+    volume: 0.7
+    pitch: 1
+    loop: 0
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 55407561363406e45a7927ae61f6732c, type: 2}
   audioMixerMusic: {fileID: 4711423674153841127, guid: 55407561363406e45a7927ae61f6732c, type: 2}
   audioMixerSFX: {fileID: 4586498377649475417, guid: 55407561363406e45a7927ae61f6732c, type: 2}
@@ -37606,6 +37646,10 @@ MonoBehaviour:
   - ButtonHover
   - DogBarking
   - DogCalming
+  - Cat_Hard_Land
+  - Cat_Push
+  - Cat_Jump
+  - Cat_Fail
   clipCoolDowns:
   - 0.5
   - 0.5
@@ -37614,9 +37658,17 @@ MonoBehaviour:
   - 0.5
   - 0.2
   - 0.025
+  - 0.4
   - 0.7
+  - 0.5
+  - 0.2
+  - 0.2
   - 0.7
   clipCounters:
+  - 0
+  - 0
+  - 0
+  - 0
   - 0
   - 0
   - 0
