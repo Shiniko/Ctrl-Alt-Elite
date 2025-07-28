@@ -62,6 +62,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8917766757103595100}
   - component: {fileID: 1841957577566225965}
+  - component: {fileID: 2399475724552681456}
   m_Layer: 0
   m_Name: PillowParent
   m_TagString: Untagged
@@ -109,6 +110,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2399475724552681456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031399203384179639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b2a89631b8f0e488c017bd570f9d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interact: {fileID: 5902513052459303782}
 --- !u!1 &3975507229732949748
 GameObject:
   m_ObjectHideFlags: 0

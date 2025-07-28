@@ -45,6 +45,7 @@ private float velocityY;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform ankleCheck;
+    [SerializeField] private Transform headCheck;
 
     [Header("Movement Params")]
     [SerializeField] private float moveSpeed;
@@ -69,8 +70,10 @@ private bool triggeredLand;
 
     [Header("GroundChecks")]
     [SerializeField] private float groundDistance; // Distance to check for ground
-private bool checkingGround; // when actively checking if grounded
+    [SerializeField] private float headDistance; // Distance to check for ground
+    private bool checkingGround; // when actively checking if grounded
     [SerializeField] private bool isGrounded; // Flag to indicate if object is grounded
+    [SerializeField] private bool isCeiled; // Flag to indicate if players dangerous close to something above so no jumping to get stuck
 
     [Header("WallChecks")]
     [SerializeField] private float wallDistance; // Distance to check for ground
@@ -609,6 +612,31 @@ private bool triggeredJump;
             }
         }
 
+        if (headCheck != null)
+        {
+            if (Physics.CheckSphere(headCheck.position, headDistance, groundMask))
+            {
+                isCeiled = true;
+                canJump = false;
+
+                Debug.DrawRay(headCheck.position, Vector3.up * headDistance, Color.red);
+            }
+            else
+            {
+                isCeiled = false;
+
+                if (!isJumping)
+                {
+                    if (jumpCount < jumpMax)
+                    {
+                        canJump = true;
+                    }
+                }
+
+                Debug.DrawRay(headCheck.position, Vector3.up * headDistance, Color.green);
+            }
+        }
+
         if (isGrounded && !isJumping)
         {
             canJump = true;
@@ -653,7 +681,7 @@ private bool triggeredJump;
 
     void ApplyGravity()
     {
-        if (!isGrounded)
+        if (!isGrounded && !triggerHide && !isHidden)
         {
             rb.linearVelocity += new Vector3(0, -(gravity * Time.deltaTime), 0);
 
@@ -870,17 +898,47 @@ private bool triggeredJump;
             rb.linearVelocity = Vector3.zero;
         }
 
-        if (!facingRight)
-        {
-            FlipFace();
-        }
-
         if (scratchTarget != null)
         {
-            float scratchX = scratchTarget.transform.position.x;
-            Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
+            if (!facingRight)
+            {
+                if (transform.position.x < scratchTarget.transform.position.x)
+                {
+                    FlipFace();
+                }
+            }
+            else
+            {
+                if (transform.position.x > scratchTarget.transform.position.x)
+                {
+                    FlipFace();
+                }
+            }
 
-            transform.position = newPosition;
+            if (!scratchTarget.isForward)
+            {
+                float scratchX = scratchTarget.transform.position.x;
+                Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
+
+                transform.position = newPosition;
+            }
+            else
+            {
+                float scratchX = scratchTarget.transform.position.x;
+
+                if (!facingRight)
+                {
+                    scratchX += 1f;
+                }
+                else
+                {
+                    scratchX -= 1f;
+                }
+
+                Vector3 newPosition = new Vector3(scratchX, transform.position.y, transform.position.z);
+
+                transform.position = newPosition;
+            }
 
             if (anim != null)
             {
@@ -942,6 +1000,7 @@ private bool triggeredJump;
         if (scratchTarget != null)
         {
             scratchTarget.ResetTrigger();
+            scratchTarget = null;
         }
 
         currentDamageProgress = 0;
