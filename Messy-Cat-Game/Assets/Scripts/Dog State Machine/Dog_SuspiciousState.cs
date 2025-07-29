@@ -31,7 +31,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
         }
         else
         {
-             agroMeter.fillAmount -= Time.fixedDeltaTime;
+             agroMeter.fillAmount -= Time.fixedDeltaTime / dogContext.GetSeeCatTime();
         }
         
         if(agroMeter.fillAmount <= 0)
