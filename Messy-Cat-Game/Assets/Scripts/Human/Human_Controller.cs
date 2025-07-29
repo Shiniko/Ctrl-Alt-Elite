@@ -20,6 +20,7 @@ public class Human_Controller : MonoBehaviour
 
     private Vector3 startLocation;
     private bool isRetreating;
+    private bool waitForRetreat;
     private bool isMoving;
     private bool isPetting;
 
@@ -29,6 +30,9 @@ public class Human_Controller : MonoBehaviour
 
     [SerializeField] private float petDelay;
     [SerializeField] private float petCounter;
+
+    [SerializeField] private float retreatDelay;
+    [SerializeField] private float retreatCounter;
 
     void Awake()
     {
@@ -125,6 +129,27 @@ public class Human_Controller : MonoBehaviour
                 }
 
                 CheckForAngryDogs();
+            }
+        }
+
+        if (isRetreating)
+        {
+            if (waitForRetreat)
+            {
+                if (retreatCounter < retreatDelay)
+                {
+                    retreatCounter += Time.deltaTime;
+                }
+                else
+                {
+                    waitForRetreat = false;
+                    isMoving = true;
+
+                    if (anim != null)
+                    {
+                        anim.SetBool("isRetreating", true);
+                    }
+                }
             }
         }
     }
@@ -239,30 +264,33 @@ public class Human_Controller : MonoBehaviour
         else
         {
             currentTargetLocation = nextAngryDog.transform.position;
-            MoveToNextLocation(currentTargetLocation);
+            //MoveToNextLocation(currentTargetLocation);
 
             isMoving = true;
 
             if (anim != null)
             {
                 anim.SetBool("seenDog", true);
+                anim.SetBool("isMoving", true);
             }
         }
     }
 
     private void RetreatToHumanSpace()
     {
-        isMoving = true;
+        //isMoving = true;          //setting to true after retreat wait
         checkingForCat = false;
         isRetreating = true;
+        waitForRetreat = true;
 
         if (anim != null)
         {
+            anim.SetBool("seenDog", false);
             anim.SetBool("dogReached", false);
         }
 
         currentTargetLocation = startLocation;
-        MoveToNextLocation(startLocation);
+        //MoveToNextLocation(startLocation);
 
         if (windowPointer != null)
         {
@@ -275,11 +303,18 @@ public class Human_Controller : MonoBehaviour
     {
         //move human to target location
 
+        transform.LookAt(targetLocation);
+
         if (Vector3.Distance(transform.position, targetLocation) < minDistance)
         {
             //transform.position = targetLocation; // Snap to the exact target if needed
 
             isMoving = false;
+
+            if (anim != null)
+            {
+                anim.SetBool("isMoving", false);
+            }
 
             if (isRetreating)
             {
@@ -297,8 +332,6 @@ public class Human_Controller : MonoBehaviour
         }
         else
         {
-            transform.LookAt(targetLocation);
-
             transform.position = Vector3.MoveTowards(transform.position, targetLocation, humanSpeed * Time.deltaTime);
         }
     }
