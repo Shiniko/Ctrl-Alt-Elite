@@ -833,7 +833,7 @@ private bool triggeredJump;
         if(hideTarget != null)
         {
             hideTarget.ResetTrigger();
-            hideTarget.hideyHole.EnterHole();
+            hideTarget.hideyHole.ExitHole();
         }
 
         if (GameObject.FindGameObjectWithTag("AudioManager") != null)
@@ -841,6 +841,14 @@ private bool triggeredJump;
             //Debug.Log("Trying to stop purr");
             GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Stop("Cat_Purring");
             //Debug.Log("Stop purr sent");
+        }
+    }
+
+    public void HideLanding()
+    {
+        if (hideTarget.hideyHole != null)
+        {
+            hideTarget.hideyHole.EnterHole();
         }
     }
 
@@ -859,11 +867,6 @@ private bool triggeredJump;
             }
 
             isHidden = true;
-
-            if(hideTarget.hideyHole != null)
-            {
-                hideTarget.hideyHole.EnterHole();
-            }
 
             if (GameObject.FindGameObjectWithTag("AudioManager") != null)
             {

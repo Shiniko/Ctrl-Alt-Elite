@@ -29,7 +29,7 @@ public class HideyHole : MonoBehaviour
         triggerHide = false;
         // Just in case you want exiting effect
 
-        if(exitEffect  != null )
+        if(exitEffect != null )
         {
             Instantiate(exitEffect, transform.position, Quaternion.identity);
         }
