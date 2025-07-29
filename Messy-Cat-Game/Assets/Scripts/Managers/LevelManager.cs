@@ -265,6 +265,11 @@ public class LevelManager : MonoBehaviour
             {
                 progressionManager.AddStarForSpecialItem();        //adds the star in progression manager, Visual UI
             }
+
+            if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+            {
+                GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Collect_Nip");
+            }
         }
     }
 
