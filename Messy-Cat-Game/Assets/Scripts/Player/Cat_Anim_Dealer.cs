@@ -14,9 +14,18 @@ public class Cat_Anim_Dealer : MonoBehaviour
 
     public void ThirtyThreeScratch()
     {
+        Debug.Log("calling 33 percent from anim handler");
+
         if (catController != null)
         {
+            Debug.Log("cat controller wasnt null so calling 33 from anim dealer to cat controller");
             catController.ThirtyThreeScratch();
+
+            Debug.Log("AFTER calling 33 from anim dealer to cat controller");
+        }
+        else
+        {
+            Debug.Log("cat controller in null");
         }
     }
 

@@ -315,7 +315,10 @@ private bool triggeredJump;
                 if (triggerScratch || isScratching)
                 {
                     // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
+
+                    //Debug.Log("moved while scratching");
                     StopScratching();
+                    //Debug.Log("After moved while and scratching and calling the StopScratching");
                 }
             }
             else
@@ -996,26 +999,28 @@ private bool triggeredJump;
                 scratchTarget.ScratchEffect();
             }
 
+            Debug.Log("after calling scratch effect but before checking scratchTarget object health");
+
             if (scratchTarget.objectHealth != null)
             {
                 objectHealth = scratchTarget.objectHealth;
 
                 SetObjectTarget(objectHealth);
+                Debug.Log("after SETTING object target object health");
             }
             else
             {
-                ResetObjectTarget();
-            }
+                Debug.Log("calling reset because object health was null");
 
-            if (scratchTarget != null)
-            {
-                scratchTarget.ScratchEffect();
+                ResetObjectTarget();
             }
         }
     }
 
     public void StopScratching()
     {
+        //Debug.Log("started StopScratching");
+
         isScratching = false;
         triggerScratch = false;
 
@@ -1028,18 +1033,29 @@ private bool triggeredJump;
         if (scratchTarget != null)
         {
             scratchTarget.ResetTrigger();
+
+            Debug.Log("Setting scratchTarget to null");
             scratchTarget = null;
         }
 
         currentDamageProgress = 0;
+        Debug.Log("setting target to null");
         target = null;
+        Debug.Log("setting objecthealth to null");
         objectHealth = null;
         damageToInflict = 0f;
     }
 
     public void ThirtyThreeScratch()
     {
-        Debug.Log("Adding 33 and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+        if (scratchTarget != null)
+        {
+            //Debug.Log("Adding 33 and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+        }
+        else
+        {
+            Debug.Log("thirty three still called even after no scratch target");
+        }
 
         // add 33 progress to target
 
@@ -1050,7 +1066,7 @@ private bool triggeredJump;
             CheckScratchProgress();
         }
 
-        if(scratchTarget != null)
+        if (scratchTarget != null)
         {
             scratchTarget.ScratchEffect();
         }
@@ -1059,7 +1075,14 @@ private bool triggeredJump;
     public void SixtySixScratch()
     {
         // add another 33 progress to target
-        Debug.Log("Adding 33 MORE and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+        if (scratchTarget != null)
+        {
+            //Debug.Log("Adding ANOTHER 33 and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+        }
+        else
+        {
+            Debug.Log("sixty six still called even after no scratch target");
+        }
 
 
         if (target != null)
@@ -1079,7 +1102,14 @@ private bool triggeredJump;
     {
         // add 100 progress to target
 
-        Debug.Log("Adding FullScratch and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+        if (scratchTarget != null)
+        {
+            //Debug.Log("Adding FullScratch and progress is now " + currentDamageProgress + " and has " + scratchTarget.objectHealth.currentHealth);
+        }
+        else
+        {
+            Debug.Log("thirty three still called even after no scratch target");
+        }
 
         if (target != null)
         {
@@ -1106,12 +1136,20 @@ private bool triggeredJump;
 
                     scratchTarget.isDead = true;
                 }
+                else
+                {
+                    Debug.Log("scratch Target object health is null so didnt apply damage, note didnt check if scratch target is null here");
+                }
 
                 ResetObjectTarget();
             }
             else
             {
+                Debug.Log("target is null so calling reset object target");
+
                 ResetObjectTarget();
+
+                Debug.Log("after calling the resetObject target");
             }
         }
         else
