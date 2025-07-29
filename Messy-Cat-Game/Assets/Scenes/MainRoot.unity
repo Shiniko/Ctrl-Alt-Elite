@@ -28607,6 +28607,14 @@ MonoBehaviour:
     music: 0
     sfx: 1
     source: {fileID: 0}
+  - name: Collect_Nip
+    clip: {fileID: 8300000, guid: 0d5bd6dbfbcfcc843951eabb46b2478b, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    music: 0
+    sfx: 1
+    source: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 55407561363406e45a7927ae61f6732c, type: 2}
   audioMixerMusic: {fileID: 4711423674153841127, guid: 55407561363406e45a7927ae61f6732c, type: 2}
   audioMixerSFX: {fileID: 4586498377649475417, guid: 55407561363406e45a7927ae61f6732c, type: 2}
@@ -37650,6 +37658,7 @@ MonoBehaviour:
   - Cat_Push
   - Cat_Jump
   - Cat_Fail
+  - Collect_Nip
   clipCoolDowns:
   - 0.5
   - 0.5
@@ -37664,7 +37673,9 @@ MonoBehaviour:
   - 0.2
   - 0.2
   - 0.7
+  - 0.3
   clipCounters:
+  - 0
   - 0
   - 0
   - 0
