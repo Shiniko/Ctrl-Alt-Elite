@@ -41,7 +41,7 @@ public class Interactable : MonoBehaviour
             return;
         }
         interactedWith = true;
-        Debug.Log("Interacted with!",this);
+        //Debug.Log("Interacted with!",this);
         if (interactDisplay == null)
         {
             return;
@@ -75,7 +75,7 @@ public class Interactable : MonoBehaviour
             return;
         }
         interactDisplay.SetActive(true);
-        Debug.Log("Activating interactDisplay : " + interactDisplay.name,this);
+        //Debug.Log("Activating interactDisplay : " + interactDisplay.name,this);
     }
 
     /// <summary>
@@ -128,6 +128,6 @@ public class Interactable : MonoBehaviour
             return;
         }
         interactDisplay.SetActive(false);
-        Debug.Log("Deactivating interactDisplay : " + interactDisplay.name, this);
+       // Debug.Log("Deactivating interactDisplay : " + interactDisplay.name, this);
     }
 }

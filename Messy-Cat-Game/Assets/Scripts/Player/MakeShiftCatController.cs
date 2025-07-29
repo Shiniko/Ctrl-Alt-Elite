@@ -838,9 +838,9 @@ private bool triggeredJump;
 
         if (GameObject.FindGameObjectWithTag("AudioManager") != null)
         {
-            Debug.Log("Trying to stop purr");
+            //Debug.Log("Trying to stop purr");
             GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Stop("Cat_Purring");
-            Debug.Log("Stop purr sent");
+            //Debug.Log("Stop purr sent");
         }
     }
 
@@ -919,7 +919,7 @@ private bool triggeredJump;
 
     public void StartScratching()
     {
-        Debug.Log("started scaratching");
+        //Debug.Log("started scaratching");
 
         movement = new Vector3(0f, 0f, 0f).normalized;
         moveX = 0f;
@@ -999,18 +999,18 @@ private bool triggeredJump;
                 scratchTarget.ScratchEffect();
             }
 
-            Debug.Log("after calling scratch effect but before checking scratchTarget object health");
+            //Debug.Log("after calling scratch effect but before checking scratchTarget object health");
 
             if (scratchTarget.objectHealth != null)
             {
                 objectHealth = scratchTarget.objectHealth;
 
                 SetObjectTarget(objectHealth);
-                Debug.Log("after SETTING object target object health");
+                //Debug.Log("after SETTING object target object health");
             }
             else
             {
-                Debug.Log("calling reset because object health was null");
+               // Debug.Log("calling reset because object health was null");
 
                 ResetObjectTarget();
             }
@@ -1034,14 +1034,14 @@ private bool triggeredJump;
         {
             scratchTarget.ResetTrigger();
 
-            Debug.Log("Setting scratchTarget to null");
+           // Debug.Log("Setting scratchTarget to null");
             scratchTarget = null;
         }
 
         currentDamageProgress = 0;
-        Debug.Log("setting target to null");
+       // Debug.Log("setting target to null");
         target = null;
-        Debug.Log("setting objecthealth to null");
+       // Debug.Log("setting objecthealth to null");
         objectHealth = null;
         damageToInflict = 0f;
     }
@@ -1054,7 +1054,7 @@ private bool triggeredJump;
         }
         else
         {
-            Debug.Log("thirty three still called even after no scratch target");
+            //Debug.Log("thirty three still called even after no scratch target, likely as transition into break idle from moving");
         }
 
         // add 33 progress to target
@@ -1081,7 +1081,7 @@ private bool triggeredJump;
         }
         else
         {
-            Debug.Log("sixty six still called even after no scratch target");
+            //Debug.Log("sixty six still called even after no scratch target, likely as transition into break idle from moving");
         }
 
 
@@ -1108,7 +1108,7 @@ private bool triggeredJump;
         }
         else
         {
-            Debug.Log("thirty three still called even after no scratch target");
+            //Debug.Log("thirty three still called even after no scratch target, likely as transition into break idle from moving");
         }
 
         if (target != null)
@@ -1145,11 +1145,8 @@ private bool triggeredJump;
             }
             else
             {
-                Debug.Log("target is null so calling reset object target");
 
                 ResetObjectTarget();
-
-                Debug.Log("after calling the resetObject target");
             }
         }
         else
@@ -1160,7 +1157,7 @@ private bool triggeredJump;
                 float damageMax = objectHealth.adjustedMaxHealth;
                 float damageCompare = damageMax * 0.333f;
 
-                Debug.Log("Damage Compare = " + damageCompare);
+                //Debug.Log("Damage Compare = " + damageCompare);
 
                 if (damageCompare > damageLeft)
                 {
@@ -1191,7 +1188,7 @@ private bool triggeredJump;
         {
             objectHealth.ApplyDamage(damage);
 
-            Debug.Log("Dealt " + damage + " damage to " + target);
+           // Debug.Log("Dealt " + damage + " damage to " + target);
         }
     }
 
@@ -1232,7 +1229,6 @@ private bool triggeredJump;
             int ratioToInt = Mathf.CeilToInt((1f - healthRatio) * 100f);
             currentDamageProgress = ratioToInt;
         }
-
     }
 
     public void ApplyDeath()
