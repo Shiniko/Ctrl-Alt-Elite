@@ -28440,8 +28440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: MainTheme
-    clip: {fileID: 8300000, guid: b681522ec72eccc4b9efab43f123b3f1, type: 3}
-    volume: 0.35
+    clip: {fileID: 8300000, guid: 0e790f1e97ef32c4d8ff33349e365d5c, type: 3}
+    volume: 0.5
     pitch: 1
     loop: 1
     music: 1
@@ -40271,6 +40271,7 @@ MonoBehaviour:
   musicLayer2: {fileID: 7977403589605080159}
   musicLayer3: {fileID: 7977403589605080158}
   fadeDuration: 0.3
+  levelMusicVolume: 0.8
   levelManager: {fileID: 7977403589605080156}
 --- !u!82 &7977403589605080158
 AudioSource:

@@ -13,6 +13,7 @@ public class LevelMusicController : MonoBehaviour
 
     [Header("Music Settings")]
     public float fadeDuration = 0.3f;   // sets time for layers to fade in
+    [SerializeField] private float levelMusicVolume = 0.7f; //set volume vs other music tracks separate from the mixer
 
     [Header("References")]
     public LevelManager levelManager;
@@ -39,7 +40,7 @@ public class LevelMusicController : MonoBehaviour
         musicLayer3.Stop();
 
         // Set volumes to starting state
-        musicLayer1.volume = 1f;
+        musicLayer1.volume = levelMusicVolume;
         musicLayer2.volume = 0.0001f;
         musicLayer3.volume = 0.0001f;
 
@@ -80,9 +81,9 @@ public class LevelMusicController : MonoBehaviour
         if (levelManager.totalMessNeeded <= 3)
         {
             // 1-3 messes: fade in layer 2 when second mess is made
-            FadeTo(musicLayer1, 1f, forceImmediate);
+            FadeTo(musicLayer1, levelMusicVolume, forceImmediate);
             bool secondMessReached = levelManager.currentMesses >= 1;
-            FadeTo(musicLayer2, secondMessReached ? 1f : 0.0001f, forceImmediate);
+            FadeTo(musicLayer2, secondMessReached ? levelMusicVolume : 0.0001f, forceImmediate);
             FadeTo(musicLayer3, 0.01f, forceImmediate);
         }
         else
@@ -95,19 +96,19 @@ public class LevelMusicController : MonoBehaviour
                 switch (currentIntensity)
                 {
                     case 0:
-                        FadeTo(musicLayer1, 1f, forceImmediate);
+                        FadeTo(musicLayer1, levelMusicVolume, forceImmediate);
                         FadeTo(musicLayer2, 0.0001f, forceImmediate);
                         FadeTo(musicLayer3, 0.0001f, forceImmediate);
                         break;
                     case 1:
-                        FadeTo(musicLayer1, 1f, forceImmediate);
-                        FadeTo(musicLayer2, 1f, forceImmediate);
+                        FadeTo(musicLayer1, levelMusicVolume, forceImmediate);
+                        FadeTo(musicLayer2, levelMusicVolume, forceImmediate);
                         FadeTo(musicLayer3, 0.0001f, forceImmediate);
                         break;
                     case 2:
-                        FadeTo(musicLayer1, 1f, forceImmediate);
-                        FadeTo(musicLayer2, 1f, forceImmediate);
-                        FadeTo(musicLayer3, 1f, forceImmediate);
+                        FadeTo(musicLayer1, levelMusicVolume, forceImmediate);
+                        FadeTo(musicLayer2, levelMusicVolume, forceImmediate);
+                        FadeTo(musicLayer3, levelMusicVolume, forceImmediate);
                         break;
                 }
 
