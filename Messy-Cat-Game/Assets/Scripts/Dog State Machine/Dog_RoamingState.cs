@@ -13,7 +13,7 @@ public class Dog_RoamingState : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _dogContext = animator.GetComponent<DogContext>();
+        _dogContext = animator.GetComponent<DogContext>(); 
         _transform = animator.transform;
         _rigidbody = _dogContext.rb;
         this._animator = animator;
@@ -29,6 +29,10 @@ public class Dog_RoamingState : StateMachineBehaviour
 
     public void UpdateMovement()
     {
+        if(_rigidbody == null)
+        {
+            return; //If the rigidbody is null, do not continue
+        }
         if (_goToSet == false)
         {
             _goToSet = true;

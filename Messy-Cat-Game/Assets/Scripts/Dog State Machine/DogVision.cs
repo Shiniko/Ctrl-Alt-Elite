@@ -17,7 +17,6 @@ public class DogVision : Ticker
     [Tooltip("The length of time the debug line appears for, set to 0 for the line to update in real time")]
     [SerializeField] private float lineTime;
 
-    private Transform parentTransform;
     private Animator animator;
     private DogContext dogContext;
     private Transform player;
@@ -42,10 +41,8 @@ public class DogVision : Ticker
 
     private void Awake()
     {
-        parentTransform = GetComponentInParent<Transform>();
         animator = GetComponentInParent<Animator>();
         dogContext = GetComponentInParent<DogContext>();
-
         SetUpCheck();
     }
 
@@ -81,10 +78,10 @@ public class DogVision : Ticker
         base.Update();
         suspicious = animator.GetBool(_suspiciousBool);
         chasing = animator.GetBool(_chasingBool);
-
+        
         if (player != null)
         {
-            if (CanSee(dogContext.player.gameObject))
+            if (CanSee(player.gameObject))
             {
                 if (!suspicious && !chasing)
                 {
@@ -95,9 +92,9 @@ public class DogVision : Ticker
         }
         else
         {
-            if (GameObject.FindAnyObjectByType<MakeShiftCatController>() != null)
+            if (FindAnyObjectByType<MakeShiftCatController>() != null)
             {
-                player = GameObject.FindAnyObjectByType<MakeShiftCatController>().transform;
+                player = FindAnyObjectByType<MakeShiftCatController>().transform;
             }
         }
     }
@@ -124,8 +121,8 @@ public class DogVision : Ticker
                 continue;
             }
             //Shoot raycast
-            float distance = Vector3.Distance(parentTransform.position, other.transform.position) + 0.1f;
-            Vector3 direction = (other.transform.position - parentTransform.position).normalized;
+            float distance = Vector3.Distance(transform.position, other.transform.position) + 0.1f;
+            Vector3 direction = (other.transform.position - transform.position).normalized;
             Vector3 origin = new(transform.position.x,transform.position.y + 0.1f,transform.position.z);
 
             if(!Physics.Raycast(origin, direction, out hit, distance, layerMask))
@@ -193,6 +190,14 @@ public class DogVision : Ticker
         {
             Debug.LogWarning("This object (and all other children and parents) needs to be on the dog layer! Automatically setting it for this object...", this);
             gameObject.layer = dogLayer;
+        }
+        if (dogContext == null)
+        {
+            Debug.LogWarning("This <color=yellow>object's parent doesnt</color> have a<color=green> DogContext</color> script attached to it which this <color=yellow>script relies on</color>.",this);
+        }
+        if(animator == null)
+        {
+            Debug.LogWarning("This <color=yellow>object's parent doesnt</color> have an <color=green>Animator</color> component attached to it which this <color=yellow>script relies on</color>.", this);
         }
     }
 }
