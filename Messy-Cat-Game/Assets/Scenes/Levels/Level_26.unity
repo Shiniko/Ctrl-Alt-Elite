@@ -1342,13 +1342,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1436403719463658242, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
+      propertyPath: _maxRoamDistance
+      value: -18.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436403719463658242, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
+      propertyPath: _minRoamDistance
+      value: -7.52
+      objectReference: {fileID: 0}
     - target: {fileID: 3196417565951313216, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
       propertyPath: layerMask.m_Bits
       value: 1793
       objectReference: {fileID: 0}
     - target: {fileID: 3993364391929090455, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: -10.09
       objectReference: {fileID: 0}
     - target: {fileID: 3993364391929090455, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3410,6 +3418,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1329934422}
     m_Modifications:
+    - target: {fileID: 1436403719463658242, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
+      propertyPath: _maxRoamDistance
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436403719463658242, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
+      propertyPath: _minRoamDistance
+      value: 12.64
+      objectReference: {fileID: 0}
     - target: {fileID: 3993364391929090455, guid: 7897c8cf062f70e4e9424d0429d8235b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
