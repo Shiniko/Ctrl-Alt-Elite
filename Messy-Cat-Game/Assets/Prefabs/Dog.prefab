@@ -1552,11 +1552,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80abd0f4fc53bfd41956b739c5274a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startIdleTime: 2
   walkSpeed: 2
   runSpeed: 6
   canterSpeed: 4
-  _maxRoamDistance: 14.91
-  _minRoamDistance: -11.29
+  _maxRoamDistance: -2
+  _minRoamDistance: 1.11
   _minimumTravelDistance: 3
   stallTime: 2
   startRoaming: 1
