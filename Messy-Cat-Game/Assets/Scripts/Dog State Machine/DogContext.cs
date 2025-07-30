@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 //Required for movement
 [RequireComponent(typeof(Rigidbody))]
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 
 public class DogContext : MonoBehaviour
 {
+    [SerializeField] private float startIdleTime = 2f;
     //Movement settings
     [SerializeField] private float walkSpeed = 2f;
     [SerializeField] private float runSpeed = 6f;
@@ -43,7 +45,7 @@ public class DogContext : MonoBehaviour
     private AudioDispatcher audioDispatcher;
 
     private Animator animator;
-
+    private bool stayIdle;
     // Animator hash variables
     public static readonly int stallingHash = Animator.StringToHash("Stalling");
     public static readonly int distractedHash = Animator.StringToHash("Distracted");
@@ -87,21 +89,16 @@ public class DogContext : MonoBehaviour
             dogAgroMeter.type = Image.Type.Filled;
             dogAgroMeter.fillAmount = 0f;
         }
+        if (dogAgroMeter.gameObject.activeInHierarchy)
+        {
+            Debug.LogWarning("<color=yellow>Dog Agro Meter Parent</color> is active in hierarchy! This should be set to <color=yellow>inactive</color> by default and only activated when the dog is suspicious of the player", this);
+            dogAgroMeterParent.SetActive(false);
+        }
     }
 
     void Start()
     {
-        if (startRoaming)
-        {
-            //Start roaming
-            animator.SetBool(roamingHash, true);
-        }
-
-        if (dogAgroMeter.gameObject.activeInHierarchy)
-        {
-            Debug.LogWarning("<color=yellow>Dog Agro Meter Parent</color> is active in hierarchy! This should be set to <color=yellow>inactive</color> by default and only activated when the dog is suspicious of the player", this);
-            dogAgroMeterParent.gameObject.SetActive(false);
-        }
+        StartCoroutine(StayIdle());
     }
 
     void Update()
@@ -177,6 +174,19 @@ public class DogContext : MonoBehaviour
         if(audioDispatcher != null)
         {
             audioDispatcher.PlayClip("DogBarking");
+        }
+    }
+
+    IEnumerator StayIdle()
+    {
+        animator.CrossFade("Idle",0);
+        dogVision.enabled = false;
+        yield return new WaitForSeconds(startIdleTime);
+        dogVision.enabled = true;
+        if (startRoaming)
+        {
+            //Start roaming
+            animator.SetBool(roamingHash, true);
         }
     }
 

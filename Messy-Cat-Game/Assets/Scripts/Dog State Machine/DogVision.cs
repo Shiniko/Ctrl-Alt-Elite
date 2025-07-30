@@ -95,9 +95,9 @@ public class DogVision : Ticker
         }
         else
         {
-            if (GameObject.FindGameObjectWithTag("Player") != null)
+            if (GameObject.FindAnyObjectByType<MakeShiftCatController>() != null)
             {
-                player = GameObject.FindGameObjectWithTag("Player").transform;
+                player = GameObject.FindAnyObjectByType<MakeShiftCatController>().transform;
             }
         }
     }
@@ -108,7 +108,7 @@ public class DogVision : Ticker
     /// <param name="other">The game object to check if its visible</param>
     /// <returns></returns>
     public bool CanSee(GameObject other)
-    {   
+    {
         return viewableObjects.Contains(other);
     }
 
@@ -146,6 +146,10 @@ public class DogVision : Ticker
                 // An object (likely a wall) is obstructing the view
                // Debug.Log("Object is not visible, instead we hit " + hit.collider.gameObject.name, hit.collider.gameObject);
                 Debug.DrawLine(origin, other.transform.position, Color.red, lineTime, true);
+                if (viewableObjects.Contains(other))
+                {
+                    viewableObjects.Remove(other);
+                }
             }
 
             if (viewableObjects.Contains(other))
@@ -155,10 +159,15 @@ public class DogVision : Ticker
 
             if (other.GetComponent<MakeShiftCatController>() != null)
             {
-                if (!other.GetComponent<MakeShiftCatController>().isHidden)
+                if (other.GetComponent<MakeShiftCatController>().isHidden)
                 {
-                    viewableObjects.Add(other);
+                    if (viewableObjects.Contains(other))
+                    {
+                        viewableObjects.Remove(other);
+                    }
+                    continue;
                 }
+                viewableObjects.Add(other);
             }
             else
             {
