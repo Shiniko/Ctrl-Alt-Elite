@@ -18,7 +18,10 @@ public class Hide_Interact : Interactable
     public override void Interact()
     {
         base.Interact();
-        catController.TryToHide();
+        if(catController != null)
+        {
+            catController.TryToHide();
+        }
     }
 
     public override void OnTriggerEnter(Collider col)

@@ -379,8 +379,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7871144440691891192}
-  - {fileID: 7637568422499383445}
   - {fileID: 174485588995051551}
+  - {fileID: 7637568422499383445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6851888564434019353
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hint: {fileID: 7306519524656963503}
   enterEffect: {fileID: 6826649079585143772, guid: 6fa981998eee610418aeafd8b2eeccba, type: 3}
-  exitEffect: {fileID: 0}
+  exitEffect: {fileID: 6826649079585143772, guid: 6fa981998eee610418aeafd8b2eeccba, type: 3}
 --- !u!1 &8320537989641427761
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7637568422499383445
 RectTransform:
   m_ObjectHideFlags: 0
