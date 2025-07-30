@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactDisplay: {fileID: 1498300294113939273}
   playerInRange: 0
-  triggeredInteract: 0
+  oneUse: 1
   messAnim: {fileID: 7113144309040808487}
   levelManager: {fileID: 0}
 --- !u!65 &5868504379354779201
@@ -69,8 +69,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3664494, y: 1.117605, z: 6.1881566}
-  m_Center: {x: 0.018050313, y: -0.058802843, z: -2.9561617}
+  m_Size: {x: 1.5484562, y: 2.2986832, z: 6.1881566}
+  m_Center: {x: 0.0039634705, y: 0.3647468, z: -2.9561617}
 --- !u!1 &1114575909580543015
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee28c90e2caada34b8f97b2446c3730a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isScratchable: 0
   adjustedMaxHealth: 0
   currentHealth: 0
   maxHealth: 100
