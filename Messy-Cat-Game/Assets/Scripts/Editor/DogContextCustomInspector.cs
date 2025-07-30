@@ -75,7 +75,7 @@ public class DogContextCustomInspector : Editor
             SerializedProperty dogAgroMeterProp = serializedObject.FindProperty("dogAgroMeter");
             SerializedProperty barkingRangeProp = serializedObject.FindProperty("barkingRange");
             SerializedProperty dogAgroMeterParentProp = serializedObject.FindProperty("dogAgroMeterParent");
-            EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "Controls the length of the agro meter which intern controls how long it takes to transition to the chasing state."));
+            EditorGUILayout.PropertyField(seeCatTimeProp, new GUIContent("See Cat Time", "This value is used to divide time.deltaTime to make the agro meter fill up slower."));
             EditorGUILayout.PropertyField(dogAgroMeterProp);
             EditorGUILayout.PropertyField(dogAgroMeterParentProp, new GUIContent("Dog Agro Meter Parent", "The parent object of the dog agro meter. This is used to toggle the visibility of the agro meter."));
             EditorGUILayout.PropertyField(barkingRangeProp, new GUIContent("Barking Range", "The distance at which the dog will bark at the cat. This is used to alert the person."));
