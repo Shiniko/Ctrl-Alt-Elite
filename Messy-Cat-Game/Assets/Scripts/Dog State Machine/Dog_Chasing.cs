@@ -22,16 +22,20 @@ public class Dog_Chasing : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        _newPosition = Vector3.MoveTowards(_dogContext.transform.position, new(_playerTransform.position.x, _playerTransform.position.y, _playerTransform.position.y - 1f), _dogContext.GetCanterSpeed() * Time.fixedDeltaTime);
-        _rigidbody.MovePosition(_newPosition);
-
-        _newLookAt = new Vector3(_playerTransform.position.x, _dogContext.transform.position.y, _playerTransform.position.z);
-        _rigidbody.transform.LookAt(_newLookAt);
-
-        if (Vector3.Distance(_dogContext.transform.position, _playerTransform.position) <= _dogContext.GetBarkingRange())
+        if (_playerTransform != null)
         {
-            //If the dog is close enough to the player, bark
-            animator.SetTrigger(DogContext.barkingHash);
+            _newPosition = Vector3.MoveTowards(_dogContext.transform.position, new(_playerTransform.position.x, _playerTransform.position.y, _playerTransform.position.y - 1f), _dogContext.GetCanterSpeed() * Time.fixedDeltaTime);
+            _rigidbody.MovePosition(_newPosition);
+
+            _newLookAt = new Vector3(_playerTransform.position.x, _dogContext.transform.position.y, _playerTransform.position.z);
+            _rigidbody.transform.LookAt(_newLookAt);
+
+
+            if (Vector3.Distance(_dogContext.transform.position, _playerTransform.position) <= _dogContext.GetBarkingRange())
+            {
+                //If the dog is close enough to the player, bark
+                animator.SetTrigger(DogContext.barkingHash);
+            }
         }
     }
 
