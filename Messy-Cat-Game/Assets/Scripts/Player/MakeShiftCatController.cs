@@ -43,6 +43,7 @@ private float velocityY;
     [SerializeField] private GameObject deadBody;
     [SerializeField] private GameObject model;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask bounceMask;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform ankleCheck;
     [SerializeField] private Transform headCheck;
@@ -73,6 +74,7 @@ private bool triggeredLand;
     [SerializeField] private float headDistance; // Distance to check for ground
     private bool checkingGround; // when actively checking if grounded
     [SerializeField] private bool isGrounded; // Flag to indicate if object is grounded
+    [SerializeField] private bool isBouncing; // Flag to indicate if object is bouncing
     [SerializeField] private bool isCeiled; // Flag to indicate if players dangerous close to something above so no jumping to get stuck
 
     [Header("WallChecks")]
@@ -611,6 +613,7 @@ private bool triggeredJump;
     {
         if (groundCheck != null)
         {
+            //Checking if grounded
             if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
             {
                 isGrounded = true;
@@ -628,6 +631,22 @@ private bool triggeredJump;
                 isJumping = false;
 
                 Debug.DrawRay(groundCheck.position, Vector3.down * groundDistance, Color.red);
+            }
+
+            //Checking if Bouncing
+            if (Physics.CheckSphere(groundCheck.position, groundDistance, bounceMask))
+            {
+                isBouncing = true;
+
+                Vector3 debugOffset = new Vector3(groundCheck.position.x +0.1f, groundCheck.position.y, groundCheck.position.z);
+                Debug.DrawRay(debugOffset, Vector3.down * groundDistance, Color.blue);
+            }
+            else
+            {
+                isBouncing = false;
+
+                Vector3 debugOffset = new Vector3(groundCheck.position.x + 0.1f, groundCheck.position.y, groundCheck.position.z);
+                Debug.DrawRay(debugOffset, Vector3.down * groundDistance, Color.red);
             }
         }
 
@@ -654,6 +673,12 @@ private bool triggeredJump;
 
                 Debug.DrawRay(headCheck.position, Vector3.up * headDistance, Color.green);
             }
+        }
+
+        if(isBouncing && !isJumping)
+        {
+            canJump = true;
+            jumpCount = 0;
         }
 
         if (isGrounded && !isJumping)

@@ -347,6 +347,9 @@ public class LevelManager : MonoBehaviour
         messMade = false;
         exitRevealed = false;
 
+        hasMessStar = false;
+        hasHiddenStar = false;
+
         DeactivateNewRecordText();
 
         if (progressionManager != null)
@@ -493,8 +496,6 @@ public class LevelManager : MonoBehaviour
         {
             if (hasMessStar || hasAvoidStar || hasHiddenStar)
             {
-
-
                 if (hasMessStar)
                 {
                     gameManager.SaveNewStar(currentLevel, 1);

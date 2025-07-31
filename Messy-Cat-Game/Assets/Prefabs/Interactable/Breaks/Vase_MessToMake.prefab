@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 4068611817259125544}
   - component: {fileID: 4320421703262228108}
   - component: {fileID: 7683655181186160628}
-  - component: {fileID: 106768761568082620}
-  - component: {fileID: 9146391116918882738}
   m_Layer: 0
   m_Name: Fracture Object 36
   m_TagString: Untagged
@@ -120,7 +118,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7755864649122634}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -139,34 +137,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &106768761568082620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7755864649122634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9146391116918882738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7755864649122634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.028685575
 --- !u!1 &139521574185241895
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,8 +150,6 @@ GameObject:
   - component: {fileID: 4971324869032879441}
   - component: {fileID: 3703098730324903309}
   - component: {fileID: 3172540266493580098}
-  - component: {fileID: 3495574370924859968}
-  - component: {fileID: 5553104152354200451}
   m_Layer: 0
   m_Name: Fracture Object 9
   m_TagString: Untagged
@@ -287,7 +255,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139521574185241895}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -306,34 +274,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3495574370924859968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139521574185241895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5553104152354200451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139521574185241895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.0000984672
 --- !u!1 &163348323341329321
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,8 +360,6 @@ GameObject:
   - component: {fileID: 8320521491276966430}
   - component: {fileID: 2596122902481640994}
   - component: {fileID: 3746138491558595593}
-  - component: {fileID: 5364918880517466880}
-  - component: {fileID: 3381739233528203348}
   m_Layer: 0
   m_Name: Fracture Object 32
   m_TagString: Untagged
@@ -527,7 +465,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328044539288022810}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -546,34 +484,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5364918880517466880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328044539288022810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3381739233528203348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328044539288022810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.025710018
 --- !u!1 &439167529740811385
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,8 +497,6 @@ GameObject:
   - component: {fileID: 2135363505451704985}
   - component: {fileID: 2037637435791072928}
   - component: {fileID: 6500938838593745141}
-  - component: {fileID: 7008687356628521596}
-  - component: {fileID: 7813070303853119429}
   m_Layer: 0
   m_Name: Fracture Object 34
   m_TagString: Untagged
@@ -694,7 +602,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439167529740811385}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -713,34 +621,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7008687356628521596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439167529740811385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7813070303853119429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439167529740811385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.14136167
 --- !u!1 &647069941439604301
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,8 +784,6 @@ GameObject:
   - component: {fileID: 6924744480956143826}
   - component: {fileID: 3633985283996582161}
   - component: {fileID: 9102724111666579111}
-  - component: {fileID: 5374682984751416534}
-  - component: {fileID: 4779817243360391176}
   m_Layer: 0
   m_Name: Fracture Object 28
   m_TagString: Untagged
@@ -1011,7 +889,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803031182697936195}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1030,34 +908,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5374682984751416534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803031182697936195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4779817243360391176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803031182697936195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.13944484
 --- !u!1 &932052290768709637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,8 +921,6 @@ GameObject:
   - component: {fileID: 2112040715114970047}
   - component: {fileID: 2288457982910601198}
   - component: {fileID: 2613744758024031128}
-  - component: {fileID: 3839641213312320729}
-  - component: {fileID: 8309521221709392849}
   m_Layer: 0
   m_Name: Fracture Object 23
   m_TagString: Untagged
@@ -1178,7 +1026,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932052290768709637}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1197,34 +1045,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3839641213312320729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932052290768709637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8309521221709392849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932052290768709637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.022786163
 --- !u!1 &1312202631838720694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,8 +1058,6 @@ GameObject:
   - component: {fileID: 3694606882554269515}
   - component: {fileID: 566975430810900972}
   - component: {fileID: 135276659561385129}
-  - component: {fileID: 2496578178915052879}
-  - component: {fileID: 3566320584453066753}
   m_Layer: 0
   m_Name: Fracture Object 12
   m_TagString: Untagged
@@ -1345,7 +1163,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312202631838720694}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1364,34 +1182,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2496578178915052879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312202631838720694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3566320584453066753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312202631838720694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.052092113
 --- !u!1 &1562773265218972011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,8 +1227,6 @@ GameObject:
   - component: {fileID: 1871849945375682028}
   - component: {fileID: 5625137436614449524}
   - component: {fileID: 3085039368983966240}
-  - component: {fileID: 5824518183900226516}
-  - component: {fileID: 8298912612953375380}
   m_Layer: 0
   m_Name: Fracture Object 4
   m_TagString: Untagged
@@ -1544,7 +1332,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780711981546091996}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1563,34 +1351,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5824518183900226516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780711981546091996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8298912612953375380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780711981546091996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.042251658
 --- !u!1 &1807635465250353689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,8 +1364,6 @@ GameObject:
   - component: {fileID: 4410605976901569720}
   - component: {fileID: 5647309824342793177}
   - component: {fileID: 2431200599810255677}
-  - component: {fileID: 6185773531780689375}
-  - component: {fileID: 5598537741410930575}
   m_Layer: 0
   m_Name: Fracture Object 15
   m_TagString: Untagged
@@ -1711,7 +1469,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807635465250353689}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1730,34 +1488,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6185773531780689375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807635465250353689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5598537741410930575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807635465250353689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.01648854
 --- !u!1 &2123646827012232925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,8 +1501,6 @@ GameObject:
   - component: {fileID: 7217029950540431601}
   - component: {fileID: 5138386625538302787}
   - component: {fileID: 1830131402381133675}
-  - component: {fileID: 4401196305197545164}
-  - component: {fileID: 4666689157605447314}
   m_Layer: 0
   m_Name: Fracture Object 24
   m_TagString: Untagged
@@ -1878,7 +1606,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123646827012232925}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1897,34 +1625,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4401196305197545164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123646827012232925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4666689157605447314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2123646827012232925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.114886366
 --- !u!1 &2167517886304228301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,8 +1638,6 @@ GameObject:
   - component: {fileID: 3501843646822245627}
   - component: {fileID: 7066294904249994021}
   - component: {fileID: 6165681858306826144}
-  - component: {fileID: 2613196359843267422}
-  - component: {fileID: 5102970496065161386}
   m_Layer: 0
   m_Name: Fracture Object 7
   m_TagString: Untagged
@@ -2045,7 +1743,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2167517886304228301}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2064,34 +1762,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2613196359843267422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2167517886304228301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5102970496065161386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2167517886304228301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.19004333
 --- !u!1 &2259749055079614069
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,8 +2069,6 @@ GameObject:
   - component: {fileID: 2903264374896760840}
   - component: {fileID: 1391127766201517092}
   - component: {fileID: 3349406377702901483}
-  - component: {fileID: 5085959394224030627}
-  - component: {fileID: 5761637366737587853}
   m_Layer: 0
   m_Name: Fracture Object 3
   m_TagString: Untagged
@@ -2506,7 +2174,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2567296581777234147}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2525,34 +2193,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5085959394224030627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2567296581777234147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5761637366737587853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2567296581777234147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.11414214
 --- !u!1 &2636131142892009184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2566,8 +2206,6 @@ GameObject:
   - component: {fileID: 5846752508122092423}
   - component: {fileID: 4771867663743337233}
   - component: {fileID: 4300603335729800773}
-  - component: {fileID: 2949885450565657434}
-  - component: {fileID: 358626012569569487}
   m_Layer: 0
   m_Name: Fracture Object 6
   m_TagString: Untagged
@@ -2673,7 +2311,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2636131142892009184}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2692,34 +2330,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2949885450565657434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2636131142892009184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &358626012569569487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2636131142892009184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.00000014546609
 --- !u!1 &2724813582102746823
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,8 +2343,6 @@ GameObject:
   - component: {fileID: 5160777136611332878}
   - component: {fileID: 3008254634120288774}
   - component: {fileID: 7887152276638852184}
-  - component: {fileID: 1783729285931053135}
-  - component: {fileID: 1472212357033775369}
   m_Layer: 0
   m_Name: Fracture Object 1
   m_TagString: Untagged
@@ -2840,7 +2448,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2724813582102746823}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2859,34 +2467,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1783729285931053135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2724813582102746823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1472212357033775369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2724813582102746823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.068060875
 --- !u!1 &3206333886902487660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,8 +2480,6 @@ GameObject:
   - component: {fileID: 9184420718975456867}
   - component: {fileID: 775849285352397667}
   - component: {fileID: 5695923141120519881}
-  - component: {fileID: 7933432320640461860}
-  - component: {fileID: 7623882661828574107}
   m_Layer: 0
   m_Name: Fracture Object 22
   m_TagString: Untagged
@@ -3007,7 +2585,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3206333886902487660}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3026,34 +2604,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7933432320640461860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3206333886902487660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7623882661828574107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3206333886902487660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.0033661919
 --- !u!1 &3246803314176418156
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,8 +2617,6 @@ GameObject:
   - component: {fileID: 818163140887889709}
   - component: {fileID: 8309508037766300073}
   - component: {fileID: 6892139969401836817}
-  - component: {fileID: 2583468016294262284}
-  - component: {fileID: 474710966310040875}
   m_Layer: 0
   m_Name: Fracture Object 16
   m_TagString: Untagged
@@ -3174,7 +2722,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3246803314176418156}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3193,34 +2741,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2583468016294262284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3246803314176418156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &474710966310040875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3246803314176418156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.00006073504
 --- !u!1 &3520001805551567697
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,8 +2754,6 @@ GameObject:
   - component: {fileID: 1780149972449204100}
   - component: {fileID: 7552416989603230260}
   - component: {fileID: 1075497304763813977}
-  - component: {fileID: 4863275580417278200}
-  - component: {fileID: 3354785447174126120}
   m_Layer: 0
   m_Name: Fracture Object 25
   m_TagString: Untagged
@@ -3341,7 +2859,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3520001805551567697}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3360,34 +2878,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4863275580417278200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3520001805551567697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3354785447174126120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3520001805551567697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.0018775283
 --- !u!1 &3591015357605901917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3401,8 +2891,6 @@ GameObject:
   - component: {fileID: 5690229347688343047}
   - component: {fileID: 4731605164963543800}
   - component: {fileID: 246357685034897560}
-  - component: {fileID: 1237822769463293129}
-  - component: {fileID: 2202241331269057701}
   m_Layer: 0
   m_Name: Fracture Object 26
   m_TagString: Untagged
@@ -3508,7 +2996,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3591015357605901917}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3527,34 +3015,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1237822769463293129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3591015357605901917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2202241331269057701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3591015357605901917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.15476829
 --- !u!1 &3667915867495388129
 GameObject:
   m_ObjectHideFlags: 0
@@ -3568,8 +3028,6 @@ GameObject:
   - component: {fileID: 3021318685009362088}
   - component: {fileID: 6254940440748934537}
   - component: {fileID: 8131488751629074702}
-  - component: {fileID: 2447558941160417399}
-  - component: {fileID: 8141024115171513858}
   m_Layer: 0
   m_Name: Fracture Object 39
   m_TagString: Untagged
@@ -3675,7 +3133,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3667915867495388129}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3694,34 +3152,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2447558941160417399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3667915867495388129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8141024115171513858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3667915867495388129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.006958689
 --- !u!1 &4431643471612764402
 GameObject:
   m_ObjectHideFlags: 0
@@ -3791,8 +3221,6 @@ GameObject:
   - component: {fileID: 4002882376750943016}
   - component: {fileID: 2977187996595052713}
   - component: {fileID: 4135314984736346032}
-  - component: {fileID: 6508766232743018626}
-  - component: {fileID: 1811572645957313868}
   m_Layer: 0
   m_Name: Fracture Object 27
   m_TagString: Untagged
@@ -3898,7 +3326,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4560913424181123242}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -3917,34 +3345,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6508766232743018626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4560913424181123242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1811572645957313868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4560913424181123242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.27374902
 --- !u!1 &4775052385751175624
 GameObject:
   m_ObjectHideFlags: 0
@@ -3958,8 +3358,6 @@ GameObject:
   - component: {fileID: 95239574467212726}
   - component: {fileID: 7276306577044185747}
   - component: {fileID: 3673183170671895331}
-  - component: {fileID: 3740165854673796988}
-  - component: {fileID: 5524181362356461005}
   m_Layer: 0
   m_Name: Fracture Object 21
   m_TagString: Untagged
@@ -4065,7 +3463,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4775052385751175624}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4084,34 +3482,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3740165854673796988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4775052385751175624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5524181362356461005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4775052385751175624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.00023753667
 --- !u!1 &4950877484793797621
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,8 +3495,6 @@ GameObject:
   - component: {fileID: 6782429110248105353}
   - component: {fileID: 6029941784035737364}
   - component: {fileID: 8903953913281172368}
-  - component: {fileID: 8589458928742056608}
-  - component: {fileID: 1614406424348573111}
   m_Layer: 0
   m_Name: Fracture Object 17
   m_TagString: Untagged
@@ -4232,7 +3600,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4950877484793797621}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4251,34 +3619,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8589458928742056608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4950877484793797621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1614406424348573111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4950877484793797621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.009524183
 --- !u!1 &4981038629290387174
 GameObject:
   m_ObjectHideFlags: 0
@@ -4292,8 +3632,6 @@ GameObject:
   - component: {fileID: 1530972509711941612}
   - component: {fileID: 7022769728604534199}
   - component: {fileID: 3005782110655724364}
-  - component: {fileID: 3393307337137988797}
-  - component: {fileID: 1685135802798338752}
   m_Layer: 0
   m_Name: Fracture Object 19
   m_TagString: Untagged
@@ -4399,7 +3737,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4981038629290387174}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4418,34 +3756,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3393307337137988797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4981038629290387174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1685135802798338752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4981038629290387174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.00010178764
 --- !u!1 &5072223845202503091
 GameObject:
   m_ObjectHideFlags: 0
@@ -4459,8 +3769,6 @@ GameObject:
   - component: {fileID: 2720228720922889887}
   - component: {fileID: 7885249665056896289}
   - component: {fileID: 2808835150183785015}
-  - component: {fileID: 1335669051511273167}
-  - component: {fileID: 7622556080436258212}
   m_Layer: 0
   m_Name: Fracture Object 40
   m_TagString: Untagged
@@ -4566,7 +3874,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5072223845202503091}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4585,34 +3893,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1335669051511273167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072223845202503091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7622556080436258212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5072223845202503091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.000056890865
 --- !u!1 &5240963242034778094
 GameObject:
   m_ObjectHideFlags: 0
@@ -4626,8 +3906,6 @@ GameObject:
   - component: {fileID: 191527083196169220}
   - component: {fileID: 8054081595799601668}
   - component: {fileID: 6639294645431162495}
-  - component: {fileID: 1565811515858587896}
-  - component: {fileID: 3740222464446438400}
   m_Layer: 0
   m_Name: Fracture Object 13
   m_TagString: Untagged
@@ -4733,7 +4011,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5240963242034778094}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4752,34 +4030,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1565811515858587896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240963242034778094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3740222464446438400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5240963242034778094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.0009891859
 --- !u!1 &5418562703087836521
 GameObject:
   m_ObjectHideFlags: 0
@@ -4793,8 +4043,6 @@ GameObject:
   - component: {fileID: 2291278884624705343}
   - component: {fileID: 3834475924883527878}
   - component: {fileID: 3976796538989053769}
-  - component: {fileID: 4175476420401557648}
-  - component: {fileID: 5961456323052712207}
   m_Layer: 0
   m_Name: Fracture Object 31
   m_TagString: Untagged
@@ -4900,7 +4148,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5418562703087836521}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4919,34 +4167,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4175476420401557648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5418562703087836521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5961456323052712207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5418562703087836521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.010726672
 --- !u!1 &5628181524560366672
 GameObject:
   m_ObjectHideFlags: 0
@@ -4960,8 +4180,6 @@ GameObject:
   - component: {fileID: 2684408005937568517}
   - component: {fileID: 315516759569743625}
   - component: {fileID: 8370935639899866880}
-  - component: {fileID: 7381313671792656560}
-  - component: {fileID: 9099857514201225170}
   m_Layer: 0
   m_Name: Fracture Object 30
   m_TagString: Untagged
@@ -5067,7 +4285,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5628181524560366672}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5086,34 +4304,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7381313671792656560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5628181524560366672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9099857514201225170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5628181524560366672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.2446973
 --- !u!1 &5649154426910509765
 GameObject:
   m_ObjectHideFlags: 0
@@ -5127,8 +4317,6 @@ GameObject:
   - component: {fileID: 2281239514218852319}
   - component: {fileID: 5482707893506440255}
   - component: {fileID: 8362710335121476313}
-  - component: {fileID: 1984195676259740432}
-  - component: {fileID: 1636916249584839556}
   m_Layer: 0
   m_Name: Fracture Object 29
   m_TagString: Untagged
@@ -5234,7 +4422,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5649154426910509765}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5253,34 +4441,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1984195676259740432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5649154426910509765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1636916249584839556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5649154426910509765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.13019077
 --- !u!1 &5792077053970505941
 GameObject:
   m_ObjectHideFlags: 0
@@ -5294,8 +4454,6 @@ GameObject:
   - component: {fileID: 8046399758810230225}
   - component: {fileID: 1904138258880574967}
   - component: {fileID: 3484045320372081939}
-  - component: {fileID: 7676175865823183939}
-  - component: {fileID: 4438859938236947163}
   m_Layer: 0
   m_Name: Fracture Object 38
   m_TagString: Untagged
@@ -5401,7 +4559,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5792077053970505941}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5420,34 +4578,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7676175865823183939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5792077053970505941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4438859938236947163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5792077053970505941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.0071196356
 --- !u!1 &6282151435542867691
 GameObject:
   m_ObjectHideFlags: 0
@@ -5461,8 +4591,6 @@ GameObject:
   - component: {fileID: 5478604361054473010}
   - component: {fileID: 5736990195294355114}
   - component: {fileID: 6754041090162479078}
-  - component: {fileID: 667483548762240386}
-  - component: {fileID: 3265407727660070938}
   m_Layer: 0
   m_Name: Fracture Object 10
   m_TagString: Untagged
@@ -5568,7 +4696,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6282151435542867691}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5587,34 +4715,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &667483548762240386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282151435542867691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3265407727660070938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282151435542867691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.10711037
 --- !u!1 &6597874926430491586
 GameObject:
   m_ObjectHideFlags: 0
@@ -5628,8 +4728,6 @@ GameObject:
   - component: {fileID: 2941765812177955044}
   - component: {fileID: 3495166729597642267}
   - component: {fileID: 460796831476362888}
-  - component: {fileID: 506711754581522253}
-  - component: {fileID: 4132327978437657860}
   m_Layer: 0
   m_Name: Fracture Object 5
   m_TagString: Untagged
@@ -5735,7 +4833,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6597874926430491586}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5754,34 +4852,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &506711754581522253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6597874926430491586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4132327978437657860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6597874926430491586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.19906484
 --- !u!1 &6729627799197360920
 GameObject:
   m_ObjectHideFlags: 0
@@ -5795,8 +4865,6 @@ GameObject:
   - component: {fileID: 2290484439682090281}
   - component: {fileID: 1885617653118608946}
   - component: {fileID: 7519006635649770227}
-  - component: {fileID: 4561943779751621745}
-  - component: {fileID: 4827428602209733764}
   m_Layer: 0
   m_Name: Fracture Object 35
   m_TagString: Untagged
@@ -5902,7 +4970,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6729627799197360920}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -5921,34 +4989,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4561943779751621745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6729627799197360920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4827428602209733764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6729627799197360920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.00031050123
 --- !u!1 &6803298141397479289
 GameObject:
   m_ObjectHideFlags: 0
@@ -5962,8 +5002,6 @@ GameObject:
   - component: {fileID: 5149272093791257734}
   - component: {fileID: 2153281185976606738}
   - component: {fileID: 8593902114326578180}
-  - component: {fileID: 3791748257184831148}
-  - component: {fileID: 4726214677907075465}
   m_Layer: 0
   m_Name: Fracture Object 2
   m_TagString: Untagged
@@ -6069,7 +5107,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6803298141397479289}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6088,34 +5126,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3791748257184831148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6803298141397479289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4726214677907075465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6803298141397479289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.16768877
 --- !u!1 &6839532624458986438
 GameObject:
   m_ObjectHideFlags: 0
@@ -6163,8 +5173,6 @@ GameObject:
   - component: {fileID: 5888511660412087809}
   - component: {fileID: 4518981736474170419}
   - component: {fileID: 3266715472779057353}
-  - component: {fileID: 4773676539923764627}
-  - component: {fileID: 205542593511824650}
   m_Layer: 0
   m_Name: Fracture Object 33
   m_TagString: Untagged
@@ -6270,7 +5278,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7146877191345623696}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6289,34 +5297,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4773676539923764627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7146877191345623696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &205542593511824650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7146877191345623696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.00004294924
 --- !u!1 &7492007017819425799
 GameObject:
   m_ObjectHideFlags: 0
@@ -6330,8 +5310,6 @@ GameObject:
   - component: {fileID: 6734503522180500965}
   - component: {fileID: 1022505988524092362}
   - component: {fileID: 7009027711831280727}
-  - component: {fileID: 7178404322347728350}
-  - component: {fileID: 7981440120945797269}
   m_Layer: 0
   m_Name: Fracture Object 37
   m_TagString: Untagged
@@ -6437,7 +5415,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7492007017819425799}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6456,34 +5434,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7178404322347728350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7492007017819425799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7981440120945797269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7492007017819425799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.019049728
 --- !u!1 &7522266751105770258
 GameObject:
   m_ObjectHideFlags: 0
@@ -6497,8 +5447,6 @@ GameObject:
   - component: {fileID: 6322686941663809051}
   - component: {fileID: 844758853472992194}
   - component: {fileID: 6086816548431589578}
-  - component: {fileID: 7229451314618903015}
-  - component: {fileID: 2984979178423691862}
   m_Layer: 0
   m_Name: Fracture Object 20
   m_TagString: Untagged
@@ -6604,7 +5552,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7522266751105770258}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6623,34 +5571,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7229451314618903015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7522266751105770258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2984979178423691862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7522266751105770258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.054969024
 --- !u!1 &7809203224055485816
 GameObject:
   m_ObjectHideFlags: 0
@@ -6664,8 +5584,6 @@ GameObject:
   - component: {fileID: 6439817573594162078}
   - component: {fileID: 510128225342442426}
   - component: {fileID: 4785312242855562831}
-  - component: {fileID: 6040666163593905835}
-  - component: {fileID: 1438989203870337062}
   m_Layer: 0
   m_Name: Fracture Object 14
   m_TagString: Untagged
@@ -6771,7 +5689,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7809203224055485816}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6790,34 +5708,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6040666163593905835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7809203224055485816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1438989203870337062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7809203224055485816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.083995216
 --- !u!1 &7948503976513541829
 GameObject:
   m_ObjectHideFlags: 0
@@ -6831,8 +5721,6 @@ GameObject:
   - component: {fileID: 775790106686239350}
   - component: {fileID: 3197581115729635872}
   - component: {fileID: 310203357686115868}
-  - component: {fileID: 2566617436557746402}
-  - component: {fileID: 5802937518259203840}
   m_Layer: 0
   m_Name: Fracture Object 18
   m_TagString: Untagged
@@ -6938,7 +5826,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7948503976513541829}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6957,34 +5845,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2566617436557746402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7948503976513541829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5802937518259203840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7948503976513541829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.026970057
 --- !u!1 &8472854996900465917
 GameObject:
   m_ObjectHideFlags: 0
@@ -6998,8 +5858,6 @@ GameObject:
   - component: {fileID: 4508512519909915253}
   - component: {fileID: 4283756586176962962}
   - component: {fileID: 7078932285168640998}
-  - component: {fileID: 1917875744081801805}
-  - component: {fileID: 1788933488991092614}
   m_Layer: 0
   m_Name: Fracture Object 0
   m_TagString: Untagged
@@ -7105,7 +5963,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8472854996900465917}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -7124,34 +5982,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1917875744081801805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8472854996900465917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1788933488991092614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8472854996900465917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.009643704
 --- !u!1 &8629158187396803991
 GameObject:
   m_ObjectHideFlags: 0
@@ -7165,8 +5995,6 @@ GameObject:
   - component: {fileID: 6741700293893446464}
   - component: {fileID: 6654453964090663690}
   - component: {fileID: 6391784511385926278}
-  - component: {fileID: 1464476219808366657}
-  - component: {fileID: 5078415737650334361}
   m_Layer: 0
   m_Name: Fracture Object 11
   m_TagString: Untagged
@@ -7272,7 +6100,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8629158187396803991}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -7291,34 +6119,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1464476219808366657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8629158187396803991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5078415737650334361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8629158187396803991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.0065370696
 --- !u!1 &8845168644790403221
 GameObject:
   m_ObjectHideFlags: 0
@@ -7365,10 +6165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da6360a2f926584a8f7826d5ad82f40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionForce: 500
-  explosionRadius: 5
-  upwardsModifier: 0.5
-  explosionDelay: 2
+  explosionForce: 0.35
+  explosionRadius: 1
+  upwardsModifier: 0.1
+  explosionDelay: 0
   explosionDuration: 1
   child: {fileID: 2259749055079614069}
 --- !u!82 &8808911218506646578
@@ -7513,8 +6313,6 @@ GameObject:
   - component: {fileID: 7967474904508862994}
   - component: {fileID: 1175246196943664710}
   - component: {fileID: 7183596296068345741}
-  - component: {fileID: 6213430713590260985}
-  - component: {fileID: 5849000490300104885}
   m_Layer: 0
   m_Name: Fracture Object 8
   m_TagString: Untagged
@@ -7620,7 +6418,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9102688125401112854}
   serializedVersion: 5
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -7639,31 +6437,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6213430713590260985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9102688125401112854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a66a1d9fc746d49abdfc531db526f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5849000490300104885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9102688125401112854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b3b4341d686c248bc5aecab579e715, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalMass: 0
-  TotalVolume: 2.4795976
-  ThisMass: 0
-  ThisVolume: 0.0037387938
