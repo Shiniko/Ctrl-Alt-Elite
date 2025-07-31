@@ -403,9 +403,10 @@ MonoBehaviour:
   interactDisplay: {fileID: 749758784994617859}
   playerInRange: 0
   oneUse: 1
-  triggeredInteract: 0
+  breakOnInteract: 0
+  brokenParts: {fileID: 8845168644790403221}
+  intactParts: {fileID: 1562773265218972011}
   messAnim: {fileID: 5586411775883652443}
-  levelManager: {fileID: 0}
 --- !u!1 &328044539288022810
 GameObject:
   m_ObjectHideFlags: 0
@@ -7368,6 +7369,7 @@ MonoBehaviour:
   explosionRadius: 5
   upwardsModifier: 0.5
   explosionDelay: 2
+  explosionDuration: 1
   child: {fileID: 2259749055079614069}
 --- !u!82 &8808911218506646578
 AudioSource:

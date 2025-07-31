@@ -5660,7 +5660,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3664494, y: 1.117605, z: 6.1881566}
+  m_Size: {x: 1.3664494, y: 1.3355994, z: 6.1881566}
   m_Center: {x: 0.018050313, y: -0.058802843, z: -2.9561617}
 --- !u!114 &5332166854961656765
 MonoBehaviour:
@@ -5677,9 +5677,10 @@ MonoBehaviour:
   interactDisplay: {fileID: 7200211058663090885}
   playerInRange: 0
   oneUse: 1
-  triggeredInteract: 0
+  breakOnInteract: 0
+  brokenParts: {fileID: 7107344415718102902}
+  intactParts: {fileID: 5371166842993462656}
   messAnim: {fileID: 7149990604523475465}
-  levelManager: {fileID: 0}
 --- !u!1 &7107344415718102902
 GameObject:
   m_ObjectHideFlags: 0
@@ -5730,6 +5731,7 @@ MonoBehaviour:
   explosionRadius: 50
   upwardsModifier: 5
   explosionDelay: 1
+  explosionDuration: 1
   child: {fileID: 20342330688241629}
 --- !u!82 &7311961287626682120
 AudioSource:
