@@ -336,10 +336,12 @@ private bool triggeredJump;
                 currentInputVector = new Vector2(moveX, 0).normalized;
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+
+            if (Input.GetButtonDown("Interact_Button"))
             {
                 CheckInteracts();
             }
+            
 
             if (canJump && Input.GetButtonDown("Jump"))
             {
