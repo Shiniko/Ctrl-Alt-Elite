@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [Header("Accesible Params")]
     public bool triggerHuman;
     public bool spawnedHuman;
+    public bool triggerPause;
 
     public bool levelActive;
     public bool catHidden;
@@ -160,6 +161,32 @@ public class LevelManager : MonoBehaviour
                 }
             }
 
+            
+            if (Input.GetButtonDown("Pause_Game"))
+            {
+                if (!triggerPause)
+                {
+                    triggerPause = true;
+
+                    if (gameManager != null)
+                    {
+                        gameManager.GamePausedEsc();
+                    }
+
+                }
+                else
+                {
+                    triggerPause = false;
+
+                    if (gameManager != null)
+                    {
+                        gameManager.UnPauseGameButton();
+                    }
+                }
+            }
+            
+
+            /*
             // Debug for testing level failed
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -184,6 +211,8 @@ public class LevelManager : MonoBehaviour
                 //for testing
                 LevelVictory();
             }
+
+            */
         }
         else
         {
@@ -336,6 +365,7 @@ public class LevelManager : MonoBehaviour
         countDuration = false;
         triggerDuration = false;
 
+        triggerHuman = false;
         triggerFail = false;
         triggerVictory = false;
         triggerAvoidStarLoss = false;
@@ -346,6 +376,9 @@ public class LevelManager : MonoBehaviour
         hiddenFound = false;
         messMade = false;
         exitRevealed = false;
+
+        hasMessStar = false;
+        hasHiddenStar = false;
 
         DeactivateNewRecordText();
 
@@ -493,8 +526,6 @@ public class LevelManager : MonoBehaviour
         {
             if (hasMessStar || hasAvoidStar || hasHiddenStar)
             {
-
-
                 if (hasMessStar)
                 {
                     gameManager.SaveNewStar(currentLevel, 1);

@@ -10,6 +10,7 @@ public class Add_Broken_Force : MonoBehaviour
     public float explosionDuration = 1f; // Add a slight delay to allow children to activate
     private float durationCounter; // timer realated to delay
     [SerializeField] private GameObject child; // timer realated to delay
+    private Rigidbody[] rigidChildrens;
     private bool triggeredExplosion;
 
     void Awake()
@@ -17,6 +18,8 @@ public class Add_Broken_Force : MonoBehaviour
         if(child != null)
         {
             child.SetActive(true);
+
+            rigidChildrens = child.GetComponentsInChildren<Rigidbody>();
         }
     }
 
@@ -50,20 +53,27 @@ public class Add_Broken_Force : MonoBehaviour
 
     private void Splode()
     {
-        // Iterate through all child GameObjects of this parent
-        foreach (Transform child in transform)
+        // Iterate through all child rigids
+        for(int i = 0; i < rigidChildrens.Length; ++i)
         {
-            // Get the Rigidbody component of each child
-            Rigidbody rb = child.GetComponent<Rigidbody>();
-
-            // Only apply force if a Rigidbody exists and the GameObject is active
-            if (rb != null && child.gameObject.activeInHierarchy)
+            if(rigidChildrens[i] != null)
             {
-                // Calculate the direction from the parent's position to the child's position
-                Vector3 direction = (child.position - transform.position).normalized;
+                if (child.gameObject.activeInHierarchy)
+                {
+                    Rigidbody rb = rigidChildrens[i];
 
-                // Add an explosion force to each piece
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardsModifier,ForceMode.Impulse);
+                    Vector3 direction = (rb.transform.position - transform.position).normalized;
+                    direction = new Vector3(direction.x, direction.y - 0.5f, direction.z + 0.25f);
+
+                    if (!triggeredExplosion)
+                    {
+                        // Add an explosion force to each piece in a relative direction from this
+                        rb.AddExplosionForce(explosionForce, direction, explosionRadius, upwardsModifier);
+                    }
+
+                    // The apply force to each piece in a an impulse over time if still in radius
+                    rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, upwardsModifier, ForceMode.Impulse);
+                }
             }
         }
     }

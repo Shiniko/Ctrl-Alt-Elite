@@ -257,9 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalMessesNeeded: 2
-  progressionManager: {fileID: 0}
-  pmSet: 0
-  spawnPoint: {fileID: 789112242}
+  spawnIndex: 0
 --- !u!4 &377526004
 Transform:
   m_ObjectHideFlags: 0
@@ -1931,6 +1929,7 @@ MonoBehaviour:
   slm: {fileID: 0}
   gm: {fileID: 0}
   isLevelSelect: 0
+  isCredits: 0
 --- !u!4 &2097687337
 Transform:
   m_ObjectHideFlags: 0
