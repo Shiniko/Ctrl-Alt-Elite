@@ -84,4 +84,12 @@ public class Cat_Anim_Dealer : MonoBehaviour
             catController.JumpAscended();
         }
     }
+
+    public void CheckHideIdle()
+    {
+        if (catController != null)
+        {
+            catController.IdleHideReset();
+        }
+    }
 }
