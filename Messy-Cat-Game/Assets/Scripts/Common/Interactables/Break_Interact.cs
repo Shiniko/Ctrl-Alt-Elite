@@ -8,7 +8,8 @@ public class Break_Interact : Interactable
 
     private bool triggeredInteract;
     [SerializeField] private Animator messAnim;
-private LevelManager levelManager;
+    [SerializeField] private Animator messSecondAnim;
+    private LevelManager levelManager;
     private MakeShiftCatController catController;
 
     void Update()
@@ -33,6 +34,11 @@ private LevelManager levelManager;
             if (messAnim != null)
             {
                 messAnim.SetBool("hasMessed", true);
+            }
+
+            if (messSecondAnim != null)
+            {
+                messSecondAnim.SetBool("isTriggered", true);
             }
 
             if (levelManager != null)
