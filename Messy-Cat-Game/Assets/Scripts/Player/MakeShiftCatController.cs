@@ -809,6 +809,8 @@ private bool triggeredJump;
 
     public void StartHiding()
     {
+        Debug.Log("Called Start Hiding");
+
         movement = new Vector3(0f, 0f, 0f).normalized;
         moveX = 0f;
 
@@ -824,8 +826,20 @@ private bool triggeredJump;
 
         if (hideTarget != null)
         {
+            Vector3 hp = hideTarget.hideyHole.hidePosition.position;
+
             float hideX = hideTarget.transform.position.x;
+            float hideY = hideTarget.transform.position.y;
+
             Vector3 newPosition = new Vector3(hideX, transform.position.y, transform.position.z);
+
+            if(hp != null)
+            {
+                hideX = hp.x;
+                hideY = hp.y;
+
+                newPosition = new Vector3(hideX, hideY, transform.position.z);
+            }
 
             transform.position = newPosition;
         }

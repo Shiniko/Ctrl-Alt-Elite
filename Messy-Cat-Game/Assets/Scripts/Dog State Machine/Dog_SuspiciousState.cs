@@ -25,13 +25,18 @@ public class Dog_SuspiciousState : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (dogVision.CanSee(dogContext.player.gameObject))
+        GameObject cat = dogContext.player.gameObject;
+
+        if (cat != null)
         {
-            agroMeter.fillAmount += Time.fixedDeltaTime / dogContext.GetSeeCatTime();
-        }
-        else
-        {
-             agroMeter.fillAmount -= Time.fixedDeltaTime / dogContext.GetSeeCatTime();
+            if (dogVision.CanSee(dogContext.player.gameObject))
+            {
+                agroMeter.fillAmount += Time.fixedDeltaTime / dogContext.GetSeeCatTime();
+            }
+            else
+            {
+                agroMeter.fillAmount -= Time.fixedDeltaTime / dogContext.GetSeeCatTime();
+            }
         }
         
         if(agroMeter.fillAmount <= 0)

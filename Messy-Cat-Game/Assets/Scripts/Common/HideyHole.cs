@@ -3,6 +3,7 @@ using UnityEngine;
 public class HideyHole : MonoBehaviour
 {
     [SerializeField] private Hide_Interact hint;
+    public Transform hidePosition;
 
     private bool triggerHide;
 
