@@ -671,6 +671,13 @@ public class GameManager : MonoBehaviour
         if (pausePanel != null)
         {
             pausePanel.SetActive(true);
+
+            Choice_Menu cm = pausePanel.GetComponent<Choice_Menu>();
+
+            if (cm != null)
+            {
+                cm.ChangeSelectedButton();
+            }
         }
 
         if (Time.timeScale != 0f)
@@ -684,6 +691,11 @@ public class GameManager : MonoBehaviour
         isPaused = false;
 
         ClosePanel();
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
 
         if (Time.timeScale != 1f)
         {

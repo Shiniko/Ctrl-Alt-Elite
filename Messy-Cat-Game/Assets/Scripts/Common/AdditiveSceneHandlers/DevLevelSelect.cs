@@ -206,6 +206,8 @@ public class DevLevelSelect : MonoBehaviour
         {
             ActivateLevelSelectPanel();
 
+
+
             slm.LoadScene();
 
             ActivateLevelSelectMenuButtons();
@@ -467,6 +469,13 @@ public class DevLevelSelect : MonoBehaviour
         if (levelSelectPanel != null)
         {
             levelSelectPanel.SetActive(true);
+
+            SelectOnAwake soa = levelSelectPanel.GetComponent<SelectOnAwake>();
+
+            if(soa != null)
+            {
+                soa.SetSelected();
+            }
         }
 
         ResetLoadStars();
