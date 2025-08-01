@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2697472342494374002}
   - component: {fileID: 2697472342495668306}
   - component: {fileID: 2697472342496668306}
-  - component: {fileID: 4282290712804410893}
+  - component: {fileID: 6278985959843435223}
   m_Layer: 0
   m_Name: KitchenTabletop2_01
   m_TagString: Untagged
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4282290712804410893
-MeshCollider:
+--- !u!65 &6278985959843435223
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,7 +105,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 3d89b689c1b0314418fe1ed3fc99781d, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.1129673, y: 0.8830367, z: 0.6263479}
+  m_Center: {x: -0.000015765429, y: 0.44151834, z: 0.03485605}
