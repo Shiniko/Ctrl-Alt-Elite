@@ -146,7 +146,7 @@ public class ProgressionManager : MonoBehaviour
             isStarDog = false;
             starScore--;
 
-            Debug.Log("Removed Star for dog in Progression Manager");
+            //Debug.Log("Removed Star for dog in Progression Manager");
         }
     }
     public void AddStarForDog()

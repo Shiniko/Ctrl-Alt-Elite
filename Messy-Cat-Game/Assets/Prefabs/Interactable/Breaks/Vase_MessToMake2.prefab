@@ -4751,6 +4751,7 @@ MonoBehaviour:
   brokenParts: {fileID: 7107344415718102902}
   intactParts: {fileID: 5371166842993462656}
   messAnim: {fileID: 7149990604523475465}
+  messSecondAnim: {fileID: 0}
 --- !u!1 &7107344415718102902
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,6 +4763,7 @@ GameObject:
   - component: {fileID: 3526938201432364039}
   - component: {fileID: 7031008356872930298}
   - component: {fileID: 7311961287626682120}
+  - component: {fileID: 1554795159189943580}
   m_Layer: 0
   m_Name: BrokenParts
   m_TagString: Untagged
@@ -4900,6 +4902,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1554795159189943580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7107344415718102902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3e9095ec4e3b44fb806041c1a9191e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 10
 --- !u!1 &7200211058663090885
 GameObject:
   m_ObjectHideFlags: 0

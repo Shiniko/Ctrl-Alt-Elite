@@ -138,6 +138,7 @@ MonoBehaviour:
   brokenParts: {fileID: 3124998483481548781}
   intactParts: {fileID: 8909568753468870212}
   messAnim: {fileID: 0}
+  messSecondAnim: {fileID: 0}
 --- !u!1 &3124998483481548781
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +150,7 @@ GameObject:
   - component: {fileID: 4858173521790506002}
   - component: {fileID: 6142978930854541744}
   - component: {fileID: 8225495135367030508}
+  - component: {fileID: 7921495551382355148}
   m_Layer: 0
   m_Name: BrokenParts
   m_TagString: Untagged
@@ -205,6 +207,19 @@ MonoBehaviour:
   revealOnAwake: 1
   objectToReveal: {fileID: 0}
   revealEffect: {fileID: 7566592515533401075, guid: 5cbb1f37443dcce4997d8db5c9aeb244, type: 3}
+--- !u!114 &7921495551382355148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3124998483481548781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3e9095ec4e3b44fb806041c1a9191e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 10
 --- !u!1 &3144821435989434931
 GameObject:
   m_ObjectHideFlags: 0

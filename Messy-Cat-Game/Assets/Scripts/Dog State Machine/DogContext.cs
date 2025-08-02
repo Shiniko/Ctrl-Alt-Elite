@@ -126,7 +126,7 @@ public class DogContext : MonoBehaviour
     /// <returns>Vector3</returns>
     public Vector3 GetNewRoamLocation()
     {
-        Debug.Log("Getting New Location");
+        //Debug.Log("Getting New Location");
 
         if(Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _minRoamDistance)) < _minimumTravelDistance && Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _maxRoamDistance)) < _minimumTravelDistance)
         {
@@ -164,7 +164,7 @@ public class DogContext : MonoBehaviour
     {
         isAngry = true;
 
-        Debug.Log("setting dog as isAngry",this);
+       // Debug.Log("setting dog as isAngry",this);
 
         if (GameObject.FindGameObjectWithTag("LevelManager") != null)
         {

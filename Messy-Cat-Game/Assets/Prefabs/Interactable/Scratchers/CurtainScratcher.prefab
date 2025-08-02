@@ -480,6 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8322201208490590383}
   - component: {fileID: 427190559594338948}
+  - component: {fileID: 5989734248186291606}
   m_Layer: 0
   m_Name: BrokenPieces
   m_TagString: Untagged
@@ -521,6 +522,19 @@ MonoBehaviour:
   explosionDelay: 0
   explosionDuration: 1
   child: {fileID: 8750676816474872562}
+--- !u!114 &5989734248186291606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5068754391654151369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3e9095ec4e3b44fb806041c1a9191e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 10
 --- !u!1 &5385592288809683359
 GameObject:
   m_ObjectHideFlags: 0
