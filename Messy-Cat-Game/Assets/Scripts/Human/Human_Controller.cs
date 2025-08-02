@@ -19,7 +19,7 @@ public class Human_Controller : MonoBehaviour
     private bool setPointer;
 
     private Vector3 startLocation;
-    private bool isRetreating;
+    public bool isRetreating;
     private bool waitForRetreat;
     private bool isMoving;
     private bool isPetting;

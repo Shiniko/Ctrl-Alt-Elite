@@ -65,6 +65,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private bool hiddenFound;
     [SerializeField] private bool messMade;
     [SerializeField] private bool exitRevealed;
+    public bool triggerInvestigationMusic;
 
     void Update()
     {
@@ -93,6 +94,8 @@ public class LevelManager : MonoBehaviour
         else
         {
             levelActive = true;
+
+            
 
             if (catController == null)
             {
@@ -321,12 +324,18 @@ public class LevelManager : MonoBehaviour
             triggerHuman = true;
         }
 
+        Debug.Log("dog sees cat");
 
-        if (levelMusicController != null)
+        if (!triggerInvestigationMusic)
         {
-            if (!triggerVictory)
+            triggerInvestigationMusic = true;
+
+            if (levelMusicController != null)
             {
-                levelMusicController.beingInvestigated = true;
+                if (!triggerVictory)
+                {
+                    levelMusicController.beingInvestigated = true;
+                }
             }
         }
     }
@@ -356,6 +365,12 @@ public class LevelManager : MonoBehaviour
                 GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Fail");
             }
 
+            if (levelMusicController != null)
+            {
+                levelMusicController.StopLevelMusic();
+                levelMusicController.beingInvestigated = false;
+            }
+
             LevelFail();
         }
     }
@@ -382,6 +397,7 @@ public class LevelManager : MonoBehaviour
         triggerMessGain = false;
         triggerMessStar = false;
         triggerHiddenStar = false;
+        triggerInvestigationMusic = false;
 
         hiddenFound = false;
         messMade = false;
@@ -411,6 +427,7 @@ public class LevelManager : MonoBehaviour
         {
             levelMusicController.beingInvestigated = false;
         }
+
     }
 
     public void LevelVictory()
@@ -455,16 +472,6 @@ public class LevelManager : MonoBehaviour
         {
             triggerFail = true;  // prevents a victory if fail in progress, see LevelVictory function
 
-            if (levelMusicController != null)
-            {
-                levelMusicController.StopLevelMusic();
-            }
-
-            if (gameManager != null)
-            {
-                gameManager.PlayFailAudio();
-            }
-
             //set active to true, if want to see time even if fail
             if (durationPanel != null)
             {
@@ -500,6 +507,11 @@ public class LevelManager : MonoBehaviour
         if (levelMusicController != null)
         {
             levelMusicController.StartLevelMusic();
+        }
+
+        if (gameManager != null)
+        {
+            gameManager.PlaySceneTheme("MainTheme");
         }
     }
 
@@ -611,28 +623,41 @@ public class LevelManager : MonoBehaviour
             gameManager.SaveNewStar(currentLevel, 3);
         }
 
-        //Debug.Log("about to wait for pause");  //comment this back in if you want the menu buttons to wait until after stars populate
-
         yield return new WaitForSeconds(delay * 0.35f);
+
+        if (gameManager != null)
+        {
+            gameManager.PlayVictoryAudio();
+        }
 
         if (gameManager != null)  //call this last as it pauses game
         {
             if (triggerVictory)
             {
                 gameManager.VictoryLevel();
-                gameManager.PlayVictoryAudio();
+                gameManager.PlayMainTheme("MutedTheme");
             }
         }
     }
 
     IEnumerator DisplayFail(float delay)  //delay for pausing for fail
     {
-        yield return new WaitForSeconds(delay * 0.5f);
+        yield return new WaitForSeconds(delay * 0.3f);
+        
+        if (gameManager != null)
+        {
+            gameManager.PlayFailAudio();
+        }
+
+        //yield return new WaitForSeconds(delay * 0.5f);
 
         if (gameManager != null)  //call this last as it pauses game
         {
             gameManager.FailLevel();
+            gameManager.PlayMainTheme("MutedTheme");
         }
+
+        
     }
 }
 

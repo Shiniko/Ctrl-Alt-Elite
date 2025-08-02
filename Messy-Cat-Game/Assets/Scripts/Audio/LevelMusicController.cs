@@ -95,11 +95,11 @@ public class LevelMusicController : MonoBehaviour
         // If we're currently being investigated (e.g. the dog is onto you), we override all other music.
         if (beingInvestigated)
         {
-            Debug.Log("being investigated");
+            //Debug.Log("being investigated");
 
             if (!investigationMusic.isPlaying)
             {
-                Debug.Log("switched to investigate music");
+                //Debug.Log("switched to investigate music");
                 investigationMusic.Play();
             }
 
@@ -121,7 +121,19 @@ public class LevelMusicController : MonoBehaviour
             if (investigationMusic.isPlaying)
             {
                 investigationMusic.Stop();      //so it plays from the start next time
-                Debug.Log("Tried to stopped playing the audio source for investigate");
+                //Debug.Log("Tried to stopped playing the audio source for investigate");
+
+                if (GameObject.FindGameObjectWithTag("Human") != null)
+                {
+                    Human_Controller human = GameObject.FindGameObjectWithTag("Human").GetComponent<Human_Controller>();
+                    if (human.isRetreating)
+                    {
+                        if (levelManager != null)
+                        {
+                            levelManager.triggerInvestigationMusic = false;
+                        }
+                    }
+                }
             }
         }
 
