@@ -149,6 +149,8 @@ public class Human_Controller : MonoBehaviour
                     {
                         anim.SetBool("isRetreating", true);
                     }
+
+
                 }
             }
         }
@@ -296,6 +298,11 @@ public class Human_Controller : MonoBehaviour
         {
             windowPointer.target = gameObject.transform;
             windowPointer.SetOff();
+        }
+
+        if (levelManager.levelMusicController != null)
+        {
+            levelManager.levelMusicController.beingInvestigated = false;
         }
     }
 

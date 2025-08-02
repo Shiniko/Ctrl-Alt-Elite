@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
     public GameObject exitPortal;                                                   //reference to exit portal, the portal can be anything, like a door or window, but essential turns on the interact part of it
 
     [Header("References")]
-    [SerializeField] private LevelMusicController levelMusicController;         //refernce to level music controller
+    public LevelMusicController levelMusicController;         //refernce to level music controller
     [SerializeField] private ProgressionManager progressionManager;            //reference to Progression Manager script
     [SerializeField] private GameManager gameManager;                            //reference to Game Manager script
     [SerializeField] private DevLevelSelect devLevelSelect;                     //reference to Dev Level Select script
@@ -320,7 +320,17 @@ public class LevelManager : MonoBehaviour
         {
             triggerHuman = true;
         }
+
+
+        if (levelMusicController != null)
+        {
+            if (!triggerVictory)
+            {
+                levelMusicController.beingInvestigated = true;
+            }
+        }
     }
+
 
     private void SpawnHuman()
     {
@@ -395,6 +405,11 @@ public class LevelManager : MonoBehaviour
         if (victoryStarPanel != null)
         {
             victoryStarPanel.SetActive(false);
+        }
+
+        if (levelMusicController != null)
+        {
+            levelMusicController.beingInvestigated = false;
         }
     }
 
