@@ -39,6 +39,13 @@ public class SceneLoader : MonoBehaviour
         {
             _triggered = true;
 
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+            if (player != null)
+            {
+                Destroy(player);
+            }
+
             for (int i = 0; i < _scenesToLoad.Length; i++)
             {
                 bool isSceneLoaded = false;

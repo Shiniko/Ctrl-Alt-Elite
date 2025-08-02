@@ -49,6 +49,13 @@ public class SceneLoadManager : MonoBehaviour
 
     public void LoadScene()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            Destroy(player);
+        }
+
         if (_sceneLoader != null)
         {
             _sceneLoader.LoadScenes();
