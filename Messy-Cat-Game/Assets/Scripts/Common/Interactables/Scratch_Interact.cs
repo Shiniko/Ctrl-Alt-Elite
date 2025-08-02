@@ -54,9 +54,12 @@ public class Scratch_Interact : Interactable
 
         triggerHurt = false;
 
-        if (interactDisplay != null)
+        if (!isDead)
         {
-            interactDisplay.SetActive(true);
+            if (interactDisplay != null)
+            {
+                interactDisplay.SetActive(true);
+            }
         }
     }
 
@@ -115,6 +118,14 @@ public class Scratch_Interact : Interactable
             col.GetComponent<MakeShiftCatController>().scratchTarget = this;
             catController = col.GetComponent<MakeShiftCatController>();
         }
+
+        if (isDead)
+        {
+            if (interactDisplay != null)
+            {
+                interactDisplay.SetActive(false);
+            }
+        }
     }
 
     public override void OnTriggerStay(Collider col)
@@ -126,6 +137,14 @@ public class Scratch_Interact : Interactable
             {
                 col.GetComponent<MakeShiftCatController>().scratchTarget = this;
                 catController = col.GetComponent<MakeShiftCatController>();
+            }
+        }
+
+        if (isDead)
+        {
+            if (interactDisplay != null)
+            {
+                interactDisplay.SetActive(false);
             }
         }
     }
