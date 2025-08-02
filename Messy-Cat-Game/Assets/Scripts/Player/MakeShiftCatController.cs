@@ -308,19 +308,25 @@ private bool triggeredJump;
                     anim.SetFloat("moveY", moveY);
                 }
 
-                if (triggerHide || isHidden)
+                if (!triggerHide)
                 {
-                   // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
-                    StopHiding();
+                    if (isHidden)
+                    {
+                        // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
+                        StopHiding();
+                    }
                 }
 
-                if (triggerScratch || isScratching)
+                if (!triggerScratch)
                 {
-                    // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
+                    if (isScratching)
+                    {
+                        // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
 
-                    //Debug.Log("moved while scratching");
-                    StopScratching();
-                    //Debug.Log("After moved while and scratching and calling the StopScratching");
+                        //Debug.Log("moved while scratching");
+                        StopScratching();
+                        //Debug.Log("After moved while and scratching and calling the StopScratching");
+                    }
                 }
             }
             else
@@ -343,7 +349,7 @@ private bool triggeredJump;
             }
             
 
-            if (canJump && Input.GetButtonDown("Jump"))
+            if (canJump && Input.GetButtonDown("Jump") && !triggerHide && !triggerScratch)
             {
                 // because multiple jumps can happen, set rb velocity of y to diminishing amount
                 if (rb != null)
@@ -358,13 +364,13 @@ private bool triggeredJump;
                     }
                 }
 
-                if (triggerHide || isHidden)
+                if (isHidden)
                 {
                     // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and pressed jump button");
                     StopHiding();
                 }
 
-                if (triggerScratch || isScratching)
+                if (isScratching)
                 {
                     // Debug.Log("calling stop hiding because, triggerHide true or isHidden true, and moveX >0.01f");
                     StopScratching();
@@ -575,21 +581,28 @@ private bool triggeredJump;
 
     void MoveCharacter()
     {
-        if (!isNearWall)
+        if (!triggerHide && !triggerScratch)
         {
-            velocity = movement * moveSpeed;
-
-            if (Mathf.Abs(moveX) > 0.71f)
+            if (!isNearWall)
             {
-                velocity = movement * (moveSpeed * runfactor);
+                velocity = movement * moveSpeed;
+
+                if (Mathf.Abs(moveX) > 0.71f)
+                {
+                    velocity = movement * (moveSpeed * runfactor);
+                }
             }
+            else
+            {
+                velocity = new Vector3(0, rb.linearVelocity.y, 0);
+            }
+
+            rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, 0);
         }
         else
         {
-            velocity = new Vector3(0, rb.linearVelocity.y, 0);
+            Debug.Log("didnt move because triggerHide or triggerSnatch is true tH = " + triggerHide + " and tS = " + triggerScratch);
         }
-
-        rb.linearVelocity = new Vector3(velocity.x, rb.linearVelocity.y, 0);
 
         ApplyGravity();
     }
@@ -809,6 +822,8 @@ private bool triggeredJump;
 
     public void StartHiding()
     {
+        Debug.Log("Called Start Hiding");
+
         movement = new Vector3(0f, 0f, 0f).normalized;
         moveX = 0f;
 
@@ -824,8 +839,20 @@ private bool triggeredJump;
 
         if (hideTarget != null)
         {
+            Vector3 hp = hideTarget.hideyHole.hidePosition.position;
+
             float hideX = hideTarget.transform.position.x;
+            float hideY = hideTarget.transform.position.y;
+
             Vector3 newPosition = new Vector3(hideX, transform.position.y, transform.position.z);
+
+            if(hp != null)
+            {
+                hideX = hp.x;
+                hideY = hp.y;
+
+                newPosition = new Vector3(hideX, hideY, transform.position.z);
+            }
 
             transform.position = newPosition;
         }
@@ -881,6 +908,8 @@ private bool triggeredJump;
 
     public void FinishedHiding()
     {
+        triggerHide = false;
+
         if (!isHidden)
         {
             if (hideCoat != null)
@@ -1020,6 +1049,8 @@ private bool triggeredJump;
 
     public void PreparedScratching()
     {
+        triggerScratch = false;
+
         if (!isScratching)
         {
             isScratching = true;
@@ -1264,6 +1295,32 @@ private bool triggeredJump;
     public void ApplyDeath()
     {
         // called from game manager
+    }
+
+    public void IdleHideReset()
+    {
+        if (anim != null)
+        {
+            if (triggerHide)
+            {
+                if (!isHidden)
+                {
+                    triggerHide = false;
+
+                    anim.SetBool("isHiding", false);
+                }
+            }
+
+            if (triggerScratch)
+            {
+                if (!isScratching)
+                {
+                    triggerScratch = false;
+
+                    anim.SetBool("isScratching", false);
+                }
+            }
+        }
     }
 
     //optional
