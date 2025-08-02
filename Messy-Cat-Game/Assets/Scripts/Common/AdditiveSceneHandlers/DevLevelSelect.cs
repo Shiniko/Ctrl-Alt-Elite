@@ -388,6 +388,8 @@ public class DevLevelSelect : MonoBehaviour
             return;
         }
 
+
+        
         if (!_levelSelected)
         {
             _levelSelected = true;
@@ -432,25 +434,7 @@ public class DevLevelSelect : MonoBehaviour
         }
         else
         {
-            //Debug.Log("DVS checked _levelSelected, and it was true");
-        }
-
-
-        if (sl != null)
-        {
-            levelSelect = "Level_" + level;
-
-            //setting scenesToLoad array as single level string
-            string[] levelSelectScene = new string[1];
-            levelSelectScene[0] = levelSelect;
-            sl.SetScenesToLoad(levelSelectScene);
-            sl.SetScenesToUnLoad(levelSelectScene);
-
-            ActivateNewLevelMenuButtons();
-
-            //make sure gameunpause and close pause menu and loading panel activated
-
-            sl.UnloadSameLevel(level);
+            Debug.Log("DVS checked _levelSelected, and it was true");
         }
     }
 

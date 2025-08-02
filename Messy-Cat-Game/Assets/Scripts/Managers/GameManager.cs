@@ -279,9 +279,13 @@ public class GameManager : MonoBehaviour
             if (respawnCounter < respawnCD)
             {
                 respawnCounter += Time.deltaTime;
+
+                //Debug.Log("Respawn counter incrementing");
             }
             else
             {
+                //Debug.Log("Respawn counter is " + respawnCounter);
+
                 respawnCounter = respawnCD;
 
                 if (hasSetPreferences)
@@ -295,6 +299,7 @@ public class GameManager : MonoBehaviour
 
                     if (levelManager != null)
                     {
+                        //Debug.Log("Calling Spawn cat");
                         SpawnCat();
                     }
                 }
@@ -333,16 +338,22 @@ public class GameManager : MonoBehaviour
     {
         if (hasSpawnedPlayer)
         {
+            Debug.Log("Despawning Player");
             hasSpawnedPlayer = false;
 
             SetGameReady(false);
-            SetRespawnCounter(0f);
             SetIsRespawning(false);
+            SetRespawnCounter(0f);
 
-            if(player != null)
+            if (player != null)
             {
-                Destroy(player, 0.01f);
+                Destroy(player);
+                Debug.Log("Destroyed Player at no delay");
             }
+        }
+        else
+        {
+            Debug.Log("Not Despawning Player because hasSpawned false");
         }
 
         if(GameObject.FindGameObjectWithTag("Human") != null)

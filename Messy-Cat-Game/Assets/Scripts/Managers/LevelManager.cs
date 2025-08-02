@@ -340,7 +340,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
     private void SpawnHuman()
     {
         //Debug.Log("Spawned Human");
@@ -443,8 +442,6 @@ public class LevelManager : MonoBehaviour
                     levelMusicController.StopLevelMusic();
                 }
 
-
-
                 if (durationPanel != null)
                 {
                     durationPanel.SetActive(true);
@@ -491,6 +488,11 @@ public class LevelManager : MonoBehaviour
     public void NewLevelSet()
     {
         ResetLevel();
+
+        if(player != null)
+        {
+            Destroy(player);
+        }
 
         if (gameManager != null)
         {
@@ -625,15 +627,12 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(delay * 0.35f);
 
-        if (gameManager != null)
-        {
-            gameManager.PlayVictoryAudio();
-        }
 
         if (gameManager != null)  //call this last as it pauses game
         {
             if (triggerVictory)
             {
+                gameManager.PlayVictoryAudio();
                 gameManager.VictoryLevel();
                 gameManager.PlayMainTheme("MutedTheme");
             }
@@ -647,17 +646,9 @@ public class LevelManager : MonoBehaviour
         if (gameManager != null)
         {
             gameManager.PlayFailAudio();
-        }
-
-        //yield return new WaitForSeconds(delay * 0.5f);
-
-        if (gameManager != null)  //call this last as it pauses game
-        {
             gameManager.FailLevel();
             gameManager.PlayMainTheme("MutedTheme");
-        }
-
-        
+        }  
     }
 }
 
