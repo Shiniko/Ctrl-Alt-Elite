@@ -495,7 +495,7 @@ public class DevLevelSelect : MonoBehaviour
             CreditScroller cs = GameObject.FindGameObjectWithTag("CreditScroller").GetComponent<CreditScroller>();
             cs.DisableCredits();
 
-            Debug.Log("DLS called CS to DisableCredits");
+            //Debug.Log("DLS called CS to DisableCredits");
         }
 
         ResetLoadStars();
