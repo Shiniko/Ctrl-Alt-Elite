@@ -902,7 +902,19 @@ private bool triggeredJump;
     {
         if (hideTarget.hideyHole != null)
         {
-            hideTarget.hideyHole.EnterHole();
+            HideyHole hh = hideTarget.hideyHole;
+
+            if (hh != null)
+            {
+                hh.EnterHole();
+            }
+            else
+            {
+                Debug.Log("hidey hole was null from hide target");
+            }
+        } else
+        {
+            Debug.Log("hide target was null on landing");
         }
     }
 
