@@ -324,7 +324,7 @@ public class LevelManager : MonoBehaviour
             triggerHuman = true;
         }
 
-        Debug.Log("dog sees cat");
+        //Debug.Log("dog sees cat");
 
         if (!triggerInvestigationMusic)
         {
@@ -343,7 +343,7 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnHuman()
     {
-        Debug.Log("Spawned Human");
+        //Debug.Log("Spawned Human");
         Instantiate(human, humanSpawnLocation.position, Quaternion.identity);
     }
 

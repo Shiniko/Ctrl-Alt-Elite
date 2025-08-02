@@ -601,7 +601,7 @@ private bool triggeredJump;
         }
         else
         {
-            Debug.Log("didnt move because triggerHide or triggerSnatch is true tH = " + triggerHide + " and tS = " + triggerScratch);
+            //Debug.Log("didnt move because triggerHide or triggerScratch is true tH = " + triggerHide + " and tS = " + triggerScratch);
         }
 
         ApplyGravity();
@@ -822,7 +822,7 @@ private bool triggeredJump;
 
     public void StartHiding()
     {
-        Debug.Log("Called Start Hiding");
+        //Debug.Log("Called Start Hiding");
 
         movement = new Vector3(0f, 0f, 0f).normalized;
         moveX = 0f;
@@ -912,7 +912,8 @@ private bool triggeredJump;
             {
                 Debug.Log("hidey hole was null from hide target");
             }
-        } else
+        }
+        else
         {
             Debug.Log("hide target was null on landing");
         }

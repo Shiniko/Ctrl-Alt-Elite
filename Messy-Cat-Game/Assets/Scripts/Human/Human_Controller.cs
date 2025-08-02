@@ -103,7 +103,7 @@ public class Human_Controller : MonoBehaviour
             }
             else
             {
-                Debug.Log("Retreating to human space so stopped checking for cat and move away");
+                //Debug.Log("Retreating to human space so stopped checking for cat and move away");
             }
         }
 
@@ -353,7 +353,7 @@ public class Human_Controller : MonoBehaviour
                 levelManager.ResetHuman();
             }
 
-            Debug.Log("Killed Human");
+            //Debug.Log("Killed Human");
 
             Destroy(gameObject);
         }
