@@ -54,6 +54,8 @@ public class Human_Controller : MonoBehaviour
             if(GameObject.FindGameObjectWithTag("Player") != null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
+
+                Debug.Log("grabbed player in update in human controller: player is " + player);
             }
         }
 
@@ -75,9 +77,23 @@ public class Human_Controller : MonoBehaviour
 
         if (player != null && catController == null)
         {
-            if(player.GetComponent<MakeShiftCatController>() != null)
+            if (player.GetComponent<MakeShiftCatController>() != null)
             {
                 catController = player.GetComponent<MakeShiftCatController>();
+
+                Debug.Log("grabbed cat controller in update in human controller: cat controller is " + catController);
+            }
+        }
+        else
+        {
+            if (player == null)
+            {
+                Debug.Log("player is null");
+            }
+
+            if (catController == null)
+            {
+                Debug.Log("cat controller is null");
             }
         }
 
@@ -86,6 +102,8 @@ public class Human_Controller : MonoBehaviour
             if(GameObject.FindGameObjectWithTag("LevelManager") !=null)
             {
                 levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+
+                Debug.Log("grabbed level manager in update in human controller: level manager is "+levelManager);
             }
         }
 
@@ -100,10 +118,24 @@ public class Human_Controller : MonoBehaviour
             if (checkingForCat)
             {
                 CheckForCat();
+
+                Debug.Log("checking for cat in update in human controller");
             }
             else
             {
                 //Debug.Log("Retreating to human space so stopped checking for cat and move away");
+            }
+        }
+        else
+        {
+            if (catController == null)
+            {
+                Debug.Log("cat controller is null");
+            }
+
+            if(levelManager == null)
+            {
+                Debug.Log("level manager is null");
             }
         }
 
