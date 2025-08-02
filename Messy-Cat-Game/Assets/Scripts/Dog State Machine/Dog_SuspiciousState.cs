@@ -21,7 +21,7 @@ public class Dog_SuspiciousState : StateMachineBehaviour
         agroMeterParent.SetActive(true);
         agroMeter.fillAmount = 0;
 
-        FindAnyObjectByType<AudioDispatcher>().PlayClip("");
+        FindAnyObjectByType<AudioDispatcher>().PlayClip("DogAlert");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
