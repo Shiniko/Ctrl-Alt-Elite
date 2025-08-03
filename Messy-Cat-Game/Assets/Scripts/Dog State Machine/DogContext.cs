@@ -52,6 +52,8 @@ public class DogContext : MonoBehaviour
     public static readonly int investigateHash = Animator.StringToHash("Investigate");
     public static readonly int roamingHash = Animator.StringToHash("Roaming");
     public static readonly int barkingHash = Animator.StringToHash("Bark");
+    public static readonly int chasingHash = Animator.StringToHash("Chasing");
+    public static readonly int suspiciousHash = Animator.StringToHash("Suspicious");
     private static readonly string playerHash = "Player";
 
     //Vector3 cache variables
@@ -103,6 +105,10 @@ public class DogContext : MonoBehaviour
 
     void Update()
     {
+        if(player != null && audioDispatcher != null)
+        {
+            enabled = false;
+        }
         if(player == null)
         {
             if (GameObject.FindGameObjectWithTag(playerHash) != null)
@@ -113,9 +119,9 @@ public class DogContext : MonoBehaviour
 
         if (audioDispatcher == null)
         {
-            if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+            if (AudioManager.instance != null)
             {
-                audioDispatcher = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>();
+                audioDispatcher = AudioManager.instance.GetComponent<AudioDispatcher>();
             }
         }
     }
@@ -130,7 +136,7 @@ public class DogContext : MonoBehaviour
 
         if(Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _minRoamDistance)) < _minimumTravelDistance && Vector3.Distance(transform.position, new(transform.position.x, transform.position.y, _maxRoamDistance)) < _minimumTravelDistance)
         {
-            Debug.LogWarning("There is no place to move the dog according to the minimum travel distance!! Ignoring it for now...");
+            //Debug.LogWarning("There is no place to move the dog according to the minimum travel distance!! Ignoring it for now...");
             return (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0f, transform.position.y, transform.position.z);
         }
         newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0f, transform.position.y, transform.position.z);
@@ -139,7 +145,7 @@ public class DogContext : MonoBehaviour
             countTime++;
             if(countTime > 20)
             {
-                Debug.LogWarning("Preventing <color=red>infinite loop</color> (the function has looped for 20 times) and returning a<color=yellow> potentially wrong </color>location...(this is a soft fix for a bug)");
+                //Debug.LogWarning("Preventing <color=red>infinite loop</color> (the function has looped for 20 times) and returning a<color=yellow> potentially wrong </color>location...(this is a soft fix for a bug)");
                 break; //Prevent infinite loop
             }
             newLocation = (Vector3.right * Random.Range(_minRoamDistance, _maxRoamDistance + 0.5f)) + new Vector3(0f, transform.position.y, transform.position.z);
@@ -166,9 +172,9 @@ public class DogContext : MonoBehaviour
 
        // Debug.Log("setting dog as isAngry",this);
 
-        if (GameObject.FindGameObjectWithTag("LevelManager") != null)
+        if (LevelManager.instance != null)
         {
-            GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>().DogSeesCat();
+            LevelManager.instance.DogSeesCat();
         }
 
         if(audioDispatcher != null)
@@ -197,7 +203,7 @@ public class DogContext : MonoBehaviour
     {
         isAngry = false;
         animator.ResetTrigger("Calm Down");
-        animator.SetBool("Chasing", false);
+        animator.SetBool(chasingHash, false);
     }
 
     /// <summary>
@@ -209,7 +215,7 @@ public class DogContext : MonoBehaviour
         isAngry = false;                                        //set this so human doesnt re-pet the dog
         animator.SetTrigger("Calm Down");
         animator.ResetTrigger("Bark");
-        animator.SetBool("Chasing", false);
+        animator.SetBool(chasingHash, false);
 
         if (audioDispatcher != null)
         {
