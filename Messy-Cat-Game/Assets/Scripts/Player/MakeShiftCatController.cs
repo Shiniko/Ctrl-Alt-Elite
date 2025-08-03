@@ -541,9 +541,9 @@ private bool triggeredJump;
         if (spillTarget != null)
         {
             spillTarget.Interact();
-        }
 
-        StartSpilling();
+            StartSpilling();
+        }
     }
 
     public void TryToBreak()
@@ -552,9 +552,9 @@ private bool triggeredJump;
         if (breakTarget != null)
         {
             breakTarget.Interact();
-        }
 
         StartBreaking();
+        }
     }
 
     public void TryToScratch()
