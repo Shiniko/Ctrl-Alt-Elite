@@ -1160,6 +1160,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
+--- !u!1 &54730313 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8185452334773404720, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
+  m_PrefabInstance: {fileID: 54730312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &58014376
 GameObject:
   m_ObjectHideFlags: 0
@@ -13518,8 +13523,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   revealOnAwake: 1
-  objectToReveal: {fileID: 1658263462061036730, guid: 82b031f6766631c438bae7460242d3ee, type: 3}
-  revealEffect: {fileID: 7566592515533401075, guid: 5cbb1f37443dcce4997d8db5c9aeb244, type: 3}
+  objectToReveal: {fileID: 54730313}
+  revealEffect: {fileID: 1658263462061036730, guid: 82b031f6766631c438bae7460242d3ee, type: 3}
 --- !u!1 &645321520
 GameObject:
   m_ObjectHideFlags: 0
