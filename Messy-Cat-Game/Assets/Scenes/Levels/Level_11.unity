@@ -8229,11 +8229,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3037851430283361967, guid: 64f4a51e32174f94c84b4608d6bfaf3c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.9
+      value: -2.523
       objectReference: {fileID: 0}
     - target: {fileID: 3037851430283361967, guid: 64f4a51e32174f94c84b4608d6bfaf3c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.215
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 5305514422238648736, guid: 64f4a51e32174f94c84b4608d6bfaf3c, type: 3}
       propertyPath: m_IsActive
@@ -9964,9 +9964,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4213261813630694559, guid: ecbdd9f8a42a2814abd4e3bedc6e29a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213261813630694559, guid: ecbdd9f8a42a2814abd4e3bedc6e29a7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213261813630694559, guid: ecbdd9f8a42a2814abd4e3bedc6e29a7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.498
+      objectReference: {fileID: 0}
     - target: {fileID: 6851572844187914350, guid: ecbdd9f8a42a2814abd4e3bedc6e29a7, type: 3}
       propertyPath: m_Name
       value: Balloon_MessToMake
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877533923781715292, guid: ecbdd9f8a42a2814abd4e3bedc6e29a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8226600061560259708, guid: ecbdd9f8a42a2814abd4e3bedc6e29a7, type: 3}
       propertyPath: m_Size.x
@@ -10432,8 +10448,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.9263561, y: 3.387765, z: 2.2021434}
+  m_Center: {x: 0.004441516, y: -1.4067783, z: 0.20747574}
 --- !u!23 &1179071716
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11008,6 +11024,10 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 749758784994617859, guid: f282561dd68d91f43b85098e97ca9055, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 749758784994617859, guid: f282561dd68d91f43b85098e97ca9055, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -11074,6 +11094,18 @@ PrefabInstance:
     - target: {fileID: 2427074447808627541, guid: f282561dd68d91f43b85098e97ca9055, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124514877308514937, guid: f282561dd68d91f43b85098e97ca9055, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.783
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124514877308514937, guid: f282561dd68d91f43b85098e97ca9055, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124514877308514937, guid: f282561dd68d91f43b85098e97ca9055, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.84
       objectReference: {fileID: 0}
     - target: {fileID: 3207467519624899525, guid: f282561dd68d91f43b85098e97ca9055, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -12987,6 +13019,18 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.19400609
       objectReference: {fileID: 0}
+    - target: {fileID: 1663536534890235659, guid: a9250ff65ba8be240ad91f3c6869dbe6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3023468135848195821, guid: a9250ff65ba8be240ad91f3c6869dbe6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3023468135848195821, guid: a9250ff65ba8be240ad91f3c6869dbe6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.22
+      objectReference: {fileID: 0}
     - target: {fileID: 3796021081060336488, guid: a9250ff65ba8be240ad91f3c6869dbe6, type: 3}
       propertyPath: m_Name
       value: BoxHideyHole
@@ -13461,8 +13505,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.64536923, y: 1, z: 1}
+  m_Center: {x: 0.17731516, y: 0, z: 6.8554984e-15}
 --- !u!1001 &1862407682
 PrefabInstance:
   m_ObjectHideFlags: 0
