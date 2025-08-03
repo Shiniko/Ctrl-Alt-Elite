@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6534783756843344945}
+  - component: {fileID: 6098125299718705587}
   m_Layer: 0
   m_Name: Regular_Goal_Effect
   m_TagString: Untagged
@@ -33,6 +34,19 @@ Transform:
   - {fileID: 7391330779122286012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6098125299718705587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658263462061036730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3e9095ec4e3b44fb806041c1a9191e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 5
 --- !u!1 &3675979415154900115
 GameObject:
   m_ObjectHideFlags: 0
