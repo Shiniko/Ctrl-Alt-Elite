@@ -1101,8 +1101,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1894995226}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4501394332757962310, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4501394332757962310, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1117,7 +1121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4501394332757962310, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4501394332757962310, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1125,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4501394332757962310, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4501394332757962310, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1147,16 +1151,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: CatnipObjective
       objectReference: {fileID: 0}
+    - target: {fileID: 8185452334773404720, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
---- !u!4 &54730313 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4501394332757962310, guid: 1108a41c4890ce142ae502752bda25d5, type: 3}
-  m_PrefabInstance: {fileID: 54730312}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &58014376
 GameObject:
   m_ObjectHideFlags: 0
@@ -13143,7 +13146,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1573956390}
+  m_Mesh: {fileID: 1909400164}
 --- !u!33 &666571435
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -21336,7 +21339,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 1573956390}
 --- !u!33 &1066203849
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -36783,7 +36786,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: -1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 54730313}
   - {fileID: 1369985510}
   - {fileID: 1342689169}
   - {fileID: 935618923}
@@ -41829,6 +41831,7 @@ SceneRoots:
   - {fileID: 377526004}
   - {fileID: 789112242}
   - {fileID: 431534469472143509}
+  - {fileID: 54730312}
   - {fileID: 1894995226}
   - {fileID: 222425269}
   - {fileID: 443136210}
