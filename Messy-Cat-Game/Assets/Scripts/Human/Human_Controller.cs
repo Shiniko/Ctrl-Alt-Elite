@@ -99,9 +99,9 @@ public class Human_Controller : MonoBehaviour
 
         if(levelManager == null)
         {
-            if(GameObject.FindGameObjectWithTag("LevelManager") !=null)
+            if(LevelManager.instance !=null)
             {
-                levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+                levelManager = LevelManager.instance;
                // Debug.Log("grabbed level manager in update in human controller: level manager is "+levelManager);
             }
         }
@@ -306,10 +306,6 @@ public class Human_Controller : MonoBehaviour
 
             isMoving = true;
 
-            Vector3 newYPos = new Vector3(transform.position.x,nextAngryDog.transform.position.y,transform.position.z);
-
-            transform.position = newYPos;
-
             if (anim != null)
             {
                 anim.SetBool("seenDog", true);
@@ -333,11 +329,6 @@ public class Human_Controller : MonoBehaviour
 
         currentTargetLocation = startLocation;
         //MoveToNextLocation(startLocation);
-
-        Vector3 newYPos = new Vector3(startLocation.x, transform.position.y, startLocation.z);
-
-        currentTargetLocation = newYPos;
-
 
         if (windowPointer != null)
         {

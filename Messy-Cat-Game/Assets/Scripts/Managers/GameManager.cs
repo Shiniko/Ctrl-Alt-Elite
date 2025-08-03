@@ -74,9 +74,18 @@ public class GameManager : MonoBehaviour
     public bool hasSetPreferences;                         //bool for scripts to check if preferences have indeed benn loaded already, and so this script doesnt do it again
     [SerializeField] private bool hasLoadedPrefs;          //bool for this script to check if it has loaded prefs, so it doesnt again, and to check if game ready etc.
 
+    public static GameManager instance;  //static instance of this script, to be able to reference it from other scripts
     void Awake()
     {
         //ResetPlayerPrefs();  //comment in when you need to clear/refresh player prefs for dev purposes 
+        if (instance == null)
+        {
+            instance = this;  //set the static instance to this script
+        }
+        else
+        {
+            Destroy(this);  //if instance already exists, destroy this script to prevent duplicates
+        }
     }
 
     public void ResetPlayerPrefs()
@@ -102,7 +111,7 @@ public class GameManager : MonoBehaviour
 
         if (audioManager == null)  //just in case reference was removed or forgotten, and first attempt in web build to reference
         {
-            audioManager = FindFirstObjectByType<AudioManager>();
+            audioManager = AudioManager.instance;
         }
     }
 

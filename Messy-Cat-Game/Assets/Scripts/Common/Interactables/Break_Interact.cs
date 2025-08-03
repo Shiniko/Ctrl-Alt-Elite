@@ -16,9 +16,9 @@ public class Break_Interact : Interactable
     {
         if (levelManager == null)
         {
-            if (GameObject.FindGameObjectWithTag("LevelManager") != null)
+            if (LevelManager.instance != null)
             {
-                levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+                levelManager = LevelManager.instance;
             }
         }
     }

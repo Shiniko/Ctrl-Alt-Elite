@@ -73,7 +73,7 @@ public class VolumeSettings : MonoBehaviour
             {
                 if (volume > 0.0001f)
                 {
-                    FindFirstObjectByType<AudioManager>().Play(effectName);
+                    AudioManager.instance.Play(effectName);
                 }
 
                 canTest = false;
@@ -85,7 +85,7 @@ public class VolumeSettings : MonoBehaviour
                 {
                     if (testCounter > (testCD * 0.5f))
                     {
-                        FindFirstObjectByType<AudioManager>().Play(effectName);
+                        AudioManager.instance.Play(effectName);
                     }
                 }
             }

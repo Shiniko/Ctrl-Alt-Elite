@@ -28,37 +28,46 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        foreach (Sound s in sounds)
+
+        if(instance == null)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-
-            s.source.loop = s.loop;
-
-            if (audioMixer != null)
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+            foreach (Sound s in sounds)
             {
-                if (s.music)
+                s.source = gameObject.AddComponent<AudioSource>();
+                s.source.clip = s.clip;
+
+                s.source.volume = s.volume;
+                s.source.pitch = s.pitch;
+
+                s.source.loop = s.loop;
+
+                if (audioMixer != null)
                 {
-                    if (audioMixerMusic != null)
+                    if (s.music)
                     {
-                        s.source.outputAudioMixerGroup = audioMixerMusic;
-                    }
-                }
-                else
-                {
-                    if (s.sfx)
-                    {
-                        if (audioMixerSFX != null)
+                        if (audioMixerMusic != null)
                         {
-                            s.source.outputAudioMixerGroup = audioMixerSFX;
+                            s.source.outputAudioMixerGroup = audioMixerMusic;
+                        }
+                    }
+                    else
+                    {
+                        if (s.sfx)
+                        {
+                            if (audioMixerSFX != null)
+                            {
+                                s.source.outputAudioMixerGroup = audioMixerSFX;
+                            }
                         }
                     }
                 }
             }
-        }
 
         Sound m = Array.Find(sounds, sound => sound.name == "MainTheme");
 

@@ -358,9 +358,9 @@ private bool triggeredJump;
 
                     rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
 
-                    if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+                    if (AudioManager.instance != null)
                     {
-                        GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Jump");
+                        AudioManager.instance.GetComponent<AudioDispatcher>().PlayClip("Cat_Jump");
                     }
                 }
 
@@ -446,9 +446,9 @@ private bool triggeredJump;
 
     public void LandedHard()
     {
-        if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+        if (AudioManager.instance != null)
         {
-            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Hard_Land");
+            AudioManager.instance.GetComponent<AudioDispatcher>().PlayClip("Cat_Hard_Land");
         }
     }
 
@@ -472,9 +472,9 @@ private bool triggeredJump;
             return;
         }
 
-        if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+        if (AudioManager.instance != null)
         {
-            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioDispatcher>().PlayClip("Cat_Push");
+            AudioManager.instance.GetComponent<AudioDispatcher>().PlayClip("Cat_Push");
         }
 
         if (spillTarget != null)
@@ -890,10 +890,10 @@ private bool triggeredJump;
             hideTarget.hideyHole.ExitHole();
         }
 
-        if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+        if (AudioManager.instance != null)
         {
             //Debug.Log("Trying to stop purr");
-            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Stop("Cat_Purring");
+            AudioManager.instance.GetComponent<AudioManager>().Stop("Cat_Purring");
             //Debug.Log("Stop purr sent");
         }
     }
@@ -937,9 +937,9 @@ private bool triggeredJump;
 
             isHidden = true;
 
-            if (GameObject.FindGameObjectWithTag("AudioManager") != null)
+            if (AudioManager.instance != null)
             {
-                GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Play("Cat_Purring");
+                AudioManager.instance.GetComponent<AudioManager>().Play("Cat_Purring");
             }
         }
     }

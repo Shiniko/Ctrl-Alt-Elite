@@ -35,9 +35,9 @@ public class MenuManager : MonoBehaviour
     {
         if (audioManager == null)
         {
-            if (FindFirstObjectByType<AudioManager>() != null)
+            if (AudioManager.instance != null)
             {
-                audioManager = FindFirstObjectByType<AudioManager>();
+                audioManager = AudioManager.instance;
             }
         }
 

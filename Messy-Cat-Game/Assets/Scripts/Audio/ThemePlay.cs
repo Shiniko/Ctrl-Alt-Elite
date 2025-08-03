@@ -23,18 +23,18 @@ public class ThemePlay : MonoBehaviour
                 {
                     started = true;
 
-                    FindFirstObjectByType<AudioManager>().Play("MainTheme");
+                    AudioManager.instance.Play("MainTheme");
 
-                    FindFirstObjectByType<AudioManager>().playingMainTheme = true;
+                    AudioManager.instance.playingMainTheme = true;
                 }
             }
             else
             {
                 started = true;
 
-                FindFirstObjectByType<AudioManager>().Play("MainTheme");
+                AudioManager.instance.Play("MainTheme");
 
-                FindFirstObjectByType<AudioManager>().playingMainTheme = true;
+                AudioManager.instance.playingMainTheme = true;
             }
         }
     }

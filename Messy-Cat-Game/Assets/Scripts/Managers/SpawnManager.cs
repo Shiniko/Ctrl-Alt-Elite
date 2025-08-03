@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -24,9 +23,9 @@ public class SpawnManager : MonoBehaviour
 
         if (gameManager == null)
         {
-            if (GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>() != null)
+            if (GameManager.instance != null)
             {
-                gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+                gameManager = GameManager.instance;
             }
         }
     }

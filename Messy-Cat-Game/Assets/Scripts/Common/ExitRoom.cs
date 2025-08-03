@@ -9,16 +9,13 @@ public class ExitRoom : MonoBehaviour
     [SerializeField] private GameManager gm;
     [SerializeField] private LevelManager levelManager;
 
+    private void Start()
+    {
+        levelManager = LevelManager.instance;
+    }
+
     void Update()
     {
-        if (levelManager == null)
-        {
-            if (GameObject.FindGameObjectWithTag("LevelManager") != null)
-            {
-                levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
-            }
-        }
-
         if (interactItem != null)
         {
             if (levelManager != null)

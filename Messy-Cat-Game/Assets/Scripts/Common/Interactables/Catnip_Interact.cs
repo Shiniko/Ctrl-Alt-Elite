@@ -36,9 +36,9 @@ public class Catnip_Interact : MonoBehaviour
 
             if (levelManager == null)
             {
-                if (GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>() != null)
+                if (LevelManager.instance.GetComponent<LevelManager>() != null)
                 {
-                    levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+                    levelManager = LevelManager.instance;
                     levelManager.AddHiddenStar();
                 }
             }

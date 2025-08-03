@@ -67,15 +67,26 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private bool exitRevealed;
     public bool triggerInvestigationMusic;
 
+    public static LevelManager instance;  //singleton instance
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.instance;
+    }
+
     void Update()
     {
-        if (gameManager == null)
-        {
-            if (GameObject.FindGameObjectWithTag("GameController") != null)
-            {
-                gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-            }
-        }
 
         if (devLevelSelect != null)
         {
