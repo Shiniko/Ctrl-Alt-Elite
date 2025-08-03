@@ -55,7 +55,7 @@ public class Human_Controller : MonoBehaviour
             {
                 player = GameObject.FindGameObjectWithTag("Player");
 
-                Debug.Log("grabbed player in update in human controller: player is " + player);
+                //Debug.Log("grabbed player in update in human controller: player is " + player);
             }
         }
 
@@ -81,19 +81,19 @@ public class Human_Controller : MonoBehaviour
             {
                 catController = player.GetComponent<MakeShiftCatController>();
 
-                Debug.Log("grabbed cat controller in update in human controller: cat controller is " + catController);
+                //Debug.Log("grabbed cat controller in update in human controller: cat controller is " + catController);
             }
         }
         else
         {
             if (player == null)
             {
-                Debug.Log("player is null");
+               // Debug.Log("player is null");
             }
 
             if (catController == null)
             {
-                Debug.Log("cat controller is null");
+                //Debug.Log("cat controller is null in player is not");
             }
         }
 
@@ -102,8 +102,7 @@ public class Human_Controller : MonoBehaviour
             if(GameObject.FindGameObjectWithTag("LevelManager") !=null)
             {
                 levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
-
-                Debug.Log("grabbed level manager in update in human controller: level manager is "+levelManager);
+               // Debug.Log("grabbed level manager in update in human controller: level manager is "+levelManager);
             }
         }
 
@@ -119,7 +118,7 @@ public class Human_Controller : MonoBehaviour
             {
                 CheckForCat();
 
-                Debug.Log("checking for cat in update in human controller");
+                //Debug.Log("checking for cat in update in human controller");
             }
             else
             {
@@ -130,12 +129,12 @@ public class Human_Controller : MonoBehaviour
         {
             if (catController == null)
             {
-                Debug.Log("cat controller is null");
+                //Debug.Log("cat controller is null");
             }
 
             if(levelManager == null)
             {
-                Debug.Log("level manager is null");
+               // Debug.Log("level manager is null");
             }
         }
 
