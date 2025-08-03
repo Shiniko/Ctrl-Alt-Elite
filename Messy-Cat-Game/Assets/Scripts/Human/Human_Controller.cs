@@ -306,6 +306,10 @@ public class Human_Controller : MonoBehaviour
 
             isMoving = true;
 
+            Vector3 newYPos = new Vector3(transform.position.x,nextAngryDog.transform.position.y,transform.position.z);
+
+            transform.position = newYPos;
+
             if (anim != null)
             {
                 anim.SetBool("seenDog", true);
@@ -329,6 +333,11 @@ public class Human_Controller : MonoBehaviour
 
         currentTargetLocation = startLocation;
         //MoveToNextLocation(startLocation);
+
+        Vector3 newYPos = new Vector3(startLocation.x, transform.position.y, startLocation.z);
+
+        currentTargetLocation = newYPos;
+
 
         if (windowPointer != null)
         {
