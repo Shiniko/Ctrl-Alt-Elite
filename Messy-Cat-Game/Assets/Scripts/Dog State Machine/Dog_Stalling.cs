@@ -22,11 +22,6 @@ public class Dog_Stalling : StateMachineBehaviour
         }
     }
 
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
-    }
-
     IEnumerator Stall()
     {
         _stalling = true;
