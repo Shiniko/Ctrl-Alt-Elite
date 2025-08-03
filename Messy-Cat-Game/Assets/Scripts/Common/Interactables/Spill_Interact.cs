@@ -14,6 +14,9 @@ public class Spill_Interact : Interactable
             if (GameObject.FindGameObjectWithTag("LevelManager") != null)
             {
                 levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+            } else
+            {
+                Debug.Log("Can't find level manager in spill interact " + this);
             }
         }
     }
