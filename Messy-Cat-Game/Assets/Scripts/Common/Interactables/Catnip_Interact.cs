@@ -10,6 +10,8 @@ public class Catnip_Interact : MonoBehaviour
     [SerializeField]
     private LevelManager levelManager;
 
+    private bool triggeredPickup;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,25 +23,32 @@ public class Catnip_Interact : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!triggeredPickup)
         {
-            if (progressionManager == null)
+            if (other.gameObject.CompareTag("Player") || other.CompareTag("Cat"))
             {
-                if (GameObject.FindGameObjectWithTag("ProgressionManager").GetComponent<ProgressionManager>() != null)
-                {
-                    progressionManager = GameObject.FindGameObjectWithTag("ProgressionManager").GetComponent<ProgressionManager>();
-                    progressionManager.AddStarForSpecialItem();
-                    catnipJar.SetActive(false);
-                    gameObject.GetComponent<ParticleSystem>().Play();
-                }
-            }
+                triggeredPickup = true;
 
-            if (levelManager == null)
-            {
-                if (LevelManager.instance.GetComponent<LevelManager>() != null)
+                if (progressionManager == null)
                 {
-                    levelManager = LevelManager.instance;
-                    levelManager.AddHiddenStar();
+                    if (GameObject.FindGameObjectWithTag("ProgressionManager").GetComponent<ProgressionManager>() != null)
+                    {
+                        
+
+                        progressionManager = GameObject.FindGameObjectWithTag("ProgressionManager").GetComponent<ProgressionManager>();
+                        progressionManager.AddStarForSpecialItem();
+                        catnipJar.SetActive(false);
+                        gameObject.GetComponent<ParticleSystem>().Play();
+                    }
+                }
+
+                if (levelManager == null)
+                {
+                    if (LevelManager.instance.GetComponent<LevelManager>() != null)
+                    {
+                        levelManager = LevelManager.instance;
+                        levelManager.AddHiddenStar();
+                    }
                 }
             }
         }
