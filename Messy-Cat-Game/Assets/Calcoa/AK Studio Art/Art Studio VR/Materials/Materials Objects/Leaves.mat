@@ -8,16 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Leaves
-  m_Shader: {fileID: -6465566751694194690, guid: 9920c1f1781549a46ba081a2a15a16ec, type: 3}
+  m_Shader: {fileID: 4800000, guid: 313fcf3aebc04cf4ab4f8c5f2850be7f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - BACKFACE_NORMAL_MODE_MIRROR
-  - _WINDQUALITY_NONE
+  m_ValidKeywords: []
   m_InvalidKeywords:
+  - BACKFACE_NORMAL_MODE_MIRROR
   - EFFECT_BUMP
   - EFFECT_HUE_VARIATION
   - _EMISSION
+  - _WINDQUALITY_NONE
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,6 +28,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: e4bca1cc06f5eb5409c914ed9def0585, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -105,11 +109,18 @@ Material:
     - _NormalMapKwToggle: 1
     - _OcclusionStrength: 1
     - _OldHueVarBehavior: 0
+    - _OutlineWidth: 0.108
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RimStep: 0.201
+    - _RimStepSmooth: 0.284
+    - _ShadowStep: 0.539
+    - _ShadowStepSmooth: 0.074
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpecularStep: 0
+    - _SpecularStepSmooth: 0
     - _SrcBlend: 1
     - _SubsurfaceIndirect: 0.25
     - _SubsurfaceKwToggle: 0
@@ -119,9 +130,13 @@ Material:
     - _WindQuality: 0
     - _ZWrite: 1
     m_Colors:
+    - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariationColor: {r: 0.0006630061, g: 0.6603774, b: 0, a: 0.1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SubsurfaceColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
