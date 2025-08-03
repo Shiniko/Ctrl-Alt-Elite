@@ -33,8 +33,6 @@ public class Catnip_Interact : MonoBehaviour
                 {
                     if (GameObject.FindGameObjectWithTag("ProgressionManager").GetComponent<ProgressionManager>() != null)
                     {
-                        
-
                         progressionManager = GameObject.FindGameObjectWithTag("ProgressionManager").GetComponent<ProgressionManager>();
                         progressionManager.AddStarForSpecialItem();
                         catnipJar.SetActive(false);
