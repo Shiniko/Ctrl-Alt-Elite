@@ -211,7 +211,12 @@ public class Human_Controller : MonoBehaviour
     {
         isMoving = false;
 
-        if(anim != null)
+        if (player != null)
+        {
+            transform.LookAt(player.transform.position);
+        }
+
+        if (anim != null)
         {
             anim.SetBool("seenCat",true);
         }
