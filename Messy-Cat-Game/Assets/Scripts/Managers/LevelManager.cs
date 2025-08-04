@@ -354,7 +354,14 @@ public class LevelManager : MonoBehaviour
     private void SpawnHuman()
     {
         //Debug.Log("Spawned Human");
-        Instantiate(human, humanSpawnLocation.position, Quaternion.identity);
+        if (human != null)
+        {
+            Instantiate(human, humanSpawnLocation.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("human was null when trying to instantiate it");
+        }
     }
 
     public void ResetHuman()
